@@ -184,7 +184,7 @@
     "test:ci": "concurrently 'yarn test:unit:ci' 'yarn test:static:ci'",
     "codesandbox:install": "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn install",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": " "
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [

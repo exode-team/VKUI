@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useRef, useState } from 'react';
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { FormField, FormFieldProps } from "../FormField/FormField";
@@ -23,8 +24,24 @@ const Input: React.FunctionComponent<InputProps> = ({
   sizeY,
   style,
   after,
+  onInput,
+  value,
   ...restProps
 }: InputProps) => {
+
+  const [cursor, setCursor] = useState<number | null>(null);
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const input = ref.current;
+    if (input) input.setSelectionRange(cursor, cursor);
+  }, [ref, cursor, value])
+
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setCursor(e.target.selectionStart);
+    onInput && onInput(e);
+  };
+
   const platform = usePlatform();
   return (
     <FormField
@@ -39,7 +56,7 @@ const Input: React.FunctionComponent<InputProps> = ({
       after={after}
       disabled={restProps.disabled}
     >
-      <input {...restProps} vkuiClass="Input__el" ref={getRef} />
+      <input {...restProps} onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
     </FormField>
   );
 };
