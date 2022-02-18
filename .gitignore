@@ -20,3 +20,4 @@ e2e-results.json
 .nyc_output
 __diff_output__
 .cache
+.idea
