@@ -29,7 +29,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   ...restProps
 }: InputProps) => {
 
-  const [cursor, setCursor] = useState<number | null>(null);
+  const [cursor, setCursor] = useState<number>(0);
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   }, [ref, cursor, value])
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setCursor(e.target.selectionStart);
+    e.target.selectionStart && setCursor(e.target.selectionStart);
     onInput && onInput(e);
   };
 
