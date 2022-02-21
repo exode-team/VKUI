@@ -4,7 +4,6 @@ coverage
 .env
 npm-debug.log
 stats.json
-dist/*
 !e2e/dist/index.html
 src/styles/generated/
 PUBLISHING.md
@@ -21,3 +20,4 @@ e2e-results.json
 __diff_output__
 .cache
 .idea
+/.idea
