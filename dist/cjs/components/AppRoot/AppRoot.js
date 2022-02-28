@@ -45,8 +45,6 @@ var _useKeyboardInputTracker = require("../../hooks/useKeyboardInputTracker");
 
 var _useInsets = require("../../hooks/useInsets");
 
-var _AppearanceProviderContext = require("../AppearanceProvider/AppearanceProviderContext");
-
 var _excluded = ["children", "mode", "embedded", "sizeX", "hasMouse", "noLegacyClasses", "scroll"];
 var warn = (0, _warnOnce.warnOnce)("AppRoot");
 var AppRoot = (0, _withAdaptivity.withAdaptivity)(function (_ref) {
@@ -75,7 +73,6 @@ var AppRoot = (0, _withAdaptivity.withAdaptivity)(function (_ref) {
       document = _useDOM.document;
 
   var insets = (0, _useInsets.useInsets)();
-  var appearanceContext = React.useContext(_AppearanceProviderContext.AppearanceProviderContext);
   var initialized = React.useRef(false);
 
   if (!initialized.current) {
@@ -174,11 +171,6 @@ var AppRoot = (0, _withAdaptivity.withAdaptivity)(function (_ref) {
   var scrollController = React.useMemo(function () {
     return scroll === "contain" ? (0, _ScrollContext.elementScrollController)(rootRef) : (0, _ScrollContext.globalScrollController)(window, document);
   }, [document, scroll, window]);
-  (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
-    var _appearanceContext$sc;
-
-    portalRoot === null || portalRoot === void 0 ? void 0 : portalRoot.setAttribute("scheme", (_appearanceContext$sc = appearanceContext === null || appearanceContext === void 0 ? void 0 : appearanceContext.scheme) !== null && _appearanceContext$sc !== void 0 ? _appearanceContext$sc : "");
-  }, [portalRoot, appearanceContext === null || appearanceContext === void 0 ? void 0 : appearanceContext.scheme]);
   var content = (0, _jsxRuntime.createScopedElement)(_AppRootContext.AppRootContext.Provider, {
     value: {
       appRoot: rootRef,

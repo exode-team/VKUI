@@ -17,7 +17,6 @@ import { noop } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
 import { useKeyboardInputTracker } from "../../hooks/useKeyboardInputTracker";
 import { useInsets } from "../../hooks/useInsets";
-import { AppearanceProviderContext } from "../AppearanceProvider/AppearanceProviderContext";
 var warn = warnOnce("AppRoot");
 export var AppRoot = withAdaptivity(function (_ref) {
   var children = _ref.children,
@@ -46,7 +45,6 @@ export var AppRoot = withAdaptivity(function (_ref) {
       document = _useDOM.document;
 
   var insets = useInsets();
-  var appearanceContext = React.useContext(AppearanceProviderContext);
   var initialized = React.useRef(false);
 
   if (!initialized.current) {
@@ -145,11 +143,6 @@ export var AppRoot = withAdaptivity(function (_ref) {
   var scrollController = React.useMemo(function () {
     return scroll === "contain" ? elementScrollController(rootRef) : globalScrollController(window, document);
   }, [document, scroll, window]);
-  useIsomorphicLayoutEffect(function () {
-    var _appearanceContext$sc;
-
-    portalRoot === null || portalRoot === void 0 ? void 0 : portalRoot.setAttribute("scheme", (_appearanceContext$sc = appearanceContext === null || appearanceContext === void 0 ? void 0 : appearanceContext.scheme) !== null && _appearanceContext$sc !== void 0 ? _appearanceContext$sc : "");
-  }, [portalRoot, appearanceContext === null || appearanceContext === void 0 ? void 0 : appearanceContext.scheme]);
   var content = createScopedElement(AppRootContext.Provider, {
     value: {
       appRoot: rootRef,

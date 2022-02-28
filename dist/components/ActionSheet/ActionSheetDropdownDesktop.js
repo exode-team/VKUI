@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "toggleRef", "closing", "popupDirection", "onClose"];
+var _excluded = ["children", "toggleRef", "closing", "popupDirection", "onClose", "className", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { getClassName } from "../../helpers/getClassName";
@@ -26,6 +26,8 @@ export var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref
       closing = _ref.closing,
       popupDirection = _ref.popupDirection,
       onClose = _ref.onClose,
+      className = _ref.className,
+      style = _ref.style,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _useDOM = useDOM(),
@@ -77,6 +79,8 @@ export var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref
     offsetDistance: 0,
     placement: isPopupDirectionTop ? "top-end" : "bottom-end",
     vkuiClass: classNames(getClassName("ActionSheet", platform), "ActionSheet--desktop", "ActionSheet--sizeY-".concat(sizeY)),
+    className: className,
+    style: style,
     getRef: elementRef,
     forcePortal: false
   }, createScopedElement(FocusTrap, _extends({

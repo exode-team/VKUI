@@ -5,8 +5,6 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "getScrollToLeft", "getScrollToRight", "showArrows", "scrollAnimationDuration", "hasMouse", "getRef"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { usePlatform } from "../../hooks/usePlatform";
-import { getClassName } from "../../helpers/getClassName";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import HorizontalScrollArrow from "./HorizontalScrollArrow";
 import { easeInOutSine } from "../../lib/fx";
@@ -111,7 +109,6 @@ var HorizontalScroll = function HorizontalScroll(_ref2) {
   var isCustomScrollingRef = React.useRef(false);
   var scrollerRef = useExternRef(getRef);
   var animationQueue = React.useRef([]);
-  var platform = usePlatform();
 
   function scrollTo(getScrollPosition) {
     var scrollElement = scrollerRef.current;
@@ -156,7 +153,7 @@ var HorizontalScroll = function HorizontalScroll(_ref2) {
   }, [scrollEvent, scrollerRef]);
   React.useEffect(onscroll, [scrollerRef, children, onscroll]);
   return createScopedElement("div", _extends({}, restProps, {
-    vkuiClass: classNames(getClassName("HorizontalScroll", platform), _defineProperty({}, "HorizontalScroll--withConstArrows", showArrows === "always"))
+    vkuiClass: classNames("HorizontalScroll", _defineProperty({}, "HorizontalScroll--withConstArrows", showArrows === "always"))
   }), showArrows && hasMouse && canScrollLeft && createScopedElement(HorizontalScrollArrow, {
     direction: "left",
     onClick: function onClick() {

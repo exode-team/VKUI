@@ -9,6 +9,8 @@ exports.AppearanceProviderContext = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
-var AppearanceProviderContext = /*#__PURE__*/React.createContext(undefined);
+var _scheme = require("../../helpers/scheme");
+
+var AppearanceProviderContext = /*#__PURE__*/React.createContext(_scheme.Appearance.LIGHT);
 exports.AppearanceProviderContext = AppearanceProviderContext;
 //# sourceMappingURL=AppearanceProviderContext.js.map

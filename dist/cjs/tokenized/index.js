@@ -23,6 +23,12 @@ Object.defineProperty(exports, "CardScroll", {
     return _CardScroll.CardScroll;
   }
 });
+Object.defineProperty(exports, "HorizontalScroll", {
+  enumerable: true,
+  get: function get() {
+    return _HorizontalScroll.default;
+  }
+});
 Object.defineProperty(exports, "SegmentedControl", {
   enumerable: true,
   get: function get() {
@@ -35,6 +41,8 @@ var _Button = _interopRequireDefault(require("../components/Button/Button"));
 var _Card = require("../components/Card/Card");
 
 var _CardScroll = require("../components/CardScroll/CardScroll");
+
+var _HorizontalScroll = _interopRequireDefault(require("../components/HorizontalScroll/HorizontalScroll"));
 
 var _SegmentedControl = require("../components/SegmentedControl/SegmentedControl");
 //# sourceMappingURL=index.js.map

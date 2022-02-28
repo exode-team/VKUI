@@ -1,1 +1,1 @@
-export declare const useAppearance: () => "dark" | "light" | undefined;
+export declare const useAppearance: () => import("@vkontakte/vk-bridge").AppearanceType;

@@ -21,10 +21,6 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _usePlatform = require("../../hooks/usePlatform");
-
-var _getClassName = require("../../helpers/getClassName");
-
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _HorizontalScrollArrow = _interopRequireDefault(require("./HorizontalScrollArrow"));
@@ -136,7 +132,6 @@ var HorizontalScroll = function HorizontalScroll(_ref2) {
   var isCustomScrollingRef = React.useRef(false);
   var scrollerRef = (0, _useExternRef.useExternRef)(getRef);
   var animationQueue = React.useRef([]);
-  var platform = (0, _usePlatform.usePlatform)();
 
   function scrollTo(getScrollPosition) {
     var scrollElement = scrollerRef.current;
@@ -181,7 +176,7 @@ var HorizontalScroll = function HorizontalScroll(_ref2) {
   }, [scrollEvent, scrollerRef]);
   React.useEffect(onscroll, [scrollerRef, children, onscroll]);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("HorizontalScroll", platform), (0, _defineProperty2.default)({}, "HorizontalScroll--withConstArrows", showArrows === "always"))
+    vkuiClass: (0, _classNames2.classNames)("HorizontalScroll", (0, _defineProperty2.default)({}, "HorizontalScroll--withConstArrows", showArrows === "always"))
   }), showArrows && hasMouse && canScrollLeft && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.default, {
     direction: "left",
     onClick: function onClick() {

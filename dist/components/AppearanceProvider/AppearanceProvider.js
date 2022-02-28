@@ -32,21 +32,16 @@ export var AppearanceProvider = function AppearanceProvider(_ref) {
       _ref$appearance = _ref.appearance,
       appearance = _ref$appearance === void 0 ? "light" : _ref$appearance;
   var platform = usePlatform();
-  var appearanceContext = React.useMemo(function () {
-    return {
-      scheme: getScheme({
-        platform: platform,
-        appearance: appearance
-      }),
-      appearance: appearance
-    };
-  }, [appearance, platform]);
+  var scheme = getScheme({
+    platform: platform,
+    appearance: appearance
+  });
   return createScopedElement(AppearanceProviderContext.Provider, {
-    value: appearanceContext
+    value: appearance
   }, React.Children.map(children, function (child) {
     if ( /*#__PURE__*/React.isValidElement(child)) {
       return /*#__PURE__*/React.cloneElement(child, {
-        className: classNamesString(child.props.className, "vkui".concat(appearanceContext.scheme), generateVKUITokensClassName(platform, appearance))
+        className: classNamesString(child.props.className, "vkui".concat(scheme), generateVKUITokensClassName(platform, appearance))
       });
     }
 

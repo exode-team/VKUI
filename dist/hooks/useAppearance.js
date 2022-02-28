@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ConfigProviderContext } from "../components/ConfigProvider/ConfigProviderContext";
+import { AppearanceProviderContext } from "../components/AppearanceProvider/AppearanceProviderContext";
 export var useAppearance = function useAppearance() {
-  return React.useContext(ConfigProviderContext).appearance;
+  return React.useContext(AppearanceProviderContext);
 };
 //# sourceMappingURL=useAppearance.js.map
