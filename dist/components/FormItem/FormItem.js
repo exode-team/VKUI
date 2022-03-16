@@ -35,7 +35,6 @@ export var FormItem = function FormItem(_ref) {
       sizeY = _useAdaptivity.sizeY;
 
   var wrappedChildren = createScopedElement(React.Fragment, null, hasReactNode(top) && createScopedElement(Subhead, {
-    weight: "regular",
     vkuiClass: "FormItem__top"
   }, top), children, hasReactNode(bottom) && createScopedElement(Caption, {
     level: "1",

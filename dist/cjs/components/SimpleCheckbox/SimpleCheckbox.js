@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.SimpleCheckbox = void 0;
+exports.SimpleCheckbox = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -118,10 +118,7 @@ var SimpleCheckbox = function SimpleCheckbox(props) {
     "aria-hidden": true,
     vkuiClass: "SimpleCheckbox__hoverShadow"
   }));
-}; // eslint-disable-next-line import/no-default-export
-
+};
 
 exports.SimpleCheckbox = SimpleCheckbox;
-var _default = SimpleCheckbox;
-exports.default = _default;
 //# sourceMappingURL=SimpleCheckbox.js.map

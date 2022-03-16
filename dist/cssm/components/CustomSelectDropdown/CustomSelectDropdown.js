@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange"];
+var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import CustomScrollView from "../CustomScrollView/CustomScrollView";
@@ -21,6 +21,12 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref) {
       placement = _ref.placement,
       fetching = _ref.fetching,
       parentOnPlacementChange = _ref.onPlacementChange,
+      _ref$offsetDistance = _ref.offsetDistance,
+      offsetDistance = _ref$offsetDistance === void 0 ? 0 : _ref$offsetDistance,
+      _ref$sameWidth = _ref.sameWidth,
+      sameWidth = _ref$sameWidth === void 0 ? true : _ref$sameWidth,
+      _ref$forcePortal = _ref.forcePortal,
+      forcePortal = _ref$forcePortal === void 0 ? true : _ref$forcePortal,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _React$useState = React.useState(function () {
@@ -37,13 +43,16 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref) {
   }, [parentOnPlacementChange, setIsTop]);
   return createScopedElement(Popper, _extends({
     targetRef: targetRef,
-    offsetDistance: 0,
-    sameWidth: true,
+    offsetDistance: offsetDistance,
+    sameWidth: sameWidth,
     onPlacementChange: onPlacementChange,
     placement: placement,
     vkuiClass: classNames("CustomSelectDropdown__options", {
-      "CustomSelectDropdown__options--popupDirectionTop": isTop
-    })
+      "CustomSelectDropdown__options--popupDirectionTop": isTop,
+      "CustomSelectDropdown__options--not-adjacent": offsetDistance > 0,
+      "CustomSelectDropdown__options--same-width": sameWidth
+    }),
+    forcePortal: forcePortal
   }, restProps), createScopedElement(CustomScrollView, {
     boxRef: scrollBoxRef,
     vkuiClass: "CustomSelectDropdown__CustomScrollView"

@@ -19,7 +19,7 @@ import Tappable from "../Tappable/Tappable";
 import "./Removable.css";
 
 var RemovableIos = function RemovableIos(_ref) {
-  var onRemoveClick = _ref.onRemoveClick,
+  var onRemove = _ref.onRemove,
       removePlaceholder = _ref.removePlaceholder,
       removePlaceholderString = _ref.removePlaceholderString,
       children = _ref.children;
@@ -28,6 +28,7 @@ var RemovableIos = function RemovableIos(_ref) {
       window = _useDOM.window;
 
   var removeButtonRef = React.useRef(null);
+  var disabledRef = React.useRef(true);
 
   var _React$useState = React.useState(0),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -47,6 +48,8 @@ var RemovableIos = function RemovableIos(_ref) {
       var _removeButtonRef$curr;
 
       removeButtonRef === null || removeButtonRef === void 0 ? void 0 : (_removeButtonRef$curr = removeButtonRef.current) === null || _removeButtonRef$curr === void 0 ? void 0 : _removeButtonRef$curr.focus();
+    } else {
+      disabledRef.current = true;
     }
   };
 
@@ -58,6 +61,7 @@ var RemovableIos = function RemovableIos(_ref) {
     }
 
     var offsetWidth = removeButtonRef.current.offsetWidth;
+    disabledRef.current = false;
     updateRemoveOffset(offsetWidth);
   };
 
@@ -84,10 +88,10 @@ var RemovableIos = function RemovableIos(_ref) {
     Component: "button",
     hasActive: false,
     hasHover: false,
-    disabled: removeOffset === 0,
+    disabled: disabledRef.current,
     getRootRef: removeButtonRef,
     vkuiClass: "Removable__remove",
-    onClick: onRemoveClick
+    onClick: onRemove
   }, createScopedElement("span", {
     vkuiClass: "Removable__remove-in"
   }, removePlaceholder)));
@@ -131,7 +135,7 @@ export var Removable = function Removable(_ref2) {
   }, createScopedElement(Icon24Cancel, {
     role: "presentation"
   }))), platform === IOS && createScopedElement(RemovableIos, {
-    onRemoveClick: onRemoveClick,
+    onRemove: onRemoveClick,
     removePlaceholder: removePlaceholder,
     removePlaceholderString: removePlaceholderString
   }, children));

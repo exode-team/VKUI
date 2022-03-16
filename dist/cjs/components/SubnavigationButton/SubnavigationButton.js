@@ -37,9 +37,7 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   if (textLevel === 1) {
-    return (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-      weight: "regular"
-    }, restProps));
+    return (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps);
   }
 
   return (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({

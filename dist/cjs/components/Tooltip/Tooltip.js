@@ -79,10 +79,9 @@ var SimpleTooltip = /*#__PURE__*/React.forwardRef(function SimpleTooltip(_ref, r
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Tooltip__content"
   }, header && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
-    weight: "semibold",
+    weight: "1",
     vkuiClass: "Tooltip__title"
   }, header), text && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
-    weight: "regular",
     vkuiClass: "Tooltip__text"
   }, text))));
 });

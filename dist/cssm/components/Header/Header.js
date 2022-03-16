@@ -78,9 +78,7 @@ var HeaderAside = function HeaderAside(_ref2) {
   var platform = _ref2.platform,
       restProps = _objectWithoutProperties(_ref2, _excluded2);
 
-  return platform === Platform.VKCOM ? createScopedElement(Subhead, _extends({
-    weight: "regular"
-  }, restProps)) : createScopedElement(Text, _extends({
+  return platform === Platform.VKCOM ? createScopedElement(Subhead, restProps) : createScopedElement(Text, _extends({
     weight: "regular"
   }, restProps));
 };
@@ -89,9 +87,7 @@ var HeaderSubtitle = function HeaderSubtitle(_ref3) {
   var mode = _ref3.mode,
       restProps = _objectWithoutProperties(_ref3, _excluded3);
 
-  return mode === "secondary" ? createScopedElement(Subhead, _extends({
-    weight: "regular"
-  }, restProps)) : createScopedElement(Caption, _extends({
+  return mode === "secondary" ? createScopedElement(Subhead, restProps) : createScopedElement(Caption, _extends({
     weight: "regular",
     level: "1"
   }, restProps));

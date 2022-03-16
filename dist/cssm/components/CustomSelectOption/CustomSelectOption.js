@@ -57,7 +57,7 @@ var CustomSelectOption = function CustomSelectOption(_ref) {
   }, description)), createScopedElement("div", {
     vkuiClass: "CustomSelectOption__after"
   }, hasReactNode(after) && createScopedElement("div", {
-    className: "CustomSelectOption__afterIn"
+    vkuiClass: "CustomSelectOption__afterIn"
   }, after), selected && createScopedElement(Icon16Done, {
     vkuiClass: "CustomSelectOption__selectedIcon"
   })));

@@ -78,4 +78,7 @@ export function getTitleFromChildren(children) {
 export var generateRandomId = function generateRandomId() {
   return Math.random().toString(36).replace(/[^a-z]+/g, "");
 };
+export var stopPropagation = function stopPropagation(event) {
+  return event.stopPropagation();
+};
 //# sourceMappingURL=utils.js.map

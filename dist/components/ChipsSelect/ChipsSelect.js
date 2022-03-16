@@ -43,7 +43,7 @@ var chipsSelectDefaultProps = _objectSpread(_objectSpread({}, chipsInputDefaultP
   }
 });
 
-var ChipsSelect = function ChipsSelect(props) {
+var ChipsSelectComponent = function ChipsSelectComponent(props) {
   var _classNames;
 
   var propsWithDefault = _objectSpread(_objectSpread({}, chipsSelectDefaultProps), props);
@@ -343,10 +343,9 @@ var ChipsSelect = function ChipsSelect(props) {
       }
     }));
   })));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-export default withAdaptivity(ChipsSelect, {
+export var ChipsSelect = withAdaptivity(ChipsSelectComponent, {
   sizeY: true
 });
 //# sourceMappingURL=ChipsSelect.js.map

@@ -22,11 +22,10 @@ export var TextTooltip = function TextTooltip(_ref) {
     arrowClassName: prefixClass("TextTooltip__arrow"),
     content: createScopedElement(React.Fragment, null, hasReactNode(header) && createScopedElement(Subhead, {
       Component: "span",
-      weight: "medium",
+      weight: "2",
       vkuiClass: "TextTooltip__header"
     }, header), hasReactNode(text) && createScopedElement(Subhead, {
       Component: "span",
-      weight: "regular",
       vkuiClass: "TextTooltip__text"
     }, text))
   }, popperProps), children);

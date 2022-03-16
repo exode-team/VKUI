@@ -13,7 +13,7 @@ export var Spacing = function Spacing(_ref) {
       style = _ref.style,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var platfrom = usePlatform();
+  var platform = usePlatform();
 
   var styles = _objectSpread({
     height: size
@@ -21,7 +21,7 @@ export var Spacing = function Spacing(_ref) {
 
   return createScopedElement("div", _extends({}, restProps, {
     "aria-hidden": "true",
-    vkuiClass: classNames(getClassName("Spacing", platfrom), {
+    vkuiClass: classNames(getClassName("Spacing", platform), {
       "Spacing--separator": !!separator,
       "Spacing--separator-center": separator === true || separator === "center",
       "Spacing--separator-top": separator === "top",

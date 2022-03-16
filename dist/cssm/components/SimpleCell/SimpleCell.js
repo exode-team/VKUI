@@ -71,7 +71,6 @@ var SimpleCell = function SimpleCell(_ref) {
     vkuiClass: "SimpleCell__badge"
   }, badge)), description && createScopedElement(Subhead, {
     Component: "span",
-    weight: "regular",
     vkuiClass: "SimpleCell__description"
   }, description)), hasReactNode(indicator) && createScopedElement(SimpleCellTypography, {
     Component: "span",

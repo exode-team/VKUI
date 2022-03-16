@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.ChipsSelect = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -74,7 +74,7 @@ var chipsSelectDefaultProps = (0, _objectSpread2.default)((0, _objectSpread2.def
   }
 });
 
-var ChipsSelect = function ChipsSelect(props) {
+var ChipsSelectComponent = function ChipsSelectComponent(props) {
   var _classNames;
 
   var propsWithDefault = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, chipsSelectDefaultProps), props);
@@ -373,12 +373,10 @@ var ChipsSelect = function ChipsSelect(props) {
       }
     }));
   })));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = (0, _withAdaptivity.withAdaptivity)(ChipsSelect, {
+var ChipsSelect = (0, _withAdaptivity.withAdaptivity)(ChipsSelectComponent, {
   sizeY: true
 });
-
-exports.default = _default;
+exports.ChipsSelect = ChipsSelect;
 //# sourceMappingURL=ChipsSelect.js.map

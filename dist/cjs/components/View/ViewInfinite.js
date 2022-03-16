@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.ViewInfinite = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -76,15 +76,15 @@ var SwipeBackResults;
 
 var scrollsCache = {};
 
-var ViewInfinite = /*#__PURE__*/function (_React$Component) {
-  (0, _inherits2.default)(ViewInfinite, _React$Component);
+var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
+  (0, _inherits2.default)(ViewInfiniteComponent, _React$Component);
 
-  var _super = (0, _createSuper2.default)(ViewInfinite);
+  var _super = (0, _createSuper2.default)(ViewInfiniteComponent);
 
-  function ViewInfinite(props) {
+  function ViewInfiniteComponent(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, ViewInfinite);
+    (0, _classCallCheck2.default)(this, ViewInfiniteComponent);
     _this = _super.call(this, props);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "scrolls", scrollsCache[(0, _getNavId.getNavId)(_this.props, warn)] || {});
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "transitionFinishTimeout", undefined);
@@ -202,7 +202,7 @@ var ViewInfinite = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  (0, _createClass2.default)(ViewInfinite, [{
+  (0, _createClass2.default)(ViewInfiniteComponent, [{
     key: "document",
     get: function get() {
       return this.props.document;
@@ -591,15 +591,12 @@ var ViewInfinite = /*#__PURE__*/function (_React$Component) {
       }, modal)));
     }
   }]);
-  return ViewInfinite;
-}(React.Component); // eslint-disable-next-line import/no-default-export
+  return ViewInfiniteComponent;
+}(React.Component);
 
-
-(0, _defineProperty2.default)(ViewInfinite, "defaultProps", {
+(0, _defineProperty2.default)(ViewInfiniteComponent, "defaultProps", {
   history: []
 });
-
-var _default = (0, _withContext.withContext)((0, _withContext.withContext)((0, _withContext.withContext)((0, _withPlatform.withPlatform)((0, _dom.withDOM)(ViewInfinite)), _SplitCol.SplitColContext, "splitCol"), _ConfigProviderContext.ConfigProviderContext, "configProvider"), _ScrollContext.ScrollContext, "scroll");
-
-exports.default = _default;
+var ViewInfinite = (0, _withContext.withContext)((0, _withContext.withContext)((0, _withContext.withContext)((0, _withPlatform.withPlatform)((0, _dom.withDOM)(ViewInfiniteComponent)), _SplitCol.SplitColContext, "splitCol"), _ConfigProviderContext.ConfigProviderContext, "configProvider"), _ScrollContext.ScrollContext, "scroll");
+exports.ViewInfinite = ViewInfinite;
 //# sourceMappingURL=ViewInfinite.js.map

@@ -3,7 +3,7 @@ import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
-var _excluded = ["children", "Component", "onClick", "onKeyDown", "activeEffectDelay", "stopPropagation", "getRootRef", "sizeX", "hasMouse", "deviceHasHover", "hasHover", "hoverMode", "hasActive", "activeMode", "focusVisibleMode"];
+var _excluded = ["children", "Component", "onClick", "onKeyDown", "activeEffectDelay", "stopPropagation", "getRootRef", "sizeX", "hasMouse", "deviceHasHover", "hasHover", "hoverMode", "hasActive", "activeMode", "focusVisibleMode", "onEnter", "onLeave"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import mitt from "mitt";
@@ -24,6 +24,7 @@ import { useExternRef } from "../../hooks/useExternRef";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useFocusVisible } from "../../hooks/useFocusVisible";
 import { callMultiple } from "../../lib/callMultiple";
+import { useBooleanState } from "../../hooks/useBooleanState";
 export var ACTIVE_DELAY = 70;
 export var ACTIVE_EFFECT_DELAY = 600;
 var activeBus = mitt();
@@ -136,6 +137,8 @@ var Tappable = function Tappable(_ref) {
       activeMode = _ref$activeMode === void 0 ? "background" : _ref$activeMode,
       _ref$focusVisibleMode = _ref.focusVisibleMode,
       focusVisibleMode = _ref$focusVisibleMode === void 0 ? "inside" : _ref$focusVisibleMode,
+      onEnter = _ref.onEnter,
+      onLeave = _ref.onLeave,
       props = _objectWithoutProperties(_ref, _excluded);
 
   Component = Component || (props.href ? "a" : "div");
@@ -161,10 +164,10 @@ var Tappable = function Tappable(_ref) {
       childHover = _React$useState6[0],
       setChildHover = _React$useState6[1];
 
-  var _React$useState7 = React.useState(false),
-      _React$useState8 = _slicedToArray(_React$useState7, 2),
-      _hovered = _React$useState8[0],
-      setHovered = _React$useState8[1];
+  var _useBooleanState = useBooleanState(false),
+      _hovered = _useBooleanState.value,
+      setHoveredTrue = _useBooleanState.setTrue,
+      setHoveredFalse = _useBooleanState.setFalse;
 
   var hovered = _hovered && !props.disabled;
   var hasActive = _hasActive && !childHover && !props.disabled;
@@ -280,12 +283,8 @@ var Tappable = function Tappable(_ref) {
   };
   var role = props.href ? "link" : "button";
   return createScopedElement(Touch, _extends({
-    onEnter: function onEnter() {
-      return setHovered(true);
-    },
-    onLeave: function onLeave() {
-      return setHovered(false);
-    },
+    onEnter: callMultiple(setHoveredTrue, onEnter),
+    onLeave: callMultiple(setHoveredFalse, onLeave),
     type: Component === "button" ? "button" : undefined,
     tabIndex: isCustomElement && !props.disabled ? 0 : undefined,
     role: isCustomElement ? role : undefined,

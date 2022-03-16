@@ -7,6 +7,10 @@ export interface ConfigProviderProps extends Partial<ConfigProviderContextInterf
      * Цветовая схема приложения
      */
     scheme?: AppearanceScheme;
+    /**
+      Локаль ([список](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry))
+     */
+    locale?: string;
 }
 declare const ConfigProvider: React.FC<ConfigProviderProps>;
 export default ConfigProvider;

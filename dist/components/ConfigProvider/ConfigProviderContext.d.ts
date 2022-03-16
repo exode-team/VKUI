@@ -33,11 +33,4 @@ export interface ConfigProviderContextInterface {
     platform: PlatformType;
     hasNewTokens: boolean;
 }
-export declare const defaultConfigProviderProps: {
-    webviewType: WebviewType;
-    isWebView: boolean;
-    transitionMotionEnabled: boolean;
-    platform: string;
-    hasNewTokens: boolean;
-};
 export declare const ConfigProviderContext: React.Context<ConfigProviderContextInterface>;

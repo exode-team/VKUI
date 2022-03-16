@@ -43,11 +43,10 @@ var TextTooltip = function TextTooltip(_ref) {
     arrowClassName: (0, _prefixClass.prefixClass)("TextTooltip__arrow"),
     content: (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
       Component: "span",
-      weight: "medium",
+      weight: "2",
       vkuiClass: "TextTooltip__header"
     }, header), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
       Component: "span",
-      weight: "regular",
       vkuiClass: "TextTooltip__text"
     }, text))
   }, popperProps), children);

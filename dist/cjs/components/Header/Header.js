@@ -98,9 +98,7 @@ var HeaderContent = function HeaderContent(_ref) {
 var HeaderAside = function HeaderAside(_ref2) {
   var platform = _ref2.platform,
       restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
-  return platform === _platform.Platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-    weight: "regular"
-  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
+  return platform === _platform.Platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps) : (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
     weight: "regular"
   }, restProps));
 };
@@ -108,9 +106,7 @@ var HeaderAside = function HeaderAside(_ref2) {
 var HeaderSubtitle = function HeaderSubtitle(_ref3) {
   var mode = _ref3.mode,
       restProps = (0, _objectWithoutProperties2.default)(_ref3, _excluded3);
-  return mode === "secondary" ? (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-    weight: "regular"
-  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
+  return mode === "secondary" ? (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps) : (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
     weight: "regular",
     level: "1"
   }, restProps));

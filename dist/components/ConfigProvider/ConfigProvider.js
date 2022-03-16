@@ -1,17 +1,17 @@
-import _objectSpread from "@babel/runtime/helpers/objectSpread2";
-import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
-var _excluded = ["children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
+import vkBridge from "@vkontakte/vk-bridge";
 import { canUseDOM, useDOM } from "../../lib/dom";
-import { ConfigProviderContext, defaultConfigProviderProps } from "./ConfigProviderContext";
+import { ConfigProviderContext, WebviewType } from "./ConfigProviderContext";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { useObjectMemo } from "../../hooks/useObjectMemo";
 import { noop } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
 import { normalizeScheme, Scheme } from "../../helpers/scheme";
 import { AppearanceProvider, generateVKUITokensClassName } from "../AppearanceProvider/AppearanceProvider";
+import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
+import { platform as resolvePlatform } from "../../lib/platform";
 var warn = warnOnce("ConfigProvider");
 
 function useSchemeDetector(node, _scheme) {
@@ -55,14 +55,22 @@ var deriveAppearance = function deriveAppearance(scheme) {
 
 var ConfigProvider = function ConfigProvider(_ref) {
   var children = _ref.children,
-      props = _objectWithoutProperties(_ref, _excluded);
-
-  var config = _objectSpread(_objectSpread({}, defaultConfigProviderProps), props);
-
-  var platform = config.platform,
-      appearance = config.appearance;
-  var scheme = normalizeScheme({
-    scheme: config.scheme,
+      _ref$webviewType = _ref.webviewType,
+      webviewType = _ref$webviewType === void 0 ? WebviewType.VKAPPS : _ref$webviewType,
+      _ref$isWebView = _ref.isWebView,
+      isWebView = _ref$isWebView === void 0 ? vkBridge.isWebView() : _ref$isWebView,
+      _ref$transitionMotion = _ref.transitionMotionEnabled,
+      transitionMotionEnabled = _ref$transitionMotion === void 0 ? true : _ref$transitionMotion,
+      _ref$platform = _ref.platform,
+      platform = _ref$platform === void 0 ? resolvePlatform() : _ref$platform,
+      _ref$hasNewTokens = _ref.hasNewTokens,
+      hasNewTokens = _ref$hasNewTokens === void 0 ? false : _ref$hasNewTokens,
+      appearance = _ref.appearance,
+      scheme = _ref.scheme,
+      _ref$locale = _ref.locale,
+      locale = _ref$locale === void 0 ? "ru" : _ref$locale;
+  var normalizedScheme = normalizeScheme({
+    scheme: scheme,
     platform: platform,
     appearance: appearance
   });
@@ -72,7 +80,7 @@ var ConfigProvider = function ConfigProvider(_ref) {
 
   var target = document === null || document === void 0 ? void 0 : document.body;
   useIsomorphicLayoutEffect(function () {
-    if (scheme === "inherit") {
+    if (normalizedScheme === "inherit") {
       return noop;
     }
 
@@ -80,12 +88,12 @@ var ConfigProvider = function ConfigProvider(_ref) {
       warn('<body scheme> was set before VKUI mount - did you forget scheme="inherit"?');
     }
 
-    target === null || target === void 0 ? void 0 : target.setAttribute("scheme", scheme);
+    target === null || target === void 0 ? void 0 : target.setAttribute("scheme", normalizedScheme);
     return function () {
       return target === null || target === void 0 ? void 0 : target.removeAttribute("scheme");
     };
-  }, [scheme]);
-  var realScheme = useSchemeDetector(target, scheme);
+  }, [normalizedScheme]);
+  var realScheme = useSchemeDetector(target, normalizedScheme);
   var derivedAppearance = deriveAppearance(realScheme);
   useIsomorphicLayoutEffect(function () {
     var VKUITokensClassName = generateVKUITokensClassName(platform, derivedAppearance);
@@ -94,14 +102,22 @@ var ConfigProvider = function ConfigProvider(_ref) {
       target === null || target === void 0 ? void 0 : target.classList.remove(VKUITokensClassName);
     };
   }, [platform, derivedAppearance]);
-  var configContext = useObjectMemo(_objectSpread({
-    appearance: derivedAppearance
-  }, config));
+  var configContext = useObjectMemo({
+    webviewType: webviewType,
+    isWebView: isWebView,
+    transitionMotionEnabled: transitionMotionEnabled,
+    hasNewTokens: hasNewTokens,
+    platform: platform,
+    scheme: scheme,
+    appearance: appearance || derivedAppearance
+  });
   return createScopedElement(ConfigProviderContext.Provider, {
     value: configContext
+  }, createScopedElement(LocaleProviderContext.Provider, {
+    value: locale
   }, createScopedElement(AppearanceProvider, {
     appearance: configContext.appearance
-  }, children));
+  }, children)));
 }; // eslint-disable-next-line import/no-default-export
 
 

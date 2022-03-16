@@ -35,8 +35,7 @@ var InfoRow = function InfoRow(_ref) {
     weight: "regular"
   }), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
     Component: "span",
-    vkuiClass: "InfoRow__header",
-    weight: "regular"
+    vkuiClass: "InfoRow__header"
   }, header), children);
 }; // eslint-disable-next-line import/no-default-export
 

@@ -59,7 +59,9 @@ var _useFocusVisible2 = require("../../hooks/useFocusVisible");
 
 var _callMultiple = require("../../lib/callMultiple");
 
-var _excluded = ["children", "Component", "onClick", "onKeyDown", "activeEffectDelay", "stopPropagation", "getRootRef", "sizeX", "hasMouse", "deviceHasHover", "hasHover", "hoverMode", "hasActive", "activeMode", "focusVisibleMode"];
+var _useBooleanState2 = require("../../hooks/useBooleanState");
+
+var _excluded = ["children", "Component", "onClick", "onKeyDown", "activeEffectDelay", "stopPropagation", "getRootRef", "sizeX", "hasMouse", "deviceHasHover", "hasHover", "hoverMode", "hasActive", "activeMode", "focusVisibleMode", "onEnter", "onLeave"];
 var ACTIVE_DELAY = 70;
 exports.ACTIVE_DELAY = ACTIVE_DELAY;
 var ACTIVE_EFFECT_DELAY = 600;
@@ -174,6 +176,8 @@ var Tappable = function Tappable(_ref) {
       activeMode = _ref$activeMode === void 0 ? "background" : _ref$activeMode,
       _ref$focusVisibleMode = _ref.focusVisibleMode,
       focusVisibleMode = _ref$focusVisibleMode === void 0 ? "inside" : _ref$focusVisibleMode,
+      onEnter = _ref.onEnter,
+      onLeave = _ref.onLeave,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   Component = Component || (props.href ? "a" : "div");
@@ -199,10 +203,10 @@ var Tappable = function Tappable(_ref) {
       childHover = _React$useState6[0],
       setChildHover = _React$useState6[1];
 
-  var _React$useState7 = React.useState(false),
-      _React$useState8 = (0, _slicedToArray2.default)(_React$useState7, 2),
-      _hovered = _React$useState8[0],
-      setHovered = _React$useState8[1];
+  var _useBooleanState = (0, _useBooleanState2.useBooleanState)(false),
+      _hovered = _useBooleanState.value,
+      setHoveredTrue = _useBooleanState.setTrue,
+      setHoveredFalse = _useBooleanState.setFalse;
 
   var hovered = _hovered && !props.disabled;
   var hasActive = _hasActive && !childHover && !props.disabled;
@@ -318,12 +322,8 @@ var Tappable = function Tappable(_ref) {
   };
   var role = props.href ? "link" : "button";
   return (0, _jsxRuntime.createScopedElement)(_Touch.Touch, (0, _extends2.default)({
-    onEnter: function onEnter() {
-      return setHovered(true);
-    },
-    onLeave: function onLeave() {
-      return setHovered(false);
-    },
+    onEnter: (0, _callMultiple.callMultiple)(setHoveredTrue, onEnter),
+    onLeave: (0, _callMultiple.callMultiple)(setHoveredFalse, onLeave),
     type: Component === "button" ? "button" : undefined,
     tabIndex: isCustomElement && !props.disabled ? 0 : undefined,
     role: isCustomElement ? role : undefined,

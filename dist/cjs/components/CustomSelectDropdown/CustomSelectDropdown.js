@@ -27,7 +27,7 @@ var _Popper = require("../Popper/Popper");
 
 var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
 
-var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange"];
+var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal"];
 
 var calcIsTop = function calcIsTop(placement) {
   return placement === null || placement === void 0 ? void 0 : placement.includes("top");
@@ -40,6 +40,12 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref) {
       placement = _ref.placement,
       fetching = _ref.fetching,
       parentOnPlacementChange = _ref.onPlacementChange,
+      _ref$offsetDistance = _ref.offsetDistance,
+      offsetDistance = _ref$offsetDistance === void 0 ? 0 : _ref$offsetDistance,
+      _ref$sameWidth = _ref.sameWidth,
+      sameWidth = _ref$sameWidth === void 0 ? true : _ref$sameWidth,
+      _ref$forcePortal = _ref.forcePortal,
+      forcePortal = _ref$forcePortal === void 0 ? true : _ref$forcePortal,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _React$useState = React.useState(function () {
@@ -56,13 +62,16 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref) {
   }, [parentOnPlacementChange, setIsTop]);
   return (0, _jsxRuntime.createScopedElement)(_Popper.Popper, (0, _extends2.default)({
     targetRef: targetRef,
-    offsetDistance: 0,
-    sameWidth: true,
+    offsetDistance: offsetDistance,
+    sameWidth: sameWidth,
     onPlacementChange: onPlacementChange,
     placement: placement,
     vkuiClass: (0, _classNames.classNames)("CustomSelectDropdown__options", {
-      "CustomSelectDropdown__options--popupDirectionTop": isTop
-    })
+      "CustomSelectDropdown__options--popupDirectionTop": isTop,
+      "CustomSelectDropdown__options--not-adjacent": offsetDistance > 0,
+      "CustomSelectDropdown__options--same-width": sameWidth
+    }),
+    forcePortal: forcePortal
   }, restProps), (0, _jsxRuntime.createScopedElement)(_CustomScrollView.default, {
     boxRef: scrollBoxRef,
     vkuiClass: "CustomSelectDropdown__CustomScrollView"

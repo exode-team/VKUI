@@ -39,9 +39,7 @@ var CellTypography = function CellTypography(_ref) {
   return size === "s" ? (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
     level: "2",
     weight: "regular"
-  }, restProps), children) : (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-    weight: "regular"
-  }, restProps), children);
+  }, restProps), children) : (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps, children);
 };
 
 var HorizontalCell = function HorizontalCell(_ref2) {

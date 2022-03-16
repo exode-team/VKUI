@@ -8,7 +8,7 @@ export var WebviewType;
   WebviewType["INTERNAL"] = "internal";
 })(WebviewType || (WebviewType = {}));
 
-export var defaultConfigProviderProps = {
+export var ConfigProviderContext = /*#__PURE__*/React.createContext({
   webviewType: WebviewType.VKAPPS,
   isWebView: vkBridge.isWebView(),
   transitionMotionEnabled: true,
@@ -16,6 +16,5 @@ export var defaultConfigProviderProps = {
   hasNewTokens: false // appearance is auto-detected by default
   // appearance: Appearance.LIGHT,
 
-};
-export var ConfigProviderContext = /*#__PURE__*/React.createContext(defaultConfigProviderProps);
+});
 //# sourceMappingURL=ConfigProviderContext.js.map

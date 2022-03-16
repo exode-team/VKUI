@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.SelectType = void 0;
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
@@ -59,7 +59,7 @@ var _is = require("../../lib/is");
 
 var _CustomSelectDropdown = require("../CustomSelectDropdown/CustomSelectDropdown");
 
-var _excluded = ["searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching"],
+var _excluded = ["searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching", "icon", "dropdownOffsetDistance", "fixDropdownWidth", "forceDropdownPortal"],
     _excluded2 = ["option"];
 
 var findIndexAfter = function findIndexAfter() {
@@ -105,6 +105,14 @@ var checkOptionsValueType = function checkOptionsValueType(options) {
     warn("Some values of your options have different types. CustomSelect onChange always returns a string type.");
   }
 };
+
+var SelectType;
+exports.SelectType = SelectType;
+
+(function (SelectType) {
+  SelectType["Default"] = "default";
+  SelectType["Plain"] = "plain";
+})(SelectType || (exports.SelectType = SelectType = {}));
 
 var CustomSelect = /*#__PURE__*/function (_React$Component) {
   (0, _inherits2.default)(CustomSelect, _React$Component);
@@ -572,6 +580,10 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
           onOpen = _this$props2.onOpen,
           onClose = _this$props2.onClose,
           fetching = _this$props2.fetching,
+          icon = _this$props2.icon,
+          dropdownOffsetDistance = _this$props2.dropdownOffsetDistance,
+          fixDropdownWidth = _this$props2.fixDropdownWidth,
+          forceDropdownPortal = _this$props2.forceDropdownPortal,
           restProps = (0, _objectWithoutProperties2.default)(_this$props2, _excluded);
       var selected = this.getSelectedItem();
       var label = selected ? selected.label : undefined;
@@ -602,7 +614,8 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         onBlur: this.onBlur,
         vkuiClass: (0, _classNames.classNames)({
           CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop
+          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
+          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
         }),
         value: this.state.inputValue,
         onKeyDown: this.onInputKeyDown,
@@ -611,7 +624,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         // @ts-ignore
         ,
         onClick: onClick,
-        after: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null),
+        after: icon,
         placeholder: restProps.placeholder
       })) : (0, _jsxRuntime.createScopedElement)(_SelectMimicry.default, (0, _extends2.default)({}, restProps, {
         "aria-hidden": true,
@@ -622,8 +635,10 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         onBlur: this.onBlur,
         vkuiClass: (0, _classNames.classNames)({
           CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop
-        })
+          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
+          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
+        }),
+        after: icon
       }), label), (0, _jsxRuntime.createScopedElement)("select", {
         ref: this.selectRef,
         name: name,
@@ -645,7 +660,10 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         scrollBoxRef: this.scrollBoxRef,
         onPlacementChange: this.onPlacementChange,
         onMouseLeave: this.resetFocusedOption,
-        fetching: fetching
+        fetching: fetching,
+        offsetDistance: dropdownOffsetDistance,
+        sameWidth: fixDropdownWidth,
+        forcePortal: forceDropdownPortal
       }, resolvedContent));
     }
   }]);
@@ -662,7 +680,11 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
   },
   options: [],
   emptyText: "Ничего не найдено",
-  filterFn: _select.defaultFilterFn
+  filterFn: _select.defaultFilterFn,
+  icon: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null),
+  dropdownOffsetDistance: 0,
+  fixDropdownWidth: true,
+  selectType: SelectType.Default
 });
 
 var _default = (0, _withPlatform.withPlatform)((0, _withAdaptivity.withAdaptivity)(CustomSelect, {

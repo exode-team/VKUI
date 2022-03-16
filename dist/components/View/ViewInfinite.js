@@ -37,15 +37,15 @@ var SwipeBackResults;
 
 var scrollsCache = {};
 
-var ViewInfinite = /*#__PURE__*/function (_React$Component) {
-  _inherits(ViewInfinite, _React$Component);
+var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
+  _inherits(ViewInfiniteComponent, _React$Component);
 
-  var _super = _createSuper(ViewInfinite);
+  var _super = _createSuper(ViewInfiniteComponent);
 
-  function ViewInfinite(props) {
+  function ViewInfiniteComponent(props) {
     var _this;
 
-    _classCallCheck(this, ViewInfinite);
+    _classCallCheck(this, ViewInfiniteComponent);
 
     _this = _super.call(this, props);
 
@@ -173,7 +173,7 @@ var ViewInfinite = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(ViewInfinite, [{
+  _createClass(ViewInfiniteComponent, [{
     key: "document",
     get: function get() {
       return this.props.document;
@@ -571,13 +571,12 @@ var ViewInfinite = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return ViewInfinite;
-}(React.Component); // eslint-disable-next-line import/no-default-export
+  return ViewInfiniteComponent;
+}(React.Component);
 
-
-_defineProperty(ViewInfinite, "defaultProps", {
+_defineProperty(ViewInfiniteComponent, "defaultProps", {
   history: []
 });
 
-export default withContext(withContext(withContext(withPlatform(withDOM(ViewInfinite)), SplitColContext, "splitCol"), ConfigProviderContext, "configProvider"), ScrollContext, "scroll");
+export var ViewInfinite = withContext(withContext(withContext(withPlatform(withDOM(ViewInfiniteComponent)), SplitColContext, "splitCol"), ConfigProviderContext, "configProvider"), ScrollContext, "scroll");
 //# sourceMappingURL=ViewInfinite.js.map

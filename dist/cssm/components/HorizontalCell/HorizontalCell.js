@@ -21,9 +21,7 @@ var CellTypography = function CellTypography(_ref) {
   return size === "s" ? createScopedElement(Caption, _extends({
     level: "2",
     weight: "regular"
-  }, restProps), children) : createScopedElement(Subhead, _extends({
-    weight: "regular"
-  }, restProps), children);
+  }, restProps), children) : createScopedElement(Subhead, restProps, children);
 };
 
 export var HorizontalCell = function HorizontalCell(_ref2) {

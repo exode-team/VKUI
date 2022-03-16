@@ -7,6 +7,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.ENABLE_KEYBOARD_INPUT_EVENT_NAME = exports.DISABLE_KEYBOARD_INPUT_EVENT_NAME = void 0;
 exports.useKeyboardInputTracker = useKeyboardInputTracker;
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
@@ -19,6 +20,11 @@ var _dom = require("../lib/dom");
 
 var _useGlobalEventListener = require("./useGlobalEventListener");
 
+var ENABLE_KEYBOARD_INPUT_EVENT_NAME = "enableKeyboardInput";
+exports.ENABLE_KEYBOARD_INPUT_EVENT_NAME = ENABLE_KEYBOARD_INPUT_EVENT_NAME;
+var DISABLE_KEYBOARD_INPUT_EVENT_NAME = "disableKeyboardInput";
+exports.DISABLE_KEYBOARD_INPUT_EVENT_NAME = DISABLE_KEYBOARD_INPUT_EVENT_NAME;
+
 function useKeyboardInputTracker() {
   var _useDOM = (0, _dom.useDOM)(),
       document = _useDOM.document;
@@ -28,11 +34,14 @@ function useKeyboardInputTracker() {
       isKeyboardInputActive = _React$useState2[0],
       toggleKeyboardInput = _React$useState2[1];
 
-  var enableKeyboardInput = React.useCallback(function (e) {
-    if ((0, _accessibility.pressedKey)(e) === _accessibility.Keys.TAB) {
-      toggleKeyboardInput(true);
-    }
+  var enableKeyboardInput = React.useCallback(function () {
+    toggleKeyboardInput(true);
   }, []);
+  var handleKeydown = React.useCallback(function (e) {
+    if ((0, _accessibility.pressedKey)(e) === _accessibility.Keys.TAB) {
+      enableKeyboardInput();
+    }
+  }, [enableKeyboardInput]);
   var disableKeyboardInput = React.useCallback(function () {
     toggleKeyboardInput(false);
   }, []);
@@ -40,9 +49,11 @@ function useKeyboardInputTracker() {
     passive: true,
     capture: true
   };
-  (0, _useGlobalEventListener.useGlobalEventListener)(document, "keydown", enableKeyboardInput, eventOptions);
+  (0, _useGlobalEventListener.useGlobalEventListener)(document, "keydown", handleKeydown, eventOptions);
   (0, _useGlobalEventListener.useGlobalEventListener)(document, "mousedown", disableKeyboardInput, eventOptions);
   (0, _useGlobalEventListener.useGlobalEventListener)(document, "touchstart", disableKeyboardInput, eventOptions);
+  (0, _useGlobalEventListener.useGlobalEventListener)(document, ENABLE_KEYBOARD_INPUT_EVENT_NAME, enableKeyboardInput, eventOptions);
+  (0, _useGlobalEventListener.useGlobalEventListener)(document, DISABLE_KEYBOARD_INPUT_EVENT_NAME, disableKeyboardInput, eventOptions);
   return isKeyboardInputActive;
 }
 //# sourceMappingURL=useKeyboardInputTracker.js.map

@@ -79,7 +79,6 @@ var UsersStack = function UsersStack(props) {
     "aria-hidden": "true"
   }, (0, _jsxRuntime.createScopedElement)("span", null, "+", othersCount))), (0, _utils.hasReactNode)(children) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
     Component: "span",
-    weight: "regular",
     vkuiClass: "UsersStack__text"
   }, children));
 };

@@ -43,7 +43,6 @@ var RichCell = function RichCell(_ref) {
     vkuiClass: "RichCell__text"
   }, text), hasReactNode(caption) && createScopedElement(Subhead, {
     Component: "span",
-    weight: "regular",
     vkuiClass: "RichCell__caption"
   }, caption), (hasReactNode(bottom) || hasReactNode(actions)) && createScopedElement("div", {
     vkuiClass: "RichCell__bottom"

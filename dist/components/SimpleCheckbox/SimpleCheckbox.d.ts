@@ -6,4 +6,3 @@ export interface SimpleCheckboxProps extends React.InputHTMLAttributes<HTMLInput
     defaultIndeterminate?: boolean;
 }
 export declare const SimpleCheckbox: React.FC<SimpleCheckboxProps>;
-export default SimpleCheckbox;

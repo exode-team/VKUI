@@ -96,7 +96,6 @@ var SimpleCell = function SimpleCell(_ref) {
     vkuiClass: "SimpleCell__badge"
   }, badge)), description && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
     Component: "span",
-    weight: "regular",
     vkuiClass: "SimpleCell__description"
   }, description)), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(SimpleCellTypography, {
     Component: "span",

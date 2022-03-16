@@ -7,7 +7,7 @@ import _inherits from "@babel/runtime/helpers/inherits";
 import _createSuper from "@babel/runtime/helpers/createSuper";
 import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _typeof from "@babel/runtime/helpers/typeof";
-var _excluded = ["searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching"],
+var _excluded = ["searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching", "icon", "dropdownOffsetDistance", "fixDropdownWidth", "forceDropdownPortal"],
     _excluded2 = ["option"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
@@ -70,6 +70,13 @@ var checkOptionsValueType = function checkOptionsValueType(options) {
     warn("Some values of your options have different types. CustomSelect onChange always returns a string type.");
   }
 };
+
+export var SelectType;
+
+(function (SelectType) {
+  SelectType["Default"] = "default";
+  SelectType["Plain"] = "plain";
+})(SelectType || (SelectType = {}));
 
 var CustomSelect = /*#__PURE__*/function (_React$Component) {
   _inherits(CustomSelect, _React$Component);
@@ -571,6 +578,10 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
           onOpen = _this$props2.onOpen,
           onClose = _this$props2.onClose,
           fetching = _this$props2.fetching,
+          icon = _this$props2.icon,
+          dropdownOffsetDistance = _this$props2.dropdownOffsetDistance,
+          fixDropdownWidth = _this$props2.fixDropdownWidth,
+          forceDropdownPortal = _this$props2.forceDropdownPortal,
           restProps = _objectWithoutProperties(_this$props2, _excluded);
 
       var selected = this.getSelectedItem();
@@ -602,7 +613,8 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         onBlur: this.onBlur,
         vkuiClass: classNames({
           CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop
+          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
+          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
         }),
         value: this.state.inputValue,
         onKeyDown: this.onInputKeyDown,
@@ -611,7 +623,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         // @ts-ignore
         ,
         onClick: onClick,
-        after: createScopedElement(DropdownIcon, null),
+        after: icon,
         placeholder: restProps.placeholder
       })) : createScopedElement(SelectMimicry, _extends({}, restProps, {
         "aria-hidden": true,
@@ -622,8 +634,10 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         onBlur: this.onBlur,
         vkuiClass: classNames({
           CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop
-        })
+          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
+          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
+        }),
+        after: icon
       }), label), createScopedElement("select", {
         ref: this.selectRef,
         name: name,
@@ -645,7 +659,10 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         scrollBoxRef: this.scrollBoxRef,
         onPlacementChange: this.onPlacementChange,
         onMouseLeave: this.resetFocusedOption,
-        fetching: fetching
+        fetching: fetching,
+        offsetDistance: dropdownOffsetDistance,
+        sameWidth: fixDropdownWidth,
+        forcePortal: forceDropdownPortal
       }, resolvedContent));
     }
   }]);
@@ -664,7 +681,11 @@ _defineProperty(CustomSelect, "defaultProps", {
   },
   options: [],
   emptyText: "Ничего не найдено",
-  filterFn: defaultFilterFn
+  filterFn: defaultFilterFn,
+  icon: createScopedElement(DropdownIcon, null),
+  dropdownOffsetDistance: 0,
+  fixDropdownWidth: true,
+  selectType: SelectType.Default
 });
 
 export default withPlatform(withAdaptivity(CustomSelect, {

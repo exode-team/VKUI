@@ -16,6 +16,7 @@ exports.leadingZero = leadingZero;
 exports.multiRef = multiRef;
 exports.noop = void 0;
 exports.setRef = setRef;
+exports.stopPropagation = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -112,4 +113,10 @@ var generateRandomId = function generateRandomId() {
 };
 
 exports.generateRandomId = generateRandomId;
+
+var stopPropagation = function stopPropagation(event) {
+  return event.stopPropagation();
+};
+
+exports.stopPropagation = stopPropagation;
 //# sourceMappingURL=utils.js.map

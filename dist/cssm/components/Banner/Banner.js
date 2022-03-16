@@ -37,9 +37,7 @@ var BannerSubheader = function BannerSubheader(_ref2) {
 
   return size === "m" ? createScopedElement(Text, _extends({
     weight: "regular"
-  }, restProps)) : createScopedElement(Subhead, _extends({
-    weight: "regular"
-  }, restProps));
+  }, restProps)) : createScopedElement(Subhead, restProps);
 };
 
 var Banner = function Banner(props) {

@@ -60,7 +60,6 @@ var FormItem = function FormItem(_ref) {
       sizeY = _useAdaptivity.sizeY;
 
   var wrappedChildren = (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _utils.hasReactNode)(top) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
-    weight: "regular",
     vkuiClass: "FormItem__top"
   }, top), children, (0, _utils.hasReactNode)(bottom) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
     level: "1",

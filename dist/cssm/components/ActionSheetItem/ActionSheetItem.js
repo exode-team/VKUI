@@ -92,7 +92,6 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     vkuiClass: "ActionSheetItem__subtitle",
     level: "1"
   }, subtitle) : createScopedElement(Subhead, {
-    weight: "regular",
     vkuiClass: "ActionSheetItem__subtitle"
   }, subtitle))), selectable && createScopedElement("div", {
     vkuiClass: "ActionSheetItem__after"

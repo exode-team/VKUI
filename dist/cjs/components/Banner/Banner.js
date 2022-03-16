@@ -61,9 +61,7 @@ var BannerSubheader = function BannerSubheader(_ref2) {
       restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
   return size === "m" ? (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
     weight: "regular"
-  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-    weight: "regular"
-  }, restProps));
+  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps);
 };
 
 var Banner = function Banner(props) {

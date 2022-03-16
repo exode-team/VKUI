@@ -15,7 +15,5 @@ export var Div = function Div(_ref) {
     ref: getRootRef,
     vkuiClass: getClassName("Div", platform)
   }), children);
-}; // eslint-disable-next-line import/no-default-export
-
-export default Div;
+};
 //# sourceMappingURL=Div.js.map

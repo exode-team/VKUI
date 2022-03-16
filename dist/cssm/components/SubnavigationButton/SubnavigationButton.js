@@ -18,9 +18,7 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   if (textLevel === 1) {
-    return createScopedElement(Subhead, _extends({
-      weight: "regular"
-    }, restProps));
+    return createScopedElement(Subhead, restProps);
   }
 
   return createScopedElement(Caption, _extends({

@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.defaultConfigProviderProps = exports.WebviewType = exports.ConfigProviderContext = void 0;
+exports.WebviewType = exports.ConfigProviderContext = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -23,7 +23,7 @@ exports.WebviewType = WebviewType;
   WebviewType["INTERNAL"] = "internal";
 })(WebviewType || (exports.WebviewType = WebviewType = {}));
 
-var defaultConfigProviderProps = {
+var ConfigProviderContext = /*#__PURE__*/React.createContext({
   webviewType: WebviewType.VKAPPS,
   isWebView: _vkBridge.default.isWebView(),
   transitionMotionEnabled: true,
@@ -31,8 +31,6 @@ var defaultConfigProviderProps = {
   hasNewTokens: false // appearance is auto-detected by default
   // appearance: Appearance.LIGHT,
 
-};
-exports.defaultConfigProviderProps = defaultConfigProviderProps;
-var ConfigProviderContext = /*#__PURE__*/React.createContext(defaultConfigProviderProps);
+});
 exports.ConfigProviderContext = ConfigProviderContext;
 //# sourceMappingURL=ConfigProviderContext.js.map

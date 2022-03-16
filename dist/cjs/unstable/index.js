@@ -1,14 +1,12 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 Object.defineProperty(exports, "ChipsSelect", {
   enumerable: true,
   get: function get() {
-    return _ChipsSelect.default;
+    return _ChipsSelect.ChipsSelect;
   }
 });
 Object.defineProperty(exports, "Dropdown", {
@@ -32,7 +30,7 @@ Object.defineProperty(exports, "RichTooltip", {
 Object.defineProperty(exports, "SimpleCheckbox", {
   enumerable: true,
   get: function get() {
-    return _SimpleCheckbox.default;
+    return _SimpleCheckbox.SimpleCheckbox;
   }
 });
 Object.defineProperty(exports, "TextTooltip", {
@@ -44,11 +42,11 @@ Object.defineProperty(exports, "TextTooltip", {
 Object.defineProperty(exports, "ViewInfinite", {
   enumerable: true,
   get: function get() {
-    return _ViewInfinite.default;
+    return _ViewInfinite.ViewInfinite;
   }
 });
 
-var _ChipsSelect = _interopRequireDefault(require("./../components/ChipsSelect/ChipsSelect"));
+var _ChipsSelect = require("../components/ChipsSelect/ChipsSelect");
 
 var _Dropdown = require("../components/Dropdown/Dropdown");
 
@@ -58,7 +56,7 @@ var _RichTooltip = require("../components/RichTooltip/RichTooltip");
 
 var _Popper = require("../components/Popper/Popper");
 
-var _ViewInfinite = _interopRequireDefault(require("./../components/View/ViewInfinite"));
+var _ViewInfinite = require("../components/View/ViewInfinite");
 
-var _SimpleCheckbox = _interopRequireDefault(require("./../components/SimpleCheckbox/SimpleCheckbox"));
+var _SimpleCheckbox = require("../components/SimpleCheckbox/SimpleCheckbox");
 //# sourceMappingURL=index.js.map

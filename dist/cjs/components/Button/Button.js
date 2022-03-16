@@ -75,7 +75,7 @@ var ButtonTypography = function ButtonTypography(props) {
     case "m":
       if (isCompact) {
         return (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-          weight: platform === _platform.VKCOM ? "regular" : "medium"
+          weight: platform === _platform.VKCOM ? "3" : "2"
         }, restProps));
       }
 
@@ -87,7 +87,7 @@ var ButtonTypography = function ButtonTypography(props) {
     default:
       if (platform === _platform.IOS) {
         return (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-          weight: "medium"
+          weight: "2"
         }, restProps));
       }
 
@@ -106,7 +106,7 @@ var ButtonTypography = function ButtonTypography(props) {
       }
 
       return (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
-        weight: "medium"
+        weight: "2"
       }, restProps));
   }
 };

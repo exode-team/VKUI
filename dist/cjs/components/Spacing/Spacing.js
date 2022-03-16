@@ -28,13 +28,13 @@ var Spacing = function Spacing(_ref) {
       separator = _ref.separator,
       style = _ref.style,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platfrom = (0, _usePlatform.usePlatform)();
+  var platform = (0, _usePlatform.usePlatform)();
   var styles = (0, _objectSpread2.default)({
     height: size
   }, style);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     "aria-hidden": "true",
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Spacing", platfrom), {
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Spacing", platform), {
       "Spacing--separator": !!separator,
       "Spacing--separator-center": separator === true || separator === "center",
       "Spacing--separator-top": separator === "top",

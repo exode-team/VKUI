@@ -92,7 +92,5 @@ export var SimpleCheckbox = function SimpleCheckbox(props) {
     "aria-hidden": true,
     vkuiClass: "SimpleCheckbox__hoverShadow"
   }));
-}; // eslint-disable-next-line import/no-default-export
-
-export default SimpleCheckbox;
+};
 //# sourceMappingURL=SimpleCheckbox.js.map

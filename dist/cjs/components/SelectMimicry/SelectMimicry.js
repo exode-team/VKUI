@@ -33,7 +33,9 @@ var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
 
 var _platform = require("../../lib/platform");
 
-var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY"];
+var _CustomSelect = require("../CustomSelect/CustomSelect");
+
+var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY", "after", "selectType"];
 
 var SelectMimicry = function SelectMimicry(_ref) {
   var _classNames;
@@ -48,23 +50,27 @@ var SelectMimicry = function SelectMimicry(_ref) {
       onClick = _ref.onClick,
       sizeX = _ref.sizeX,
       sizeY = _ref.sizeY,
+      _ref$after = _ref.after,
+      after = _ref$after === void 0 ? (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null) : _ref$after,
+      _ref$selectType = _ref.selectType,
+      selectType = _ref$selectType === void 0 ? _CustomSelect.SelectType.Default : _ref$selectType,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var TypographyComponent = platform === _platform.VKCOM || sizeY === _withAdaptivity.SizeType.COMPACT ? _Text.default : _Headline.default;
   return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, (0, _extends2.default)({}, restProps, {
     tabIndex: disabled ? undefined : tabIndex,
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("Select", platform), "Select--mimicry", (_classNames = {
+    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("Select", platform), "Select--mimicry", "Select--mimicry-".concat(selectType), (_classNames = {
       "Select--not-selected": !children,
       "Select--multiline": multiline
     }, (0, _defineProperty2.default)(_classNames, "Select--align-".concat(align), !!align), (0, _defineProperty2.default)(_classNames, "Select--sizeX--".concat(sizeX), !!sizeX), (0, _defineProperty2.default)(_classNames, "Select--sizeY--".concat(sizeY), !!sizeY), _classNames)),
     getRootRef: getRootRef,
     onClick: disabled ? undefined : onClick,
     disabled: disabled,
-    after: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null)
+    after: after
   }), (0, _jsxRuntime.createScopedElement)(TypographyComponent, {
     Component: "div",
-    weight: "regular",
-    vkuiClass: "Select__container"
+    weight: selectType === _CustomSelect.SelectType.Plain ? "semibold" : "regular",
+    vkuiClass: (0, _classNames2.classNames)("Select__container", "Select__container--".concat(selectType))
   }, (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "Select__title"
   }, children || placeholder)));

@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.Div = void 0;
+exports.Div = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -28,10 +28,7 @@ var Div = function Div(_ref) {
     ref: getRootRef,
     vkuiClass: (0, _getClassName.getClassName)("Div", platform)
   }), children);
-}; // eslint-disable-next-line import/no-default-export
-
+};
 
 exports.Div = Div;
-var _default = Div;
-exports.default = _default;
 //# sourceMappingURL=Div.js.map
