@@ -4,7 +4,7 @@ export interface UsersStackProps extends React.HTMLAttributes<HTMLDivElement> {
     /**
      * Массив ссылок на фотографии
      */
-    photos?: string[];
+    photos?: React.ReactElement[];
     /**
      * Размер аватарок
      */

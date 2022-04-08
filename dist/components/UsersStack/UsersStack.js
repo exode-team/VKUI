@@ -41,14 +41,11 @@ var UsersStack = function UsersStack(props) {
   }), createScopedElement("div", {
     vkuiClass: "UsersStack__photos",
     role: "presentation"
-  }, photosShown.map(function (photo, i) {
+  }, photosShown.map(function (element, i) {
     return createScopedElement("div", {
       key: i,
-      vkuiClass: "UsersStack__photo",
-      style: {
-        backgroundImage: "url(".concat(photo, ")")
-      }
-    });
+      vkuiClass: "UsersStack__photo"
+    }, element);
   }), canShowOthers && createScopedElement(Caption, {
     weight: "medium",
     level: "1",

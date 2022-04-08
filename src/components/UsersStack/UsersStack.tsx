@@ -14,7 +14,7 @@ export interface UsersStackProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Массив ссылок на фотографии
    */
-  photos?: string[];
+  photos?: React.ReactElement[];
   /**
    * Размер аватарок
    */
@@ -40,7 +40,7 @@ const UsersStack: React.FC<UsersStackProps> = (props: UsersStackProps) => {
     children,
     ...restProps
   } = props;
-  const { document } = useDOM();
+  const {document} = useDOM();
 
   useIsomorphicLayoutEffect(() => {
     createMasks(document);
@@ -64,12 +64,13 @@ const UsersStack: React.FC<UsersStackProps> = (props: UsersStackProps) => {
       )}
     >
       <div vkuiClass="UsersStack__photos" role="presentation">
-        {photosShown.map((photo, i) => (
+        {photosShown.map((element, i) => (
           <div
             key={i}
             vkuiClass="UsersStack__photo"
-            style={{ backgroundImage: `url(${photo})` }}
-          />
+          >
+            {element}
+          </div>
         ))}
 
         {canShowOthers && (
