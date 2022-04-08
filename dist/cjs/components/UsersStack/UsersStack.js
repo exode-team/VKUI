@@ -64,11 +64,17 @@ var UsersStack = function UsersStack(props) {
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "UsersStack__photos",
     role: "presentation"
-  }, photosShown.map(function (element, i) {
-    return (0, _jsxRuntime.createScopedElement)("div", {
+  }, photosShown.map(function (item, i) {
+    return typeof item === 'string' ? (0, _jsxRuntime.createScopedElement)("div", {
+      key: i,
+      vkuiClass: "UsersStack__photo",
+      style: {
+        backgroundImage: "url(".concat(item, ")")
+      }
+    }) : (0, _jsxRuntime.createScopedElement)("div", {
       key: i,
       vkuiClass: "UsersStack__photo"
-    }, element);
+    }, item);
   }), canShowOthers && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
     weight: "medium",
     level: "1",
