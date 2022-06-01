@@ -154,6 +154,9 @@ class ViewInfiniteComponent extends React.Component<
     if (id) {
       scrollsCache[id] = this.scrolls;
     }
+    if (this.animationFinishTimeout) {
+      clearTimeout(this.animationFinishTimeout);
+    }
   }
 
   componentDidUpdate(
@@ -669,6 +672,7 @@ class ViewInfiniteComponent extends React.Component<
 
             return (
               <div
+                // eslint-disable-next-line vkui/no-object-expression-in-arguments
                 vkuiClass={classNames("View__panel", {
                   "View__panel--active": panelId === activePanel,
                   "View__panel--prev": panelId === prevPanel,

@@ -16,7 +16,7 @@ export interface TabbarItemProps
     HasComponent {
   selected?: boolean;
   /**
-   * Тест рядом с иконкой
+   * Текст рядом с иконкой
    */
   text?: React.ReactNode;
   /**
@@ -30,6 +30,10 @@ export interface TabbarItemProps
 }
 
 const warn = warnOnce("TabbarItem");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/TabbarItem
+ */
 const TabbarItem: React.FunctionComponent<TabbarItemProps> = ({
   children,
   selected,
@@ -54,6 +58,7 @@ const TabbarItem: React.FunctionComponent<TabbarItemProps> = ({
       {...restProps}
       disabled={disabled}
       href={href}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("TabbarItem", platform), {
         "TabbarItem--selected": selected,
         "TabbarItem--text": !!text,

@@ -5,6 +5,7 @@ import { generateRandomId, noop } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
 import { SegmentedControlOption } from "./SegmentedControlOption/SegmentedControlOption";
 import { HasRootRef } from "../../types";
+import { useAdaptivity } from "../../hooks/useAdaptivity";
 import "./SegmentedControl.css";
 
 export type SegmentedControlValue = string | number | undefined;
@@ -27,52 +28,72 @@ export interface SegmentedControlProps
 }
 
 const warn = warnOnce("SegmentedControl");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/SegmentedControl
+ */
 export const SegmentedControl: React.FC<SegmentedControlProps> = ({
   size = "l",
   name,
   options,
   getRootRef,
   onChange = noop,
-  value,
+  value: valueProp,
   defaultValue,
   children,
   ...restProps
 }) => {
-  let initialValue = defaultValue ?? value;
+  const { sizeY } = useAdaptivity();
+  const initialValue = defaultValue ?? options[0]?.value;
 
-  if (!initialValue) {
-    initialValue = options[0]?.value;
+  if (process.env.NODE_ENV === "development") {
+    if (valueProp !== undefined && defaultValue !== undefined) {
+      warn(
+        "SegmentedControl должен быть либо управляемым, либо неуправляемым" +
+          "(укажите либо свойство value, либо свойство defaultValue, но не оба).",
+        "error"
+      );
+    }
   }
 
   const [activeOptionIdx, updateActiveOptionIdx] = React.useState<number>(0);
-  const [activeValue, updateActiveValue] =
+  const [valueLocal, updateValueLocal] =
     React.useState<SegmentedControlValue>(initialValue);
+
+  const value = valueProp ?? valueLocal;
 
   const nameRef = React.useRef<string>(name ?? generateRandomId());
 
   useIsomorphicLayoutEffect(() => {
     const _activeOptionIdx = options.findIndex(
-      (option) => option.value === activeValue
+      (option) => option.value === value
     );
 
     if (_activeOptionIdx === -1 && process.env.NODE_ENV === "development") {
-      warn("defaultValue: такого значения нет среди опций!");
+      warn("defaultValue: такого значения нет среди опций!", "error");
     }
 
     updateActiveOptionIdx(_activeOptionIdx);
-  }, [activeValue, options]);
+  }, [value, options]);
 
   const translateX = `translateX(${100 * activeOptionIdx}%)`;
 
   const handleOnChange = (value: SegmentedControlValue) => {
-    updateActiveValue(value);
+    if (valueProp === undefined) {
+      updateValueLocal(value);
+    }
     onChange(value);
   };
 
   return (
     <div
       {...restProps}
-      vkuiClass={classNames("SegmentedControl", `SegmentedControl--${size}`)}
+      vkuiClass={classNames(
+        "SegmentedControl",
+        // TODO v5.0.0 поправить под новую адаптивность
+        `SegmentedControl--sizeY-${sizeY}`,
+        `SegmentedControl--${size}`
+      )}
       ref={getRootRef}
     >
       <div role="radiogroup" vkuiClass="SegmentedControl__in">
@@ -93,7 +114,7 @@ export const SegmentedControl: React.FC<SegmentedControlProps> = ({
             {...optionProps}
             vkuiClass="SegmentedControl__option"
             name={nameRef.current}
-            checked={activeValue === optionProps.value}
+            checked={value === optionProps.value}
             onChange={() => handleOnChange(optionProps.value)}
           >
             {label}

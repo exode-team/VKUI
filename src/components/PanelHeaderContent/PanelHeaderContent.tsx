@@ -3,10 +3,10 @@ import { getClassName } from "../../helpers/getClassName";
 import Tappable from "../Tappable/Tappable";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
-import Caption from "../Typography/Caption/Caption";
-import Headline from "../Typography/Headline/Headline";
+import { Caption } from "../Typography/Caption/Caption";
+import { Headline } from "../Typography/Headline/Headline";
 import { IOS, Platform } from "../../lib/platform";
-import Text from "../Typography/Text/Text";
+import { Text } from "../Typography/Text/Text";
 import { HasPlatform } from "../../types";
 import "./PanelHeaderContent.css";
 
@@ -30,14 +30,14 @@ const PanelHeaderChildren: React.FC<PanelHeaderChildrenProps> = ({
 }) => {
   if (platform === Platform.VKCOM) {
     return (
-      <Text Component="div" weight="medium">
+      <Text Component="div" weight="2">
         {children}
       </Text>
     );
   }
 
   return hasStatus || hasBefore ? (
-    <Headline Component="div" weight="medium">
+    <Headline Component="div" weight="2">
       {children}
     </Headline>
   ) : (
@@ -45,6 +45,9 @@ const PanelHeaderChildren: React.FC<PanelHeaderChildrenProps> = ({
   );
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderContent
+ */
 const PanelHeaderContent: React.FunctionComponent<PanelHeaderContentProps> = ({
   className,
   style,
@@ -81,13 +84,7 @@ const PanelHeaderContent: React.FunctionComponent<PanelHeaderContentProps> = ({
       )}
       <InComponent {...inProps} vkuiClass="PanelHeaderContent__in">
         {hasReactNode(status) && (
-          <Caption
-            level="1"
-            weight="regular"
-            vkuiClass="PanelHeaderContent__status"
-          >
-            {status}
-          </Caption>
+          <Caption vkuiClass="PanelHeaderContent__status">{status}</Caption>
         )}
         <div vkuiClass="PanelHeaderContent__children">
           <PanelHeaderChildren

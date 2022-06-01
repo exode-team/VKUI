@@ -1,6 +1,6 @@
-import { Fragment } from "react";
+import { Fragment, FC } from "react";
 import ModalCard, { ModalCardProps } from "./ModalCard";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 import { ModalRoot } from "../ModalRoot/ModalRootAdaptive";
 import Avatar from "../Avatar/Avatar";
 import UsersStack from "../UsersStack/UsersStack";
@@ -10,6 +10,12 @@ import { AppRoot } from "../AppRoot/AppRoot";
 import { Icon56MoneyTransferOutline } from "@vkontakte/icons";
 import { Platform } from "../../lib/platform";
 import { ViewWidth } from "../AdaptivityProvider/AdaptivityContext";
+
+const AppWrapper: FC = (props) => (
+  <AppRoot mode="embedded" scroll="contain">
+    {props.children}
+  </AppRoot>
+);
 
 const Component = (props: ModalCardProps) => (
   <div style={{ height: 500, transform: "translateZ(0)" }}>
@@ -81,16 +87,21 @@ const propSets = [
       "Гиппопотомомонстросесквиппедалиофобия — боязнь длинных слов, таких как метоксихлордиэтиламинометилбутиламиноакридин",
     ],
     actions: [
-      <Button size="l" mode="primary" key="button">
-        Понятно
-      </Button>,
+      <Fragment key="buttons">
+        <Button size="l" mode="primary" key="button">
+          Гиппопотомомонстросесквиппедалиофобия
+        </Button>
+        <Button size="l" mode="primary" key="button">
+          Метоксихлордиэтиламинометилбутиламиноакридин
+        </Button>
+      </Fragment>,
     ],
   },
 ];
 
 describe("ModalCard mobile", () => {
   describeScreenshotFuzz<ModalCardProps>(Component, propSets, {
-    Wrapper: AppRoot,
+    Wrapper: AppWrapper,
     adaptivity: {
       viewWidth: ViewWidth.MOBILE,
     },
@@ -100,7 +111,7 @@ describe("ModalCard mobile", () => {
 
 describe("ModalCard tablet", () => {
   describeScreenshotFuzz<ModalCardProps>(Component, propSets, {
-    Wrapper: AppRoot,
+    Wrapper: AppWrapper,
     adaptivity: {
       viewWidth: ViewWidth.SMALL_TABLET,
     },
@@ -110,7 +121,7 @@ describe("ModalCard tablet", () => {
 
 describe("ModalCard", () => {
   describeScreenshotFuzz<ModalCardProps>(Component, propSets, {
-    Wrapper: AppRoot,
+    Wrapper: AppWrapper,
     platforms: [Platform.VKCOM],
   });
 });

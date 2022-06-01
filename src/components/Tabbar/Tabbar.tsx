@@ -12,6 +12,9 @@ export interface TabbarProps extends React.HTMLAttributes<HTMLDivElement> {
   itemsLayout?: "vertical" | "horizontal" | "auto";
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tabbar
+ */
 const Tabbar: React.FunctionComponent<TabbarProps> = (props: TabbarProps) => {
   const { children, shadow, itemsLayout, ...restProps } = props;
   const platform = usePlatform();
@@ -28,6 +31,7 @@ const Tabbar: React.FunctionComponent<TabbarProps> = (props: TabbarProps) => {
 
   return (
     <div
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("Tabbar", platform),
         `Tabbar--l-${getItemsLayout()}`,

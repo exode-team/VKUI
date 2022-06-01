@@ -58,6 +58,9 @@ const ARROW_PADDING = 8;
 const ARROW_WIDTH = 20;
 const ARROW_HEIGHT = 8;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Popper
+ */
 export const Popper: React.FC<PopperProps> = ({
   targetRef,
   children,
@@ -149,9 +152,9 @@ export const Popper: React.FC<PopperProps> = ({
 
   const resolvedPlacement = state?.placement;
   const isEdgePlacement =
-    !!resolvedPlacement && resolvedPlacement.includes("-"); // true, если поппер отрисован скраю
+    !!resolvedPlacement && resolvedPlacement.includes("-"); // true, если поппер отрисован с краю
 
-  // Если поппер рисуется скраю, то нужно опционально сместить его в тех случаях, когда стрелка не дотягивается до
+  // Если поппер рисуется с краю, то нужно опционально сместить его в тех случаях, когда стрелка не дотягивается до
   // таргета из-за маленьких размеров последнего
   useIsomorphicLayoutEffect(() => {
     if (arrow && isEdgePlacement) {

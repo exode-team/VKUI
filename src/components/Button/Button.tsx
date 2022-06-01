@@ -2,10 +2,10 @@ import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
 import Tappable, { TappableProps } from "../Tappable/Tappable";
-import Title from "../Typography/Title/Title";
-import Text from "../Typography/Text/Text";
-import Subhead from "../Typography/Subhead/Subhead";
-import Caption from "../Typography/Caption/Caption";
+import { Title } from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Caption } from "../Typography/Caption/Caption";
 import { HasAlign, HasComponent } from "../../types";
 import { usePlatform } from "../../hooks/usePlatform";
 import {
@@ -14,8 +14,8 @@ import {
   withAdaptivity,
 } from "../../hoc/withAdaptivity";
 import { PlatformType, IOS, VKCOM, ANDROID } from "../../lib/platform";
-import Spinner from "../Spinner/Spinner";
-import Headline from "../Typography/Headline/Headline";
+import { Spinner } from "../Spinner/Spinner";
+import { Headline } from "../Typography/Headline/Headline";
 import "./Button.css";
 
 export interface VKUIButtonProps extends HasAlign {
@@ -60,10 +60,10 @@ const ButtonTypography: React.FC<ButtonTypographyProps> = (
   switch (size) {
     case "l":
       if (isCompact) {
-        return <Text weight="medium" {...restProps} />;
+        return <Text weight="2" {...restProps} />;
       }
       if (platform === ANDROID) {
-        return <Headline weight="medium" {...restProps} />;
+        return <Headline weight="2" {...restProps} />;
       }
       return <Title level="3" weight="2" {...restProps} />;
     case "m":
@@ -73,7 +73,7 @@ const ButtonTypography: React.FC<ButtonTypographyProps> = (
         );
       }
 
-      return <Text weight="medium" {...restProps} />;
+      return <Text weight="2" {...restProps} />;
     case "s":
     default:
       if (platform === IOS) {
@@ -81,11 +81,11 @@ const ButtonTypography: React.FC<ButtonTypographyProps> = (
       }
 
       if (platform === VKCOM) {
-        return <Caption level="1" weight="regular" {...restProps} />;
+        return <Caption {...restProps} />;
       }
 
       if (isCompact) {
-        return <Caption level="1" weight="medium" {...restProps} />;
+        return <Caption weight="2" {...restProps} />;
       }
 
       return <Subhead weight="2" {...restProps} />;
@@ -141,25 +141,26 @@ function resolveButtonAppearance(
   };
 }
 
-const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
+const ButtonComponent: React.FC<ButtonProps> = ({
+  size = "s",
+  mode = "primary",
+  appearance,
+  stretched = false,
+  align = "center",
+  children,
+  before,
+  after,
+  getRootRef,
+  sizeY,
+  Component = "button",
+  loading,
+  onClick,
+  stopPropagation = true,
+  ...restProps
+}) => {
   const platform = usePlatform();
-  const {
-    size,
-    mode,
-    appearance,
-    stretched,
-    align,
-    children,
-    before,
-    after,
-    getRootRef,
-    sizeY,
-    Component = "button",
-    loading,
-    onClick,
-    ...restProps
-  } = props;
   const hasIcons = Boolean(before || after);
+  const hasIconOnly = !children && Boolean(after) !== Boolean(before);
   const { resolvedMode, resolvedAppearance } = resolveButtonAppearance(
     appearance,
     mode
@@ -172,6 +173,7 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
       Component={restProps.href ? "a" : Component}
       onClick={loading ? undefined : onClick}
       focusVisibleMode="outside"
+      stopPropagation={stopPropagation}
       vkuiClass={classNames(
         "Button",
         `Button--sz-${size}`,
@@ -179,13 +181,9 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
         `Button--clr-${resolvedAppearance}`,
         `Button--aln-${align}`,
         `Button--sizeY-${sizeY}`,
-        {
-          ["Button--stretched"]: stretched,
-          ["Button--with-icon"]: hasIcons,
-          ["Button--singleIcon"]: Boolean(
-            (!children && !after && before) || (!children && after && !before)
-          ),
-        }
+        stretched && "Button--stretched",
+        hasIcons && "Button--with-icon",
+        hasIconOnly && "Button--singleIcon"
       )}
       getRootRef={getRootRef}
       hoverMode={hasNewTokens ? "Button--hover" : "background"}
@@ -193,7 +191,11 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     >
       {loading && <Spinner size="small" vkuiClass="Button__spinner" />}
       <span vkuiClass="Button__in">
-        {before && <span vkuiClass="Button__before">{before}</span>}
+        {before && (
+          <span vkuiClass="Button__before" role="presentation">
+            {before}
+          </span>
+        )}
         {children && (
           <ButtonTypography
             size={size}
@@ -205,21 +207,19 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
             {children}
           </ButtonTypography>
         )}
-        {after && <span vkuiClass="Button__after">{after}</span>}
+        {after && (
+          <span vkuiClass="Button__after" role="presentation">
+            {after}
+          </span>
+        )}
       </span>
     </Tappable>
   );
 };
 
-Button.defaultProps = {
-  mode: "primary",
-  align: "center",
-  size: "s",
-  stretched: false,
-  stopPropagation: true,
-};
-
-// eslint-disable-next-line import/no-default-export
-export default withAdaptivity(Button, {
+/**
+ * @see https://vkcom.github.io/VKUI/#/Button
+ */
+export const Button = withAdaptivity(ButtonComponent, {
   sizeY: true,
 });

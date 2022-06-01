@@ -1,18 +1,18 @@
 import * as React from "react";
 import { PopoutWrapper } from "../PopoutWrapper/PopoutWrapper";
-import { ViewWidth, ViewHeight } from "../../hoc/withAdaptivity";
 import { IOS } from "../../lib/platform";
 import { ActionSheetDropdownDesktop } from "./ActionSheetDropdownDesktop";
 import { ActionSheetDropdown } from "./ActionSheetDropdown";
 import { hasReactNode, noop } from "../../lib/utils";
 import { ActionSheetContext, ItemClickHandler } from "./ActionSheetContext";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useAdaptivity } from "../../hooks/useAdaptivity";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import { useObjectMemo } from "../../hooks/useObjectMemo";
 import { warnOnce } from "../../lib/warnOnce";
 import { SharedDropdownProps, PopupDirection, ToggleRef } from "./types";
+import { useScrollLock } from "../AppRoot/ScrollContext";
 import "./ActionSheet.css";
 
 export interface ActionSheetProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -40,6 +40,9 @@ export interface ActionSheetProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const warn = warnOnce("ActionSheet");
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ActionSheet
+ */
 export const ActionSheet: React.FC<ActionSheetProps> = ({
   children,
   className,
@@ -61,13 +64,15 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
   };
 
   if (process.env.NODE_ENV === "development" && !restProps.onClose) {
-    warn("can't close on outer click without onClose");
+    warn(
+      `Без свойства "onClose" нельзя закрыть ActionSheet по клику вне компонента`,
+      "error"
+    );
   }
 
-  const { viewWidth, viewHeight, hasMouse } = useAdaptivity();
-  const isDesktop =
-    viewWidth >= ViewWidth.SMALL_TABLET &&
-    (hasMouse || viewHeight >= ViewHeight.MEDIUM);
+  const isDesktop = useAdaptivityIsDesktop();
+
+  useScrollLock(!isDesktop);
 
   let timeout = platform === IOS ? 300 : 200;
 
@@ -117,17 +122,14 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
           <header vkuiClass="ActionSheet__header">
             {hasReactNode(header) && (
               <Caption
-                level="1"
-                weight={platform === IOS ? "semibold" : "medium"}
+                weight={platform === IOS ? "1" : "2"}
                 vkuiClass="ActionSheet__title"
               >
                 {header}
               </Caption>
             )}
             {hasReactNode(text) && (
-              <Caption level="1" weight="regular" vkuiClass="ActionSheet__text">
-                {text}
-              </Caption>
+              <Caption vkuiClass="ActionSheet__text">{text}</Caption>
             )}
           </header>
         )}

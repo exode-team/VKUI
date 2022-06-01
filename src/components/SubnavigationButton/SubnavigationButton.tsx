@@ -6,8 +6,8 @@ import { getTitleFromChildren, hasReactNode } from "../../lib/utils";
 import Tappable, { TappableProps } from "../Tappable/Tappable";
 import { Icon16Dropdown } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
-import Caption from "../Typography/Caption/Caption";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Caption } from "../Typography/Caption/Caption";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import "./SubnavigationButton.css";
 
 export interface SubnavigationButtonProps extends Omit<TappableProps, "size"> {
@@ -39,15 +39,12 @@ const SubnavigationButtonTypography: React.FC<SubnavButtonTypographyProps> = ({
     return <Subhead {...restProps} />;
   }
 
-  return (
-    <Caption
-      level={textLevel === 2 ? "1" : "2"}
-      weight="regular"
-      {...restProps}
-    />
-  );
+  return <Caption level={textLevel === 2 ? "1" : "2"} {...restProps} />;
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/SubnavigationButton
+ */
 export const SubnavigationButton: React.FC<SubnavigationButtonProps> = (
   props: SubnavigationButtonProps
 ) => {
@@ -68,6 +65,7 @@ export const SubnavigationButton: React.FC<SubnavigationButtonProps> = (
       {...restProps}
       hasActive={false}
       focusVisibleMode="outside"
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("SubnavigationButton", platform),
         `SubnavigationButton--${size}`,

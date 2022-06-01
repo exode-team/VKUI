@@ -2,7 +2,7 @@ import * as React from "react";
 import { Icon16Cancel } from "@vkontakte/icons";
 import { getTitleFromChildren, hasReactNode, noop } from "../../lib/utils";
 import { classNames } from "../../lib/classNames";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import Tappable from "../Tappable/Tappable";
 import "./Chip.css";
 
@@ -18,6 +18,9 @@ export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
   after?: React.ReactNode;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Chip
+ */
 export const Chip: React.FC<ChipProps> = ({
   value = "",
   option,
@@ -39,6 +42,7 @@ export const Chip: React.FC<ChipProps> = ({
 
   return (
     <div
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames("Chip", { "Chip--removable": removable })}
       role="option"
       aria-label={title}
@@ -46,13 +50,7 @@ export const Chip: React.FC<ChipProps> = ({
     >
       <div vkuiClass="Chip__in" role="presentation">
         {hasReactNode(before) && <div vkuiClass="Chip__before">{before}</div>}
-        <Caption
-          level="1"
-          weight="regular"
-          vkuiClass="Chip__content"
-          title={title}
-          aria-hidden="true"
-        >
+        <Caption vkuiClass="Chip__content" title={title} aria-hidden="true">
           {children}
         </Caption>
         {hasReactNode(after) && <div vkuiClass="Chip__after">{after}</div>}

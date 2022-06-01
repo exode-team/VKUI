@@ -5,8 +5,8 @@ import { useExternRef } from "../../hooks/useExternRef";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import { hasReactNode, noop } from "../../lib/utils";
-import Subhead from "../Typography/Subhead/Subhead";
-import Caption from "../Typography/Caption/Caption";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Caption } from "../Typography/Caption/Caption";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { Removable, RemovableProps } from "../Removable/Removable";
 import "./FormItem.css";
@@ -25,6 +25,9 @@ export interface FormItemProps
   removable?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormItem
+ */
 export const FormItem: React.FC<FormItemProps> = ({
   children,
   top,
@@ -46,9 +49,7 @@ export const FormItem: React.FC<FormItemProps> = ({
       {hasReactNode(top) && <Subhead vkuiClass="FormItem__top">{top}</Subhead>}
       {children}
       {hasReactNode(bottom) && (
-        <Caption level="1" weight="regular" vkuiClass="FormItem__bottom">
-          {bottom}
-        </Caption>
+        <Caption vkuiClass="FormItem__bottom">{bottom}</Caption>
       )}
     </React.Fragment>
   );
@@ -57,6 +58,7 @@ export const FormItem: React.FC<FormItemProps> = ({
     <Component
       {...restProps}
       ref={rootEl}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("FormItem", platform),
         `FormItem--${status}`,

@@ -2,7 +2,8 @@ import * as React from "react";
 import { usePlatform } from "../../hooks/usePlatform";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import HorizontalScroll, {
+import {
+  HorizontalScroll,
   HorizontalScrollProps,
   ScrollPositionHandler,
 } from "../HorizontalScroll/HorizontalScroll";
@@ -24,6 +25,9 @@ const defaultScrollToLeft: ScrollPositionHandler = (x) => x - 240;
 
 const defaultScrollToRight: ScrollPositionHandler = (x) => x + 240;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/SubnavigationBar
+ */
 export const SubnavigationBar: React.FC<SubnavigationBarProps> = ({
   mode = "overflow",
   children,

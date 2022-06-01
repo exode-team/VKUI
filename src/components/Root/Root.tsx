@@ -42,6 +42,10 @@ export interface RootState {
 }
 
 const warn = warnOnce("Root");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Root
+ */
 const Root: React.FC<RootProps> = ({
   popout = null,
   modal,
@@ -80,7 +84,7 @@ const Root: React.FC<RootProps> = ({
       _setState({
         activeView: panel,
         prevView: activeView,
-        transition: true,
+        transition: !disableAnimation,
         isBack,
       });
     }
@@ -107,7 +111,7 @@ const Root: React.FC<RootProps> = ({
           to: activeView,
         });
     }
-  }, [transition]);
+  }, [transition, prevView]);
 
   const fallbackTransition = useTimeout(
     finishTransition,
@@ -118,8 +122,8 @@ const Root: React.FC<RootProps> = ({
       fallbackTransition.clear();
       return;
     }
-    disableAnimation ? finishTransition() : fallbackTransition.set();
-  }, [disableAnimation, fallbackTransition, finishTransition, transition]);
+    fallbackTransition.set();
+  }, [fallbackTransition, transition]);
 
   const onAnimationEnd = (e: React.AnimationEvent) => {
     if (
@@ -148,9 +152,9 @@ const Root: React.FC<RootProps> = ({
   return (
     <div
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("Root", platform), {
-        "Root--transition": !disableAnimation && transition,
-        "Root--no-motion": disableAnimation,
+        "Root--transition": transition,
       })}
     >
       {views.map((view) => {
@@ -168,6 +172,7 @@ const Root: React.FC<RootProps> = ({
             key={viewId}
             ref={(e) => viewId && (viewNodes[viewId] = e)}
             onAnimationEnd={isTransitionTarget ? onAnimationEnd : undefined}
+            // eslint-disable-next-line vkui/no-object-expression-in-arguments
             vkuiClass={classNames("Root__view", {
               "Root__view--hide-back":
                 transition && viewId === prevView && isBack,

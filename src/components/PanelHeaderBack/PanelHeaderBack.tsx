@@ -24,6 +24,9 @@ export type PanelHeaderBackProps = PanelHeaderButtonProps &
     "aria-label"?: string;
   };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderBack
+ */
 const PanelHeaderBack: React.FunctionComponent<PanelHeaderBackProps> = ({
   label,
   sizeX,
@@ -36,6 +39,7 @@ const PanelHeaderBack: React.FunctionComponent<PanelHeaderBackProps> = ({
   return (
     <PanelHeaderButton
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("PanelHeaderBack", platform), {
         "PanelHeaderBack--has-label": showLabel && !!label,
       })}

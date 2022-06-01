@@ -6,8 +6,8 @@ import { getClassName } from "../../helpers/getClassName";
 import { ANDROID, VKCOM } from "../../lib/platform";
 import { rubber } from "../../lib/touch";
 import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
-import Text from "../Typography/Text/Text";
-import Button from "../Button/Button";
+import { Text } from "../Typography/Text/Text";
+import { Button } from "../Button/Button";
 import { AppRootPortal } from "../AppRoot/AppRootPortal";
 import { useWaitTransitionFinish } from "../../hooks/useWaitTransitionFinish";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -195,6 +195,7 @@ const SnackbarComponent: React.FC<
     <AppRootPortal>
       <div
         {...restProps}
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass={classNames(
           getClassName("Snackbar", platform),
           `Snackbar--l-${resolvedLayout}`,
@@ -216,9 +217,7 @@ const SnackbarComponent: React.FC<
             {before && <div vkuiClass="Snackbar__before">{before}</div>}
 
             <div vkuiClass="Snackbar__content">
-              <Text weight="regular" vkuiClass="Snackbar__content-text">
-                {children}
-              </Text>
+              <Text vkuiClass="Snackbar__content-text">{children}</Text>
 
               {action && (
                 <Button
@@ -249,6 +248,9 @@ SnackbarComponent.defaultProps = {
   layout: "horizontal",
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Snackbar
+ */
 export const Snackbar = withAdaptivity(SnackbarComponent, {
   viewWidth: true,
 });

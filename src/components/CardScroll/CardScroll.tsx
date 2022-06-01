@@ -3,7 +3,8 @@ import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { usePlatform } from "../../hooks/usePlatform";
-import HorizontalScroll, {
+import {
+  HorizontalScroll,
   HorizontalScrollProps,
 } from "../HorizontalScroll/HorizontalScroll";
 import { useDOM } from "../../lib/dom";
@@ -18,6 +19,9 @@ export interface CardScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   withSpaces?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CardScroll
+ */
 export const CardScroll: React.FC<CardScrollProps> = ({
   children,
   size = "s",
@@ -93,6 +97,7 @@ export const CardScroll: React.FC<CardScrollProps> = ({
   return (
     <div
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("CardScroll", platform),
         `CardScroll--sizeX-${sizeX}`,

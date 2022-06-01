@@ -106,6 +106,10 @@ export interface ViewState {
 }
 
 const warn = warnOnce("View");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/View
+ */
 class View extends React.Component<ViewProps & DOMProps, ViewState> {
   constructor(props: ViewProps) {
     super(props);
@@ -170,6 +174,9 @@ class View extends React.Component<ViewProps & DOMProps, ViewState> {
     const id = getNavId(this.props);
     if (id) {
       scrollsCache[id] = this.scrolls;
+    }
+    if (this.animationFinishTimeout) {
+      clearTimeout(this.animationFinishTimeout);
     }
   }
 
@@ -606,6 +613,7 @@ class View extends React.Component<ViewProps & DOMProps, ViewState> {
 
             return (
               <div
+                // eslint-disable-next-line vkui/no-object-expression-in-arguments
                 vkuiClass={classNames("View__panel", {
                   "View__panel--active": panelId === activePanel,
                   "View__panel--prev": panelId === prevPanel,

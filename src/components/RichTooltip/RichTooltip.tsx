@@ -9,6 +9,9 @@ import "./RichTooltip.css";
 
 export type RichTooltipProps = Omit<HoverPopperProps, "arrowClassName">;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichTooltip
+ */
 export const RichTooltip: React.FC<RichTooltipProps> = ({
   children,
   arrow = true,
@@ -19,6 +22,7 @@ export const RichTooltip: React.FC<RichTooltipProps> = ({
 
   return (
     <HoverPopper
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("RichTooltip", platform), {
         [`RichTooltip--${appearance}`]: !!appearance,
       })}

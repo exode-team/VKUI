@@ -8,7 +8,7 @@ import {
   startOfDay,
   endOfDay,
   isWithinInterval,
-} from "date-fns";
+} from "../../lib/date";
 import {
   CalendarHeader,
   CalendarHeaderProps,
@@ -32,6 +32,8 @@ export interface CalendarRangeProps
       | "nextMonthAriaLabel"
       | "changeMonthAriaLabel"
       | "changeYearAriaLabel"
+      | "prevMonthIcon"
+      | "nextMonthIcon"
     >,
     HasRootRef<HTMLDivElement> {
   value?: Array<Date | null>;
@@ -51,13 +53,13 @@ const getIsDaySelected = (day: Date, value?: Array<Date | null>) => {
   }
 
   return Boolean(
-    isWithinInterval(day, {
-      start: startOfDay(value[0]),
-      end: endOfDay(value[1]),
-    })
+    isWithinInterval(day, startOfDay(value[0]), endOfDay(value[1]))
   );
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CalendarRange
+ */
 export const CalendarRange: React.FC<CalendarRangeProps> = ({
   value,
   onChange,
@@ -73,6 +75,8 @@ export const CalendarRange: React.FC<CalendarRangeProps> = ({
   changeMonthAriaLabel,
   changeYearAriaLabel,
   changeDayAriaLabel = "Изменить день",
+  prevMonthIcon,
+  nextMonthIcon,
   ...props
 }) => {
   const {
@@ -217,6 +221,7 @@ export const CalendarRange: React.FC<CalendarRangeProps> = ({
           nextMonthAriaLabel={nextMonthAriaLabel}
           changeMonthAriaLabel={changeMonthAriaLabel}
           changeYearAriaLabel={changeYearAriaLabel}
+          prevMonthIcon={prevMonthIcon}
         />
         <CalendarDays
           viewDate={viewDate}
@@ -250,6 +255,7 @@ export const CalendarRange: React.FC<CalendarRangeProps> = ({
           nextMonthAriaLabel={nextMonthAriaLabel}
           changeMonthAriaLabel={changeMonthAriaLabel}
           changeYearAriaLabel={changeYearAriaLabel}
+          nextMonthIcon={nextMonthIcon}
         />
         <CalendarDays
           viewDate={secondViewDate}

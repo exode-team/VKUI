@@ -7,11 +7,31 @@ import { hasReactNode } from "../../lib/utils";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import "./FormField.css";
 
+export const FormFieldMode = {
+  default: "default",
+  plain: "plain",
+} as const;
+
 export interface FormFieldProps {
   /**
-   * Иконка 12|16|20|24|28 или `IconButton`.
+   * Добавляет иконку слева.
+   *
+   * Рекомендации:
+   *
+   * - Используйте следующие размеры иконок `12` | `16` | `20` | `24` | `28`.
+   * - Используйте [IconButton](#/IconButton), если вам нужна кликабельная иконка.
+   */
+  before?: React.ReactNode;
+  /**
+   * Добавляет иконку справа.
+   *
+   * Рекомендации:
+   *
+   * - Используйте следующие размеры иконок `12` | `16` | `20` | `24` | `28`.
+   * - Используйте [IconButton](#/IconButton), если вам нужна кликабельная иконка.
    */
   after?: React.ReactNode;
+  mode?: keyof typeof FormFieldMode;
 }
 
 interface FormFieldOwnProps
@@ -22,12 +42,17 @@ interface FormFieldOwnProps
   disabled?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormField
+ */
 export const FormField: React.FC<FormFieldOwnProps> = ({
   Component = "div",
   children,
   getRootRef,
+  before,
   after,
   disabled,
+  mode = FormFieldMode.default,
   ...restProps
 }: FormFieldOwnProps) => {
   const platform = usePlatform();
@@ -53,24 +78,24 @@ export const FormField: React.FC<FormFieldOwnProps> = ({
       onMouseLeave={handleMouseLeave}
       vkuiClass={classNames(
         getClassName("FormField", platform),
+        `FormField--${mode}`,
         `FormField--sizeY-${sizeY}`,
-        {
-          "FormField--disabled": disabled,
-        }
+        disabled && "FormField--disabled",
+        !disabled && hover && "FormField--hover"
       )}
     >
+      {hasReactNode(before) && (
+        <div role="presentation" vkuiClass="FormField__before">
+          {before}
+        </div>
+      )}
       {children}
       {hasReactNode(after) && (
         <div role="presentation" vkuiClass="FormField__after">
           {after}
         </div>
       )}
-      <div
-        role="presentation"
-        vkuiClass={classNames("FormField__border", {
-          "FormField__border--hover": !disabled && hover,
-        })}
-      />
+      <div role="presentation" vkuiClass="FormField__border" />
     </Component>
   );
 };

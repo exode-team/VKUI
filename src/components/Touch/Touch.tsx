@@ -63,6 +63,9 @@ export type TouchEventHandler = (e: TouchEvent) => void;
 export type ClickHandler = (e: React.MouseEvent<HTMLElement>) => void;
 export type DragHandler = (e: React.DragEvent<HTMLElement>) => void;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Touch
+ */
 export const Touch: React.FC<TouchProps> = ({
   onStart,
   onStartX,
@@ -91,10 +94,10 @@ export const Touch: React.FC<TouchProps> = ({
   const gesture = React.useRef<Partial<Gesture> | null>(null);
   const handle = (
     e: VKUITouchEvent,
-    handers: Array<TouchEventHandler | undefined | false>
+    handlers: Array<TouchEventHandler | undefined | false>
   ) => {
     stopPropagation && e.stopPropagation();
-    handers.forEach((cb) => {
+    handlers.forEach((cb) => {
       const duration = Date.now() - (gesture.current?.startT?.getTime() ?? 0);
       cb && cb({ ...(gesture.current as Gesture), duration, originalEvent: e });
     });
@@ -209,7 +212,7 @@ export const Touch: React.FC<TouchProps> = ({
     if (touchEnabled()) {
       onLeave && onLeave(e);
     }
-    subscribe(null);
+    unsubscribe();
   }
 
   const listenerParams = { capture: useCapture, passive: false };
@@ -222,6 +225,9 @@ export const Touch: React.FC<TouchProps> = ({
     if (el) {
       listeners.forEach((l) => l.add(el));
     }
+  }
+  function unsubscribe() {
+    listeners.forEach((l) => l.remove());
   }
 
   /**

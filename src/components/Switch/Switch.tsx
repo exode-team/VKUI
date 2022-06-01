@@ -17,6 +17,9 @@ export interface SwitchProps
   extends VisuallyHiddenInputProps,
     HasRootRef<HTMLLabelElement> {}
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Switch
+ */
 export const Switch: React.FC<SwitchProps> = ({
   style,
   className,
@@ -32,10 +35,8 @@ export const Switch: React.FC<SwitchProps> = ({
       vkuiClass={classNames(
         getClassName("Switch", platform),
         `Switch--sizeY-${sizeY}`,
-        {
-          "Switch--disabled": restProps.disabled,
-          "Switch--focus-visible": focusVisible,
-        }
+        restProps.disabled && "Switch--disabled",
+        focusVisible && "Switch--focus-visible"
       )}
       className={className}
       style={style}

@@ -11,6 +11,7 @@ import {
   withAdaptivity,
   ConfigProvider,
   ViewWidth,
+  WebviewType,
   Platform,
   Appearance,
 } from "@vkui";
@@ -25,6 +26,7 @@ let initialState = {
   hasMouse: true,
   appearance: Appearance.LIGHT,
   styleguideAppearance: Appearance.LIGHT,
+  webviewType: WebviewType.VKAPPS,
 };
 
 try {
@@ -61,13 +63,6 @@ let StyleGuideRenderer = ({ children, toc, viewWidth }) => {
       setContext({ hasMouse: true, width: TABLET_SIZE });
     }
   }, [platform]);
-
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "color-scheme",
-      styleguideAppearance
-    );
-  }, [styleguideAppearance]);
 
   const switchStyleGuideAppearance = useCallback(() => {
     const value =

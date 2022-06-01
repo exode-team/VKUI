@@ -1,21 +1,23 @@
 import * as React from "react";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
 import { classNames } from "../../lib/classNames";
-import ChipsInput, {
+import {
+  ChipsInput,
   ChipsInputOption,
   ChipsInputProps,
   ChipsInputValue,
   RenderChip,
   chipsInputDefaultProps,
 } from "../ChipsInput/ChipsInput";
-import CustomSelectOption, {
+import {
+  CustomSelectOption,
   CustomSelectOptionProps,
 } from "../CustomSelectOption/CustomSelectOption";
 import { useChipsSelect } from "./useChipsSelect";
 import { withAdaptivity, AdaptivityProps } from "../../hoc/withAdaptivity";
 import { noop } from "../../lib/utils";
 import { useDOM } from "../../lib/dom";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { prefixClass } from "../../lib/prefixClass";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
@@ -68,7 +70,7 @@ export interface ChipsSelectProps<Option extends ChipsInputOption>
     option: Option
   ) => void;
   /**
-   * Закрытие выпадающиего списка после выбора элемента
+   * Закрытие выпадающего списка после выбора элемента
    */
   closeAfterSelect?: boolean;
 }
@@ -367,10 +369,11 @@ const ChipsSelectComponent = <Option extends ChipsInputOption>(
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
-        vkuiClass={classNames({
-          ["ChipsSelect__open"]: opened,
-          ["ChipsSelect__open--popupDirectionTop"]: isPopperDirectionTop,
-        })}
+        vkuiClass={classNames(
+          opened && "Select--open",
+          opened &&
+            (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")
+        )}
         getRef={getRef}
         disabled={disabled}
         onInputChange={handleInputChange}
@@ -396,9 +399,7 @@ const ChipsSelectComponent = <Option extends ChipsInputOption>(
             </CustomSelectOption>
           )}
           {!filteredOptions?.length && !showCreatable && emptyText ? (
-            <Caption level="1" weight="regular" vkuiClass="ChipsSelect__empty">
-              {emptyText}
-            </Caption>
+            <Caption vkuiClass="ChipsSelect__empty">{emptyText}</Caption>
           ) : (
             filteredOptions.map((option: Option, index: number) => {
               const label = getOptionLabel!(option);
@@ -449,6 +450,9 @@ const ChipsSelectComponent = <Option extends ChipsInputOption>(
   );
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsSelect
+ */
 export const ChipsSelect = withAdaptivity(ChipsSelectComponent, {
   sizeY: true,
 });

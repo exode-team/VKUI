@@ -184,7 +184,10 @@ const Tappable: React.FC<TappableProps> = ({
   const hasActive = _hasActive && !childHover && !props.disabled;
   const hasHover = deviceHasHover && _hasHover && !childHover;
   const isCustomElement =
-    Component !== "a" && Component !== "button" && !props.contentEditable;
+    Component !== "a" &&
+    Component !== "button" &&
+    Component !== "label" &&
+    !props.contentEditable;
   const isPresetHoverMode = ["opacity", "background"].includes(hoverMode);
   const isPresetActiveMode = ["opacity", "background"].includes(activeMode);
   const isPresetFocusVisibleMode = ["inside", "outside"].includes(
@@ -257,13 +260,16 @@ const Tappable: React.FC<TappableProps> = ({
     }
 
     // отключить без задержки при длинном тапе
-    const activeDuraion = duration - ACTIVE_DELAY;
-    stop(activeDuraion >= 100 ? 0 : activeEffectDelay - activeDuraion);
+    const activeDuration = duration - ACTIVE_DELAY;
+    stop(activeDuration >= 100 ? 0 : activeEffectDelay - activeDuration);
   }
 
+  // eslint-disable-next-line vkui/no-object-expression-in-arguments
   const classes = classNames(
     getClassName("Tappable", platform),
     `Tappable--sizeX-${sizeX}`,
+    hasHover && `Tappable--hasHover`,
+    hasActive && `Tappable--hasActive`,
     hasHover && hovered && !isPresetHoverMode && hoverMode,
     hasActive && active && !isPresetActiveMode && activeMode,
     focusVisible && !isPresetFocusVisibleMode && focusVisibleMode,

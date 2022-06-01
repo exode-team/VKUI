@@ -45,9 +45,25 @@ export interface ModalRootProps extends HasPlatform {
   activeModal?: string | null;
 
   /**
-   * Будет вызвано при закрытии активной модалки с её id
+   * Будет вызвано при начале открытия активной модалки с её id
+   */
+  onOpen?(modalId: string): void;
+
+  /**
+   * Будет вызвано при окончательном открытии активной модалки с её id
+   */
+  onOpened?(modalId: string): void;
+
+  /**
+   * Будет вызвано при начале закрытия активной модалки с её id
    */
   onClose?(modalId: string): void;
+
+  /**
+   * Будет вызвано при окончательном закрытии активной модалки с её id
+   */
+  onClosed?(modalId: string): void;
+
   /**
    * @ignore
    */
@@ -76,7 +92,7 @@ class ModalRootTouchComponent extends React.Component<
       updateModalHeight: this.updateModalHeight,
       registerModal: ({ id, ...data }) =>
         Object.assign(this.getModalState(id), data),
-      onClose: () => this.props.closeActiveModal(),
+      onClose: () => this.props.onExit(),
       isInsideModal: true,
     };
 
@@ -150,11 +166,12 @@ class ModalRootTouchComponent extends React.Component<
     ) {
       const { enteringModal } = this.props;
       const enteringState = this.getModalState(enteringModal);
+      this.props.onEnter();
       this.waitTransitionFinish(enteringState, () => {
         if (enteringState?.innerElement) {
           enteringState.innerElement.style.transitionDelay = "";
         }
-        this.props.onEnter(enteringModal);
+        this.props.onEntered(enteringModal);
       });
 
       if (enteringState?.innerElement) {
@@ -274,7 +291,11 @@ class ModalRootTouchComponent extends React.Component<
     const prevModalState = this.getModalState(id);
 
     if (!prevModalState) {
-      id && warn(`[closeActiveModal] Modal ${id} does not exist - not closing`);
+      id &&
+        warn(
+          `closeActiveModal: модальное окно (страница) ${id} не существует`,
+          "error"
+        );
       return;
     }
 
@@ -284,7 +305,7 @@ class ModalRootTouchComponent extends React.Component<
 
     const prevIsPage =
       !!prevModalState && prevModalState.type === ModalType.PAGE;
-    this.waitTransitionFinish(prevModalState, () => this.props.onExit(id));
+    this.waitTransitionFinish(prevModalState, () => this.props.onExited(id));
     const exitTranslate =
       prevIsPage &&
       nextIsPage &&
@@ -475,7 +496,7 @@ class ModalRootTouchComponent extends React.Component<
       modalState.hidden = translateY === 100;
 
       if (modalState.hidden) {
-        this.props.closeActiveModal();
+        this.props.onExit();
       }
 
       setStateCallback = () => {
@@ -519,7 +540,7 @@ class ModalRootTouchComponent extends React.Component<
       modalState.hidden = translateY === 100;
 
       if (modalState.hidden) {
-        this.props.closeActiveModal();
+        this.props.onExit();
       }
 
       setStateCallback = () => {
@@ -647,6 +668,7 @@ class ModalRootTouchComponent extends React.Component<
       <TouchRootContext.Provider value={true}>
         <ModalRootContext.Provider value={this.modalRootContext}>
           <Touch
+            // eslint-disable-next-line vkui/no-object-expression-in-arguments
             vkuiClass={classNames(
               getClassName("ModalRoot", this.props.platform),
               {
@@ -662,7 +684,7 @@ class ModalRootTouchComponent extends React.Component<
           >
             <div
               vkuiClass="ModalRoot__mask"
-              onClick={this.props.closeActiveModal}
+              onClick={this.props.onExit}
               ref={this.maskElementRef}
             />
             <div vkuiClass="ModalRoot__viewport" ref={this.viewportRef}>
@@ -689,8 +711,9 @@ class ModalRootTouchComponent extends React.Component<
                         modalState.modalElement = e;
                       }
                     }}
-                    onClose={this.props.closeActiveModal}
+                    onClose={this.props.onExit}
                     timeout={this.timeout}
+                    // eslint-disable-next-line vkui/no-object-expression-in-arguments
                     vkuiClass={classNames("ModalRoot__modal", {
                       "ModalRoot__modal--active": modalId === activeModal,
                       "ModalRoot__modal--prev": modalId === exitingModal,
@@ -743,7 +766,11 @@ function initModal(modalState: ModalsStateEntry) {
     case ModalType.CARD:
       return initCardModal(modalState);
     default:
-      IS_DEV && warn("[initActiveModal] modalState.type is unknown");
+      IS_DEV &&
+        warn(
+          `initActiveModal: modalState.type="${modalState.type}" не поддерживается`,
+          "error"
+        );
   }
 }
 

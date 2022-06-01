@@ -11,16 +11,15 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { classScopingMode } from "../../lib/classScopingMode";
 import { IconSettingsProvider } from "@vkontakte/icons";
 import {
-  elementScrollController,
-  globalScrollController,
-  ScrollContext,
-  ScrollContextInterface,
+  ElementScrollController,
+  GlobalScrollController,
 } from "./ScrollContext";
 import { noop } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
 import { useKeyboardInputTracker } from "../../hooks/useKeyboardInputTracker";
 import { useInsets } from "../../hooks/useInsets";
 import { Insets } from "@vkontakte/vk-bridge";
+import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
 import "./AppRoot.css";
 
 // Используйте classList, но будьте осторожны
@@ -40,6 +39,10 @@ export interface AppRootProps
 }
 
 const warn = warnOnce("AppRoot");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/AppRoot
+ */
 export const AppRoot = withAdaptivity<AppRootProps>(
   ({
     children,
@@ -58,8 +61,9 @@ export const AppRoot = withAdaptivity<AppRootProps>(
     const [portalRoot, setPortalRoot] = React.useState<HTMLDivElement | null>(
       null
     );
-    const { window, document } = useDOM();
+    const { document } = useDOM();
     const insets = useInsets();
+    const { appearance } = React.useContext(ConfigProviderContext);
 
     const initialized = React.useRef(false);
     if (!initialized.current) {
@@ -72,10 +76,13 @@ export const AppRoot = withAdaptivity<AppRootProps>(
 
     if (process.env.NODE_ENV === "development") {
       if (scroll !== "global" && mode !== "embedded") {
-        warn("Scroll modes only supported in embedded mode");
+        warn(
+          `Свойство scroll="${scroll}" поддерживается только в режиме embedded`,
+          "error"
+        );
       }
       if (_mode && _embedded) {
-        warn(`mode="${mode}" overrides embedded`);
+        warn(`Свойство mode="${mode}" приоритетнее, чем "embedded"`);
       }
     }
 
@@ -155,12 +162,20 @@ export const AppRoot = withAdaptivity<AppRootProps>(
       return () => container?.classList.remove("vkui--sizeX-regular");
     }, [sizeX]);
 
-    const scrollController = React.useMemo<ScrollContextInterface>(
+    useIsomorphicLayoutEffect(() => {
+      if (mode !== "full" || appearance === undefined) {
+        return noop;
+      }
+      document!.documentElement.style.setProperty("color-scheme", appearance);
+
+      return () =>
+        document!.documentElement.style.removeProperty("color-scheme");
+    }, [appearance]);
+
+    const ScrollController = React.useMemo(
       () =>
-        scroll === "contain"
-          ? elementScrollController(rootRef)
-          : globalScrollController(window, document),
-      [document, scroll, window]
+        scroll === "contain" ? ElementScrollController : GlobalScrollController,
+      [scroll]
     );
 
     const content = (
@@ -173,14 +188,14 @@ export const AppRoot = withAdaptivity<AppRootProps>(
           mode,
         }}
       >
-        <ScrollContext.Provider value={scrollController}>
+        <ScrollController elRef={rootRef}>
           <IconSettingsProvider
             classPrefix="vkui"
             globalClasses={!noLegacyClasses}
           >
             {children}
           </IconSettingsProvider>
-        </ScrollContext.Provider>
+        </ScrollController>
       </AppRootContext.Provider>
     );
 
@@ -189,6 +204,7 @@ export const AppRoot = withAdaptivity<AppRootProps>(
     ) : (
       <div
         ref={rootRef}
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass={classNames("AppRoot", {
           "AppRoot--no-mouse": !hasMouse,
         })}

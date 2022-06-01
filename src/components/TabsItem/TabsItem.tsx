@@ -6,9 +6,9 @@ import { VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { TabsProps, TabsModeContext } from "../Tabs/Tabs";
-import Headline from "../Typography/Headline/Headline";
-import Subhead from "../Typography/Subhead/Subhead";
-import Text from "../Typography/Text/Text";
+import { Headline } from "../Typography/Headline/Headline";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Text } from "../Typography/Text/Text";
 import "./TabsItem.css";
 
 export interface TabsItemProps extends React.HTMLAttributes<HTMLElement> {
@@ -16,6 +16,9 @@ export interface TabsItemProps extends React.HTMLAttributes<HTMLElement> {
   selected?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/TabsItem
+ */
 const TabsItem: React.FC<TabsItemProps> = ({
   children,
   selected,
@@ -25,16 +28,17 @@ const TabsItem: React.FC<TabsItemProps> = ({
   const platform = usePlatform();
   const mode: TabsProps["mode"] = React.useContext(TabsModeContext);
 
-  let TypographyComponent =
+  let ItemTypography =
     mode === "buttons" || mode === "segmented" ? Subhead : Headline;
 
   if (platform === VKCOM) {
-    TypographyComponent = Text;
+    ItemTypography = Text;
   }
 
   return (
     <Tappable
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("TabsItem", platform), {
         "TabsItem--selected": selected,
       })}
@@ -42,13 +46,9 @@ const TabsItem: React.FC<TabsItemProps> = ({
       activeMode="TabsItem--active"
       focusVisibleMode={mode === "segmented" ? "outside" : "inside"}
     >
-      <TypographyComponent
-        Component="span"
-        vkuiClass="TabsItem__in"
-        weight="medium"
-      >
+      <ItemTypography Component="span" vkuiClass="TabsItem__in" weight="2">
         {children}
-      </TypographyComponent>
+      </ItemTypography>
       {hasReactNode(after) && <div vkuiClass="TabsItem__after">{after}</div>}
     </Tappable>
   );

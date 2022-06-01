@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Icon24Dismiss } from "@vkontakte/icons";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 import SimpleCell from "../SimpleCell/SimpleCell";
 import Avatar from "../Avatar/Avatar";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import { warnOnce } from "../../lib/warnOnce";
@@ -48,6 +48,10 @@ export interface PromoBannerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const warn = warnOnce("PromoBanner");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/PromoBanner
+ */
 const PromoBanner = (props: PromoBannerProps) => {
   const platform = usePlatform();
   const { bannerData = {}, onClose, ...restProps } = props;
@@ -90,13 +94,11 @@ const PromoBanner = (props: PromoBannerProps) => {
   return (
     <div vkuiClass={getClassName("PromoBanner", platform)} {...restProps}>
       <div vkuiClass="PromoBanner__head">
-        <Caption weight="regular" level="1" vkuiClass="PromoBanner__label">
+        <Caption vkuiClass="PromoBanner__label">
           {bannerData.advertisingLabel || "Advertisement"}
         </Caption>
         {ageRestrictions != null && (
-          <Caption weight="regular" level="1" vkuiClass="PromoBanner__age">
-            {ageRestrictions}+
-          </Caption>
+          <Caption vkuiClass="PromoBanner__age">{ageRestrictions}+</Caption>
         )}
 
         {!props.isCloseButtonHidden && (

@@ -37,6 +37,9 @@ export interface WriteBarIconProps
 const warn = warnOnce("WriteBarIcon");
 const IS_DEV = process.env.NODE_ENV === "development";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/WriteBarIcon
+ */
 export const WriteBarIcon: React.FC<WriteBarIconProps> = ({
   mode,
   children,
@@ -76,7 +79,8 @@ export const WriteBarIcon: React.FC<WriteBarIconProps> = ({
 
   if (IS_DEV && !restProps["aria-label"] && !ariaLabel) {
     warn(
-      "[WriteBarIcon/a11y] У WriteBarIcon нет aria-label. Кнопка будет недоступной для части пользователей."
+      "a11y: У WriteBarIcon нет aria-label. Кнопка будет недоступной для части пользователей.",
+      "error"
     );
   }
 
@@ -87,6 +91,7 @@ export const WriteBarIcon: React.FC<WriteBarIconProps> = ({
       Component="button"
       hasHover={false}
       activeMode="WriteBarIcon__active"
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("WriteBarIcon", platform), {
         [`WriteBarIcon--${mode}`]: !!mode,
       })}

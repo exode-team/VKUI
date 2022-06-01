@@ -2,7 +2,7 @@ import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
-import Text from "../Typography/Text/Text";
+import { Text } from "../Typography/Text/Text";
 import Tappable from "../../components/Tappable/Tappable";
 import { hasReactNode } from "../../lib/utils";
 import "./MiniInfoCell.css";
@@ -49,6 +49,9 @@ export interface MiniInfoCellProps
   textLevel?: "primary" | "secondary";
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/MiniInfoCell
+ */
 export const MiniInfoCell: React.FC<MiniInfoCellProps> = (
   props: MiniInfoCellProps
 ) => {
@@ -64,6 +67,7 @@ export const MiniInfoCell: React.FC<MiniInfoCellProps> = (
       disabled={!isClickable}
       role={isClickable ? "button" : undefined}
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("MiniInfoCell", platform),
         {
@@ -76,7 +80,7 @@ export const MiniInfoCell: React.FC<MiniInfoCellProps> = (
       <span vkuiClass="MiniInfoCell__icon">{before}</span>
       <Text
         vkuiClass="MiniInfoCell__content"
-        weight={mode === "more" ? "medium" : "regular"}
+        weight={mode === "more" ? "2" : undefined}
       >
         {children}
       </Text>

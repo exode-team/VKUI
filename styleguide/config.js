@@ -55,14 +55,14 @@ const baseConfig = {
   },
   theme: {
     color: {
-      codeBase: "var(--text_primary)",
-      codeBackground: "var(--button_secondary_background)",
-      codeScreen: "var(--dynamic_green)",
-      codeProperty: "var(--dynamic_purple)",
-      codeComment: "var(--text_secondary)",
-      codePunctuation: "var(--text_secondary)",
-      codeKeyword: "var(--dynamic_blue)",
-      codeFunction: "var(--dynamic_red)",
+      codeBase: "var(--vkui--color_text_primary)",
+      codeBackground: "var(--vkui--color_background_secondary_alpha)",
+      codeScreen: "var(--vkui--color_accent_green)",
+      codeProperty: "var(--vkui--color_accent_purple)",
+      codeComment: "var(--vkui--color_text_secondary)",
+      codePunctuation: "var(--vkui--color_text_secondary)",
+      codeKeyword: "var(--vkui--color_accent_blue)",
+      codeFunction: "var(--vkui--color_accent_red)",
     },
   },
   styles: {
@@ -180,6 +180,7 @@ const baseConfig = {
             "../src/components/TextTooltip/TextTooltip.tsx",
             "../src/components/RichTooltip/RichTooltip.tsx",
             "../src/components/Tooltip/Tooltip.tsx",
+            "../src/components/Popper/Popper.tsx",
           ],
         },
         {
@@ -283,6 +284,7 @@ const baseConfig = {
             "../src/components/Typography/Title/Title.tsx",
             "../src/components/Typography/Headline/Headline.tsx",
             "../src/components/Typography/Text/Text.tsx",
+            "../src/components/Typography/Paragraph/Paragraph.tsx",
             "../src/components/Typography/Subhead/Subhead.tsx",
             "../src/components/Typography/Caption/Caption.tsx",
           ],

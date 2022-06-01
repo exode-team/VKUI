@@ -13,10 +13,10 @@ import {
 } from "@vkontakte/icons";
 import Tappable from "../Tappable/Tappable";
 import IconButton from "../IconButton/IconButton";
-import Headline from "../Typography/Headline/Headline";
-import Subhead from "../Typography/Subhead/Subhead";
-import Text from "../Typography/Text/Text";
-import Title from "../Typography/Title/Title";
+import { Headline } from "../Typography/Headline/Headline";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Text } from "../Typography/Text/Text";
+import { Title } from "../Typography/Title/Title";
 import "./Banner.css";
 
 export interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -90,21 +90,13 @@ const BannerHeader: React.FC<BannerTypographyProps> = ({
   return size === "m" ? (
     <Title level="2" weight="2" {...restProps} />
   ) : (
-    <Headline weight="medium" {...restProps} />
+    <Headline weight="2" {...restProps} />
   );
 };
 
-const BannerSubheader: React.FC<BannerTypographyProps> = ({
-  size,
-  ...restProps
-}) => {
-  return size === "m" ? (
-    <Text weight="regular" {...restProps} />
-  ) : (
-    <Subhead {...restProps} />
-  );
-};
-
+/**
+ * @see https://vkcom.github.io/VKUI/#/Banner
+ */
 const Banner: React.FC<BannerProps> = (props: BannerProps) => {
   const platform = usePlatform();
   const {
@@ -124,9 +116,12 @@ const Banner: React.FC<BannerProps> = (props: BannerProps) => {
     ...restProps
   } = props;
 
+  const SubheaderTypography = size === "m" ? Text : Subhead;
+
   return (
     <section
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("Banner", platform),
         `Banner--md-${mode}`,
@@ -161,19 +156,11 @@ const Banner: React.FC<BannerProps> = (props: BannerProps) => {
             </BannerHeader>
           )}
           {hasReactNode(subheader) && (
-            <BannerSubheader
-              Component="span"
-              size={size}
-              vkuiClass="Banner__subheader"
-            >
+            <SubheaderTypography Component="span" vkuiClass="Banner__subheader">
               {subheader}
-            </BannerSubheader>
+            </SubheaderTypography>
           )}
-          {hasReactNode(text) && (
-            <Text weight="regular" vkuiClass="Banner__text">
-              {text}
-            </Text>
-          )}
+          {hasReactNode(text) && <Text vkuiClass="Banner__text">{text}</Text>}
           {hasReactNode(actions) && React.Children.count(actions) > 0 && (
             <div vkuiClass="Banner__actions">{actions}</div>
           )}

@@ -49,6 +49,12 @@ function now() {
 }
 
 /**
+ * Округляем el.scrollLeft
+ * https://github.com/VKCOM/VKUI/pull/2445
+ */
+const roundUpElementScrollLeft = (el: HTMLElement) => Math.ceil(el.scrollLeft);
+
+/**
  * Код анимации скрола, на основе полифила: https://github.com/iamdustan/smoothscroll
  * Константа взята из полифила (468), на дизайн-ревью уточнили до 250
  * @var {number} SCROLL_ONE_FRAME_TIME время анимации скролла
@@ -74,7 +80,7 @@ function doScroll({
    */
   const maxLeft = initialScrollWidth - scrollElement.offsetWidth;
 
-  let startLeft = scrollElement.scrollLeft;
+  let startLeft = roundUpElementScrollLeft(scrollElement);
   let endLeft = getScrollPosition(startLeft);
 
   onScrollStart();
@@ -100,7 +106,7 @@ function doScroll({
     const currentLeft = startLeft + (endLeft - startLeft) * value;
     scrollElement.scrollLeft = Math.ceil(currentLeft);
 
-    if (scrollElement.scrollLeft !== Math.max(0, endLeft)) {
+    if (roundUpElementScrollLeft(scrollElement) !== Math.max(0, endLeft)) {
       requestAnimationFrame(scroll);
       return;
     }
@@ -113,7 +119,7 @@ function doScroll({
   })();
 }
 
-const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
+const HorizontalScrollComponent: React.FC<HorizontalScrollProps> = ({
   children,
   getScrollToLeft,
   getScrollToRight,
@@ -122,7 +128,7 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
   hasMouse,
   getRef,
   ...restProps
-}: HorizontalScrollProps) => {
+}) => {
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(false);
 
@@ -132,25 +138,41 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
 
   const animationQueue = React.useRef<VoidFunction[]>([]);
 
-  function scrollTo(getScrollPosition: (offset: number) => number) {
-    const scrollElement = scrollerRef.current;
+  const scrollTo = React.useCallback(
+    (getScrollPosition: ScrollPositionHandler) => {
+      const scrollElement = scrollerRef.current;
 
-    animationQueue.current.push(() =>
-      doScroll({
-        scrollElement,
-        getScrollPosition,
-        animationQueue: animationQueue.current,
-        onScrollToRightBorder: () => setCanScrollRight(false),
-        onScrollEnd: () => (isCustomScrollingRef.current = false),
-        onScrollStart: () => (isCustomScrollingRef.current = true),
-        initialScrollWidth: scrollElement?.firstElementChild?.scrollWidth || 0,
-        scrollAnimationDuration,
-      })
-    );
-    if (animationQueue.current.length === 1) {
-      animationQueue.current[0]();
-    }
-  }
+      animationQueue.current.push(() =>
+        doScroll({
+          scrollElement,
+          getScrollPosition,
+          animationQueue: animationQueue.current,
+          onScrollToRightBorder: () => setCanScrollRight(false),
+          onScrollEnd: () => (isCustomScrollingRef.current = false),
+          onScrollStart: () => (isCustomScrollingRef.current = true),
+          initialScrollWidth:
+            scrollElement?.firstElementChild?.scrollWidth || 0,
+          scrollAnimationDuration,
+        })
+      );
+      if (animationQueue.current.length === 1) {
+        animationQueue.current[0]();
+      }
+    },
+    [scrollAnimationDuration, scrollerRef]
+  );
+
+  const scrollToLeft = React.useCallback(() => {
+    const getScrollPosition =
+      getScrollToLeft ?? ((i: number) => i - scrollerRef.current!.offsetWidth);
+    scrollTo(getScrollPosition);
+  }, [getScrollToLeft, scrollTo, scrollerRef]);
+
+  const scrollToRight = React.useCallback(() => {
+    const getScrollPosition =
+      getScrollToRight ?? ((i: number) => i + scrollerRef.current!.offsetWidth);
+    scrollTo(getScrollPosition);
+  }, [getScrollToRight, scrollTo, scrollerRef]);
 
   const onscroll = React.useCallback(() => {
     if (
@@ -163,7 +185,7 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
 
       setCanScrollLeft(scrollElement.scrollLeft > 0);
       setCanScrollRight(
-        scrollElement.scrollLeft + scrollElement.offsetWidth <
+        roundUpElementScrollLeft(scrollElement) + scrollElement.offsetWidth <
           scrollElement.scrollWidth
       );
     }
@@ -180,29 +202,16 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
   return (
     <div
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames("HorizontalScroll", {
         ["HorizontalScroll--withConstArrows"]: showArrows === "always",
       })}
     >
       {showArrows && hasMouse && canScrollLeft && (
-        <HorizontalScrollArrow
-          direction="left"
-          onClick={() => {
-            if (getScrollToLeft) {
-              scrollTo(getScrollToLeft);
-            }
-          }}
-        />
+        <HorizontalScrollArrow direction="left" onClick={scrollToLeft} />
       )}
       {showArrows && hasMouse && canScrollRight && (
-        <HorizontalScrollArrow
-          direction="right"
-          onClick={() => {
-            if (getScrollToRight) {
-              scrollTo(getScrollToRight);
-            }
-          }}
-        />
+        <HorizontalScrollArrow direction="right" onClick={scrollToRight} />
       )}
       <div vkuiClass="HorizontalScroll__in" ref={scrollerRef}>
         <div vkuiClass="HorizontalScroll__in-wrapper">{children}</div>
@@ -211,7 +220,9 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
   );
 };
 
-// eslint-disable-next-line import/no-default-export
-export default withAdaptivity(HorizontalScroll, {
+/**
+ * @see https://vkcom.github.io/VKUI/#/HorizontalScroll
+ */
+export const HorizontalScroll = withAdaptivity(HorizontalScrollComponent, {
   hasMouse: true,
 });

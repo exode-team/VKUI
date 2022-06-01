@@ -72,7 +72,7 @@ export function baselineComponent<Props extends BasicProps>(
     : RawComponent;
   mountTest(Component);
   forward &&
-    it("forwards attributes", () => {
+    it("forwards attributes", async () => {
       const cls = "Custom";
       const { rerender } = render(
         <Component
@@ -81,6 +81,7 @@ export function baselineComponent<Props extends BasicProps>(
           style={{ background: "red" }}
         />
       );
+      await waitForPopper();
       // forward DOM attributes
       domAttr && expect(screen.queryByTestId("__cmp__")).toBeTruthy();
 
@@ -141,9 +142,20 @@ export const mockScrollContext = (
 ): [React.FC, jest.Mock] => {
   const getScroll = () => ({ x: 0, y: getY() });
   const scrollTo = jest.fn();
+  const isScrollLock = false;
+  const enableScrollLock = jest.fn();
+  const disableScrollLock = jest.fn();
   return [
     (props) => (
-      <ScrollContext.Provider value={{ getScroll, scrollTo }}>
+      <ScrollContext.Provider
+        value={{
+          getScroll,
+          scrollTo,
+          isScrollLock,
+          enableScrollLock,
+          disableScrollLock,
+        }}
+      >
         {props.children}
       </ScrollContext.Provider>
     ),
@@ -190,3 +202,11 @@ Object.defineProperty(HTMLElement.prototype, "offsetParent", {
     return this.parentNode;
   },
 });
+
+// Popper update() - https://github.com/popperjs/react-popper/issues/350
+export async function waitForPopper() {
+  await act(async () => {
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    await null;
+  });
+}

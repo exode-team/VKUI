@@ -1,22 +1,19 @@
 import * as React from "react";
 import { hasReactNode } from "../../lib/utils";
-import Title from "../Typography/Title/Title";
-import Headline from "../Typography/Headline/Headline";
+import { Title } from "../Typography/Title/Title";
+import { Headline } from "../Typography/Headline/Headline";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
-import {
-  ViewHeight,
-  ViewWidth,
-  withAdaptivity,
-} from "../../hoc/withAdaptivity";
+import { ViewWidth, withAdaptivity } from "../../hoc/withAdaptivity";
 import { HasRootRef } from "../../types";
 import { PanelHeaderButton } from "../PanelHeaderButton/PanelHeaderButton";
-import { ANDROID, IOS } from "../../lib/platform";
+import { ANDROID, IOS, Platform } from "../../lib/platform";
 import ModalDismissButton from "../ModalDismissButton/ModalDismissButton";
 import { Icon24Dismiss } from "@vkontakte/icons";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { AdaptivityContextInterface } from "../AdaptivityProvider/AdaptivityContext";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import "./ModalCardBase.css";
 
 export interface ModalCardBaseProps
@@ -51,8 +48,16 @@ export interface ModalCardBaseProps
    */
   actionsLayout?: "vertical" | "horizontal";
   onClose?: VoidFunction;
+
+  /**
+   * `aria-label` для кнопки закрытия. Необходим, чтобы кнопка была доступной.
+   */
+  dismissLabel?: string;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalCardBase
+ */
 export const ModalCardBase = withAdaptivity<
   ModalCardBaseProps & AdaptivityContextInterface
 >(
@@ -68,26 +73,28 @@ export const ModalCardBase = withAdaptivity<
     hasMouse,
     viewHeight,
     onClose,
+    dismissLabel = "Скрыть",
     ...restProps
   }) => {
     const platform = usePlatform();
-    const isDesktop =
-      viewWidth >= ViewWidth.SMALL_TABLET &&
-      (hasMouse || viewHeight >= ViewHeight.MEDIUM);
+    const isDesktop = useAdaptivityIsDesktop();
     const isSoftwareKeyboardOpened = useKeyboard().isOpened;
 
-    const canShowCloseBtn = viewWidth >= ViewWidth.SMALL_TABLET;
+    const canShowCloseBtn =
+      viewWidth >= ViewWidth.SMALL_TABLET || platform === Platform.VKCOM;
     const canShowCloseBtnIos = platform === IOS && !canShowCloseBtn;
 
     return (
       <div
         {...restProps}
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass={classNames(getClassName("ModalCardBase", platform), {
           "ModalCardBase--desktop": isDesktop,
         })}
         ref={getRootRef}
       >
         <div
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass={classNames("ModalCardBase__container", {
             "ModalCardBase__container--softwareKeyboardOpened":
               isSoftwareKeyboardOpened,
@@ -106,7 +113,7 @@ export const ModalCardBase = withAdaptivity<
             </Title>
           )}
           {hasReactNode(subheader) && (
-            <Headline weight="regular" vkuiClass="ModalCardBase__subheader">
+            <Headline weight="3" vkuiClass="ModalCardBase__subheader">
               {subheader}
             </Headline>
           )}
@@ -115,6 +122,7 @@ export const ModalCardBase = withAdaptivity<
 
           {hasReactNode(actions) && (
             <div
+              // eslint-disable-next-line vkui/no-object-expression-in-arguments
               vkuiClass={classNames("ModalCardBase__actions", {
                 "ModalCardBase__actions--v": actionsLayout === "vertical",
               })}
@@ -125,7 +133,11 @@ export const ModalCardBase = withAdaptivity<
 
           {canShowCloseBtn && <ModalDismissButton onClick={onClose} />}
           {canShowCloseBtnIos && (
-            <PanelHeaderButton vkuiClass="ModalCard__dismiss" onClick={onClose}>
+            <PanelHeaderButton
+              aria-label={dismissLabel}
+              vkuiClass="ModalCardBase__dismiss"
+              onClick={onClose}
+            >
               <Icon24Dismiss />
             </PanelHeaderButton>
           )}

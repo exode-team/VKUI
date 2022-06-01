@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Card, CardProps } from "../Card/Card";
-import Caption from "../Typography/Caption/Caption";
-import Title from "../Typography/Title/Title";
-import Text from "../Typography/Text/Text";
+import { Caption } from "../Typography/Caption/Caption";
+import { Title } from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
 import Tappable, { TappableProps } from "../Tappable/Tappable";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -48,6 +48,10 @@ export interface ContentCardProps
 }
 
 const warn = warnOnce("ContentCard");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/ContentCard
+ */
 const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps) => {
   const {
     subtitle,
@@ -88,6 +92,7 @@ const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps) => {
     <Card
       mode={mode}
       getRootRef={getRootRef}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("ContentCard", platform), {
         "ContentCard--disabled": restProps.disabled,
       })}
@@ -121,12 +126,7 @@ const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps) => {
         )}
         <div vkuiClass="ContentCard__body">
           {hasReactNode(subtitle) && (
-            <Caption
-              caps
-              vkuiClass="ContentCard__text"
-              weight="semibold"
-              level="3"
-            >
+            <Caption caps vkuiClass="ContentCard__text" weight="1" level="3">
               {subtitle}
             </Caption>
           )}
@@ -136,14 +136,10 @@ const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps) => {
             </Title>
           )}
           {hasReactNode(text) && (
-            <Text vkuiClass="ContentCard__text" weight="regular">
-              {text}
-            </Text>
+            <Text vkuiClass="ContentCard__text">{text}</Text>
           )}
           {hasReactNode(caption) && (
-            <Caption vkuiClass="ContentCard__text" weight="regular" level="1">
-              {caption}
-            </Caption>
+            <Caption vkuiClass="ContentCard__text">{caption}</Caption>
           )}
         </div>
       </Tappable>

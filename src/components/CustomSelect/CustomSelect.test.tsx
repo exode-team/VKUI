@@ -1,5 +1,5 @@
-import { baselineComponent } from "../../testing/utils";
-import CustomSelect from "./CustomSelect";
+import { baselineComponent, waitForPopper } from "../../testing/utils";
+import { CustomSelect } from "./CustomSelect";
 import { useState } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 
@@ -201,7 +201,9 @@ describe("CustomSelect", () => {
           { value: 2, label: "New York", country: "USA" },
         ]}
         filterFn={(value, option) =>
-          option.label.toLowerCase().includes(value.toLowerCase()) ||
+          (option.label as string)
+            .toLowerCase()
+            .includes(value.toLowerCase()) ||
           option.country.toLowerCase().includes(value.toLowerCase())
         }
       />
@@ -222,7 +224,7 @@ describe("CustomSelect", () => {
     expect(screen.getByTestId("target").textContent).toBe("New York");
   });
 
-  it("is searchable and keeps search results up to date during props.options updates", () => {
+  it("is searchable and keeps search results up to date during props.options updates", async () => {
     const { rerender } = render(
       <CustomSelect
         searchable
@@ -236,6 +238,8 @@ describe("CustomSelect", () => {
 
     fireEvent.click(screen.getByTestId("target"));
     fireEvent.change(screen.getByTestId("target"), { target: { value: "Mi" } });
+
+    await waitForPopper();
 
     expect(screen.getAllByRole("option").length).toEqual(1);
 
@@ -254,7 +258,7 @@ describe("CustomSelect", () => {
     expect(screen.getAllByRole("option").length).toEqual(2);
   });
 
-  it("is searchable and keeps selected option up to date during props.options and props.value updates", () => {
+  it("is searchable and keeps selected option up to date during props.options and props.value updates", async () => {
     const { rerender } = render(
       <CustomSelect
         searchable
@@ -268,6 +272,8 @@ describe("CustomSelect", () => {
     );
 
     fireEvent.click(screen.getByTestId("target"));
+
+    await waitForPopper();
 
     expect(screen.getByTitle("Josh").getAttribute("aria-selected")).toEqual(
       "true"
@@ -315,7 +321,7 @@ describe("CustomSelect", () => {
     );
   });
 
-  it("fires onOpen and onClose correctly", () => {
+  it("fires onOpen and onClose correctly", async () => {
     const openCb = jest.fn(() => null);
     const closeCb = jest.fn(() => null);
     render(
@@ -331,6 +337,8 @@ describe("CustomSelect", () => {
     );
 
     fireEvent.click(screen.getByTestId("target"));
+
+    await waitForPopper();
 
     expect(openCb).toBeCalledTimes(1);
 
@@ -358,7 +366,7 @@ describe("CustomSelect", () => {
     expect(closeCb).toBeCalledTimes(2);
   });
 
-  it("is controlled by the keyboard", () => {
+  it("is controlled by the keyboard", async () => {
     const { rerender } = render(
       <CustomSelect
         data-testid="target"
@@ -387,6 +395,8 @@ describe("CustomSelect", () => {
       key: "ArrowDown",
       code: "ArrowDown",
     });
+
+    await waitForPopper();
 
     expect(
       document.querySelector(".CustomSelectOption--hover")?.textContent

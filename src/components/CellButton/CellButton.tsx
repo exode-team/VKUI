@@ -10,6 +10,9 @@ export interface CellButtonProps extends SimpleCellProps {
   centered?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CellButton
+ */
 const CellButton: React.FC<CellButtonProps> = ({
   centered = false,
   mode = "primary",
@@ -21,6 +24,7 @@ const CellButton: React.FC<CellButtonProps> = ({
     <SimpleCell
       stopPropagation={true}
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("CellButton", platform),
         `CellButton--${mode}`,

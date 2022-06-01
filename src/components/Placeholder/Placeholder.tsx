@@ -1,8 +1,8 @@
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { hasReactNode } from "../../lib/utils";
-import Title from "../Typography/Title/Title";
-import Headline from "../Typography/Headline/Headline";
+import { Title } from "../Typography/Title/Title";
+import { Headline } from "../Typography/Headline/Headline";
 import { HasRootRef } from "../../types";
 import "./Placeholder.css";
 
@@ -27,6 +27,9 @@ export interface PlaceholderProps
   stretched?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Placeholder
+ */
 const Placeholder: React.FC<PlaceholderProps> = (props: PlaceholderProps) => {
   const {
     icon,
@@ -42,6 +45,7 @@ const Placeholder: React.FC<PlaceholderProps> = (props: PlaceholderProps) => {
     <div
       {...restProps}
       ref={getRootRef}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames("Placeholder", {
         "Placeholder--stretched": stretched,
       })}
@@ -54,7 +58,7 @@ const Placeholder: React.FC<PlaceholderProps> = (props: PlaceholderProps) => {
           </Title>
         )}
         {hasReactNode(children) && (
-          <Headline weight="regular" vkuiClass="Placeholder__text">
+          <Headline weight="3" vkuiClass="Placeholder__text">
             {children}
           </Headline>
         )}

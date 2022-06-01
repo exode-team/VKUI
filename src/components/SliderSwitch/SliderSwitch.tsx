@@ -28,8 +28,10 @@ interface SliderSwitchState {
 }
 
 const warn = warnOnce("SliderSwitch");
+
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](#/SegmentedControl).
+ * @see https://vkcom.github.io/VKUI/#/SliderSwitch
  */
 class SliderSwitch extends React.Component<
   SliderSwitchProps,
@@ -176,6 +178,7 @@ class SliderSwitch extends React.Component<
           <div vkuiClass="SliderSwitch__border" />
         )}
         <div
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass={classNames("SliderSwitch__slider", {
             ["SliderSwitch--firstActive"]: firstActive,
             ["SliderSwitch--secondActive"]: secondActive,

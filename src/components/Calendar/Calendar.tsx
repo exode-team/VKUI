@@ -1,5 +1,5 @@
 import * as React from "react";
-import { isSameMonth, isSameDay } from "date-fns";
+import { isSameMonth, isSameDay } from "../../lib/date";
 import {
   CalendarHeader,
   CalendarHeaderProps,
@@ -28,6 +28,10 @@ export interface CalendarProps
       | "nextMonthAriaLabel"
       | "changeMonthAriaLabel"
       | "changeYearAriaLabel"
+      | "onNextMonth"
+      | "onPrevMonth"
+      | "prevMonthIcon"
+      | "nextMonthIcon"
     >,
     HasRootRef<HTMLDivElement> {
   value?: Date;
@@ -43,10 +47,22 @@ export interface CalendarProps
   onChange?(value?: Date): void;
   shouldDisableDate?(value: Date): boolean;
   onClose?(): void;
+  /**
+   * Дата отображаемого месяца.
+   * При использовании обновление даты должно происходить вне компонента.
+   */
+  viewDate?: Date;
+  /**
+   * Изменение даты в шапке календаря.
+   */
+  onHeaderChange?(value: Date): void;
 }
 
 const warn = warnOnce("Calendar");
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Calendar
+ */
 export const Calendar: React.FC<CalendarProps> = ({
   value,
   onChange,
@@ -68,6 +84,12 @@ export const Calendar: React.FC<CalendarProps> = ({
   showNeighboringMonth,
   changeDayAriaLabel = "Изменить день",
   size = "m",
+  viewDate: externalViewDate,
+  onHeaderChange,
+  onNextMonth,
+  onPrevMonth,
+  prevMonthIcon,
+  nextMonthIcon,
   ...props
 }) => {
   const {
@@ -80,7 +102,15 @@ export const Calendar: React.FC<CalendarProps> = ({
     isDayFocused,
     isDayDisabled,
     resetSelectedDay,
-  } = useCalendar({ value, disableFuture, disablePast, shouldDisableDate });
+  } = useCalendar({
+    value,
+    disableFuture,
+    disablePast,
+    shouldDisableDate,
+    onHeaderChange,
+    onNextMonth,
+    onPrevMonth,
+  });
 
   useIsomorphicLayoutEffect(() => {
     if (value) {
@@ -94,12 +124,13 @@ export const Calendar: React.FC<CalendarProps> = ({
     size === "s"
   ) {
     warn(
-      "Нельзя включить селекты выбора месяца/года если размер календаря 's'"
+      "Нельзя включить селекты выбора месяца/года, если размер календаря 's'",
+      "error"
     );
   }
 
   if (process.env.NODE_ENV === "development" && enableTime && size === "s") {
-    warn("Нельзя включить выбор времени если размер календаря 's'");
+    warn("Нельзя включить выбор времени, если размер календаря 's'", "error");
   }
 
   const handleKeyDown = React.useCallback(
@@ -139,7 +170,7 @@ export const Calendar: React.FC<CalendarProps> = ({
       vkuiClass={classNames("Calendar", `Calendar--size-${size}`)}
     >
       <CalendarHeader
-        viewDate={viewDate}
+        viewDate={externalViewDate || viewDate}
         onChange={setViewDate}
         onNextMonth={setNextMonth}
         onPrevMonth={setPrevMonth}
@@ -149,9 +180,11 @@ export const Calendar: React.FC<CalendarProps> = ({
         nextMonthAriaLabel={nextMonthAriaLabel}
         changeMonthAriaLabel={changeMonthAriaLabel}
         changeYearAriaLabel={changeYearAriaLabel}
+        prevMonthIcon={prevMonthIcon}
+        nextMonthIcon={nextMonthIcon}
       />
       <CalendarDays
-        viewDate={viewDate}
+        viewDate={externalViewDate || viewDate}
         value={value}
         weekStartsOn={weekStartsOn}
         isDayFocused={isDayFocused}

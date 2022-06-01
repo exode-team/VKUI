@@ -8,13 +8,23 @@ import "./Headline.css";
 export interface HeadlineProps
   extends React.AllHTMLAttributes<HTMLElement>,
     HasComponent {
-  weight: "regular" | "medium" | "semibold";
+  /**
+   * Задаёт начертание шрифта отличное от стандартного.
+   *
+   * > ⚠️ Начертания `"semibold"`, `medium` и `"regular"` устарели и будут удалены в 5.0.0. Используйте значения `"1"`, `"2"` и `"3"`.
+   */
+  weight?: "regular" | "medium" | "semibold" | "1" | "2" | "3";
+  level?: "1" | "2";
 }
 
-const Headline: React.FC<HeadlineProps> = ({
+/**
+ * @see https://vkcom.github.io/VKUI/#/Headline
+ */
+export const Headline: React.FC<HeadlineProps> = ({
   children,
-  weight = "regular",
-  Component = "h3",
+  weight = "3",
+  level = "1",
+  Component = "h3", // TODO: v5 h4
   ...restProps
 }: HeadlineProps) => {
   const platform = usePlatform();
@@ -23,7 +33,8 @@ const Headline: React.FC<HeadlineProps> = ({
     <Component
       {...restProps}
       vkuiClass={classNames(
-        getClassName("Headline", platform),
+        getClassName("Headline", platform), // TODO: v5 remove
+        `Headline--l-${level}`,
         `Headline--w-${weight}`
       )}
     >
@@ -31,6 +42,3 @@ const Headline: React.FC<HeadlineProps> = ({
     </Component>
   );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default Headline;

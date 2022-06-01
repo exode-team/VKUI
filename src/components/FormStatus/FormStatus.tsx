@@ -2,8 +2,8 @@ import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
-import Headline from "../Typography/Headline/Headline";
-import Caption from "../Typography/Caption/Caption";
+import { Headline } from "../Typography/Headline/Headline";
+import { Caption } from "../Typography/Caption/Caption";
 import { hasReactNode } from "../../lib/utils";
 import "./FormStatus.css";
 
@@ -12,6 +12,9 @@ export interface FormStatusProps extends React.HTMLAttributes<HTMLDivElement> {
   header?: React.ReactNode;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormStatus
+ */
 export const FormStatus: React.FunctionComponent<FormStatusProps> = ({
   mode,
   header,
@@ -30,21 +33,15 @@ export const FormStatus: React.FunctionComponent<FormStatusProps> = ({
       )}
     >
       {hasReactNode(header) && (
-        <Headline weight="medium" vkuiClass="FormStatus__header">
+        <Headline weight="2" vkuiClass="FormStatus__header">
           {header}
         </Headline>
       )}
       {dangerouslySetInnerHTML && (
-        <Caption
-          level="1"
-          weight="regular"
-          dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-        />
+        <Caption dangerouslySetInnerHTML={dangerouslySetInnerHTML} />
       )}
       {hasReactNode(children) && !dangerouslySetInnerHTML && (
-        <Caption level="1" weight="regular">
-          {children}
-        </Caption>
+        <Caption>{children}</Caption>
       )}
     </div>
   );

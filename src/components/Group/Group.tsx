@@ -3,9 +3,9 @@ import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { HasRootRef } from "../../types";
 import { usePlatform } from "../../hooks/usePlatform";
-import Separator from "../Separator/Separator";
+import { Separator } from "../Separator/Separator";
 import { hasReactNode } from "../../lib/utils";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import {
   withAdaptivity,
   AdaptivityProps,
@@ -35,6 +35,9 @@ export interface GroupProps
   mode?: "plain" | "card";
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Group
+ */
 const Group: React.FC<GroupProps> = (props: GroupProps) => {
   const {
     header,
@@ -70,14 +73,13 @@ const Group: React.FC<GroupProps> = (props: GroupProps) => {
         {header}
         {children}
         {hasReactNode(description) && (
-          <Caption vkuiClass="Group__description" weight="regular" level="1">
-            {description}
-          </Caption>
+          <Caption vkuiClass="Group__description">{description}</Caption>
         )}
       </div>
 
       {separator !== "hide" && (
         <Separator
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass={classNames("Group__separator", {
             "Group__separator--force": separator === "show",
           })}

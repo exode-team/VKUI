@@ -6,11 +6,8 @@ import {
   useModalRegistry,
 } from "../ModalRoot/ModalRootContext";
 import { usePlatform } from "../../hooks/usePlatform";
-import {
-  withAdaptivity,
-  ViewHeight,
-  ViewWidth,
-} from "../../hoc/withAdaptivity";
+import { useOrientationChange } from "../../hooks/useOrientationChange";
+import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
 import {
   AdaptivityContextInterface,
   AdaptivityProps,
@@ -20,6 +17,8 @@ import { multiRef } from "../../lib/utils";
 import { ModalType } from "../ModalRoot/types";
 import { getNavId, NavIdProps } from "../../lib/getNavId";
 import { warnOnce } from "../../lib/warnOnce";
+import { Platform } from "../../lib/platform";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import "./ModalPage.css";
 
 export interface ModalPageProps
@@ -30,7 +29,22 @@ export interface ModalPageProps
    * Шапка модальной страницы, `<ModalPageHeader />`
    */
   header?: React.ReactNode;
+  /**
+   * Будет вызвано при начале открытия модалки.
+   */
+  onOpen?: VoidFunction;
+  /**
+   * Будет вызвано при окончательном открытии модалки.
+   */
+  onOpened?: VoidFunction;
+  /**
+   * Будет вызвано при начале закрытия модалки.
+   */
   onClose?: VoidFunction;
+  /**
+   * Будет вызвано при окончательном закрытии модалки.
+   */
+  onClosed?: VoidFunction;
   /**
    * Процент, на который изначально будет открыта модальная страница. При `settlingHeight={100}` модальная страница раскрывается на всю высоту.
    */
@@ -43,11 +57,15 @@ export interface ModalPageProps
 }
 
 const warn = warnOnce("ModalPage");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalPage
+ */
 const ModalPage: React.FC<ModalPageProps & AdaptivityContextInterface> = (
   props
 ) => {
-  const platform = usePlatform();
   const { updateModalHeight } = React.useContext(ModalRootContext);
+
   const {
     children,
     header,
@@ -55,7 +73,10 @@ const ModalPage: React.FC<ModalPageProps & AdaptivityContextInterface> = (
     viewHeight,
     sizeX,
     hasMouse,
+    onOpen,
+    onOpened,
     onClose,
+    onClosed,
     settlingHeight,
     dynamicContentHeight,
     getModalContentRef,
@@ -63,14 +84,18 @@ const ModalPage: React.FC<ModalPageProps & AdaptivityContextInterface> = (
     ...restProps
   } = props;
 
-  React.useEffect(() => {
-    updateModalHeight();
-  }, [children, updateModalHeight]);
+  const platform = usePlatform();
+  const orientation = useOrientationChange();
 
-  const isDesktop =
-    viewWidth >= ViewWidth.SMALL_TABLET &&
-    (hasMouse || viewHeight >= ViewHeight.MEDIUM);
-  const canShowCloseBtn = viewWidth >= ViewWidth.SMALL_TABLET;
+  React.useEffect(updateModalHeight, [
+    children,
+    orientation,
+    updateModalHeight,
+  ]);
+
+  const isDesktop = useAdaptivityIsDesktop();
+  const canShowCloseBtn =
+    viewWidth >= ViewWidth.SMALL_TABLET || platform === Platform.VKCOM;
 
   const modalContext = React.useContext(ModalRootContext);
   const { refs } = useModalRegistry(getNavId(props, warn), ModalType.PAGE);
@@ -78,6 +103,7 @@ const ModalPage: React.FC<ModalPageProps & AdaptivityContextInterface> = (
   return (
     <div
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("ModalPage", platform),
         `ModalPage--sizeX-${sizeX}`,

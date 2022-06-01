@@ -6,8 +6,8 @@ import { warnOnce } from "../../lib/warnOnce";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getTitleFromChildren, isPrimitiveReactNode } from "../../lib/utils";
 import { IOS, VKCOM, ANDROID } from "../../lib/platform";
-import Text from "../Typography/Text/Text";
-import Title from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
+import { Title } from "../Typography/Title/Title";
 import "./PanelHeaderButton.css";
 
 export interface PanelHeaderButtonProps extends Omit<TappableProps, "label"> {
@@ -33,12 +33,14 @@ const ButtonTypography: React.FC<ButtonTypographyProps> = ({
     );
   }
 
-  return (
-    <Text weight={platform === VKCOM ? "regular" : "medium"}>{children}</Text>
-  );
+  return <Text weight={platform === VKCOM ? undefined : "2"}>{children}</Text>;
 };
 
 const warn = warnOnce("PanelHeaderButton");
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderButton
+ */
 export const PanelHeaderButton: React.FC<PanelHeaderButtonProps> = ({
   children,
   primary = false,
@@ -76,7 +78,8 @@ export const PanelHeaderButton: React.FC<PanelHeaderButtonProps> = ({
 
     if (!hasAccessibleName) {
       warn(
-        "a11y: У кнопки нет названия, которое может прочитать скринридер, и она недоступна для части пользователей. Замените содержимое на текст или добавьте описание действия с помощью пропа aria-label."
+        "a11y: У кнопки нет названия, которое может прочитать скринридер, и она недоступна для части пользователей. Замените содержимое на текст или добавьте описание действия с помощью пропа aria-label.",
+        "error"
       );
     }
   }
@@ -88,6 +91,7 @@ export const PanelHeaderButton: React.FC<PanelHeaderButtonProps> = ({
       Component={restProps.href ? "a" : "button"}
       activeEffectDelay={200}
       activeMode={activeMode}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("PanelHeaderButton", platform), {
         "PanelHeaderButton--primary": primary,
         "PanelHeaderButton--primitive": isPrimitive,

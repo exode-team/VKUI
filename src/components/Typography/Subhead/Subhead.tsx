@@ -9,19 +9,24 @@ export interface SubheadProps
   extends React.AllHTMLAttributes<HTMLElement>,
     HasComponent {
   /**
-   * Начертания "regular", "medium", "semibold" и "bold" устарели и будут удалены в 5.0.0.
+   * Задаёт начертание шрифта отличное от стандартного.
+   *
+   * > ⚠️ Начертания `"semibold"`, `medium` и `"regular"` устарели и будут удалены в 5.0.0. Используйте значения `"1"`, `"2"` и `"3"`.
    */
   weight?: "regular" | "medium" | "semibold" | "bold" | "1" | "2" | "3";
 }
 
 const warn = warnOnce("Subhead");
 
-const Subhead: React.FC<SubheadProps> = ({
+/**
+ * @see https://vkcom.github.io/VKUI/#/Subhead
+ */
+export const Subhead: React.FC<SubheadProps> = ({
   children,
   weight,
   Component = "h5",
   ...restProps
-}: SubheadProps) => {
+}) => {
   const { sizeY } = useAdaptivity();
 
   if (process.env.NODE_ENV === "development") {
@@ -40,13 +45,10 @@ const Subhead: React.FC<SubheadProps> = ({
       vkuiClass={classNames(
         "Subhead",
         `Subhead--sizeY-${sizeY}`,
-        `Subhead--w-${weight}`
+        weight && `Subhead--w-${weight}`
       )}
     >
       {children}
     </Component>
   );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default Subhead;

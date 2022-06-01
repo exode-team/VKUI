@@ -2,7 +2,7 @@ import * as React from "react";
 import CustomScrollView from "../CustomScrollView/CustomScrollView";
 import { classNames } from "../../lib/classNames";
 import { Popper, Placement } from "../Popper/Popper";
-import Spinner from "../Spinner/Spinner";
+import { Spinner } from "../Spinner/Spinner";
 import { HasRef } from "../../types";
 import "./CustomSelectDropdown.css";
 
@@ -50,17 +50,20 @@ export const CustomSelectDropdown: React.FC<CustomSelectDropdownProps> = ({
       sameWidth={sameWidth}
       onPlacementChange={onPlacementChange}
       placement={placement}
-      vkuiClass={classNames("CustomSelectDropdown__options", {
-        "CustomSelectDropdown__options--popupDirectionTop": isTop,
-        "CustomSelectDropdown__options--not-adjacent": offsetDistance > 0,
-        "CustomSelectDropdown__options--same-width": sameWidth,
-      })}
+      vkuiClass={classNames(
+        "CustomSelectDropdown",
+        offsetDistance === 0 &&
+          (isTop
+            ? "CustomSelectDropdown--top"
+            : "CustomSelectDropdown--bottom"),
+        sameWidth && "CustomSelectDropdown--wide"
+      )}
       forcePortal={forcePortal}
       {...restProps}
     >
       <CustomScrollView
         boxRef={scrollBoxRef}
-        vkuiClass="CustomSelectDropdown__CustomScrollView"
+        vkuiClass="CustomSelectDropdown__in"
       >
         {fetching ? (
           <div vkuiClass="CustomSelectDropdown__fetching">

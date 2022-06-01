@@ -12,10 +12,10 @@ import { HasPlatform, HasRef } from "../../types";
 import { Touch, TouchEvent } from "../Touch/Touch";
 import { VKUITouchEvent } from "../../lib/touch";
 import { noop } from "../../lib/utils";
-import Text from "../Typography/Text/Text";
-import Title from "../Typography/Title/Title";
-import Headline from "../Typography/Headline/Headline";
-import Separator from "../Separator/Separator";
+import { Text } from "../Typography/Text/Text";
+import { Title } from "../Typography/Title/Title";
+import { Headline } from "../Typography/Headline/Headline";
+import { Separator } from "../Separator/Separator";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useEnsuredControl } from "../../hooks/useEnsuredControl";
 import "./Search.css";
@@ -37,15 +37,11 @@ const SearchPlaceholderTypography: React.FC<
         </Title>
       );
     case VKCOM:
-      return (
-        <Text {...restProps} weight="regular">
-          {children}
-        </Text>
-      );
+      return <Text {...restProps}>{children}</Text>;
     case ANDROID:
     default:
       return (
-        <Headline {...restProps} weight="regular">
+        <Headline {...restProps} weight="3">
           {children}
         </Headline>
       );
@@ -66,6 +62,9 @@ export interface SearchProps
   defaultValue?: string;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Search
+ */
 const Search: React.FC<SearchProps> = ({
   before,
   className,
@@ -121,6 +120,7 @@ const Search: React.FC<SearchProps> = ({
 
   return (
     <div
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("Search", platform), {
         "Search--focused": isFocused,
         "Search--has-value": !!value,

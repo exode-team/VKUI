@@ -2,7 +2,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import { useNavTransition } from "../NavTransitionContext/NavTransitionContext";
 import { Modifier, usePopper } from "react-popper";
 import { Placement } from "@popperjs/core";
@@ -152,6 +152,9 @@ function isVerticalPlacement(placement: Placement) {
   return placement.startsWith("top") || placement.startsWith("bottom");
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tooltip
+ */
 const Tooltip: React.FC<TooltipProps> = ({
   children,
   isShown: _isShown,
@@ -179,12 +182,13 @@ const Tooltip: React.FC<TooltipProps> = ({
     (multiChildren || primitiveChild) &&
       warn(
         [
-          "children must be a single React element, got",
-          multiChildren && "multiple",
+          "children должен быть одним React элементом, получено",
+          multiChildren && "несколько",
           primitiveChild && JSON.stringify(children),
         ]
           .filter(Boolean)
-          .join(" ")
+          .join(" "),
+        "error"
       );
   }
 
@@ -207,7 +211,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     );
   }
 
-  const arrowOffsetModiifer = React.useMemo<ArrowOffsetModifier>(() => {
+  const arrowOffsetModifier = React.useMemo<ArrowOffsetModifier>(() => {
     return {
       name: "arrowOffset",
       enabled: true,
@@ -261,7 +265,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       {
         name: "flip",
       },
-      arrowOffsetModiifer,
+      arrowOffsetModifier,
     ],
   });
 

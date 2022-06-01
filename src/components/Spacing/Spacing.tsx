@@ -1,7 +1,5 @@
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
-import { usePlatform } from "../../hooks/usePlatform";
-import { getClassName } from "../../helpers/getClassName";
 import "./Spacing.css";
 
 export interface SpacingProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,6 +8,7 @@ export interface SpacingProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   size?: number;
   /**
+   * @deprecated Это свойство устарело и будет удалено в 5.0.0. Используйте [`Separator`](#/Separator) вместе с Spacing.
    * Настройка положения сепаратора:
    *
    * - separator=false (default) - без сепаратора
@@ -20,13 +19,15 @@ export interface SpacingProps extends React.HTMLAttributes<HTMLDivElement> {
   separator?: boolean | "top" | "bottom" | "center";
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Spacing
+ */
 export const Spacing: React.FC<SpacingProps> = ({
-  size,
+  size = 8,
   separator,
   style,
   ...restProps
 }: SpacingProps) => {
-  const platform = usePlatform();
   const styles = {
     height: size,
     ...style,
@@ -36,18 +37,15 @@ export const Spacing: React.FC<SpacingProps> = ({
     <div
       {...restProps}
       aria-hidden="true"
-      vkuiClass={classNames(getClassName("Spacing", platform), {
-        "Spacing--separator": !!separator,
-        "Spacing--separator-center":
-          separator === true || separator === "center",
-        "Spacing--separator-top": separator === "top",
-        "Spacing--separator-bottom": separator === "bottom",
-      })}
+      vkuiClass={classNames(
+        "Spacing",
+        !!separator && "Spacing--separator",
+        (separator === true || separator === "center") &&
+          "Spacing--separator-center",
+        separator === "top" && "Spacing--separator-top",
+        separator === "bottom" && "Spacing--separator-bottom"
+      )}
       style={styles}
     />
   );
-};
-
-Spacing.defaultProps = {
-  size: 8,
 };

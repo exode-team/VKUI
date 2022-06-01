@@ -3,7 +3,7 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import FixedLayout from "../FixedLayout/FixedLayout";
-import Separator from "../Separator/Separator";
+import { Separator } from "../Separator/Separator";
 import { Platform, VKCOM } from "../../lib/platform";
 import { HasRef, HasRootRef } from "../../types";
 import {
@@ -15,9 +15,10 @@ import {
   SizeType,
   withAdaptivity,
 } from "../../hoc/withAdaptivity";
-import Text from "../Typography/Text/Text";
+import { Text } from "../Typography/Text/Text";
 import { TooltipContainer } from "../Tooltip/TooltipContainer";
 import ModalRootContext from "../ModalRoot/ModalRootContext";
+import { Spacing } from "../Spacing/Spacing";
 import "./PanelHeader.css";
 
 export interface PanelHeaderProps
@@ -44,28 +45,35 @@ const PanelHeaderIn: React.FC<PanelHeaderProps> = ({
   children,
   left,
   right,
+  separator,
 }) => {
   const { webviewType } = React.useContext(ConfigProviderContext);
   const { isInsideModal } = React.useContext(ModalRootContext);
   const platform = usePlatform();
 
   return (
-    <TooltipContainer fixed vkuiClass="PanelHeader__in">
-      <div vkuiClass="PanelHeader__left">{left}</div>
-      <div vkuiClass="PanelHeader__content">
-        {platform === VKCOM ? (
-          <Text weight="medium">{children}</Text>
-        ) : (
-          <span vkuiClass="PanelHeader__content-in">{children}</span>
-        )}
-      </div>
-      <div vkuiClass="PanelHeader__right">
-        {(webviewType === WebviewType.INTERNAL || isInsideModal) && right}
-      </div>
-    </TooltipContainer>
+    <React.Fragment>
+      <TooltipContainer fixed vkuiClass="PanelHeader__in">
+        <div vkuiClass="PanelHeader__left">{left}</div>
+        <div vkuiClass="PanelHeader__content">
+          {platform === VKCOM ? (
+            <Text weight="2">{children}</Text>
+          ) : (
+            <span vkuiClass="PanelHeader__content-in">{children}</span>
+          )}
+        </div>
+        <div vkuiClass="PanelHeader__right">
+          {(webviewType === WebviewType.INTERNAL || isInsideModal) && right}
+        </div>
+      </TooltipContainer>
+      {separator && platform === VKCOM && <Separator wide />}
+    </React.Fragment>
   );
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeader
+ */
 const PanelHeader: React.FC<PanelHeaderProps> = (props: PanelHeaderProps) => {
   const {
     left,
@@ -91,6 +99,7 @@ const PanelHeader: React.FC<PanelHeaderProps> = (props: PanelHeaderProps) => {
   return (
     <div
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("PanelHeader", platform),
         {
@@ -119,12 +128,10 @@ const PanelHeader: React.FC<PanelHeaderProps> = (props: PanelHeaderProps) => {
       ) : (
         <PanelHeaderIn {...props} />
       )}
-      {separator && visor && platform !== VKCOM && (
-        <Separator
-          vkuiClass="PanelHeader__separator"
-          expanded={sizeX === SizeType.REGULAR}
-        />
-      )}
+      {separator &&
+        visor &&
+        platform !== VKCOM &&
+        (sizeX === SizeType.REGULAR ? <Spacing size={16} /> : <Separator />)}
     </div>
   );
 };

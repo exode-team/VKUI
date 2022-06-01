@@ -39,7 +39,7 @@ class App extends Component {
 либо идентификатор предыдущей модалки, либо `null` для скрытия.
 Каждой конкретной `ModalPage` или `ModalCard` можно передать свой обработчик `onClose`, если нужно переопределить поведение.
 
-```jsx { "props": { "layout": false, "adaptivity": true } }
+```jsx { "props": { "layout": false, "adaptivity": true, "webviewType": true } }
 const MODAL_PAGE_FILTERS = "filters";
 const MODAL_PAGE_COUNTRIES = "countries";
 const MODAL_PAGE_STORY_FEEDBACK = "story-feedback";
@@ -659,4 +659,116 @@ class SelectModal extends Component {
 }
 
 export default withModalRootContext(SelectModal);
+```
+
+#### В мобильной версии при параметре `autoFocus` у контрола ломается поведение карточки
+
+К сожалению, из-за особенностей React, `autoFocus` ломает CSS анимацию.
+
+Чтобы исправить проблему, следует отказаться от `autoFocus` и выставлять фокус в ручную при событии `onOpened`.
+Подписываться на `onOpened` можно двумя разными способами.
+
+1️⃣ `<ModalRoot onOpened={(id) => ...} />`
+
+```jsx static
+const App = () => {
+  const inputRef = useRef(null);
+
+  const handleOpen = React.useCallback((id) => {
+    if (id === "modal-with-auto-focus" && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const modal = (
+    <ModalRoot activeModal="modal-with-auto-focus" onOpened={handleOpen}>
+      <ModalPage id="modal-with-auto-focus">
+        <Input getRootRef={inputRef} />
+      </ModalPage>
+    </ModalRoot>
+  );
+  // ...
+};
+```
+
+2️⃣ `<ModalPage onOpened={() => ...} />`
+
+> ⚠️ в этом случае `ModalPage` нельзя заворачивать в другой компонент
+> иначе `ModalRoot` не сможет получить доступ к `onOpened`.
+
+```jsx static
+const App = () => {
+  const inputRef = useRef(null);
+
+  const handleOpen = React.useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const modal = (
+    <ModalRoot activeModal="modal-with-auto-focus">
+      <ModalPage id="modal-with-auto-focus" onOpened={handleOpen}>
+        <Input getRootRef={inputRef} />
+      </ModalPage>
+    </ModalRoot>
+  );
+  // ...
+};
+```
+
+```jsx { "props": { "layout": false, "adaptivity": true } }
+const Example = () => {
+  const firstInputRef = useRef(null);
+  const secondInputRef = useRef(null);
+  const [activeModal, setActiveModal] = React.useState(false);
+
+  const handleOpenOfModalRoot = React.useCallback((id) => {
+    if (id === "modal-1") {
+      firstInputRef.current.focus();
+    }
+  }, []);
+
+  const handleOpenOfModalPage = React.useCallback(() => {
+    secondInputRef.current.focus();
+  }, []);
+
+  const modal = (
+    <ModalRoot activeModal={activeModal} onOpened={handleOpenOfModalRoot}>
+      <ModalPage id="modal-1" onClose={() => setActiveModal(null)}>
+        <Div>
+          <input type="text" ref={firstInputRef} />
+        </Div>
+      </ModalPage>
+      <ModalPage
+        id="modal-2"
+        onOpened={handleOpenOfModalPage}
+        onClose={() => setActiveModal(null)}
+      >
+        <Div>
+          <input type="text" ref={secondInputRef} />
+        </Div>
+      </ModalPage>
+    </ModalRoot>
+  );
+
+  return (
+    <SplitLayout modal={modal}>
+      <SplitCol>
+        <View activePanel="main">
+          <Panel id="main">
+            <CellButton multiline onClick={() => setActiveModal("modal-1")}>
+              Пример с onOpened() на ModalRoot
+            </CellButton>
+            <CellButton multiline onClick={() => setActiveModal("modal-2")}>
+              Пример с onOpened() на ModalPage
+            </CellButton>
+          </Panel>
+        </View>
+      </SplitCol>
+    </SplitLayout>
+  );
+};
+
+Example();
 ```

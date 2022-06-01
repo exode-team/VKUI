@@ -13,6 +13,7 @@
 @import "../components/Typography/Subhead/Subhead.css";
 @import "../components/Typography/Caption/Caption.css";
 @import "../components/Typography/Text/Text.css";
+@import "../components/Typography/Paragraph/Paragraph.css";
 
 /* Service */
 @import "../components/Tappable/Tappable.css";
@@ -120,10 +121,8 @@
 @import "../components/Chip/Chip.css";
 @import "../components/Select/Select.css";
 @import "../components/Textarea/Textarea.css";
-@import "../components/File/File.css";
 @import "../components/CustomScrollView/CustomScrollView.css";
 @import "../components/CustomSelect/CustomSelect.css";
-@import "../components/SelectMimicry/SelectMimicry.css";
 @import "../components/CustomSelectOption/CustomSelectOption.css";
 @import "../components/DatePicker/DatePicker.css";
 @import "../components/SliderSwitch/SliderSwitch.css";

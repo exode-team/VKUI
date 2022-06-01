@@ -4,8 +4,8 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import Tappable, { TappableProps } from "../Tappable/Tappable";
 import { hasReactNode } from "../../lib/utils";
-import Text from "../Typography/Text/Text";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Paragraph } from "../Typography/Paragraph/Paragraph";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import "./RichCell.css";
 
@@ -42,6 +42,9 @@ export interface RichCellProps extends TappableProps {
   multiline?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichCell
+ */
 const RichCell: React.FC<RichCellProps> = ({
   children,
   text,
@@ -59,6 +62,7 @@ const RichCell: React.FC<RichCellProps> = ({
   return (
     <Tappable
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("RichCell", platform),
         {
@@ -71,16 +75,14 @@ const RichCell: React.FC<RichCellProps> = ({
       <div vkuiClass="RichCell__in">
         {/* Этот after будет скрыт из верстки. Он нужен для CSS */}
         {after}
-        <Text weight="medium" vkuiClass="RichCell__content">
+        <Paragraph weight="2" vkuiClass="RichCell__content">
           <div vkuiClass="RichCell__children">{children}</div>
           {hasReactNode(after) && (
             <div vkuiClass="RichCell__after">{after}</div>
           )}
-        </Text>
+        </Paragraph>
         {hasReactNode(text) && (
-          <Text weight="regular" vkuiClass="RichCell__text">
-            {text}
-          </Text>
+          <Paragraph vkuiClass="RichCell__text">{text}</Paragraph>
         )}
         {hasReactNode(caption) && (
           <Subhead Component="span" vkuiClass="RichCell__caption">

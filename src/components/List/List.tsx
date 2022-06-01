@@ -5,6 +5,9 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { ListContext } from "./ListContext";
 import "./List.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/List
+ */
 const List: React.FunctionComponent<React.HTMLAttributes<HTMLDivElement>> = ({
   children,
   ...restProps
@@ -16,6 +19,7 @@ const List: React.FunctionComponent<React.HTMLAttributes<HTMLDivElement>> = ({
     <div
       role="list"
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(getClassName("List", platform), {
         "List--dragging": isDragging,
       })}

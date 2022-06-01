@@ -1,10 +1,10 @@
 import * as React from "react";
-import { isSameDay, isSameMonth } from "date-fns";
+import { isSameDay, isSameMonth } from "../../lib/date";
 import { CalendarDay } from "../CalendarDay/CalendarDay";
 import { getDaysNames, getWeeks } from "../../lib/calendar";
 import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
 import { classNames } from "../../lib/classNames";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import "./CalendarDays.css";
 
 export interface CalendarDaysProps
@@ -80,12 +80,7 @@ export const CalendarDays: React.FC<CalendarDaysProps> = ({
         )}
       >
         {daysNames.map((dayName) => (
-          <Caption
-            level="1"
-            weight="regular"
-            vkuiClass="CalendarDays__weekday"
-            key={dayName}
-          >
+          <Caption key={dayName} level="1" vkuiClass="CalendarDays__weekday">
             {dayName}
           </Caption>
         ))}

@@ -74,7 +74,10 @@ export const chipsInputDefaultProps: ChipsInputProps<any> = {
   },
 };
 
-const ChipsInput = <Option extends ChipsInputOption>(
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsInput
+ */
+export const ChipsInput = <Option extends ChipsInputOption>(
   props: ChipsInputProps<Option>
 ) => {
   const propsWithDefault = { ...chipsInputDefaultProps, ...props };
@@ -96,6 +99,7 @@ const ChipsInput = <Option extends ChipsInputOption>(
     getOptionLabel,
     getNewOptionData,
     renderChip,
+    before,
     after,
     inputAriaLabel,
     ...restProps
@@ -177,13 +181,16 @@ const ChipsInput = <Option extends ChipsInputOption>(
   return (
     <FormField
       getRootRef={getRootRef}
-      vkuiClass={classNames("ChipsInput", `ChipsInput--sizeY-${sizeY}`, {
-        "ChipsInput--focused": focused,
-        "ChipsInput--withChips": !!selectedOptions.length,
-      })}
+      vkuiClass={classNames(
+        "ChipsInput",
+        `ChipsInput--sizeY-${sizeY}`,
+        focused && "ChipsInput--focused",
+        !!selectedOptions.length && "ChipsInput--withChips"
+      )}
       className={className}
       style={style}
       disabled={restProps.disabled}
+      before={before}
       after={after}
       onClick={handleClick}
       role="application"
@@ -233,6 +240,3 @@ const ChipsInput = <Option extends ChipsInputOption>(
     </FormField>
   );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default ChipsInput;

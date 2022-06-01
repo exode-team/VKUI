@@ -28,6 +28,9 @@ export interface FixedLayoutState {
   width: string;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FixedLayout
+ */
 const FixedLayout: React.FC<FixedLayoutProps> = ({
   children,
   style,
@@ -51,6 +54,7 @@ const FixedLayout: React.FC<FixedLayoutProps> = ({
       {...restProps}
       fixed
       ref={getRootRef}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("FixedLayout", platform),
         {

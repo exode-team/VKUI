@@ -30,6 +30,9 @@ export interface AvatarProps
 export const AVATAR_DEFAULT_SIZE = 48;
 export const AVATAR_DEFAULT_SHADOW = true;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Avatar
+ */
 const Avatar: React.FC<AvatarProps> = ({
   alt,
   crossOrigin,
@@ -96,6 +99,7 @@ const Avatar: React.FC<AvatarProps> = ({
   return (
     <div
       {...restProps}
+      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("Avatar", platform),
         `Avatar--type-${mode}`,
@@ -135,6 +139,7 @@ const Avatar: React.FC<AvatarProps> = ({
       {overlayIcon && (
         <Tappable
           Component="button"
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass={classNames("Avatar__overlay", {
             "Avatar__overlay--visible": overlayAction === "always",
             "Avatar__overlay--light": overlayMode === "light",
@@ -150,6 +155,7 @@ const Avatar: React.FC<AvatarProps> = ({
       )}
       {badge && (
         <div
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass={classNames("Avatar__badge", {
             "Avatar__badge--large": size >= 96,
             "Avatar__badge--shadow":

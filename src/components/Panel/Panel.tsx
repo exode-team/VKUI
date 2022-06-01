@@ -22,6 +22,9 @@ export interface PanelProps
   centered?: boolean;
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Panel
+ */
 export const Panel = withAdaptivity<PanelProps & AdaptivityContextInterface>(
   ({ centered = false, children, getRootRef, sizeX, nav, ...restProps }) => {
     const platform = usePlatform();
@@ -30,6 +33,7 @@ export const Panel = withAdaptivity<PanelProps & AdaptivityContextInterface>(
       <div
         {...restProps}
         ref={getRootRef}
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass={classNames(
           getClassName("Panel", platform),
           `Panel--${sizeX}`,

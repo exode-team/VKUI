@@ -1,5 +1,5 @@
 import * as React from "react";
-import { format, isMatch, parse, isAfter } from "date-fns";
+import { format, isMatch, parse, isAfter } from "../../lib/date";
 import { Icon16Clear, Icon20CalendarOutline } from "@vkontakte/icons";
 import {
   CalendarRange,
@@ -34,6 +34,8 @@ export interface DateRangeInputProps
       | "changeMonthAriaLabel"
       | "changeYearAriaLabel"
       | "changeDayAriaLabel"
+      | "prevMonthIcon"
+      | "nextMonthIcon"
     >,
     HasRootRef<HTMLDivElement> {
   calendarPlacement?: Placement;
@@ -88,6 +90,9 @@ const getInternalValue = (value: CalendarRangeProps["value"]) => {
   return newValue;
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/DateRangeInput
+ */
 export const DateRangeInput: React.FC<DateRangeInputProps> = ({
   shouldDisableDate,
   disableFuture,
@@ -118,6 +123,8 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
   changeEndYearAriaLabel = "Изменить год окончания",
   clearFieldAriaLabel = "Очистить поле",
   showCalendarAriaLabel = "Показать календарь",
+  prevMonthIcon,
+  nextMonthIcon,
   ...props
 }) => {
   const daysStartRef = React.useRef<HTMLSpanElement>(null);
@@ -261,8 +268,8 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
         name={name}
         value={
           value
-            ? `${value[0] ? format(value[0], "dd.MM.yyyy") : ""} - ${
-                value[1] ? format(value[1], "dd.MM.yyyy") : ""
+            ? `${value[0] ? format(value[0], "DD.MM.YYYY") : ""} - ${
+                value[1] ? format(value[1], "DD.MM.YYYY") : ""
               }`
             : ""
         }
@@ -342,6 +349,8 @@ export const DateRangeInput: React.FC<DateRangeInputProps> = ({
             changeMonthAriaLabel={changeMonthAriaLabel}
             changeYearAriaLabel={changeYearAriaLabel}
             changeDayAriaLabel={changeDayAriaLabel}
+            prevMonthIcon={prevMonthIcon}
+            nextMonthIcon={nextMonthIcon}
           />
         </Popper>
       )}
