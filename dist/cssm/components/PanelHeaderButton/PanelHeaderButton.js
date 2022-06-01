@@ -9,8 +9,8 @@ import { warnOnce } from "../../lib/warnOnce";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getTitleFromChildren, isPrimitiveReactNode } from "../../lib/utils";
 import { IOS, VKCOM, ANDROID } from "../../lib/platform";
-import Text from "../Typography/Text/Text";
-import Title from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
+import { Title } from "../Typography/Title/Title";
 import "./PanelHeaderButton.css";
 
 var ButtonTypography = function ButtonTypography(_ref) {
@@ -27,11 +27,15 @@ var ButtonTypography = function ButtonTypography(_ref) {
   }
 
   return createScopedElement(Text, {
-    weight: platform === VKCOM ? "regular" : "medium"
+    weight: platform === VKCOM ? undefined : "2"
   }, children);
 };
 
 var warn = warnOnce("PanelHeaderButton");
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderButton
+ */
+
 export var PanelHeaderButton = function PanelHeaderButton(_ref2) {
   var children = _ref2.children,
       _ref2$primary = _ref2.primary,
@@ -65,7 +69,7 @@ export var PanelHeaderButton = function PanelHeaderButton(_ref2) {
     var hasAccessibleName = Boolean(getTitleFromChildren(children) || getTitleFromChildren(label) || restProps["aria-label"] || restProps["aria-labelledby"]);
 
     if (!hasAccessibleName) {
-      warn("a11y: У кнопки нет названия, которое может прочитать скринридер, и она недоступна для части пользователей. Замените содержимое на текст или добавьте описание действия с помощью пропа aria-label.");
+      warn("a11y: У кнопки нет названия, которое может прочитать скринридер, и она недоступна для части пользователей. Замените содержимое на текст или добавьте описание действия с помощью пропа aria-label.", "error");
     }
   }
 
@@ -73,7 +77,8 @@ export var PanelHeaderButton = function PanelHeaderButton(_ref2) {
     hoverMode: hoverMode,
     Component: restProps.href ? "a" : "button",
     activeEffectDelay: 200,
-    activeMode: activeMode,
+    activeMode: activeMode // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("PanelHeaderButton", platform), {
       "PanelHeaderButton--primary": primary,
       "PanelHeaderButton--primitive": isPrimitive,

@@ -27,7 +27,7 @@ var _usePagination = require("../../hooks/usePagination");
 
 var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = require("../Button/Button");
 
 var _excluded = ["currentPage", "siblingCount", "boundaryCount", "totalPages", "disabled", "getPageAriaLabel", "prevButtonAriaLabel", "nextButtonAriaLabel", "getRootRef", "onChange"];
 
@@ -35,6 +35,9 @@ function getPageAriaLabelDefault(page, isCurrent) {
   return isCurrent ? "".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430") : "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 ".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443");
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Pagination
+ */
 var Pagination = function Pagination(_ref) {
   var _ref$currentPage = _ref.currentPage,
       currentPage = _ref$currentPage === void 0 ? 1 : _ref$currentPage,
@@ -121,7 +124,7 @@ var Pagination = function Pagination(_ref) {
     vkuiClass: "Pagination__list"
   }, (0, _jsxRuntime.createScopedElement)("li", {
     vkuiClass: "Pagination__prevButtonContainer"
-  }, (0, _jsxRuntime.createScopedElement)(_Button.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_Button.Button, {
     size: "l",
     before: (0, _jsxRuntime.createScopedElement)(_icons.Icon24ChevronCompactLeft, {
       width: 24
@@ -134,7 +137,7 @@ var Pagination = function Pagination(_ref) {
     onClick: handlePrevClick
   })), pages.map(renderPages), (0, _jsxRuntime.createScopedElement)("li", {
     vkuiClass: "Pagination__nextButtonContainer"
-  }, (0, _jsxRuntime.createScopedElement)(_Button.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_Button.Button, {
     size: "l",
     after: (0, _jsxRuntime.createScopedElement)(_icons.Icon24ChevronCompactRight, {
       width: 24

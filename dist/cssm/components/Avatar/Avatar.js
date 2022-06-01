@@ -14,6 +14,9 @@ import Tappable from "../Tappable/Tappable";
 import "./Avatar.css";
 export var AVATAR_DEFAULT_SIZE = 48;
 export var AVATAR_DEFAULT_SHADOW = true;
+/**
+ * @see https://vkcom.github.io/VKUI/#/Avatar
+ */
 
 var Avatar = function Avatar(_ref) {
   var alt = _ref.alt,
@@ -90,6 +93,7 @@ var Avatar = function Avatar(_ref) {
 
   var hasSrc = src || srcSet;
   return createScopedElement("div", _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("Avatar", platform), "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), {
       "Avatar--shadow": shadow,
       "Avatar--failed": failedImage
@@ -123,7 +127,8 @@ var Avatar = function Avatar(_ref) {
   }), children && createScopedElement("div", {
     vkuiClass: "Avatar__children"
   }, children), overlayIcon && createScopedElement(Tappable, {
-    Component: "button",
+    Component: "button" // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames("Avatar__overlay", {
       "Avatar__overlay--visible": overlayAction === "always",
       "Avatar__overlay--light": overlayMode === "light",
@@ -134,6 +139,7 @@ var Avatar = function Avatar(_ref) {
     hasActive: false,
     onClick: onClick
   }, overlayIcon), badge && createScopedElement("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames("Avatar__badge", {
       "Avatar__badge--large": size >= 96,
       "Avatar__badge--shadow": badge !== "online" && badge !== "online-mobile"

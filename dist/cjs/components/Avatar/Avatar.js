@@ -37,6 +37,10 @@ var _excluded = ["alt", "crossOrigin", "decoding", "height", "loading", "referre
 var AVATAR_DEFAULT_SIZE = 48;
 exports.AVATAR_DEFAULT_SIZE = AVATAR_DEFAULT_SIZE;
 var AVATAR_DEFAULT_SHADOW = true;
+/**
+ * @see https://vkcom.github.io/VKUI/#/Avatar
+ */
+
 exports.AVATAR_DEFAULT_SHADOW = AVATAR_DEFAULT_SHADOW;
 
 var Avatar = function Avatar(_ref) {
@@ -113,6 +117,7 @@ var Avatar = function Avatar(_ref) {
 
   var hasSrc = src || srcSet;
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Avatar", platform), "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), {
       "Avatar--shadow": shadow,
       "Avatar--failed": failedImage
@@ -146,7 +151,8 @@ var Avatar = function Avatar(_ref) {
   }), children && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Avatar__children"
   }, children), overlayIcon && (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
-    Component: "button",
+    Component: "button" // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)("Avatar__overlay", {
       "Avatar__overlay--visible": overlayAction === "always",
       "Avatar__overlay--light": overlayMode === "light",
@@ -157,6 +163,7 @@ var Avatar = function Avatar(_ref) {
     hasActive: false,
     onClick: onClick
   }, overlayIcon), badge && (0, _jsxRuntime.createScopedElement)("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)("Avatar__badge", {
       "Avatar__badge--large": size >= 96,
       "Avatar__badge--shadow": badge !== "online" && badge !== "online-mobile"

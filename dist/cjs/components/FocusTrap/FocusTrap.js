@@ -39,6 +39,9 @@ var _excluded = ["Component", "onClose", "restoreFocus", "timeout", "getRootRef"
 
 var FOCUSABLE_ELEMENTS = _accessibility.FOCUSABLE_ELEMENTS_LIST.join();
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FocusTrap
+ */
 var FocusTrap = function FocusTrap(_ref) {
   var _ref$Component = _ref.Component,
       Component = _ref$Component === void 0 ? "div" : _ref$Component,

@@ -19,7 +19,7 @@ var _classNames = require("../../lib/classNames");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _HorizontalScroll = _interopRequireDefault(require("../HorizontalScroll/HorizontalScroll"));
+var _HorizontalScroll = require("../HorizontalScroll/HorizontalScroll");
 
 var _excluded = ["mode", "children", "showArrows", "getScrollToLeft", "getScrollToRight", "scrollAnimationDuration"];
 
@@ -30,6 +30,10 @@ var defaultScrollToLeft = function defaultScrollToLeft(x) {
 var defaultScrollToRight = function defaultScrollToRight(x) {
   return x + 240;
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/SubnavigationBar
+ */
+
 
 var SubnavigationBar = function SubnavigationBar(_ref) {
   var _ref$mode = _ref.mode,
@@ -50,7 +54,7 @@ var SubnavigationBar = function SubnavigationBar(_ref) {
   if (mode === "fixed") {
     ScrollWrapper = "div";
   } else {
-    ScrollWrapper = _HorizontalScroll.default;
+    ScrollWrapper = _HorizontalScroll.HorizontalScroll;
     scrollWrapperProps = {
       showArrows: showArrows,
       getScrollToLeft: getScrollToLeft,

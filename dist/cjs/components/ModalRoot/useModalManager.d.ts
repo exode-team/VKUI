@@ -8,10 +8,11 @@ interface ModalTransitionState {
     isBack?: boolean | null;
 }
 export interface ModalTransitionProps extends ModalTransitionState {
-    onEnter: (id: string | null) => void;
-    onExit: (id: string | null) => void;
+    onEnter: VoidFunction;
+    onEntered: (id: string | null) => void;
+    onExit: VoidFunction;
+    onExited: (id: string | null) => void;
     getModalState: (id: string) => ModalsStateEntry;
-    closeActiveModal: VoidFunction;
     delayEnter: boolean;
 }
 export declare function modalTransitionReducer(state: ModalTransitionState, action: {
@@ -30,8 +31,8 @@ export declare function modalTransitionReducer(state: ModalTransitionState, acti
  *   4b. enteringModal переходит в null после завершения анимации
  * 5. activeModal: m2, exitingModal: null, enteringModal: null, переход закончен
  */
-export declare function useModalManager(activeModal: string | null | undefined, children: React.ReactNode | React.ReactNode[], onClose: (id: string) => void, initModal?: (state: ModalsStateEntry) => void): ModalTransitionProps;
-export declare function withModalManager(initModal?: (a: ModalsStateEntry) => void): <Props extends ModalTransitionProps>(Wrapped: React.ComponentType<Props>) => React.FC<Pick<Props, Exclude<keyof Props, "isBack" | "onEnter" | "history" | "onExit" | "getModalState" | "closeActiveModal" | "delayEnter" | "activeModal" | "enteringModal" | "exitingModal">> & {
+export declare function useModalManager(activeModal: string | null | undefined, children: React.ReactNode | React.ReactNode[], onOpen?: (id: string) => void, onOpened?: (id: string) => void, onClose?: (id: string) => void, onClosed?: (id: string) => void, initModal?: (state: ModalsStateEntry) => void): ModalTransitionProps;
+export declare function withModalManager(initModal?: (a: ModalsStateEntry) => void): <Props extends ModalTransitionProps>(Wrapped: React.ComponentType<Props>) => React.FC<Pick<Props, Exclude<keyof Props, "isBack" | "onEnter" | "history" | "onEntered" | "onExit" | "onExited" | "getModalState" | "delayEnter" | "activeModal" | "enteringModal" | "exitingModal">> & {
     activeModal?: string | null | undefined;
 }>;
 export {};

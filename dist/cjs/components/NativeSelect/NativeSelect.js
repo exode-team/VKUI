@@ -7,13 +7,11 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.NativeSelect = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
@@ -21,7 +19,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _DropdownIcon = require("../DropdownIcon/DropdownIcon");
 
@@ -31,12 +29,6 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
-
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
-
-var _platform = require("../../lib/platform");
-
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
 var _useEnsuredControl3 = require("../../hooks/useEnsuredControl");
@@ -45,11 +37,11 @@ var _useExternRef = require("../../hooks/useExternRef");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline"];
+var _Select = require("../Select/Select");
 
-var NativeSelect = function NativeSelect(_ref) {
-  var _classNames;
+var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline", "selectType"];
 
+var NativeSelectComponent = function NativeSelectComponent(_ref) {
   var style = _ref.style,
       _ref$defaultValue = _ref.defaultValue,
       defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,
@@ -63,6 +55,8 @@ var NativeSelect = function NativeSelect(_ref) {
       sizeX = _ref.sizeX,
       sizeY = _ref.sizeY,
       multiline = _ref.multiline,
+      _ref$selectType = _ref.selectType,
+      selectType = _ref$selectType === void 0 ? _Select.SelectType.default : _ref$selectType,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -73,8 +67,8 @@ var NativeSelect = function NativeSelect(_ref) {
 
   var _React$useState3 = React.useState(false),
       _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
-      notSelected = _React$useState4[0],
-      setNotSelected = _React$useState4[1];
+      empty = _React$useState4[0],
+      setEmpty = _React$useState4[1];
 
   var _useEnsuredControl = (0, _useEnsuredControl3.useEnsuredControl)(restProps, {
     defaultValue: defaultValue
@@ -91,13 +85,12 @@ var NativeSelect = function NativeSelect(_ref) {
 
     if (selectedOption) {
       setTitle(selectedOption.text);
-      setNotSelected(selectedOption.value === "" && placeholder != null);
+      setEmpty(selectedOption.value === "" && placeholder != null);
     }
   }, [value, children]);
-  var TypographyComponent = platform === _platform.VKCOM || sizeY === _withAdaptivity.SizeType.COMPACT ? _Text.default : _Headline.default;
   return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, {
     Component: "label",
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("Select", platform), (_classNames = {}, (0, _defineProperty2.default)(_classNames, "Select--not-selected", notSelected), (0, _defineProperty2.default)(_classNames, "Select--align-".concat(align), !!align), (0, _defineProperty2.default)(_classNames, "Select--sizeX--".concat(sizeX), !!sizeX), (0, _defineProperty2.default)(_classNames, "Select--sizeY--".concat(sizeY), !!sizeY), (0, _defineProperty2.default)(_classNames, "Select--multiline", multiline), _classNames)),
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Select", platform), "Select--".concat(selectType), empty && "Select--empty", multiline && "Select--multiline", align && "Select--align-".concat(align), "Select--sizeX-".concat(sizeX), "Select--sizeY-".concat(sizeY)),
     className: className,
     style: style,
     getRootRef: getRootRef,
@@ -111,20 +104,20 @@ var NativeSelect = function NativeSelect(_ref) {
     ref: selectRef
   }), placeholder && (0, _jsxRuntime.createScopedElement)("option", {
     value: ""
-  }, placeholder), children), (0, _jsxRuntime.createScopedElement)(TypographyComponent, {
-    Component: "div",
-    weight: "regular",
+  }, placeholder), children), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Select__container"
-  }, (0, _jsxRuntime.createScopedElement)("span", {
+  }, (0, _jsxRuntime.createScopedElement)(_Select.SelectTypography, {
     vkuiClass: "Select__title"
   }, title)));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/NativeSelect
+ */
 
 
-var _default = (0, _withAdaptivity.withAdaptivity)(NativeSelect, {
+var NativeSelect = (0, _withAdaptivity.withAdaptivity)(NativeSelectComponent, {
   sizeX: true,
   sizeY: true
 });
-
-exports.default = _default;
+exports.NativeSelect = NativeSelect;
 //# sourceMappingURL=NativeSelect.js.map

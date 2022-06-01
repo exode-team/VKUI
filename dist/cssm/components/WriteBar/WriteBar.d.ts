@@ -20,4 +20,7 @@ export interface WriteBarProps extends React.TextareaHTMLAttributes<HTMLTextArea
     onHeightChange?: VoidFunction;
     children?: never;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/WriteBar
+ */
 export declare const WriteBar: React.FC<WriteBarProps>;

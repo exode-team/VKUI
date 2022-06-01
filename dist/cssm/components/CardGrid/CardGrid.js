@@ -8,6 +8,9 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import "./CardGrid.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CardGrid
+ */
 var CardGrid = function CardGrid(_ref) {
   var children = _ref.children,
       size = _ref.size,

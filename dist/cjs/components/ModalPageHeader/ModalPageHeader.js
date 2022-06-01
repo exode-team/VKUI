@@ -19,33 +19,29 @@ var _platform = require("../../lib/platform");
 
 var _PanelHeader = _interopRequireDefault(require("../PanelHeader/PanelHeader"));
 
-var _Separator = _interopRequireDefault(require("../Separator/Separator"));
+var _Separator = require("../Separator/Separator");
 
-var _useAdaptivity2 = require("../../hooks/useAdaptivity");
+var _useAdaptivity = require("../../hooks/useAdaptivity");
 
 var _classNames = require("../../lib/classNames");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _AdaptivityContext = require("../AdaptivityProvider/AdaptivityContext");
-
 var _excluded = ["children", "separator", "getRef"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalPageHeader
+ */
 var ModalPageHeader = function ModalPageHeader(_ref) {
   var children = _ref.children,
       separator = _ref.separator,
       getRef = _ref.getRef,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-
-  var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
-      viewWidth = _useAdaptivity.viewWidth,
-      viewHeight = _useAdaptivity.viewHeight,
-      hasMouse = _useAdaptivity.hasMouse;
-
   var hasSeparator = separator && platform === _platform.VKCOM;
-  var isDesktop = viewWidth >= _AdaptivityContext.ViewWidth.SMALL_TABLET && (hasMouse || viewHeight >= _AdaptivityContext.ViewHeight.MEDIUM);
+  var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
   return (0, _jsxRuntime.createScopedElement)("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalPageHeader", platform), {
       "ModalPageHeader--desktop": isDesktop
     }),
@@ -56,7 +52,7 @@ var ModalPageHeader = function ModalPageHeader(_ref) {
     fixed: false,
     separator: false,
     transparent: true
-  }), children), hasSeparator && (0, _jsxRuntime.createScopedElement)(_Separator.default, {
+  }), children), hasSeparator && (0, _jsxRuntime.createScopedElement)(_Separator.Separator, {
     wide: true
   }));
 };

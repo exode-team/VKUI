@@ -3,9 +3,10 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["popout", "modal", "viewWidth", "viewHeight", "hasMouse", "children", "getRootRef"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { withAdaptivity, ViewWidth, ViewHeight } from "../../hoc/withAdaptivity";
+import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { AppRootPortal } from "../AppRoot/AppRootPortal";
 import { blurActiveElement, useDOM } from "../../lib/dom";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 export var PopoutRootComponent = function PopoutRootComponent(props) {
   var popout = props.popout,
       modal = props.modal,
@@ -19,7 +20,7 @@ export var PopoutRootComponent = function PopoutRootComponent(props) {
   var _useDOM = useDOM(),
       document = _useDOM.document;
 
-  var isDesktop = viewWidth >= ViewWidth.SMALL_TABLET && (hasMouse || viewHeight >= ViewHeight.MEDIUM);
+  var isDesktop = useAdaptivityIsDesktop();
   React.useEffect(function () {
     popout && blurActiveElement(document);
   }, [document, popout]);

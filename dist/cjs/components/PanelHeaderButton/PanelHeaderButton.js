@@ -27,9 +27,9 @@ var _utils = require("../../lib/utils");
 
 var _platform = require("../../lib/platform");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
 var _excluded = ["children", "primary", "label"];
 
@@ -39,19 +39,22 @@ var ButtonTypography = function ButtonTypography(_ref) {
   var platform = (0, _usePlatform.usePlatform)();
 
   if (platform === _platform.IOS) {
-    return (0, _jsxRuntime.createScopedElement)(_Title.default, {
+    return (0, _jsxRuntime.createScopedElement)(_Title.Title, {
       Component: "span",
       level: "3",
       weight: primary ? "1" : "3"
     }, children);
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: platform === _platform.VKCOM ? "regular" : "medium"
+  return (0, _jsxRuntime.createScopedElement)(_Text.Text, {
+    weight: platform === _platform.VKCOM ? undefined : "2"
   }, children);
 };
 
 var warn = (0, _warnOnce.warnOnce)("PanelHeaderButton");
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderButton
+ */
 
 var PanelHeaderButton = function PanelHeaderButton(_ref2) {
   var children = _ref2.children,
@@ -85,7 +88,7 @@ var PanelHeaderButton = function PanelHeaderButton(_ref2) {
     var hasAccessibleName = Boolean((0, _utils.getTitleFromChildren)(children) || (0, _utils.getTitleFromChildren)(label) || restProps["aria-label"] || restProps["aria-labelledby"]);
 
     if (!hasAccessibleName) {
-      warn("a11y: У кнопки нет названия, которое может прочитать скринридер, и она недоступна для части пользователей. Замените содержимое на текст или добавьте описание действия с помощью пропа aria-label.");
+      warn("a11y: У кнопки нет названия, которое может прочитать скринридер, и она недоступна для части пользователей. Замените содержимое на текст или добавьте описание действия с помощью пропа aria-label.", "error");
     }
   }
 
@@ -93,7 +96,8 @@ var PanelHeaderButton = function PanelHeaderButton(_ref2) {
     hoverMode: hoverMode,
     Component: restProps.href ? "a" : "button",
     activeEffectDelay: 200,
-    activeMode: activeMode,
+    activeMode: activeMode // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderButton", platform), {
       "PanelHeaderButton--primary": primary,
       "PanelHeaderButton--primitive": isPrimitive,

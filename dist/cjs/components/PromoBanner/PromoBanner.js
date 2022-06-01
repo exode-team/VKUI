@@ -25,13 +25,13 @@ var React = _interopRequireWildcard(require("react"));
 
 var _icons = require("@vkontakte/icons");
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = require("../Button/Button");
 
 var _SimpleCell = _interopRequireDefault(require("../SimpleCell/SimpleCell"));
 
 var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
@@ -41,6 +41,9 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _excluded = ["bannerData", "onClose"];
 var warn = (0, _warnOnce.warnOnce)("PromoBanner");
+/**
+ * @see https://vkcom.github.io/VKUI/#/PromoBanner
+ */
 
 var PromoBanner = function PromoBanner(props) {
   var platform = (0, _usePlatform.usePlatform)();
@@ -76,13 +79,9 @@ var PromoBanner = function PromoBanner(props) {
     vkuiClass: (0, _getClassName.getClassName)("PromoBanner", platform)
   }, restProps), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PromoBanner__head"
-  }, (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    weight: "regular",
-    level: "1",
+  }, (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "PromoBanner__label"
-  }, bannerData.advertisingLabel || "Advertisement"), ageRestrictions != null && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    weight: "regular",
-    level: "1",
+  }, bannerData.advertisingLabel || "Advertisement"), ageRestrictions != null && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "PromoBanner__age"
   }, ageRestrictions, "+"), !props.isCloseButtonHidden && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PromoBanner__close",
@@ -98,7 +97,7 @@ var PromoBanner = function PromoBanner(props) {
       src: bannerData.iconLink,
       alt: bannerData.title
     }),
-    after: (0, _jsxRuntime.createScopedElement)(_Button.default, {
+    after: (0, _jsxRuntime.createScopedElement)(_Button.Button, {
       mode: "outline"
     }, bannerData.ctaText),
     description: bannerData.domain

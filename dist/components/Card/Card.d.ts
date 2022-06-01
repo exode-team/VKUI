@@ -4,4 +4,7 @@ import "./Card.css";
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, HasRootRef<HTMLDivElement> {
     mode?: "tint" | "shadow" | "outline";
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Card
+ */
 export declare const Card: React.FC<CardProps>;

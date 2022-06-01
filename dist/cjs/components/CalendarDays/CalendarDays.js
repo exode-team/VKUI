@@ -19,7 +19,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _dateFns = require("date-fns");
+var _date = require("../../lib/date");
 
 var _CalendarDay = require("../CalendarDay/CalendarDay");
 
@@ -29,7 +29,7 @@ var _LocaleProviderContext = require("../LocaleProviderContext/LocaleProviderCon
 
 var _classNames = require("../../lib/classNames");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _excluded = ["viewDate", "value", "weekStartsOn", "onDayChange", "isDaySelected", "isDayActive", "isDaySelectionEnd", "isDaySelectionStart", "onDayEnter", "onDayLeave", "isDayHinted", "isHintedDaySelectionStart", "isHintedDaySelectionEnd", "isDayFocused", "isDayDisabled", "size", "showNeighboringMonth"];
 
@@ -78,22 +78,21 @@ var CalendarDays = function CalendarDays(_ref) {
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: (0, _classNames.classNames)("CalendarDays__row", "CalendarDays__row--size-".concat(size))
   }, daysNames.map(function (dayName) {
-    return (0, _jsxRuntime.createScopedElement)(_Caption.default, {
+    return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+      key: dayName,
       level: "1",
-      weight: "regular",
-      vkuiClass: "CalendarDays__weekday",
-      key: dayName
+      vkuiClass: "CalendarDays__weekday"
     }, dayName);
   })), weeks.map(function (week, i) {
     return (0, _jsxRuntime.createScopedElement)("div", {
       vkuiClass: (0, _classNames.classNames)("CalendarDays__row", "CalendarDays__row--size-".concat(size)),
       key: i
     }, week.map(function (day, i) {
-      var sameMonth = (0, _dateFns.isSameMonth)(day, viewDate);
+      var sameMonth = (0, _date.isSameMonth)(day, viewDate);
       return (0, _jsxRuntime.createScopedElement)(_CalendarDay.CalendarDay, {
         key: day.toISOString(),
         day: day,
-        today: (0, _dateFns.isSameDay)(day, now),
+        today: (0, _date.isSameDay)(day, now),
         active: isDayActive(day),
         onChange: handleDayChange,
         hidden: !showNeighboringMonth && !sameMonth,

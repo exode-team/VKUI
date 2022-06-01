@@ -25,6 +25,9 @@ var _SimpleCell = _interopRequireDefault(require("../SimpleCell/SimpleCell"));
 
 var _excluded = ["centered", "mode"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CellButton
+ */
 var CellButton = function CellButton(_ref) {
   var _ref$centered = _ref.centered,
       centered = _ref$centered === void 0 ? false : _ref$centered,
@@ -35,6 +38,7 @@ var CellButton = function CellButton(_ref) {
   return (0, _jsxRuntime.createScopedElement)(_SimpleCell.default, (0, _extends2.default)({
     stopPropagation: true
   }, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("CellButton", platform), "CellButton--".concat(mode), (0, _defineProperty2.default)({}, "CellButton--centered", centered))
   }));
 };

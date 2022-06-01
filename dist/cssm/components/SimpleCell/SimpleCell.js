@@ -11,10 +11,10 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
-import Title from "../Typography/Title/Title";
-import Text from "../Typography/Text/Text";
-import Subhead from "../Typography/Subhead/Subhead";
-import Headline from "../Typography/Headline/Headline";
+import { Title } from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Headline } from "../Typography/Headline/Headline";
 import "./SimpleCell.css";
 
 var SimpleCellTypography = function SimpleCellTypography(props) {
@@ -24,14 +24,11 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
   var platform = usePlatform();
 
   if (sizeY === SizeType.COMPACT) {
-    return createScopedElement(Text, _extends({
-      Component: "span",
-      weight: "regular"
-    }, props));
+    return createScopedElement(Text, props);
   } else if (platform === ANDROID) {
     return createScopedElement(Headline, _extends({
       Component: "span",
-      weight: "regular"
+      weight: "3"
     }, props));
   } else {
     return createScopedElement(Title, _extends({
@@ -41,6 +38,10 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
     }, props));
   }
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/SimpleCell
+ */
+
 
 var SimpleCell = function SimpleCell(_ref) {
   var badge = _ref.badge,
@@ -57,6 +58,7 @@ var SimpleCell = function SimpleCell(_ref) {
   var platform = usePlatform();
   var hasAfter = hasReactNode(after) || expandable && platform === IOS;
   return createScopedElement(Tappable, _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("SimpleCell", platform), {
       "SimpleCell--exp": expandable,
       "SimpleCell--mult": multiline

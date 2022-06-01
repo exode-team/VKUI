@@ -10,8 +10,8 @@ import { getClassName } from "../../helpers/getClassName";
 import { ANDROID, VKCOM } from "../../lib/platform";
 import { rubber } from "../../lib/touch";
 import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
-import Text from "../Typography/Text/Text";
-import Button from "../Button/Button";
+import { Text } from "../Typography/Text/Text";
+import { Button } from "../Button/Button";
 import { AppRootPortal } from "../AppRoot/AppRootPortal";
 import { useWaitTransitionFinish } from "../../hooks/useWaitTransitionFinish";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -140,6 +140,7 @@ var SnackbarComponent = function SnackbarComponent(props) {
   }, [closeTimeout]);
   var resolvedLayout = after || isDesktop ? "vertical" : layout;
   return createScopedElement(AppRootPortal, null, createScopedElement("div", _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("Snackbar", platform), "Snackbar--l-".concat(resolvedLayout), {
       "Snackbar--closing": closing,
       "Snackbar--touched": touched,
@@ -159,7 +160,6 @@ var SnackbarComponent = function SnackbarComponent(props) {
   }, before), createScopedElement("div", {
     vkuiClass: "Snackbar__content"
   }, createScopedElement(Text, {
-    weight: "regular",
     vkuiClass: "Snackbar__content-text"
   }, children), action && createScopedElement(Button, {
     align: "left",
@@ -178,6 +178,10 @@ SnackbarComponent.defaultProps = {
   duration: 4000,
   layout: "horizontal"
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Snackbar
+ */
+
 export var Snackbar = withAdaptivity(SnackbarComponent, {
   viewWidth: true
 });

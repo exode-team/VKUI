@@ -7,24 +7,25 @@ import _inherits from "@babel/runtime/helpers/inherits";
 import _createSuper from "@babel/runtime/helpers/createSuper";
 import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _typeof from "@babel/runtime/helpers/typeof";
-var _excluded = ["searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching", "icon", "dropdownOffsetDistance", "fixDropdownWidth", "forceDropdownPortal"],
+var _excluded = ["before", "searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching", "icon", "dropdownOffsetDistance", "fixDropdownWidth", "forceDropdownPortal", "selectType"],
     _excluded2 = ["option"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import SelectMimicry from "../SelectMimicry/SelectMimicry";
-import { debounce, setRef, multiRef } from "../../lib/utils";
+import { SelectMimicry } from "../SelectMimicry/SelectMimicry";
+import { debounce, setRef, multiRef, getTitleFromChildren } from "../../lib/utils";
 import { classNames } from "../../lib/classNames";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { withPlatform } from "../../hoc/withPlatform";
-import CustomSelectOption from "../CustomSelectOption/CustomSelectOption";
+import { CustomSelectOption } from "../CustomSelectOption/CustomSelectOption";
 import { getClassName } from "../../helpers/getClassName";
-import Input from "../Input/Input";
+import { Input } from "../Input/Input";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { warnOnce } from "../../lib/warnOnce";
-import { defaultFilterFn } from "../../lib/select";
+import { defaultFilterFn, getFormFieldModeFromSelectType } from "../../lib/select";
 import { is } from "../../lib/is";
 import { CustomSelectDropdown } from "../CustomSelectDropdown/CustomSelectDropdown";
+import { SelectType } from "../Select/Select";
 import "./CustomSelect.css";
 
 var findIndexAfter = function findIndexAfter() {
@@ -67,26 +68,19 @@ var checkOptionsValueType = function checkOptionsValueType(options) {
   if (new Set(options.map(function (item) {
     return _typeof(item.value);
   })).size > 1) {
-    warn("Some values of your options have different types. CustomSelect onChange always returns a string type.");
+    warn("Некоторые значения ваших опций имеют разные типы. onChange всегда возвращает строковый тип.", "error");
   }
 };
 
-export var SelectType;
+var CustomSelectComponent = /*#__PURE__*/function (_React$Component) {
+  _inherits(CustomSelectComponent, _React$Component);
 
-(function (SelectType) {
-  SelectType["Default"] = "default";
-  SelectType["Plain"] = "plain";
-})(SelectType || (SelectType = {}));
+  var _super = _createSuper(CustomSelectComponent);
 
-var CustomSelect = /*#__PURE__*/function (_React$Component) {
-  _inherits(CustomSelect, _React$Component);
-
-  var _super = _createSuper(CustomSelect);
-
-  function CustomSelect(props) {
+  function CustomSelectComponent(props) {
     var _this;
 
-    _classCallCheck(this, CustomSelect);
+    _classCallCheck(this, CustomSelectComponent);
 
     _this = _super.call(this, props);
 
@@ -223,10 +217,12 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
 
       scrollTo && _this.scrollToElement(index);
 
-      _this.setState(function () {
-        return {
-          focusedOptionIndex: index
-        };
+      _this.setState(function (prevState) {
+        return (// Это оптимизация, прежде всего, под `onMouseOver`
+          prevState.focusedOptionIndex !== index ? {
+            focusedOptionIndex: index
+          } : null
+        );
       });
     });
 
@@ -277,7 +273,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
 
       var fullInput = _this.keyboardInput + key;
       var optionIndex = (_this$state$options5 = _this.state.options) === null || _this$state$options5 === void 0 ? void 0 : _this$state$options5.findIndex(function (option) {
-        return option.label.toLowerCase().includes(fullInput);
+        return getTitleFromChildren(option.label).toLowerCase().includes(fullInput);
       });
 
       if (optionIndex !== undefined && optionIndex > -1) {
@@ -317,7 +313,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
 
         if (_options) {
           if (process.env.NODE_ENV === "development") {
-            warn("This filtration method is deprecated. Return value of onInputChange will" + " be ignored in v5.0.0. For custom filtration please update props.options by yourself or use filterFn property");
+            warn("Этот метод фильтрации устарел. Возвращаемое значение onInputChange будет " + "проигнорировано в v5.0.0. Для фильтрации обновляйте props.options самостоятельно или используйте свойство filterFn.");
           }
 
           _this.setState({
@@ -431,7 +427,15 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         disabled: option.disabled,
         onClick: _this.handleOptionClick,
         onMouseDown: _this.handleOptionDown,
-        onMouseEnter: _this.handleOptionHover
+        // Используем `onMouseOver` вместо `onMouseEnter`.
+        // При параметре `searchable`, обновляется "ребёнок", из-за чего `onMouseEnter` не срабатывает в следующих кейсах:
+        //  1. До загрузки выпадающего списка, курсор мышки находится над произвольным элементом этого списка.
+        //     > Лечение: только увод курсора мыши и возвращении его обратно вызывает событие `onMouseEnter` на этот элемент.
+        //  2. Если это тач-устройство.
+        //     > Лечение: нужно нажать на какой-нибудь произвольный элемент списка, после чего `onMouseEnter` будет работать на соседние элементы,
+        //     но не на тот, на который нажали в первый раз.
+        // Более подробно по ссылке https://github.com/facebook/react/issues/13956#issuecomment-1082055744
+        onMouseOver: _this.handleOptionHover
       }));
     });
 
@@ -476,7 +480,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(CustomSelect, [{
+  _createClass(CustomSelectComponent, [{
     key: "areOptionsShown",
     get: function get() {
       return this.scrollBoxRef.current !== null;
@@ -555,6 +559,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
           stateOptions = _this$state3.options;
 
       var _this$props2 = this.props,
+          before = _this$props2.before,
           searchable = _this$props2.searchable,
           name = _this$props2.name,
           className = _this$props2.className,
@@ -582,13 +587,13 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
           dropdownOffsetDistance = _this$props2.dropdownOffsetDistance,
           fixDropdownWidth = _this$props2.fixDropdownWidth,
           forceDropdownPortal = _this$props2.forceDropdownPortal,
+          _this$props2$selectTy = _this$props2.selectType,
+          selectType = _this$props2$selectTy === void 0 ? SelectType.default : _this$props2$selectTy,
           restProps = _objectWithoutProperties(_this$props2, _excluded);
 
       var selected = this.getSelectedItem();
       var label = selected ? selected.label : undefined;
       var defaultDropdownContent = stateOptions !== undefined && stateOptions.length > 0 ? stateOptions.map(this.renderOption) : createScopedElement(Caption, {
-        level: "1",
-        weight: "regular",
         vkuiClass: "CustomSelect__empty"
       }, this.props.emptyText);
       var resolvedContent;
@@ -601,7 +606,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         resolvedContent = defaultDropdownContent;
       }
 
-      var isPopperDirectionTop = (_this$state$popperPla = this.state.popperPlacement) === null || _this$state$popperPla === void 0 ? void 0 : _this$state$popperPla.includes("top");
+      var openedClassNames = classNames(opened && "Select--open", opened && dropdownOffsetDistance === 0 && ((_this$state$popperPla = this.state.popperPlacement) !== null && _this$state$popperPla !== void 0 && _this$state$popperPla.includes("top") ? "Select--pop-up" : "Select--pop-down"));
       return createScopedElement("label", {
         vkuiClass: getClassName("CustomSelect", platform),
         className: className,
@@ -611,20 +616,18 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
       }, opened && searchable ? createScopedElement(Input, _extends({}, restProps, {
         autoFocus: true,
         onBlur: this.onBlur,
-        vkuiClass: classNames({
-          CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
-          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
-        }),
+        vkuiClass: openedClassNames,
         value: this.state.inputValue,
         onKeyDown: this.onInputKeyDown,
-        onChange: this.onInputChange // TODO Ожидается, что клик поймает нативный select, но его перехвает Input. К сожалению, это приводит конфликтам типизации.
+        onChange: this.onInputChange // TODO Ожидается, что клик поймает нативный select, но его перехватывает Input. К сожалению, это приводит к конфликтам типизации.
         // TODO Нужно перестать пытаться превратить CustomSelect в select. Тогда эта проблема уйдёт.
         // @ts-ignore
         ,
         onClick: onClick,
+        before: before,
         after: icon,
-        placeholder: restProps.placeholder
+        placeholder: restProps.placeholder,
+        mode: getFormFieldModeFromSelectType(selectType)
       })) : createScopedElement(SelectMimicry, _extends({}, restProps, {
         "aria-hidden": true,
         onClick: this.onClick,
@@ -632,12 +635,9 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         onKeyUp: this.handleKeyUp,
         onFocus: this.onFocus,
         onBlur: this.onBlur,
-        vkuiClass: classNames({
-          CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
-          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
-        }),
-        after: icon
+        vkuiClass: openedClassNames,
+        after: icon,
+        selectType: selectType
       }), label), createScopedElement("select", {
         ref: this.selectRef,
         name: name,
@@ -667,11 +667,14 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return CustomSelect;
-}(React.Component); // eslint-disable-next-line import/no-default-export
+  return CustomSelectComponent;
+}(React.Component);
+/**
+ * @see https://vkcom.github.io/VKUI/#/CustomSelect
+ */
 
 
-_defineProperty(CustomSelect, "defaultProps", {
+_defineProperty(CustomSelectComponent, "defaultProps", {
   searchable: false,
   renderOption: function renderOption(_ref2) {
     var option = _ref2.option,
@@ -684,11 +687,10 @@ _defineProperty(CustomSelect, "defaultProps", {
   filterFn: defaultFilterFn,
   icon: createScopedElement(DropdownIcon, null),
   dropdownOffsetDistance: 0,
-  fixDropdownWidth: true,
-  selectType: SelectType.Default
+  fixDropdownWidth: true
 });
 
-export default withPlatform(withAdaptivity(CustomSelect, {
+export var CustomSelect = withPlatform(withAdaptivity(CustomSelectComponent, {
   sizeY: true
 }));
 //# sourceMappingURL=CustomSelect.js.map

@@ -5,6 +5,10 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Badge
+ */
 export var Badge = function Badge(_ref) {
   var mode = _ref.mode,
       restProps = _objectWithoutProperties(_ref, _excluded);

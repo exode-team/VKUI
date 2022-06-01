@@ -29,6 +29,9 @@ var _prefixClass = require("../../lib/prefixClass");
 
 var _excluded = ["children", "arrow"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichTooltip
+ */
 var RichTooltip = function RichTooltip(_ref) {
   var children = _ref.children,
       _ref$arrow = _ref.arrow,
@@ -36,7 +39,8 @@ var RichTooltip = function RichTooltip(_ref) {
       popperProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var appearance = (0, _useAppearance.useAppearance)();
-  return (0, _jsxRuntime.createScopedElement)(_HoverPopper.HoverPopper, (0, _extends2.default)({
+  return (0, _jsxRuntime.createScopedElement)(_HoverPopper.HoverPopper // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  , (0, _extends2.default)({
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("RichTooltip", platform), (0, _defineProperty2.default)({}, "RichTooltip--".concat(appearance), !!appearance)),
     arrow: arrow,
     arrowClassName: (0, _prefixClass.prefixClass)("RichTooltip__arrow")

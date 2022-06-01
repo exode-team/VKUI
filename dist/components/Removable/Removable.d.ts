@@ -9,7 +9,7 @@ export interface RemovableProps {
     /**
      * Коллбэк срабатывает при клике на контрол удаления.
      */
-    onRemove?: (e: React.MouseEvent, rootEl?: HTMLElement) => void;
+    onRemove?: (e: React.MouseEvent, rootEl?: HTMLElement | null) => void;
 }
 interface RemovableOwnProps extends React.AllHTMLAttributes<HTMLElement>, RemovableProps, HasRootRef<HTMLDivElement> {
     /**
@@ -17,5 +17,8 @@ interface RemovableOwnProps extends React.AllHTMLAttributes<HTMLElement>, Remova
      */
     align?: "start" | "center";
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Removable
+ */
 export declare const Removable: React.FC<RemovableOwnProps>;
 export {};

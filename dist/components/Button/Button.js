@@ -1,22 +1,21 @@
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["size", "sizeY", "platform"],
-    _excluded2 = ["size", "mode", "appearance", "stretched", "align", "children", "before", "after", "getRootRef", "sizeY", "Component", "loading", "onClick"];
+    _excluded2 = ["size", "mode", "appearance", "stretched", "align", "children", "before", "after", "getRootRef", "sizeY", "Component", "loading", "onClick", "stopPropagation"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
 import Tappable from "../Tappable/Tappable";
-import Title from "../Typography/Title/Title";
-import Text from "../Typography/Text/Text";
-import Subhead from "../Typography/Subhead/Subhead";
-import Caption from "../Typography/Caption/Caption";
+import { Title } from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Caption } from "../Typography/Caption/Caption";
 import { usePlatform } from "../../hooks/usePlatform";
 import { SizeType, withAdaptivity } from "../../hoc/withAdaptivity";
 import { IOS, VKCOM, ANDROID } from "../../lib/platform";
-import Spinner from "../Spinner/Spinner";
-import Headline from "../Typography/Headline/Headline";
+import { Spinner } from "../Spinner/Spinner";
+import { Headline } from "../Typography/Headline/Headline";
 
 var ButtonTypography = function ButtonTypography(props) {
   var size = props.size,
@@ -30,13 +29,13 @@ var ButtonTypography = function ButtonTypography(props) {
     case "l":
       if (isCompact) {
         return createScopedElement(Text, _extends({
-          weight: "medium"
+          weight: "2"
         }, restProps));
       }
 
       if (platform === ANDROID) {
         return createScopedElement(Headline, _extends({
-          weight: "medium"
+          weight: "2"
         }, restProps));
       }
 
@@ -53,7 +52,7 @@ var ButtonTypography = function ButtonTypography(props) {
       }
 
       return createScopedElement(Text, _extends({
-        weight: "medium"
+        weight: "2"
       }, restProps));
 
     case "s":
@@ -65,16 +64,12 @@ var ButtonTypography = function ButtonTypography(props) {
       }
 
       if (platform === VKCOM) {
-        return createScopedElement(Caption, _extends({
-          level: "1",
-          weight: "regular"
-        }, restProps));
+        return createScopedElement(Caption, restProps);
       }
 
       if (isCompact) {
         return createScopedElement(Caption, _extends({
-          level: "1",
-          weight: "medium"
+          weight: "2"
         }, restProps));
       }
 
@@ -130,28 +125,32 @@ function resolveButtonAppearance(appearance, mode) {
   };
 }
 
-var Button = function Button(props) {
-  var _classNames;
+var ButtonComponent = function ButtonComponent(_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? "s" : _ref$size,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "primary" : _ref$mode,
+      appearance = _ref.appearance,
+      _ref$stretched = _ref.stretched,
+      stretched = _ref$stretched === void 0 ? false : _ref$stretched,
+      _ref$align = _ref.align,
+      align = _ref$align === void 0 ? "center" : _ref$align,
+      children = _ref.children,
+      before = _ref.before,
+      after = _ref.after,
+      getRootRef = _ref.getRootRef,
+      sizeY = _ref.sizeY,
+      _ref$Component = _ref.Component,
+      Component = _ref$Component === void 0 ? "button" : _ref$Component,
+      loading = _ref.loading,
+      onClick = _ref.onClick,
+      _ref$stopPropagation = _ref.stopPropagation,
+      stopPropagation = _ref$stopPropagation === void 0 ? true : _ref$stopPropagation,
+      restProps = _objectWithoutProperties(_ref, _excluded2);
 
   var platform = usePlatform();
-
-  var size = props.size,
-      mode = props.mode,
-      appearance = props.appearance,
-      stretched = props.stretched,
-      align = props.align,
-      children = props.children,
-      before = props.before,
-      after = props.after,
-      getRootRef = props.getRootRef,
-      sizeY = props.sizeY,
-      _props$Component = props.Component,
-      Component = _props$Component === void 0 ? "button" : _props$Component,
-      loading = props.loading,
-      onClick = props.onClick,
-      restProps = _objectWithoutProperties(props, _excluded2);
-
   var hasIcons = Boolean(before || after);
+  var hasIconOnly = !children && Boolean(after) !== Boolean(before);
 
   var _resolveButtonAppeara = resolveButtonAppearance(appearance, mode),
       resolvedMode = _resolveButtonAppeara.resolvedMode,
@@ -162,7 +161,8 @@ var Button = function Button(props) {
     Component: restProps.href ? "a" : Component,
     onClick: loading ? undefined : onClick,
     focusVisibleMode: "outside",
-    vkuiClass: classNames("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), (_classNames = {}, _defineProperty(_classNames, "Button--stretched", stretched), _defineProperty(_classNames, "Button--with-icon", hasIcons), _defineProperty(_classNames, "Button--singleIcon", Boolean(!children && !after && before || !children && after && !before)), _classNames)),
+    stopPropagation: stopPropagation,
+    vkuiClass: classNames("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), stretched && "Button--stretched", hasIcons && "Button--with-icon", hasIconOnly && "Button--singleIcon"),
     getRootRef: getRootRef,
     hoverMode: hasNewTokens ? "Button--hover" : "background",
     activeMode: hasNewTokens ? "Button--active" : "opacity"
@@ -172,7 +172,8 @@ var Button = function Button(props) {
   }), createScopedElement("span", {
     vkuiClass: "Button__in"
   }, before && createScopedElement("span", {
-    vkuiClass: "Button__before"
+    vkuiClass: "Button__before",
+    role: "presentation"
   }, before), children && createScopedElement(ButtonTypography, {
     size: size,
     sizeY: sizeY,
@@ -180,19 +181,16 @@ var Button = function Button(props) {
     vkuiClass: "Button__content",
     Component: "span"
   }, children), after && createScopedElement("span", {
-    vkuiClass: "Button__after"
+    vkuiClass: "Button__after",
+    role: "presentation"
   }, after)));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Button
+ */
 
-Button.defaultProps = {
-  mode: "primary",
-  align: "center",
-  size: "s",
-  stretched: false,
-  stopPropagation: true
-}; // eslint-disable-next-line import/no-default-export
 
-export default withAdaptivity(Button, {
+export var Button = withAdaptivity(ButtonComponent, {
   sizeY: true
 });
 //# sourceMappingURL=Button.js.map

@@ -96,7 +96,8 @@ var BaseGallery = /*#__PURE__*/function (_React$Component) {
       var _this$props2 = _this.props,
           _this$props2$slideInd = _this$props2.slideIndex,
           slideIndex = _this$props2$slideInd === void 0 ? 0 : _this$props2$slideInd,
-          onChange = _this$props2.onChange;
+          onChange = _this$props2.onChange,
+          onPrevClick = _this$props2.onPrevClick;
 
       if (_this.canSlideLeft) {
         _this.setState({
@@ -105,6 +106,8 @@ var BaseGallery = /*#__PURE__*/function (_React$Component) {
         }, function () {
           return onChange === null || onChange === void 0 ? void 0 : onChange(slideIndex - 1);
         });
+
+        onPrevClick === null || onPrevClick === void 0 ? void 0 : onPrevClick();
       }
     });
 
@@ -112,7 +115,8 @@ var BaseGallery = /*#__PURE__*/function (_React$Component) {
       var _this$props3 = _this.props,
           _this$props3$slideInd = _this$props3.slideIndex,
           slideIndex = _this$props3$slideInd === void 0 ? 0 : _this$props3$slideInd,
-          onChange = _this$props3.onChange;
+          onChange = _this$props3.onChange,
+          onNextClick = _this$props3.onNextClick;
 
       if (_this.canSlideRight) {
         _this.setState({
@@ -121,6 +125,8 @@ var BaseGallery = /*#__PURE__*/function (_React$Component) {
         }, function () {
           return onChange === null || onChange === void 0 ? void 0 : onChange(slideIndex + 1);
         });
+
+        onNextClick === null || onNextClick === void 0 ? void 0 : onNextClick();
       }
     });
 
@@ -490,6 +496,7 @@ var BaseGallery = /*#__PURE__*/function (_React$Component) {
         transition: animation ? "transform ".concat(duration, "s cubic-bezier(.1, 0, .25, 1)") : "none"
       };
       return createScopedElement("div", _extends({}, restProps, {
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass: classNames(getClassName("Gallery", platform), "Gallery--".concat(align), {
           "Gallery--dragging": dragging,
           "Gallery--custom-width": slideWidth === "custom"
@@ -519,6 +526,7 @@ var BaseGallery = /*#__PURE__*/function (_React$Component) {
         vkuiClass: classNames("Gallery__bullets", "Gallery__bullets--".concat(bullets))
       }, React.Children.map(children, function (_item, index) {
         return createScopedElement("div", {
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass: classNames("Gallery__bullet", {
             "Gallery__bullet--active": index === slideIndex
           }),
@@ -548,6 +556,9 @@ _defineProperty(BaseGallery, "defaultProps", {
 var BaseGalleryAdaptive = withAdaptivity(withDOM(BaseGallery), {
   hasMouse: true
 });
+/**
+ * @see https://vkcom.github.io/VKUI/#/Gallery
+ */
 
 var Gallery = function Gallery(_ref3) {
   var _props$slideIndex;

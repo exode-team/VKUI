@@ -14,5 +14,8 @@ export interface PanelHeaderEditProps extends PanelHeaderButtonProps {
      */
     doneLabel?: string;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderEdit
+ */
 declare const PanelHeaderEdit: React.FunctionComponent<PanelHeaderEditProps>;
 export default PanelHeaderEdit;

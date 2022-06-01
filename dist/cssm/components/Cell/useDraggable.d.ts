@@ -1,3 +1,4 @@
+import * as React from "react";
 import { TouchEvent } from "../Touch/Touch";
 import { CellProps } from "./Cell";
 export interface DraggableProps {
@@ -7,7 +8,8 @@ export interface DraggableProps {
 }
 interface UseDraggableProps extends DraggableProps {
     dragging: boolean;
-    rootElRef: any;
 }
-export declare const useDraggable: ({ onDragFinish, }: Pick<CellProps, "onDragFinish">) => UseDraggableProps;
+export declare const useDraggable: <T extends HTMLElement>({ rootElRef, onDragFinish, }: Pick<CellProps, "onDragFinish"> & {
+    rootElRef: React.MutableRefObject<T | null>;
+}) => UseDraggableProps;
 export {};

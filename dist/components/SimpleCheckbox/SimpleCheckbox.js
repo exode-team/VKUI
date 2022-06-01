@@ -15,6 +15,10 @@ import { SizeType } from "../../hoc/withAdaptivity";
 import { warnOnce } from "../../lib/warnOnce";
 var warn = warnOnce("SimpleCheckbox");
 var IS_DEV = process.env.NODE_ENV === "development";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/SimpleCheckbox
+ */
 export var SimpleCheckbox = function SimpleCheckbox(props) {
   var className = props.className,
       style = props.style,
@@ -51,11 +55,15 @@ export var SimpleCheckbox = function SimpleCheckbox(props) {
 
   if (IS_DEV) {
     if (defaultIndeterminate && restProps.defaultChecked) {
-      warn("defaultIndeterminate and defaultChecked cannot be true at the same time");
+      warn("defaultIndeterminate и defaultChecked не могут быть true одновременно", "error");
     }
 
     if (indeterminate && restProps.checked) {
-      warn("indeterminate and checked cannot be true at the same time");
+      warn("indeterminate и checked не могут быть true одновременно", "error");
+    }
+
+    if (restProps.defaultChecked && restProps.checked) {
+      warn("defaultChecked и checked не могут быть true одновременно", "error");
     }
   }
 

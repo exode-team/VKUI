@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.SelectType = void 0;
+exports.CustomSelect = void 0;
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
@@ -31,7 +31,7 @@ var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
 var React = _interopRequireWildcard(require("react"));
 
-var _SelectMimicry = _interopRequireDefault(require("../SelectMimicry/SelectMimicry"));
+var _SelectMimicry = require("../SelectMimicry/SelectMimicry");
 
 var _utils = require("../../lib/utils");
 
@@ -41,15 +41,15 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _withPlatform = require("../../hoc/withPlatform");
 
-var _CustomSelectOption = _interopRequireDefault(require("../CustomSelectOption/CustomSelectOption"));
+var _CustomSelectOption = require("../CustomSelectOption/CustomSelectOption");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Input = _interopRequireDefault(require("../Input/Input"));
+var _Input = require("../Input/Input");
 
 var _DropdownIcon = require("../DropdownIcon/DropdownIcon");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _warnOnce = require("../../lib/warnOnce");
 
@@ -59,7 +59,9 @@ var _is = require("../../lib/is");
 
 var _CustomSelectDropdown = require("../CustomSelectDropdown/CustomSelectDropdown");
 
-var _excluded = ["searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching", "icon", "dropdownOffsetDistance", "fixDropdownWidth", "forceDropdownPortal"],
+var _Select = require("../Select/Select");
+
+var _excluded = ["before", "searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching", "icon", "dropdownOffsetDistance", "fixDropdownWidth", "forceDropdownPortal", "selectType"],
     _excluded2 = ["option"];
 
 var findIndexAfter = function findIndexAfter() {
@@ -102,27 +104,19 @@ var checkOptionsValueType = function checkOptionsValueType(options) {
   if (new Set(options.map(function (item) {
     return (0, _typeof2.default)(item.value);
   })).size > 1) {
-    warn("Some values of your options have different types. CustomSelect onChange always returns a string type.");
+    warn("Некоторые значения ваших опций имеют разные типы. onChange всегда возвращает строковый тип.", "error");
   }
 };
 
-var SelectType;
-exports.SelectType = SelectType;
+var CustomSelectComponent = /*#__PURE__*/function (_React$Component) {
+  (0, _inherits2.default)(CustomSelectComponent, _React$Component);
 
-(function (SelectType) {
-  SelectType["Default"] = "default";
-  SelectType["Plain"] = "plain";
-})(SelectType || (exports.SelectType = SelectType = {}));
+  var _super = (0, _createSuper2.default)(CustomSelectComponent);
 
-var CustomSelect = /*#__PURE__*/function (_React$Component) {
-  (0, _inherits2.default)(CustomSelect, _React$Component);
-
-  var _super = (0, _createSuper2.default)(CustomSelect);
-
-  function CustomSelect(props) {
+  function CustomSelectComponent(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, CustomSelect);
+    (0, _classCallCheck2.default)(this, CustomSelectComponent);
     _this = _super.call(this, props);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "keyboardInput", void 0);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "isControlledOutside", false);
@@ -242,10 +236,12 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
 
       scrollTo && _this.scrollToElement(index);
 
-      _this.setState(function () {
-        return {
-          focusedOptionIndex: index
-        };
+      _this.setState(function (prevState) {
+        return (// Это оптимизация, прежде всего, под `onMouseOver`
+          prevState.focusedOptionIndex !== index ? {
+            focusedOptionIndex: index
+          } : null
+        );
       });
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "focusOption", function (type) {
@@ -290,7 +286,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
 
       var fullInput = _this.keyboardInput + key;
       var optionIndex = (_this$state$options5 = _this.state.options) === null || _this$state$options5 === void 0 ? void 0 : _this$state$options5.findIndex(function (option) {
-        return option.label.toLowerCase().includes(fullInput);
+        return (0, _utils.getTitleFromChildren)(option.label).toLowerCase().includes(fullInput);
       });
 
       if (optionIndex !== undefined && optionIndex > -1) {
@@ -327,7 +323,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
 
         if (_options) {
           if (process.env.NODE_ENV === "development") {
-            warn("This filtration method is deprecated. Return value of onInputChange will" + " be ignored in v5.0.0. For custom filtration please update props.options by yourself or use filterFn property");
+            warn("Этот метод фильтрации устарел. Возвращаемое значение onInputChange будет " + "проигнорировано в v5.0.0. Для фильтрации обновляйте props.options самостоятельно или используйте свойство filterFn.");
           }
 
           _this.setState({
@@ -437,7 +433,15 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         disabled: option.disabled,
         onClick: _this.handleOptionClick,
         onMouseDown: _this.handleOptionDown,
-        onMouseEnter: _this.handleOptionHover
+        // Используем `onMouseOver` вместо `onMouseEnter`.
+        // При параметре `searchable`, обновляется "ребёнок", из-за чего `onMouseEnter` не срабатывает в следующих кейсах:
+        //  1. До загрузки выпадающего списка, курсор мышки находится над произвольным элементом этого списка.
+        //     > Лечение: только увод курсора мыши и возвращении его обратно вызывает событие `onMouseEnter` на этот элемент.
+        //  2. Если это тач-устройство.
+        //     > Лечение: нужно нажать на какой-нибудь произвольный элемент списка, после чего `onMouseEnter` будет работать на соседние элементы,
+        //     но не на тот, на который нажали в первый раз.
+        // Более подробно по ссылке https://github.com/facebook/react/issues/13956#issuecomment-1082055744
+        onMouseOver: _this.handleOptionHover
       }));
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "selectRef", function (element) {
@@ -479,7 +483,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  (0, _createClass2.default)(CustomSelect, [{
+  (0, _createClass2.default)(CustomSelectComponent, [{
     key: "areOptionsShown",
     get: function get() {
       return this.scrollBoxRef.current !== null;
@@ -557,6 +561,7 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
           nativeSelectValue = _this$state3.nativeSelectValue,
           stateOptions = _this$state3.options;
       var _this$props2 = this.props,
+          before = _this$props2.before,
           searchable = _this$props2.searchable,
           name = _this$props2.name,
           className = _this$props2.className,
@@ -584,12 +589,12 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
           dropdownOffsetDistance = _this$props2.dropdownOffsetDistance,
           fixDropdownWidth = _this$props2.fixDropdownWidth,
           forceDropdownPortal = _this$props2.forceDropdownPortal,
+          _this$props2$selectTy = _this$props2.selectType,
+          selectType = _this$props2$selectTy === void 0 ? _Select.SelectType.default : _this$props2$selectTy,
           restProps = (0, _objectWithoutProperties2.default)(_this$props2, _excluded);
       var selected = this.getSelectedItem();
       var label = selected ? selected.label : undefined;
-      var defaultDropdownContent = stateOptions !== undefined && stateOptions.length > 0 ? stateOptions.map(this.renderOption) : (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-        level: "1",
-        weight: "regular",
+      var defaultDropdownContent = stateOptions !== undefined && stateOptions.length > 0 ? stateOptions.map(this.renderOption) : (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
         vkuiClass: "CustomSelect__empty"
       }, this.props.emptyText);
       var resolvedContent;
@@ -602,43 +607,38 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
         resolvedContent = defaultDropdownContent;
       }
 
-      var isPopperDirectionTop = (_this$state$popperPla = this.state.popperPlacement) === null || _this$state$popperPla === void 0 ? void 0 : _this$state$popperPla.includes("top");
+      var openedClassNames = (0, _classNames.classNames)(opened && "Select--open", opened && dropdownOffsetDistance === 0 && ((_this$state$popperPla = this.state.popperPlacement) !== null && _this$state$popperPla !== void 0 && _this$state$popperPla.includes("top") ? "Select--pop-up" : "Select--pop-down"));
       return (0, _jsxRuntime.createScopedElement)("label", {
         vkuiClass: (0, _getClassName.getClassName)("CustomSelect", platform),
         className: className,
         style: style,
         ref: (0, _utils.multiRef)(this.containerRef, getRootRef),
         onClick: this.onLabelClick
-      }, opened && searchable ? (0, _jsxRuntime.createScopedElement)(_Input.default, (0, _extends2.default)({}, restProps, {
+      }, opened && searchable ? (0, _jsxRuntime.createScopedElement)(_Input.Input, (0, _extends2.default)({}, restProps, {
         autoFocus: true,
         onBlur: this.onBlur,
-        vkuiClass: (0, _classNames.classNames)({
-          CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
-          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
-        }),
+        vkuiClass: openedClassNames,
         value: this.state.inputValue,
         onKeyDown: this.onInputKeyDown,
-        onChange: this.onInputChange // TODO Ожидается, что клик поймает нативный select, но его перехвает Input. К сожалению, это приводит конфликтам типизации.
+        onChange: this.onInputChange // TODO Ожидается, что клик поймает нативный select, но его перехватывает Input. К сожалению, это приводит к конфликтам типизации.
         // TODO Нужно перестать пытаться превратить CustomSelect в select. Тогда эта проблема уйдёт.
         // @ts-ignore
         ,
         onClick: onClick,
+        before: before,
         after: icon,
-        placeholder: restProps.placeholder
-      })) : (0, _jsxRuntime.createScopedElement)(_SelectMimicry.default, (0, _extends2.default)({}, restProps, {
+        placeholder: restProps.placeholder,
+        mode: (0, _select.getFormFieldModeFromSelectType)(selectType)
+      })) : (0, _jsxRuntime.createScopedElement)(_SelectMimicry.SelectMimicry, (0, _extends2.default)({}, restProps, {
         "aria-hidden": true,
         onClick: this.onClick,
         onKeyDown: this.handleKeyDownSelect,
         onKeyUp: this.handleKeyUp,
         onFocus: this.onFocus,
         onBlur: this.onBlur,
-        vkuiClass: (0, _classNames.classNames)({
-          CustomSelect__open: opened,
-          "CustomSelect__open--popupDirectionTop": isPopperDirectionTop,
-          "CustomSelect__open--not-adjacent": dropdownOffsetDistance > 0
-        }),
-        after: icon
+        vkuiClass: openedClassNames,
+        after: icon,
+        selectType: selectType
       }), label), (0, _jsxRuntime.createScopedElement)("select", {
         ref: this.selectRef,
         name: name,
@@ -667,29 +667,29 @@ var CustomSelect = /*#__PURE__*/function (_React$Component) {
       }, resolvedContent));
     }
   }]);
-  return CustomSelect;
-}(React.Component); // eslint-disable-next-line import/no-default-export
+  return CustomSelectComponent;
+}(React.Component);
+/**
+ * @see https://vkcom.github.io/VKUI/#/CustomSelect
+ */
 
 
-(0, _defineProperty2.default)(CustomSelect, "defaultProps", {
+(0, _defineProperty2.default)(CustomSelectComponent, "defaultProps", {
   searchable: false,
   renderOption: function renderOption(_ref2) {
     var option = _ref2.option,
         props = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
-    return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.default, props);
+    return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.CustomSelectOption, props);
   },
   options: [],
   emptyText: "Ничего не найдено",
   filterFn: _select.defaultFilterFn,
   icon: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null),
   dropdownOffsetDistance: 0,
-  fixDropdownWidth: true,
-  selectType: SelectType.Default
+  fixDropdownWidth: true
 });
-
-var _default = (0, _withPlatform.withPlatform)((0, _withAdaptivity.withAdaptivity)(CustomSelect, {
+var CustomSelect = (0, _withPlatform.withPlatform)((0, _withAdaptivity.withAdaptivity)(CustomSelectComponent, {
   sizeY: true
 }));
-
-exports.default = _default;
+exports.CustomSelect = CustomSelect;
 //# sourceMappingURL=CustomSelect.js.map

@@ -15,11 +15,11 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _Card = require("../Card/Card");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
 var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
@@ -35,6 +35,9 @@ var _classNames = require("../../lib/classNames");
 
 var _excluded = ["subtitle", "header", "text", "caption", "className", "mode", "style", "getRootRef", "getRef", "maxHeight", "image", "src", "srcSet", "alt", "width", "height", "crossOrigin", "decoding", "loading", "referrerPolicy", "sizes", "useMap"];
 var warn = (0, _warnOnce.warnOnce)("ContentCard");
+/**
+ * @see https://vkcom.github.io/VKUI/#/ContentCard
+ */
 
 var ContentCard = function ContentCard(props) {
   var subtitle = props.subtitle,
@@ -69,7 +72,8 @@ var ContentCard = function ContentCard(props) {
 
   return (0, _jsxRuntime.createScopedElement)(_Card.Card, {
     mode: mode,
-    getRootRef: getRootRef,
+    getRootRef: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ContentCard", platform), {
       "ContentCard--disabled": restProps.disabled
     }),
@@ -99,22 +103,19 @@ var ContentCard = function ContentCard(props) {
     width: "100%"
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "ContentCard__body"
-  }, (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
+  }, (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     caps: true,
     vkuiClass: "ContentCard__text",
-    weight: "semibold",
+    weight: "1",
     level: "3"
-  }, subtitle), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Title.default, {
+  }, subtitle), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Title.Title, {
     vkuiClass: "ContentCard__text",
     weight: "3",
     level: "1"
-  }, header), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    vkuiClass: "ContentCard__text",
-    weight: "regular"
-  }, text), (0, _utils.hasReactNode)(caption) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    vkuiClass: "ContentCard__text",
-    weight: "regular",
-    level: "1"
+  }, header), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Text.Text, {
+    vkuiClass: "ContentCard__text"
+  }, text), (0, _utils.hasReactNode)(caption) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+    vkuiClass: "ContentCard__text"
   }, caption))));
 };
 

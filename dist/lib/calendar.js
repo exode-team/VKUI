@@ -1,4 +1,4 @@
-import { eachDayOfInterval, startOfWeek, endOfWeek, addDays, subDays, subWeeks, addWeeks, startOfMonth, endOfMonth, isBefore, isFirstDayOfMonth, isLastDayOfMonth } from "date-fns";
+import { eachDayOfInterval, startOfWeek, endOfWeek, addDays, subDays, subWeeks, addWeeks, startOfMonth, endOfMonth, isBefore, isFirstDayOfMonth, isLastDayOfMonth } from "./date";
 export var getYears = function getYears(currentYear, range) {
   var years = [];
 
@@ -30,14 +30,7 @@ export var getDaysNames = function getDaysNames(now, weekStartsOn, locale) {
   var formatter = new Intl.DateTimeFormat(locale, {
     weekday: "short"
   });
-  return eachDayOfInterval({
-    start: startOfWeek(now, {
-      weekStartsOn: weekStartsOn
-    }),
-    end: endOfWeek(now, {
-      weekStartsOn: weekStartsOn
-    })
-  }).map(function (day) {
+  return eachDayOfInterval(startOfWeek(now, weekStartsOn), endOfWeek(now, weekStartsOn)).map(function (day) {
     return formatter.format(day);
   });
 };
@@ -65,12 +58,8 @@ export var navigateDate = function navigateDate(date, key) {
   return newDate;
 };
 export var getWeeks = function getWeeks(viewDate, weekStartsOn) {
-  var start = startOfWeek(startOfMonth(viewDate), {
-    weekStartsOn: weekStartsOn
-  });
-  var end = endOfWeek(endOfMonth(viewDate), {
-    weekStartsOn: weekStartsOn
-  });
+  var start = startOfWeek(startOfMonth(viewDate), weekStartsOn);
+  var end = endOfWeek(endOfMonth(viewDate), weekStartsOn);
   var count = 0;
   var current = start;
   var nestedWeeks = [];

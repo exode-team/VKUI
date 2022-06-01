@@ -9,7 +9,7 @@ import Tappable from "../Tappable/Tappable";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
-import Text from "../Typography/Text/Text";
+import { Text } from "../Typography/Text/Text";
 import "./SliderSwitch.css";
 
 /**
@@ -36,6 +36,7 @@ export var SliderSwitchButton = function SliderSwitchButton(props) {
   };
 
   return createScopedElement(Tappable, _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("SliderSwitch__button", platform), (_classNames = {}, _defineProperty(_classNames, "SliderSwitch__button--active", active), _defineProperty(_classNames, "SliderSwitch__button--hover", !active && hovered), _defineProperty(_classNames, "SliderSwitch__button--activeHover", active && hovered), _defineProperty(_classNames, "SliderSwitch__button--focus", focus && !hovered), _classNames)),
     Component: "button",
     type: "button",
@@ -47,7 +48,7 @@ export var SliderSwitchButton = function SliderSwitchButton(props) {
     hasActive: false,
     hoverMode: "opacity"
   }), createScopedElement(Text, {
-    weight: "medium"
+    weight: "2"
   }, children));
 };
 //# sourceMappingURL=SliderSwitchButton.js.map

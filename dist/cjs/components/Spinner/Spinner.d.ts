@@ -1,7 +1,9 @@
 import * as React from "react";
 import "./Spinner.css";
 export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
-    size?: "small" | "regular" | "large" | "medium";
+    size?: "small" | "regular" | "medium" | "large";
 }
-declare const _default: React.NamedExoticComponent<SpinnerProps>;
-export default _default;
+/**
+ * @see https://vkcom.github.io/VKUI/#/Spinner
+ */
+export declare const Spinner: React.MemoExoticComponent<({ size, "aria-label": ariaLabel, ...restProps }: SpinnerProps) => JSX.Element>;

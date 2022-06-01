@@ -6,6 +6,10 @@ import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import "./Card.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Card
+ */
 export var Card = function Card(_ref) {
   var _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? "tint" : _ref$mode,

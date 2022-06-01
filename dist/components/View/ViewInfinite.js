@@ -196,6 +196,10 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
       if (id) {
         scrollsCache[id] = this.scrolls;
       }
+
+      if (this.animationFinishTimeout) {
+        clearTimeout(this.animationFinishTimeout);
+      }
     }
   }, {
     key: "componentDidUpdate",
@@ -540,6 +544,7 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
         var scrollList = panelId && _this4.scrolls[panelId] || [];
         var scroll = scrollList[scrollList.length - 1] || 0;
         return createScopedElement("div", {
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass: classNames("View__panel", {
             "View__panel--active": panelId === activePanel,
             "View__panel--prev": panelId === prevPanel,

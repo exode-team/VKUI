@@ -21,7 +21,8 @@ export var ActionSheetDropdown = function ActionSheetDropdown(_ref) {
   var platform = usePlatform();
   var baseClaseName = getClassName("ActionSheet", platform);
   return createScopedElement(FocusTrap, _extends({}, restProps, {
-    onClick: stopPropagation,
+    onClick: stopPropagation // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(baseClaseName, {
       "ActionSheet--closing": closing
     })

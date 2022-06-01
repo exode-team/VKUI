@@ -29,6 +29,10 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _excluded = ["children", "mode", "getRootRef", "sizeX"];
 var TabsModeContext = /*#__PURE__*/React.createContext("default");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tabs
+ */
+
 exports.TabsModeContext = TabsModeContext;
 
 var Tabs = function Tabs(_ref) {

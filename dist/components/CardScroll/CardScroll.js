@@ -8,8 +8,12 @@ import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { usePlatform } from "../../hooks/usePlatform";
-import HorizontalScroll from "../HorizontalScroll/HorizontalScroll";
+import { HorizontalScroll } from "../HorizontalScroll/HorizontalScroll";
 import { useDOM } from "../../lib/dom";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/CardScroll
+ */
 export var CardScroll = function CardScroll(_ref) {
   var children = _ref.children,
       _ref$size = _ref.size,
@@ -77,6 +81,7 @@ export var CardScroll = function CardScroll(_ref) {
   }
 
   return createScopedElement("div", _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("CardScroll", platform), "CardScroll--sizeX-".concat(sizeX), "CardScroll--".concat(size), _defineProperty({}, "CardScroll--withSpaces", withSpaces))
   }), createScopedElement(HorizontalScroll, {
     getScrollToLeft: getScrollToLeft,

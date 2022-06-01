@@ -23,13 +23,13 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _Input = _interopRequireDefault(require("../Input/Input"));
+var _Input = require("../Input/Input");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _utils = require("../../lib/utils");
 
-var _CustomSelect = _interopRequireDefault(require("../CustomSelect/CustomSelect"));
+var _CustomSelect = require("../CustomSelect/CustomSelect");
 
 var _excluded = ["name", "min", "max", "dayPlaceholder", "monthPlaceholder", "yearPlaceholder", "popupDirection", "defaultValue", "hasMouse", "monthNames", "day", "month", "year", "onDateChange", "disabled"],
     _excluded2 = ["min", "max", "dayPlaceholder", "monthPlaceholder", "yearPlaceholder", "popupDirection", "defaultValue", "hasMouse", "day", "month", "year", "onDateChange"],
@@ -135,7 +135,7 @@ var DatePickerCustom = function DatePickerCustom(_ref2) {
     vkuiClass: "DatePicker__container"
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "DatePicker__day"
-  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
     name: "day",
     value: day,
     options: dayOptions,
@@ -145,7 +145,7 @@ var DatePickerCustom = function DatePickerCustom(_ref2) {
     disabled: disabled
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "DatePicker__month"
-  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
     vkuiClass: "DatePicker__monthSelect",
     name: "month",
     value: month,
@@ -156,7 +156,7 @@ var DatePickerCustom = function DatePickerCustom(_ref2) {
     disabled: disabled
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "DatePicker__year"
-  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
     name: "year",
     value: year,
     options: yearOptions,
@@ -209,13 +209,17 @@ var DatePickerNative = function DatePickerNative(_ref3) {
   var onStringChange = React.useCallback(function (e) {
     onDateChange === null || onDateChange === void 0 ? void 0 : onDateChange(parseInputDate(e.currentTarget.value));
   }, [onDateChange]);
-  return (0, _jsxRuntime.createScopedElement)(_Input.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Input.Input, (0, _extends2.default)({}, restProps, {
     type: "date",
     onChange: onStringChange,
     min: convertToInputFormat(min),
     max: convertToInputFormat(max)
   }, defProps));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/DatePicker
+ */
+
 
 var DatePicker = function DatePicker(_ref4) {
   var hasMouse = _ref4.hasMouse,

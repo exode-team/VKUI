@@ -19,7 +19,7 @@ var _dom = require("../lib/dom");
 var _useGlobalEventListener = require("./useGlobalEventListener");
 
 /**
- Проверяет, закрыла ли клавиатура часть экрана, 24% подошло к большиству устройств
+ Проверяет, закрыла ли клавиатура часть экрана, 24% подошло к большинству устройств
  Работает на iOS и Android, где софт-клавиатура ресайзит viewport в браузерах
  */
 function getPreciseKeyboardState(window) {

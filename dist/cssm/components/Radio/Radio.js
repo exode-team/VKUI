@@ -1,64 +1,81 @@
-import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "description", "style", "className", "getRef", "getRootRef", "sizeY"];
+import _extends from "@babel/runtime/helpers/extends";
+var _excluded = ["children", "description", "style", "className", "getRootRef", "sizeY"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import Tappable, { ACTIVE_EFFECT_DELAY } from "../Tappable/Tappable";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { IOS, VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
 import { hasReactNode } from "../../lib/utils";
-import Caption from "../Typography/Caption/Caption";
-import Headline from "../Typography/Headline/Headline";
-import Text from "../Typography/Text/Text";
+import { VisuallyHiddenInput } from "../VisuallyHiddenInput/VisuallyHiddenInput";
+import { Caption } from "../Typography/Caption/Caption";
+import { Headline } from "../Typography/Headline/Headline";
+import { Text } from "../Typography/Text/Text";
 import "./Radio.css";
 
-var Radio = function Radio(props) {
+var RadioIcon = function RadioIcon(props) {
+  return createScopedElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    "aria-hidden": true
+  }, props), createScopedElement("circle", {
+    cx: "12",
+    cy: "12",
+    r: "11",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    fill: "none"
+  }), createScopedElement("circle", {
+    cx: "12",
+    cy: "12",
+    r: "7.5",
+    vkuiClass: "Radio__pin",
+    fill: "currentColor"
+  }));
+};
+
+var RadioComponent = function RadioComponent(props) {
   var children = props.children,
       description = props.description,
       style = props.style,
       className = props.className,
-      getRef = props.getRef,
       getRootRef = props.getRootRef,
       sizeY = props.sizeY,
       restProps = _objectWithoutProperties(props, _excluded);
 
   var platform = usePlatform();
-  var ContentComponent = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
+  var RadioTypography = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
   return createScopedElement(Tappable, {
     Component: "label",
     style: style,
     className: className,
-    vkuiClass: classNames(getClassName("Radio", platform), "Radio--sizeY-".concat(sizeY)),
+    vkuiClass: classNames("Radio", "Radio--sizeY-".concat(sizeY)),
     activeEffectDelay: platform === IOS ? 100 : ACTIVE_EFFECT_DELAY,
     disabled: restProps.disabled,
     getRootRef: getRootRef
-  }, createScopedElement("input", _extends({}, restProps, {
-    type: "radio",
+  }, createScopedElement(VisuallyHiddenInput, _extends({}, restProps, {
     vkuiClass: "Radio__input",
-    ref: getRef
+    type: "radio"
   })), createScopedElement("div", {
     vkuiClass: "Radio__container"
-  }, createScopedElement("i", {
-    vkuiClass: "Radio__icon",
-    role: "presentation"
-  }), createScopedElement(ContentComponent, {
-    weight: "regular",
+  }, createScopedElement(RadioIcon, {
+    vkuiClass: "Radio__icon"
+  }), createScopedElement(RadioTypography, {
     vkuiClass: "Radio__content",
     Component: "div"
   }, createScopedElement("div", {
     vkuiClass: "Radio__children"
   }, children), hasReactNode(description) && createScopedElement(Caption, {
-    level: "1",
-    Component: "span",
-    weight: "regular",
     vkuiClass: "Radio__description"
   }, description))));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Radio
+ */
 
 
-export default withAdaptivity(Radio, {
+export var Radio = withAdaptivity(RadioComponent, {
   sizeY: true
 });
 //# sourceMappingURL=Radio.js.map

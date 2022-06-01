@@ -29,4 +29,7 @@ export interface PopperCommonProps extends React.HTMLAttributes<HTMLDivElement>,
 export interface PopperProps extends PopperCommonProps {
     targetRef: React.RefObject<HTMLElement>;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Popper
+ */
 export declare const Popper: React.FC<PopperProps>;

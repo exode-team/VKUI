@@ -25,7 +25,7 @@ var _classNames = require("../../lib/classNames");
 
 var _Popper = require("../Popper/Popper");
 
-var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
+var _Spinner = require("../Spinner/Spinner");
 
 var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal"];
 
@@ -66,18 +66,14 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref) {
     sameWidth: sameWidth,
     onPlacementChange: onPlacementChange,
     placement: placement,
-    vkuiClass: (0, _classNames.classNames)("CustomSelectDropdown__options", {
-      "CustomSelectDropdown__options--popupDirectionTop": isTop,
-      "CustomSelectDropdown__options--not-adjacent": offsetDistance > 0,
-      "CustomSelectDropdown__options--same-width": sameWidth
-    }),
+    vkuiClass: (0, _classNames.classNames)("CustomSelectDropdown", offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide"),
     forcePortal: forcePortal
   }, restProps), (0, _jsxRuntime.createScopedElement)(_CustomScrollView.default, {
     boxRef: scrollBoxRef,
-    vkuiClass: "CustomSelectDropdown__CustomScrollView"
+    vkuiClass: "CustomSelectDropdown__in"
   }, fetching ? (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CustomSelectDropdown__fetching"
-  }, (0, _jsxRuntime.createScopedElement)(_Spinner.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_Spinner.Spinner, {
     size: "small"
   })) : children));
 };

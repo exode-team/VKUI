@@ -21,6 +21,8 @@ var _AdaptivityContext = require("./AdaptivityContext");
 
 var _dom = require("../../lib/dom");
 
+var _useBridgeAdaptivity = require("../../hooks/useBridgeAdaptivity");
+
 var DESKTOP_SIZE = 1280;
 exports.DESKTOP_SIZE = DESKTOP_SIZE;
 var TABLET_SIZE = 1024;
@@ -32,6 +34,10 @@ exports.MOBILE_SIZE = MOBILE_SIZE;
 var MOBILE_LANDSCAPE_HEIGHT = 414;
 exports.MOBILE_LANDSCAPE_HEIGHT = MOBILE_LANDSCAPE_HEIGHT;
 var MEDIUM_HEIGHT = 720;
+/**
+ * @see https://vkcom.github.io/VKUI/#/AdaptivityProvider
+ */
+
 exports.MEDIUM_HEIGHT = MEDIUM_HEIGHT;
 
 var AdaptivityProvider = function AdaptivityProvider(props) {
@@ -41,11 +47,13 @@ var AdaptivityProvider = function AdaptivityProvider(props) {
       _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
       updateAdaptivity = _React$useState2[1];
 
+  var bridge = (0, _useBridgeAdaptivity.useBridgeAdaptivity)();
+
   var _useDOM = (0, _dom.useDOM)(),
       window = _useDOM.window;
 
   if (!adaptivityRef.current) {
-    adaptivityRef.current = calculateAdaptivity(window ? window.innerWidth : 0, window ? window.innerHeight : 0, props);
+    adaptivityRef.current = calculateAdaptivity(props, bridge, window);
   }
 
   React.useEffect(function () {
@@ -54,7 +62,7 @@ var AdaptivityProvider = function AdaptivityProvider(props) {
         return;
       }
 
-      var calculated = calculateAdaptivity(window.innerWidth, window.innerHeight, props);
+      var calculated = calculateAdaptivity(props, bridge, window);
       var _adaptivityRef$curren = adaptivityRef.current,
           viewWidth = _adaptivityRef$curren.viewWidth,
           viewHeight = _adaptivityRef$curren.viewHeight,
@@ -74,7 +82,7 @@ var AdaptivityProvider = function AdaptivityProvider(props) {
     return function () {
       window.removeEventListener("resize", onResize, false);
     };
-  }, [props.viewWidth, props.viewHeight, props.sizeX, props.sizeY, props.hasMouse, props.deviceHasHover, window, props]);
+  }, [props.viewWidth, props.viewHeight, props.sizeX, props.sizeY, props.hasMouse, props.deviceHasHover, window, props, bridge]);
   return (0, _jsxRuntime.createScopedElement)(_AdaptivityContext.AdaptivityContext.Provider, {
     value: adaptivityRef.current
   }, props.children);
@@ -82,15 +90,24 @@ var AdaptivityProvider = function AdaptivityProvider(props) {
 
 exports.AdaptivityProvider = AdaptivityProvider;
 
-function calculateAdaptivity(windowWidth, windowHeight, props) {
-  var _props$hasMouse, _props$deviceHasHover;
+function calculateAdaptivity(props, bridge, window) {
+  var windowWidth = 0;
+  var windowHeight = 0;
+
+  if (bridge.type === "adaptive") {
+    windowWidth = bridge.viewportWidth;
+    windowHeight = bridge.viewportHeight;
+  } else if (window) {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+  }
 
   var viewWidth = _AdaptivityContext.ViewWidth.SMALL_MOBILE;
   var viewHeight = _AdaptivityContext.ViewHeight.SMALL;
   var sizeY = _AdaptivityContext.SizeType.REGULAR;
   var sizeX = _AdaptivityContext.SizeType.REGULAR;
-  var hasMouse = (_props$hasMouse = props.hasMouse) !== null && _props$hasMouse !== void 0 ? _props$hasMouse : _vkjs.hasMouse;
-  var deviceHasHover = (_props$deviceHasHover = props.deviceHasHover) !== null && _props$deviceHasHover !== void 0 ? _props$deviceHasHover : _vkjs.hasHover;
+  var hasMouse = _vkjs.hasMouse;
+  var deviceHasHover = _vkjs.hasHover;
 
   if (windowWidth >= DESKTOP_SIZE) {
     viewWidth = _AdaptivityContext.ViewWidth.DESKTOP;
@@ -112,8 +129,14 @@ function calculateAdaptivity(windowWidth, windowHeight, props) {
     viewHeight = _AdaptivityContext.ViewHeight.EXTRA_SMALL;
   }
 
-  props.viewWidth && (viewWidth = props.viewWidth);
-  props.viewHeight && (viewHeight = props.viewHeight);
+  if (!bridge.type) {
+    var _props$hasMouse, _props$deviceHasHover;
+
+    props.viewWidth && (viewWidth = props.viewWidth);
+    props.viewHeight && (viewHeight = props.viewHeight);
+    hasMouse = (_props$hasMouse = props.hasMouse) !== null && _props$hasMouse !== void 0 ? _props$hasMouse : hasMouse;
+    deviceHasHover = (_props$deviceHasHover = props.deviceHasHover) !== null && _props$deviceHasHover !== void 0 ? _props$deviceHasHover : deviceHasHover;
+  }
 
   if (viewWidth <= _AdaptivityContext.ViewWidth.MOBILE) {
     sizeX = _AdaptivityContext.SizeType.COMPACT;
@@ -123,8 +146,22 @@ function calculateAdaptivity(windowWidth, windowHeight, props) {
     sizeY = _AdaptivityContext.SizeType.COMPACT;
   }
 
-  props.sizeX && (sizeX = props.sizeX);
-  props.sizeY && (sizeY = props.sizeY);
+  if (!bridge.type) {
+    props.sizeX && (sizeX = props.sizeX);
+    props.sizeY && (sizeY = props.sizeY);
+  }
+
+  if (bridge.type === "force_mobile" || bridge.type === "force_mobile_compact") {
+    viewWidth = _AdaptivityContext.ViewWidth.MOBILE;
+    sizeX = _AdaptivityContext.SizeType.COMPACT;
+
+    if (bridge.type === "force_mobile_compact") {
+      sizeY = _AdaptivityContext.SizeType.COMPACT;
+    } else {
+      sizeY = _AdaptivityContext.SizeType.REGULAR;
+    }
+  }
+
   return {
     viewWidth: viewWidth,
     viewHeight: viewHeight,

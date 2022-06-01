@@ -5,4 +5,7 @@ import "./Dropdown.css";
 export interface DropdownProps extends Omit<ClickPopperProps, "arrow" | "arrowClassName">, Omit<HoverPopperProps, "arrow" | "arrowClassName"> {
     action?: "click" | "hover";
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Dropdown
+ */
 export declare const Dropdown: React.FC<DropdownProps>;

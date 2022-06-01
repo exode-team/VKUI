@@ -7,6 +7,9 @@ import * as React from "react";
 import { clamp } from "../../helpers/math";
 import { UniversalSlider } from "./UniversalSlider";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RangeSlider
+ */
 var RangeSlider = function RangeSlider(_ref) {
   var onChange = _ref.onChange,
       defaultValue = _ref.defaultValue,

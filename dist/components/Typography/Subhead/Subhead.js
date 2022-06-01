@@ -6,8 +6,11 @@ import { classNames } from "../../../lib/classNames";
 import { warnOnce } from "../../../lib/warnOnce";
 import { useAdaptivity } from "../../../hooks/useAdaptivity";
 var warn = warnOnce("Subhead");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Subhead
+ */
 
-var Subhead = function Subhead(_ref) {
+export var Subhead = function Subhead(_ref) {
   var children = _ref.children,
       weight = _ref.weight,
       _ref$Component = _ref.Component,
@@ -22,10 +25,7 @@ var Subhead = function Subhead(_ref) {
   }
 
   return createScopedElement(Component, _extends({}, restProps, {
-    vkuiClass: classNames("Subhead", "Subhead--sizeY-".concat(sizeY), "Subhead--w-".concat(weight))
+    vkuiClass: classNames("Subhead", "Subhead--sizeY-".concat(sizeY), weight && "Subhead--w-".concat(weight))
   }), children);
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default Subhead;
+};
 //# sourceMappingURL=Subhead.js.map

@@ -19,7 +19,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _dateFns = require("date-fns");
+var _date = require("../../lib/date");
 
 var _CalendarHeader = require("../CalendarHeader/CalendarHeader");
 
@@ -29,18 +29,19 @@ var _calendar = require("../../lib/calendar");
 
 var _useCalendar2 = require("../../hooks/useCalendar");
 
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "prevMonthIcon", "nextMonthIcon"];
 
 var getIsDaySelected = function getIsDaySelected(day, value) {
   if (!(value !== null && value !== void 0 && value[0]) || !value[1]) {
     return false;
   }
 
-  return Boolean((0, _dateFns.isWithinInterval)(day, {
-    start: (0, _dateFns.startOfDay)(value[0]),
-    end: (0, _dateFns.endOfDay)(value[1])
-  }));
+  return Boolean((0, _date.isWithinInterval)(day, (0, _date.startOfDay)(value[0]), (0, _date.endOfDay)(value[1])));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/CalendarRange
+ */
+
 
 var CalendarRange = function CalendarRange(_ref) {
   var value = _ref.value,
@@ -59,6 +60,8 @@ var CalendarRange = function CalendarRange(_ref) {
       changeYearAriaLabel = _ref.changeYearAriaLabel,
       _ref$changeDayAriaLab = _ref.changeDayAriaLabel,
       changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
+      prevMonthIcon = _ref.prevMonthIcon,
+      nextMonthIcon = _ref.nextMonthIcon,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useCalendar = (0, _useCalendar2.useCalendar)({
@@ -82,7 +85,7 @@ var CalendarRange = function CalendarRange(_ref) {
       hintedDate = _React$useState2[0],
       setHintedDate = _React$useState2[1];
 
-  var secondViewDate = (0, _dateFns.addMonths)(viewDate, 1);
+  var secondViewDate = (0, _date.addMonths)(viewDate, 1);
   var handleKeyDown = React.useCallback(function (event) {
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
       event.preventDefault();
@@ -90,7 +93,7 @@ var CalendarRange = function CalendarRange(_ref) {
 
     var newFocusedDay = (0, _calendar.navigateDate)(focusedDay !== null && focusedDay !== void 0 ? focusedDay : value === null || value === void 0 ? void 0 : value[1], event.key);
 
-    if (newFocusedDay && !(0, _dateFns.isSameMonth)(newFocusedDay, viewDate) && !(0, _dateFns.isSameMonth)(newFocusedDay, (0, _dateFns.addMonths)(viewDate, 1))) {
+    if (newFocusedDay && !(0, _date.isSameMonth)(newFocusedDay, viewDate) && !(0, _date.isSameMonth)(newFocusedDay, (0, _date.addMonths)(viewDate, 1))) {
       setViewDate(newFocusedDay);
     }
 
@@ -104,11 +107,11 @@ var CalendarRange = function CalendarRange(_ref) {
     var start = value[0];
     var end = value[1];
 
-    if (start && (0, _dateFns.isSameDay)(date, start) || end && (0, _dateFns.isSameDay)(date, end)) {
+    if (start && (0, _date.isSameDay)(date, start) || end && (0, _date.isSameDay)(date, end)) {
       return [(0, _calendar.setTimeEqual)(date, start), (0, _calendar.setTimeEqual)(date, end)];
-    } else if (start && (0, _dateFns.isBefore)(date, start)) {
+    } else if (start && (0, _date.isBefore)(date, start)) {
       return [(0, _calendar.setTimeEqual)(date, start), end];
-    } else if (start && (0, _dateFns.isAfter)(date, start)) {
+    } else if (start && (0, _date.isAfter)(date, start)) {
       return [start, (0, _calendar.setTimeEqual)(date, end)];
     }
 
@@ -122,19 +125,19 @@ var CalendarRange = function CalendarRange(_ref) {
     return getIsDaySelected(day, value);
   }, [value]);
   var isDayActive = React.useCallback(function (day) {
-    return Boolean((value === null || value === void 0 ? void 0 : value[0]) && (0, _dateFns.isSameDay)(day, value[0]) || (value === null || value === void 0 ? void 0 : value[1]) && (0, _dateFns.isSameDay)(day, value[1]));
+    return Boolean((value === null || value === void 0 ? void 0 : value[0]) && (0, _date.isSameDay)(day, value[0]) || (value === null || value === void 0 ? void 0 : value[1]) && (0, _date.isSameDay)(day, value[1]));
   }, [value]);
   var isDaySelectionEnd = React.useCallback(function (day, dayOfWeek) {
-    return Boolean((0, _calendar.isLastDay)(day, dayOfWeek) || (value === null || value === void 0 ? void 0 : value[1]) && (0, _dateFns.isSameDay)(day, value[1]));
+    return Boolean((0, _calendar.isLastDay)(day, dayOfWeek) || (value === null || value === void 0 ? void 0 : value[1]) && (0, _date.isSameDay)(day, value[1]));
   }, [value]);
   var isHintedDaySelectionEnd = React.useCallback(function (day, dayOfWeek) {
-    return Boolean((0, _calendar.isLastDay)(day, dayOfWeek) || (hintedDate === null || hintedDate === void 0 ? void 0 : hintedDate[1]) && (0, _dateFns.isSameDay)(day, hintedDate[1]));
+    return Boolean((0, _calendar.isLastDay)(day, dayOfWeek) || (hintedDate === null || hintedDate === void 0 ? void 0 : hintedDate[1]) && (0, _date.isSameDay)(day, hintedDate[1]));
   }, [hintedDate]);
   var isDaySelectionStart = React.useCallback(function (day, dayOfWeek) {
-    return Boolean((0, _calendar.isFirstDay)(day, dayOfWeek) || (value === null || value === void 0 ? void 0 : value[0]) && (0, _dateFns.isSameDay)(day, value[0]));
+    return Boolean((0, _calendar.isFirstDay)(day, dayOfWeek) || (value === null || value === void 0 ? void 0 : value[0]) && (0, _date.isSameDay)(day, value[0]));
   }, [value]);
   var isHintedDaySelectionStart = React.useCallback(function (day, dayOfWeek) {
-    return Boolean((0, _calendar.isFirstDay)(day, dayOfWeek) || (hintedDate === null || hintedDate === void 0 ? void 0 : hintedDate[0]) && (0, _dateFns.isSameDay)(day, hintedDate[0]));
+    return Boolean((0, _calendar.isFirstDay)(day, dayOfWeek) || (hintedDate === null || hintedDate === void 0 ? void 0 : hintedDate[0]) && (0, _date.isSameDay)(day, hintedDate[0]));
   }, [hintedDate]);
   var onDayEnter = React.useCallback(function (date) {
     return setHintedDate(getNewValue(date));
@@ -160,7 +163,8 @@ var CalendarRange = function CalendarRange(_ref) {
     prevMonthAriaLabel: prevMonthAriaLabel,
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
-    changeYearAriaLabel: changeYearAriaLabel
+    changeYearAriaLabel: changeYearAriaLabel,
+    prevMonthIcon: prevMonthIcon
   }), (0, _jsxRuntime.createScopedElement)(_CalendarDays.CalendarDays, {
     viewDate: viewDate,
     value: value,
@@ -191,7 +195,8 @@ var CalendarRange = function CalendarRange(_ref) {
     prevMonthAriaLabel: prevMonthAriaLabel,
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
-    changeYearAriaLabel: changeYearAriaLabel
+    changeYearAriaLabel: changeYearAriaLabel,
+    nextMonthIcon: nextMonthIcon
   }), (0, _jsxRuntime.createScopedElement)(_CalendarDays.CalendarDays, {
     viewDate: secondViewDate,
     value: value,

@@ -12,6 +12,9 @@ import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import "./PanelHeaderBack.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderBack
+ */
 var PanelHeaderBack = function PanelHeaderBack(_ref) {
   var label = _ref.label,
       sizeX = _ref.sizeX,
@@ -20,6 +23,7 @@ var PanelHeaderBack = function PanelHeaderBack(_ref) {
   var platform = usePlatform();
   var showLabel = platform === VKCOM || platform === IOS && sizeX === SizeType.REGULAR;
   return createScopedElement(PanelHeaderButton, _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("PanelHeaderBack", platform), {
       "PanelHeaderBack--has-label": showLabel && !!label
     }),

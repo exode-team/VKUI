@@ -7,15 +7,18 @@ var _excluded = ["bannerData", "onClose"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Icon24Dismiss } from "@vkontakte/icons";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 import SimpleCell from "../SimpleCell/SimpleCell";
 import Avatar from "../Avatar/Avatar";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import { warnOnce } from "../../lib/warnOnce";
 import "./PromoBanner.css";
 var warn = warnOnce("PromoBanner");
+/**
+ * @see https://vkcom.github.io/VKUI/#/PromoBanner
+ */
 
 var PromoBanner = function PromoBanner(props) {
   var platform = usePlatform();
@@ -54,12 +57,8 @@ var PromoBanner = function PromoBanner(props) {
   }, restProps), createScopedElement("div", {
     vkuiClass: "PromoBanner__head"
   }, createScopedElement(Caption, {
-    weight: "regular",
-    level: "1",
     vkuiClass: "PromoBanner__label"
   }, bannerData.advertisingLabel || "Advertisement"), ageRestrictions != null && createScopedElement(Caption, {
-    weight: "regular",
-    level: "1",
     vkuiClass: "PromoBanner__age"
   }, ageRestrictions, "+"), !props.isCloseButtonHidden && createScopedElement("div", {
     vkuiClass: "PromoBanner__close",

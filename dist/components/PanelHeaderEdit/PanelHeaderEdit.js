@@ -7,6 +7,9 @@ import { ANDROID, VKCOM } from "../../lib/platform";
 import { Icon28EditOutline, Icon28DoneOutline } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderEdit
+ */
 var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
   var isActive = _ref.isActive,
       editLabel = _ref.editLabel,

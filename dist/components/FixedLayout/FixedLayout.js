@@ -13,6 +13,9 @@ import { useDOM } from "../../lib/dom";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
 import { usePlatform } from "../../hooks/usePlatform";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FixedLayout
+ */
 var FixedLayout = function FixedLayout(_ref) {
   var children = _ref.children,
       style = _ref.style,
@@ -43,7 +46,8 @@ var FixedLayout = function FixedLayout(_ref) {
   useGlobalEventListener(window, "resize", doResize);
   return createScopedElement(TooltipContainer, _extends({}, restProps, {
     fixed: true,
-    ref: getRootRef,
+    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("FixedLayout", platform), {
       "FixedLayout--filled": filled
     }, "FixedLayout--".concat(vertical)),

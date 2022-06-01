@@ -7,4 +7,7 @@ export interface HorizontalCellProps extends React.AnchorHTMLAttributes<HTMLElem
     subtitle?: React.ReactNode;
     disabled?: boolean;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/HorizontalCell
+ */
 export declare const HorizontalCell: React.FC<HorizontalCellProps>;

@@ -8,10 +8,10 @@ var _excluded = ["name", "min", "max", "dayPlaceholder", "monthPlaceholder", "ye
     _excluded3 = ["hasMouse", "defaultValue"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import Input from "../Input/Input";
+import { Input } from "../Input/Input";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { leadingZero } from "../../lib/utils";
-import CustomSelect from "../CustomSelect/CustomSelect";
+import { CustomSelect } from "../CustomSelect/CustomSelect";
 import "./DatePicker.css";
 var DefaultMonths = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
 
@@ -196,6 +196,10 @@ var DatePickerNative = function DatePickerNative(_ref3) {
     max: convertToInputFormat(max)
   }, defProps));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/DatePicker
+ */
+
 
 var DatePicker = function DatePicker(_ref4) {
   var hasMouse = _ref4.hasMouse,

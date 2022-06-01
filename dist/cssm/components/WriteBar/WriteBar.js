@@ -9,6 +9,10 @@ import { hasReactNode, isFunction } from "../../lib/utils";
 import { useDOM } from "../../lib/dom";
 import { getClassName } from "../../helpers/getClassName";
 import "./WriteBar.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/WriteBar
+ */
 export var WriteBar = function WriteBar(props) {
   var platform = usePlatform();
 

@@ -9,6 +9,9 @@ import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { ListContext } from "./ListContext";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/List
+ */
 var List = function List(_ref) {
   var children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
@@ -23,6 +26,7 @@ var List = function List(_ref) {
   return createScopedElement("div", _extends({
     role: "list"
   }, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("List", platform), {
       "List--dragging": isDragging
     })

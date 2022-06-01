@@ -43,6 +43,10 @@ var generateVKUITokensClassName = function generateVKUITokensClassName(platform,
 
   return "vkui--".concat(tokensPlatform, "--").concat(appearance);
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/AppearanceProvider
+ */
+
 
 exports.generateVKUITokensClassName = generateVKUITokensClassName;
 

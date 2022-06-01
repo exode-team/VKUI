@@ -4,12 +4,16 @@ import * as React from "react";
 import { hasMouse as _hasMouse, hasHover as _hasHover } from "@vkontakte/vkjs";
 import { AdaptivityContext, SizeType, ViewHeight, ViewWidth } from "./AdaptivityContext";
 import { useDOM } from "../../lib/dom";
+import { useBridgeAdaptivity } from "../../hooks/useBridgeAdaptivity";
 export var DESKTOP_SIZE = 1280;
 export var TABLET_SIZE = 1024;
 export var SMALL_TABLET_SIZE = 768;
 export var MOBILE_SIZE = 320;
 export var MOBILE_LANDSCAPE_HEIGHT = 414;
 export var MEDIUM_HEIGHT = 720;
+/**
+ * @see https://vkcom.github.io/VKUI/#/AdaptivityProvider
+ */
 
 var AdaptivityProvider = function AdaptivityProvider(props) {
   var adaptivityRef = React.useRef(null);
@@ -18,11 +22,13 @@ var AdaptivityProvider = function AdaptivityProvider(props) {
       _React$useState2 = _slicedToArray(_React$useState, 2),
       updateAdaptivity = _React$useState2[1];
 
+  var bridge = useBridgeAdaptivity();
+
   var _useDOM = useDOM(),
       window = _useDOM.window;
 
   if (!adaptivityRef.current) {
-    adaptivityRef.current = calculateAdaptivity(window ? window.innerWidth : 0, window ? window.innerHeight : 0, props);
+    adaptivityRef.current = calculateAdaptivity(props, bridge, window);
   }
 
   React.useEffect(function () {
@@ -31,7 +37,7 @@ var AdaptivityProvider = function AdaptivityProvider(props) {
         return;
       }
 
-      var calculated = calculateAdaptivity(window.innerWidth, window.innerHeight, props);
+      var calculated = calculateAdaptivity(props, bridge, window);
       var _adaptivityRef$curren = adaptivityRef.current,
           viewWidth = _adaptivityRef$curren.viewWidth,
           viewHeight = _adaptivityRef$curren.viewHeight,
@@ -51,21 +57,30 @@ var AdaptivityProvider = function AdaptivityProvider(props) {
     return function () {
       window.removeEventListener("resize", onResize, false);
     };
-  }, [props.viewWidth, props.viewHeight, props.sizeX, props.sizeY, props.hasMouse, props.deviceHasHover, window, props]);
+  }, [props.viewWidth, props.viewHeight, props.sizeX, props.sizeY, props.hasMouse, props.deviceHasHover, window, props, bridge]);
   return createScopedElement(AdaptivityContext.Provider, {
     value: adaptivityRef.current
   }, props.children);
 };
 
-function calculateAdaptivity(windowWidth, windowHeight, props) {
-  var _props$hasMouse, _props$deviceHasHover;
+function calculateAdaptivity(props, bridge, window) {
+  var windowWidth = 0;
+  var windowHeight = 0;
+
+  if (bridge.type === "adaptive") {
+    windowWidth = bridge.viewportWidth;
+    windowHeight = bridge.viewportHeight;
+  } else if (window) {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+  }
 
   var viewWidth = ViewWidth.SMALL_MOBILE;
   var viewHeight = ViewHeight.SMALL;
   var sizeY = SizeType.REGULAR;
   var sizeX = SizeType.REGULAR;
-  var hasMouse = (_props$hasMouse = props.hasMouse) !== null && _props$hasMouse !== void 0 ? _props$hasMouse : _hasMouse;
-  var deviceHasHover = (_props$deviceHasHover = props.deviceHasHover) !== null && _props$deviceHasHover !== void 0 ? _props$deviceHasHover : _hasHover;
+  var hasMouse = _hasMouse;
+  var deviceHasHover = _hasHover;
 
   if (windowWidth >= DESKTOP_SIZE) {
     viewWidth = ViewWidth.DESKTOP;
@@ -87,8 +102,14 @@ function calculateAdaptivity(windowWidth, windowHeight, props) {
     viewHeight = ViewHeight.EXTRA_SMALL;
   }
 
-  props.viewWidth && (viewWidth = props.viewWidth);
-  props.viewHeight && (viewHeight = props.viewHeight);
+  if (!bridge.type) {
+    var _props$hasMouse, _props$deviceHasHover;
+
+    props.viewWidth && (viewWidth = props.viewWidth);
+    props.viewHeight && (viewHeight = props.viewHeight);
+    hasMouse = (_props$hasMouse = props.hasMouse) !== null && _props$hasMouse !== void 0 ? _props$hasMouse : hasMouse;
+    deviceHasHover = (_props$deviceHasHover = props.deviceHasHover) !== null && _props$deviceHasHover !== void 0 ? _props$deviceHasHover : deviceHasHover;
+  }
 
   if (viewWidth <= ViewWidth.MOBILE) {
     sizeX = SizeType.COMPACT;
@@ -98,8 +119,22 @@ function calculateAdaptivity(windowWidth, windowHeight, props) {
     sizeY = SizeType.COMPACT;
   }
 
-  props.sizeX && (sizeX = props.sizeX);
-  props.sizeY && (sizeY = props.sizeY);
+  if (!bridge.type) {
+    props.sizeX && (sizeX = props.sizeX);
+    props.sizeY && (sizeY = props.sizeY);
+  }
+
+  if (bridge.type === "force_mobile" || bridge.type === "force_mobile_compact") {
+    viewWidth = ViewWidth.MOBILE;
+    sizeX = SizeType.COMPACT;
+
+    if (bridge.type === "force_mobile_compact") {
+      sizeY = SizeType.COMPACT;
+    } else {
+      sizeY = SizeType.REGULAR;
+    }
+  }
+
   return {
     viewWidth: viewWidth,
     viewHeight: viewHeight,

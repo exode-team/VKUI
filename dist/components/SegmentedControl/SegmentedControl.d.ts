@@ -14,4 +14,7 @@ export interface SegmentedControlProps extends Omit<React.HTMLAttributes<HTMLDiv
     value?: SegmentedControlValue;
     defaultValue?: SegmentedControlValue;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/SegmentedControl
+ */
 export declare const SegmentedControl: React.FC<SegmentedControlProps>;

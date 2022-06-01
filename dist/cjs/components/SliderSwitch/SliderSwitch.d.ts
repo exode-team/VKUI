@@ -20,6 +20,7 @@ interface SliderSwitchState {
 }
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](#/SegmentedControl).
+ * @see https://vkcom.github.io/VKUI/#/SliderSwitch
  */
 declare class SliderSwitch extends React.Component<SliderSwitchProps, SliderSwitchState> {
     constructor(props: SliderSwitchProps);

@@ -12,5 +12,8 @@ export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
     before?: React.ReactNode;
     after?: React.ReactNode;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Chip
+ */
 export declare const Chip: React.FC<ChipProps>;
 export {};

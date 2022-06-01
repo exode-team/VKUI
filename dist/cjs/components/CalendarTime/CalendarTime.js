@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,11 +11,11 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var React = _interopRequireWildcard(require("react"));
 
-var _dateFns = require("date-fns");
+var _date = require("../../lib/date");
 
-var _CustomSelect = _interopRequireDefault(require("../CustomSelect/CustomSelect"));
+var _CustomSelect = require("../CustomSelect/CustomSelect");
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = require("../Button/Button");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
@@ -50,16 +48,16 @@ var CalendarTime = function CalendarTime(_ref) {
       _ref$changeMinutesAri = _ref.changeMinutesAriaLabel,
       changeMinutesAriaLabel = _ref$changeMinutesAri === void 0 ? "Изменить минуту" : _ref$changeMinutesAri;
   var onHoursChange = React.useCallback(function (event) {
-    return onChange === null || onChange === void 0 ? void 0 : onChange((0, _dateFns.setHours)(value, Number(event.target.value)));
+    return onChange === null || onChange === void 0 ? void 0 : onChange((0, _date.setHours)(value, Number(event.target.value)));
   }, [onChange, value]);
   var onMinutesChange = React.useCallback(function (event) {
-    return onChange === null || onChange === void 0 ? void 0 : onChange((0, _dateFns.setMinutes)(value, Number(event.target.value)));
+    return onChange === null || onChange === void 0 ? void 0 : onChange((0, _date.setMinutes)(value, Number(event.target.value)));
   }, [onChange, value]);
   return (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarTime"
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarTime__picker"
-  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
     value: value.getHours(),
     options: hours,
     onChange: onHoursChange,
@@ -70,7 +68,7 @@ var CalendarTime = function CalendarTime(_ref) {
     vkuiClass: "CalendarTime__divider"
   }, ":"), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarTime__picker"
-  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
     value: value.getMinutes(),
     options: minutes,
     onChange: onMinutesChange,
@@ -79,7 +77,7 @@ var CalendarTime = function CalendarTime(_ref) {
     "aria-label": changeMinutesAriaLabel
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarTime__button"
-  }, (0, _jsxRuntime.createScopedElement)(_Button.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_Button.Button, {
     sizeY: _withAdaptivity.SizeType.COMPACT,
     mode: "secondary",
     onClick: onClose,

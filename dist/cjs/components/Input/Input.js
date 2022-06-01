@@ -5,13 +5,11 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Input = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
@@ -21,7 +19,7 @@ var _react = require("react");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _FormField = require("../FormField/FormField");
 
@@ -29,15 +27,18 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _excluded = ["align", "getRef", "className", "getRootRef", "sizeY", "style", "after", "onInput", "value"];
+var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value"];
 
-var Input = function Input(_ref) {
-  var align = _ref.align,
+var InputComponent = function InputComponent(_ref) {
+  var _ref$type = _ref.type,
+      type = _ref$type === void 0 ? "text" : _ref$type,
+      align = _ref.align,
       getRef = _ref.getRef,
       className = _ref.className,
       getRootRef = _ref.getRootRef,
       sizeY = _ref.sizeY,
       style = _ref.style,
+      before = _ref.before,
       after = _ref.after,
       onInput = _ref.onInput,
       value = _ref.value,
@@ -61,27 +62,28 @@ var Input = function Input(_ref) {
 
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, {
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("Input", platform), (0, _defineProperty2.default)({}, "Input--".concat(align), !!align), "Input--sizeY-".concat(sizeY)),
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Input", platform), !!align && "Input--".concat(align), "Input--sizeY-".concat(sizeY)),
     style: style,
     className: className,
     getRootRef: getRootRef,
+    before: before,
     after: after,
     disabled: restProps.disabled
   }, (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({}, restProps, {
+    type: type,
     onInput: handleChange,
     value: value,
     vkuiClass: "Input__el",
     ref: ref || getRef
   })));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Input
+ */
 
-Input.defaultProps = {
-  type: "text"
-}; // eslint-disable-next-line import/no-default-export
 
-var _default = (0, _withAdaptivity.withAdaptivity)(Input, {
+var Input = (0, _withAdaptivity.withAdaptivity)(InputComponent, {
   sizeY: true
 });
-
-exports.default = _default;
+exports.Input = Input;
 //# sourceMappingURL=Input.js.map

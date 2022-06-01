@@ -17,6 +17,9 @@ var _classNames = require("../../lib/classNames");
 
 var _excluded = ["mode", "children", "to"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Gradient
+ */
 var Gradient = function Gradient(_ref) {
   var _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? "tint" : _ref$mode,

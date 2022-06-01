@@ -35,6 +35,9 @@ var _dom = require("../../lib/dom");
 
 var _excluded = ["alignY", "alignX", "closing", "hasMask", "fixed", "children", "onClick"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PopoutWrapper
+ */
 var PopoutWrapper = function PopoutWrapper(_ref) {
   var _ref$alignY = _ref.alignY,
       alignY = _ref$alignY === void 0 ? "center" : _ref$alignY,
@@ -79,6 +82,7 @@ var PopoutWrapper = function PopoutWrapper(_ref) {
   });
   var baseClassNames = (0, _getClassName.getClassName)("PopoutWrapper", platform);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)(baseClassNames, "PopoutWrapper--v-".concat(alignY), "PopoutWrapper--h-".concat(alignX), {
       "PopoutWrapper--closing": closing,
       "PopoutWrapper--opened": opened,

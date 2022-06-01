@@ -11,6 +11,9 @@ import { IOS } from "../../lib/platform";
 import { warnOnce } from "../../lib/warnOnce";
 import "./IconButton.css";
 var warn = warnOnce("IconButton");
+/**
+ * @see https://vkcom.github.io/VKUI/#/IconButton
+ */
 
 var IconButton = function IconButton(_ref) {
   var icon = _ref.icon,

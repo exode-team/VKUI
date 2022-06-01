@@ -25,6 +25,10 @@ function getInitialsFontSize(avatarSize) {
   var evenFix = calculatedFontSize % 2;
   return calculatedFontSize + evenFix;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/InitialsAvatar
+ */
+
 
 export var InitialsAvatar = function InitialsAvatar(_ref) {
   var _ref$size = _ref.size,

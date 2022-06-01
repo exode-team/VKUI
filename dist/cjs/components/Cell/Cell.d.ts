@@ -1,9 +1,9 @@
 import * as React from "react";
 import { SimpleCellProps } from "../SimpleCell/SimpleCell";
-import { HasPlatform } from "../../types";
+import { HasPlatform, HasRootRef } from "../../types";
 import { RemovableProps } from "../Removable/Removable";
 import "./Cell.css";
-export interface CellProps extends SimpleCellProps, HasPlatform, RemovableProps {
+export interface CellProps extends Omit<SimpleCellProps, "getRootRef">, HasPlatform, RemovableProps, HasRootRef<HTMLDivElement> {
     mode?: "removable" | "selectable";
     /**
      * В режиме перетаскивания ячейка перестает быть кликабельной, то есть при клике переданный onClick вызываться не будет
@@ -22,7 +22,7 @@ export interface CellProps extends SimpleCellProps, HasPlatform, RemovableProps 
      */
     selectable?: boolean;
     /**
-     * В режиме selectable реагирует на входящие значения пропса cheсked, как зависящий напрямую от входящего значения
+     * В режиме selectable реагирует на входящие значения пропса checked, как зависящий напрямую от входящего значения
      */
     checked?: boolean;
     /**
@@ -44,4 +44,7 @@ export interface CellProps extends SimpleCellProps, HasPlatform, RemovableProps 
      */
     draggerLabel?: string;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Cell
+ */
 export declare const Cell: React.FC<CellProps>;

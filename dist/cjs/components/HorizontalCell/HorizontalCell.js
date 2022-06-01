@@ -21,11 +21,11 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _utils = require("../../lib/utils");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
 
@@ -36,12 +36,14 @@ var CellTypography = function CellTypography(_ref) {
   var size = _ref.size,
       children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  return size === "s" ? (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-    level: "2",
-    weight: "regular"
-  }, restProps), children) : (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps, children);
+  return size === "s" ? (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+    level: "2"
+  }, restProps), children) : (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, restProps, children);
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/HorizontalCell
+ */
 var HorizontalCell = function HorizontalCell(_ref2) {
   var className = _ref2.className,
       header = _ref2.header,
@@ -72,9 +74,7 @@ var HorizontalCell = function HorizontalCell(_ref2) {
   }, (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(CellTypography, {
     size: size,
     vkuiClass: "HorizontalCell__title"
-  }, header), (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    weight: "regular",
-    level: "1",
+  }, header), (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "HorizontalCell__subtitle"
   }, subtitle))));
 };

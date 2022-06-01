@@ -21,6 +21,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["mode", "children", "getRootRef"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Card
+ */
 var Card = function Card(_ref) {
   var _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? "tint" : _ref$mode,

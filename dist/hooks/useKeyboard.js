@@ -4,7 +4,7 @@ import { useDOM } from "../lib/dom";
 import { useGlobalEventListener } from "./useGlobalEventListener";
 
 /**
- Проверяет, закрыла ли клавиатура часть экрана, 24% подошло к большиству устройств
+ Проверяет, закрыла ли клавиатура часть экрана, 24% подошло к большинству устройств
  Работает на iOS и Android, где софт-клавиатура ресайзит viewport в браузерах
  */
 export function getPreciseKeyboardState(window) {

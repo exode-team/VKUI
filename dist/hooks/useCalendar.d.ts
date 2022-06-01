@@ -1,13 +1,14 @@
 import * as React from "react";
-export interface UseCalendarDependencies {
+import { CalendarProps } from "../components/Calendar/Calendar";
+export interface UseCalendarDependencies extends Pick<CalendarProps, "onHeaderChange" | "onNextMonth" | "onPrevMonth"> {
     value?: Array<Date | null> | Date;
     disablePast?: boolean;
     disableFuture?: boolean;
     shouldDisableDate?(value: Date): boolean;
 }
-export declare function useCalendar({ value, disablePast, disableFuture, shouldDisableDate, }: UseCalendarDependencies): {
+export declare function useCalendar({ value, disablePast, disableFuture, shouldDisableDate, onHeaderChange, onNextMonth, onPrevMonth, }: UseCalendarDependencies): {
     viewDate: Date;
-    setViewDate: React.Dispatch<React.SetStateAction<Date>>;
+    setViewDate: (value: Date) => void;
     setPrevMonth: () => void;
     setNextMonth: () => void;
     focusedDay: Date | undefined;

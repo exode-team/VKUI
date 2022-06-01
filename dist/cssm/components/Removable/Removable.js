@@ -18,6 +18,9 @@ import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
 import Tappable from "../Tappable/Tappable";
 import "./Removable.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RemovableIos
+ */
 var RemovableIos = function RemovableIos(_ref) {
   var onRemove = _ref.onRemove,
       removePlaceholder = _ref.removePlaceholder,
@@ -97,6 +100,9 @@ var RemovableIos = function RemovableIos(_ref) {
   }, removePlaceholder)));
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Removable
+ */
 export var Removable = function Removable(_ref2) {
   var getRootRef = _ref2.getRootRef,
       children = _ref2.children,

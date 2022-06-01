@@ -27,9 +27,9 @@ var _classNames = require("../../lib/classNames");
 
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _masks = require("./masks");
 
@@ -37,6 +37,9 @@ var _dom = require("../../lib/dom");
 
 var _excluded = ["photos", "visibleCount", "size", "layout", "children"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/UsersStack
+ */
 var UsersStack = function UsersStack(props) {
   var platform = (0, _usePlatform.usePlatform)();
   var _props$photos = props.photos,
@@ -58,6 +61,7 @@ var UsersStack = function UsersStack(props) {
   var canShowOthers = othersCount > 0 && size === "m";
   var photosShown = photos.slice(0, visibleCount);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("UsersStack", platform), "UsersStack--size-".concat(size), "UsersStack--l-".concat(layout), {
       "UsersStack--others": canShowOthers
     })
@@ -75,12 +79,11 @@ var UsersStack = function UsersStack(props) {
       key: i,
       vkuiClass: "UsersStack__photo"
     }, item);
-  }), canShowOthers && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    weight: "medium",
-    level: "1",
+  }), canShowOthers && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+    weight: "1",
     vkuiClass: "UsersStack__photo UsersStack__photo--others",
     "aria-hidden": "true"
-  }, (0, _jsxRuntime.createScopedElement)("span", null, "+", othersCount))), (0, _utils.hasReactNode)(children) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
+  }, (0, _jsxRuntime.createScopedElement)("span", null, "+", othersCount))), (0, _utils.hasReactNode)(children) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     Component: "span",
     vkuiClass: "UsersStack__text"
   }, children));

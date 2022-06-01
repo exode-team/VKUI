@@ -12,6 +12,10 @@ import { useEnsuredControl } from "../../hooks/useEnsuredControl";
 import { useExternRef } from "../../hooks/useExternRef";
 import { usePlatform } from "../../hooks/usePlatform";
 import "./Textarea.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Textarea
+ */
 var Textarea = /*#__PURE__*/React.memo(function (_ref) {
   var _ref$defaultValue = _ref.defaultValue,
       defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,

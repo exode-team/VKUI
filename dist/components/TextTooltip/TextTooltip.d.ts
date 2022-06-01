@@ -11,4 +11,7 @@ export interface TextTooltipProps extends Omit<HoverPopperProps, "arrow" | "arro
      */
     header?: React.ReactNode;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/TextTooltip
+ */
 export declare const TextTooltip: React.FC<TextTooltipProps>;

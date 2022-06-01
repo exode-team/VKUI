@@ -25,6 +25,9 @@ var _utils = require("../../lib/utils");
 
 var _excluded = ["children"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderSubmit
+ */
 var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
   var children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);

@@ -1,24 +1,28 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "header", "viewWidth", "viewHeight", "sizeX", "hasMouse", "onClose", "settlingHeight", "dynamicContentHeight", "getModalContentRef", "nav"];
+var _excluded = ["children", "header", "viewWidth", "viewHeight", "sizeX", "hasMouse", "onOpen", "onOpened", "onClose", "onClosed", "settlingHeight", "dynamicContentHeight", "getModalContentRef", "nav"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { ModalRootContext, useModalRegistry } from "../ModalRoot/ModalRootContext";
 import { usePlatform } from "../../hooks/usePlatform";
-import { withAdaptivity, ViewHeight, ViewWidth } from "../../hoc/withAdaptivity";
+import { useOrientationChange } from "../../hooks/useOrientationChange";
+import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
 import ModalDismissButton from "../ModalDismissButton/ModalDismissButton";
 import { multiRef } from "../../lib/utils";
 import { ModalType } from "../ModalRoot/types";
 import { getNavId } from "../../lib/getNavId";
 import { warnOnce } from "../../lib/warnOnce";
+import { Platform } from "../../lib/platform";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import "./ModalPage.css";
 var warn = warnOnce("ModalPage");
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalPage
+ */
 
 var ModalPage = function ModalPage(props) {
-  var platform = usePlatform();
-
   var _React$useContext = React.useContext(ModalRootContext),
       updateModalHeight = _React$useContext.updateModalHeight;
 
@@ -28,24 +32,28 @@ var ModalPage = function ModalPage(props) {
       viewHeight = props.viewHeight,
       sizeX = props.sizeX,
       hasMouse = props.hasMouse,
+      onOpen = props.onOpen,
+      onOpened = props.onOpened,
       onClose = props.onClose,
+      onClosed = props.onClosed,
       settlingHeight = props.settlingHeight,
       dynamicContentHeight = props.dynamicContentHeight,
       getModalContentRef = props.getModalContentRef,
       nav = props.nav,
       restProps = _objectWithoutProperties(props, _excluded);
 
-  React.useEffect(function () {
-    updateModalHeight();
-  }, [children, updateModalHeight]);
-  var isDesktop = viewWidth >= ViewWidth.SMALL_TABLET && (hasMouse || viewHeight >= ViewHeight.MEDIUM);
-  var canShowCloseBtn = viewWidth >= ViewWidth.SMALL_TABLET;
+  var platform = usePlatform();
+  var orientation = useOrientationChange();
+  React.useEffect(updateModalHeight, [children, orientation, updateModalHeight]);
+  var isDesktop = useAdaptivityIsDesktop();
+  var canShowCloseBtn = viewWidth >= ViewWidth.SMALL_TABLET || platform === Platform.VKCOM;
   var modalContext = React.useContext(ModalRootContext);
 
   var _useModalRegistry = useModalRegistry(getNavId(props, warn), ModalType.PAGE),
       refs = _useModalRegistry.refs;
 
   return createScopedElement("div", _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("ModalPage", platform), "ModalPage--sizeX-".concat(sizeX), {
       "ModalPage--desktop": isDesktop
     })

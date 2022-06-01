@@ -30,6 +30,10 @@ var _platform = require("../../lib/platform");
 var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["centered", "children", "getRootRef", "sizeX", "nav"];
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Panel
+ */
 var Panel = (0, _withAdaptivity.withAdaptivity)(function (_ref) {
   var _ref$centered = _ref.centered,
       centered = _ref$centered === void 0 ? false : _ref$centered,
@@ -40,7 +44,8 @@ var Panel = (0, _withAdaptivity.withAdaptivity)(function (_ref) {
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    ref: getRootRef,
+    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("Panel", platform), "Panel--".concat(sizeX), (0, _defineProperty2.default)({
       "Panel--centered": centered
     }, "Panel--sizeX-".concat(sizeX), true))

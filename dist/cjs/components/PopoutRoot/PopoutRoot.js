@@ -23,6 +23,8 @@ var _AppRootPortal = require("../AppRoot/AppRootPortal");
 
 var _dom = require("../../lib/dom");
 
+var _useAdaptivity = require("../../hooks/useAdaptivity");
+
 var _excluded = ["popout", "modal", "viewWidth", "viewHeight", "hasMouse", "children", "getRootRef"];
 
 var PopoutRootComponent = function PopoutRootComponent(props) {
@@ -38,7 +40,7 @@ var PopoutRootComponent = function PopoutRootComponent(props) {
   var _useDOM = (0, _dom.useDOM)(),
       document = _useDOM.document;
 
-  var isDesktop = viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET && (hasMouse || viewHeight >= _withAdaptivity.ViewHeight.MEDIUM);
+  var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
   React.useEffect(function () {
     popout && (0, _dom.blurActiveElement)(document);
   }, [document, popout]);

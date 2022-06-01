@@ -7,6 +7,10 @@ import { ClickPopper } from "../ClickPopper/ClickPopper";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import "./Dropdown.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Dropdown
+ */
 export var Dropdown = function Dropdown(_ref) {
   var _ref$action = _ref.action,
       action = _ref$action === void 0 ? "click" : _ref$action,

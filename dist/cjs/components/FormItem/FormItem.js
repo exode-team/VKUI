@@ -27,9 +27,9 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _utils = require("../../lib/utils");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
@@ -37,6 +37,9 @@ var _Removable = require("../Removable/Removable");
 
 var _excluded = ["children", "top", "bottom", "status", "Component", "removable", "onRemove", "removePlaceholder", "getRootRef"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormItem
+ */
 var FormItem = function FormItem(_ref) {
   var children = _ref.children,
       top = _ref.top,
@@ -59,15 +62,14 @@ var FormItem = function FormItem(_ref) {
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
       sizeY = _useAdaptivity.sizeY;
 
-  var wrappedChildren = (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _utils.hasReactNode)(top) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
+  var wrappedChildren = (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _utils.hasReactNode)(top) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     vkuiClass: "FormItem__top"
-  }, top), children, (0, _utils.hasReactNode)(bottom) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    level: "1",
-    weight: "regular",
+  }, top), children, (0, _utils.hasReactNode)(bottom) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "FormItem__bottom"
   }, bottom));
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
-    ref: rootEl,
+    ref: rootEl // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormItem", platform), "FormItem--".concat(status), "FormItem--sizeY-".concat(sizeY), {
       "FormItem--withTop": (0, _utils.hasReactNode)(top),
       "FormItem--removable": removable

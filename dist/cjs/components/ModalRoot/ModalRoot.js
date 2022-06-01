@@ -206,7 +206,7 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
         return Object.assign(_this.getModalState(id), data);
       },
       onClose: function onClose() {
-        return _this.props.closeActiveModal();
+        return _this.props.onExit();
       },
       isInsideModal: true
     };
@@ -273,12 +273,13 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
       if (this.props.enteringModal && this.props.enteringModal !== prevProps.enteringModal) {
         var enteringModal = this.props.enteringModal;
         var enteringState = this.getModalState(enteringModal);
+        this.props.onEnter();
         this.waitTransitionFinish(enteringState, function () {
           if (enteringState !== null && enteringState !== void 0 && enteringState.innerElement) {
             enteringState.innerElement.style.transitionDelay = "";
           }
 
-          _this2.props.onEnter(enteringModal);
+          _this2.props.onEntered(enteringModal);
         });
 
         if (enteringState !== null && enteringState !== void 0 && enteringState.innerElement) {
@@ -363,7 +364,7 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
       var prevModalState = this.getModalState(id);
 
       if (!prevModalState) {
-        id && warn("[closeActiveModal] Modal ".concat(id, " does not exist - not closing"));
+        id && warn("closeActiveModal: \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u043E\u0435 \u043E\u043A\u043D\u043E (\u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430) ".concat(id, " \u043D\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442"), "error");
         return;
       }
 
@@ -371,7 +372,7 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
       var nextIsPage = !!nextModalState && nextModalState.type === _types.ModalType.PAGE;
       var prevIsPage = !!prevModalState && prevModalState.type === _types.ModalType.PAGE;
       this.waitTransitionFinish(prevModalState, function () {
-        return _this3.props.onExit(id);
+        return _this3.props.onExited(id);
       });
       var exitTranslate = prevIsPage && nextIsPage && ((_prevModalState$trans = prevModalState.translateY) !== null && _prevModalState$trans !== void 0 ? _prevModalState$trans : 0) <= ((_nextModalState$trans = nextModalState === null || nextModalState === void 0 ? void 0 : nextModalState.translateYFrom) !== null && _nextModalState$trans !== void 0 ? _nextModalState$trans : 0) && !this.props.isBack ? ((_nextModalState$trans2 = nextModalState === null || nextModalState === void 0 ? void 0 : nextModalState.translateYFrom) !== null && _nextModalState$trans2 !== void 0 ? _nextModalState$trans2 : 0) + 10 : 100;
       this.animateTranslate(prevModalState, exitTranslate);
@@ -528,7 +529,7 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
         modalState.hidden = translateY === 100;
 
         if (modalState.hidden) {
-          this.props.closeActiveModal();
+          this.props.onExit();
         }
 
         setStateCallback = function setStateCallback() {
@@ -570,7 +571,7 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
         modalState.hidden = translateY === 100;
 
         if (modalState.hidden) {
-          this.props.closeActiveModal();
+          this.props.onExit();
         }
 
         setStateCallback = function setStateCallback() {
@@ -672,7 +673,8 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
         value: true
       }, (0, _jsxRuntime.createScopedElement)(_ModalRootContext.default.Provider, {
         value: this.modalRootContext
-      }, (0, _jsxRuntime.createScopedElement)(_Touch.Touch, {
+      }, (0, _jsxRuntime.createScopedElement)(_Touch.Touch // eslint-disable-next-line vkui/no-object-expression-in-arguments
+      , {
         vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalRoot", this.props.platform), {
           "ModalRoot--vkapps": ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === _ConfigProviderContext.WebviewType.VKAPPS,
           "ModalRoot--touched": touchDown,
@@ -683,7 +685,7 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
         onScroll: this.onScroll
       }, (0, _jsxRuntime.createScopedElement)("div", {
         vkuiClass: "ModalRoot__mask",
-        onClick: this.props.closeActiveModal,
+        onClick: this.props.onExit,
         ref: this.maskElementRef
       }), (0, _jsxRuntime.createScopedElement)("div", {
         vkuiClass: "ModalRoot__viewport",
@@ -709,8 +711,9 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
               modalState.modalElement = e;
             }
           },
-          onClose: _this7.props.closeActiveModal,
-          timeout: _this7.timeout,
+          onClose: _this7.props.onExit,
+          timeout: _this7.timeout // eslint-disable-next-line vkui/no-object-expression-in-arguments
+          ,
           vkuiClass: (0, _classNames.classNames)("ModalRoot__modal", {
             "ModalRoot__modal--active": modalId === activeModal,
             "ModalRoot__modal--prev": modalId === exitingModal,
@@ -745,7 +748,7 @@ function initModal(modalState) {
       return initCardModal(modalState);
 
     default:
-      IS_DEV && warn("[initActiveModal] modalState.type is unknown");
+      IS_DEV && warn("initActiveModal: modalState.type=\"".concat(modalState.type, "\" \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F"), "error");
   }
 }
 

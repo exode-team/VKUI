@@ -1,59 +1,51 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "align", "controlSize", "mode", "stretched", "before", "className", "style", "getRef", "getRootRef", "onClick", "appearance"];
+var _excluded = ["children", "align", "controlSize", "size", "mode", "stretched", "before", "className", "style", "getRef", "getRootRef", "appearance"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { getClassName } from "../../helpers/getClassName";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 import { usePlatform } from "../../hooks/usePlatform";
-import { useExternRef } from "../../hooks/useExternRef";
+import { VisuallyHiddenInput } from "../VisuallyHiddenInput/VisuallyHiddenInput";
 
-var File = function File(props) {
-  var children = props.children,
-      align = props.align,
-      controlSize = props.controlSize,
-      mode = props.mode,
-      stretched = props.stretched,
-      before = props.before,
-      className = props.className,
-      style = props.style,
-      getRef = props.getRef,
-      getRootRef = props.getRootRef,
-      _onClick = props.onClick,
-      appearance = props.appearance,
-      restProps = _objectWithoutProperties(props, _excluded);
+/**
+ * @see https://vkcom.github.io/VKUI/#/File
+ */
+export var File = function File(_ref) {
+  var _ref$children = _ref.children,
+      children = _ref$children === void 0 ? "Выберите файл" : _ref$children,
+      _ref$align = _ref.align,
+      align = _ref$align === void 0 ? "left" : _ref$align,
+      controlSize = _ref.controlSize,
+      size = _ref.size,
+      mode = _ref.mode,
+      stretched = _ref.stretched,
+      before = _ref.before,
+      className = _ref.className,
+      style = _ref.style,
+      getRef = _ref.getRef,
+      getRootRef = _ref.getRootRef,
+      appearance = _ref.appearance,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
-  var inputRef = useExternRef(getRef);
   return createScopedElement(Button, {
+    Component: "label",
     align: align,
     vkuiClass: getClassName("File", platform),
     className: className,
     stretched: stretched,
     mode: mode,
-    appearance: appearance,
-    size: controlSize,
+    appearance: appearance // TODO: v5.0.0 удалить controlSize
+    ,
+    size: size !== null && size !== void 0 ? size : controlSize,
     before: before,
     style: style,
     getRootRef: getRootRef,
-    disabled: restProps.disabled,
-    type: "button",
-    onClick: function onClick(e) {
-      var _inputRef$current;
-
-      (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.click();
-      _onClick && _onClick(e);
-    }
-  }, createScopedElement("input", _extends({}, restProps, {
+    disabled: restProps.disabled
+  }, createScopedElement(VisuallyHiddenInput, _extends({}, restProps, {
     vkuiClass: "File__input",
     type: "file",
-    ref: inputRef
+    getRef: getRef
   })), children);
 };
-
-File.defaultProps = {
-  children: "Выберите файл",
-  align: "left"
-}; // eslint-disable-next-line import/no-default-export
-
-export default File;
 //# sourceMappingURL=File.js.map

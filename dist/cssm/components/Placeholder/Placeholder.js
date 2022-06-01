@@ -4,10 +4,13 @@ var _excluded = ["icon", "header", "action", "children", "stretched", "getRootRe
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import { hasReactNode } from "../../lib/utils";
-import Title from "../Typography/Title/Title";
-import Headline from "../Typography/Headline/Headline";
+import { Title } from "../Typography/Title/Title";
+import { Headline } from "../Typography/Headline/Headline";
 import "./Placeholder.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Placeholder
+ */
 var Placeholder = function Placeholder(props) {
   var icon = props.icon,
       header = props.header,
@@ -18,7 +21,8 @@ var Placeholder = function Placeholder(props) {
       restProps = _objectWithoutProperties(props, _excluded);
 
   return createScopedElement("div", _extends({}, restProps, {
-    ref: getRootRef,
+    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames("Placeholder", {
       "Placeholder--stretched": stretched
     })
@@ -31,7 +35,7 @@ var Placeholder = function Placeholder(props) {
     weight: "2",
     vkuiClass: "Placeholder__header"
   }, header), hasReactNode(children) && createScopedElement(Headline, {
-    weight: "regular",
+    weight: "3",
     vkuiClass: "Placeholder__text"
   }, children), hasReactNode(action) && createScopedElement("div", {
     vkuiClass: "Placeholder__action"

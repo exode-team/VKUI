@@ -8,13 +8,16 @@ import { classNames } from "../../lib/classNames";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { usePagination } from "../../hooks/usePagination";
 import Tappable from "../Tappable/Tappable";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 import "./Pagination.css";
 
 function getPageAriaLabelDefault(page, isCurrent) {
   return isCurrent ? "".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430") : "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 ".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443");
 }
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Pagination
+ */
 export var Pagination = function Pagination(_ref) {
   var _ref$currentPage = _ref.currentPage,
       currentPage = _ref$currentPage === void 0 ? 1 : _ref$currentPage,

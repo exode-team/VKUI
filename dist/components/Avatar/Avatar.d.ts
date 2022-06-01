@@ -18,5 +18,8 @@ export interface AvatarProps extends React.ImgHTMLAttributes<HTMLElement>, HasRo
 }
 export declare const AVATAR_DEFAULT_SIZE = 48;
 export declare const AVATAR_DEFAULT_SHADOW = true;
+/**
+ * @see https://vkcom.github.io/VKUI/#/Avatar
+ */
 declare const Avatar: React.FC<AvatarProps>;
 export default Avatar;

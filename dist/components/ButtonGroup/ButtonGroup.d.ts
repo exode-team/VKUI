@@ -17,4 +17,7 @@ export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement>, 
      */
     stretched?: boolean;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/ButtonGroup
+ */
 export declare const ButtonGroup: React.FC<ButtonGroupProps>;

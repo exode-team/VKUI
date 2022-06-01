@@ -31,6 +31,9 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _excluded = ["children", "selected", "label", "indicator", "text", "href", "Component", "disabled"];
 var warn = (0, _warnOnce.warnOnce)("TabbarItem");
+/**
+ * @see https://vkcom.github.io/VKUI/#/TabbarItem
+ */
 
 var TabbarItem = function TabbarItem(_ref) {
   var children = _ref.children,
@@ -51,7 +54,8 @@ var TabbarItem = function TabbarItem(_ref) {
 
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
     disabled: disabled,
-    href: href,
+    href: href // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("TabbarItem", platform), {
       "TabbarItem--selected": selected,
       "TabbarItem--text": !!text

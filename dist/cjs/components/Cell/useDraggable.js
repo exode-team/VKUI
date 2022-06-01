@@ -14,14 +14,13 @@ var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/sli
 var React = _interopRequireWildcard(require("react"));
 
 var useDraggable = function useDraggable(_ref) {
-  var onDragFinish = _ref.onDragFinish;
+  var rootElRef = _ref.rootElRef,
+      onDragFinish = _ref.onDragFinish;
 
   var _React$useState = React.useState(false),
       _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
       dragging = _React$useState2[0],
       setDragging = _React$useState2[1];
-
-  var rootElRef = React.useRef(null);
 
   var _React$useState3 = React.useState([]),
       _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
@@ -143,8 +142,7 @@ var useDraggable = function useDraggable(_ref) {
     onDragStart: onDragStart,
     onDragMove: onDragMove,
     onDragEnd: onDragEnd,
-    dragging: dragging,
-    rootElRef: rootElRef
+    dragging: dragging
   };
   return useDraggableProps;
 };

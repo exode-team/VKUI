@@ -29,6 +29,9 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _excluded = ["icon", "sizeY", "children", "Component"];
 var warn = (0, _warnOnce.warnOnce)("IconButton");
+/**
+ * @see https://vkcom.github.io/VKUI/#/IconButton
+ */
 
 var IconButton = function IconButton(_ref) {
   var icon = _ref.icon,

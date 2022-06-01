@@ -35,6 +35,9 @@ var SwipeBackResults;
 
 export var scrollsCache = {};
 var warn = warnOnce("View");
+/**
+ * @see https://vkcom.github.io/VKUI/#/View
+ */
 
 var View = /*#__PURE__*/function (_React$Component) {
   _inherits(View, _React$Component);
@@ -208,6 +211,10 @@ var View = /*#__PURE__*/function (_React$Component) {
 
       if (id) {
         scrollsCache[id] = this.scrolls;
+      }
+
+      if (this.animationFinishTimeout) {
+        clearTimeout(this.animationFinishTimeout);
       }
     }
   }, {
@@ -501,6 +508,7 @@ var View = /*#__PURE__*/function (_React$Component) {
         var isTransitionTarget = animated && panelId === (isBack ? prevPanel : nextPanel);
         var compensateScroll = isPrev || panelId === swipeBackNextPanel || panelId === nextPanel && isBack;
         return createScopedElement("div", {
+          // eslint-disable-next-line vkui/no-object-expression-in-arguments
           vkuiClass: classNames("View__panel", {
             "View__panel--active": panelId === activePanel,
             "View__panel--prev": panelId === prevPanel,

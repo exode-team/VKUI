@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.HorizontalScroll = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -42,6 +42,15 @@ function now() {
   return performance && performance.now ? performance.now() : Date.now();
 }
 /**
+ * Округляем el.scrollLeft
+ * https://github.com/VKCOM/VKUI/pull/2445
+ */
+
+
+var roundUpElementScrollLeft = function roundUpElementScrollLeft(el) {
+  return Math.ceil(el.scrollLeft);
+};
+/**
  * Код анимации скрола, на основе полифила: https://github.com/iamdustan/smoothscroll
  * Константа взята из полифила (468), на дизайн-ревью уточнили до 250
  * @var {number} SCROLL_ONE_FRAME_TIME время анимации скролла
@@ -70,7 +79,7 @@ function doScroll(_ref) {
 
 
   var maxLeft = initialScrollWidth - scrollElement.offsetWidth;
-  var startLeft = scrollElement.scrollLeft;
+  var startLeft = roundUpElementScrollLeft(scrollElement);
   var endLeft = getScrollPosition(startLeft);
   onScrollStart();
 
@@ -93,7 +102,7 @@ function doScroll(_ref) {
     var currentLeft = startLeft + (endLeft - startLeft) * value;
     scrollElement.scrollLeft = Math.ceil(currentLeft);
 
-    if (scrollElement.scrollLeft !== Math.max(0, endLeft)) {
+    if (roundUpElementScrollLeft(scrollElement) !== Math.max(0, endLeft)) {
       requestAnimationFrame(scroll);
       return;
     }
@@ -107,7 +116,7 @@ function doScroll(_ref) {
   })();
 }
 
-var HorizontalScroll = function HorizontalScroll(_ref2) {
+var HorizontalScrollComponent = function HorizontalScrollComponent(_ref2) {
   var children = _ref2.children,
       getScrollToLeft = _ref2.getScrollToLeft,
       getScrollToRight = _ref2.getScrollToRight,
@@ -132,8 +141,7 @@ var HorizontalScroll = function HorizontalScroll(_ref2) {
   var isCustomScrollingRef = React.useRef(false);
   var scrollerRef = (0, _useExternRef.useExternRef)(getRef);
   var animationQueue = React.useRef([]);
-
-  function scrollTo(getScrollPosition) {
+  var scrollTo = React.useCallback(function (getScrollPosition) {
     var scrollElement = scrollerRef.current;
     animationQueue.current.push(function () {
       var _scrollElement$firstE;
@@ -159,13 +167,24 @@ var HorizontalScroll = function HorizontalScroll(_ref2) {
     if (animationQueue.current.length === 1) {
       animationQueue.current[0]();
     }
-  }
-
+  }, [scrollAnimationDuration, scrollerRef]);
+  var scrollToLeft = React.useCallback(function () {
+    var getScrollPosition = getScrollToLeft !== null && getScrollToLeft !== void 0 ? getScrollToLeft : function (i) {
+      return i - scrollerRef.current.offsetWidth;
+    };
+    scrollTo(getScrollPosition);
+  }, [getScrollToLeft, scrollTo, scrollerRef]);
+  var scrollToRight = React.useCallback(function () {
+    var getScrollPosition = getScrollToRight !== null && getScrollToRight !== void 0 ? getScrollToRight : function (i) {
+      return i + scrollerRef.current.offsetWidth;
+    };
+    scrollTo(getScrollPosition);
+  }, [getScrollToRight, scrollTo, scrollerRef]);
   var onscroll = React.useCallback(function () {
     if (showArrows && hasMouse && scrollerRef.current && !isCustomScrollingRef.current) {
       var scrollElement = scrollerRef.current;
       setCanScrollLeft(scrollElement.scrollLeft > 0);
-      setCanScrollRight(scrollElement.scrollLeft + scrollElement.offsetWidth < scrollElement.scrollWidth);
+      setCanScrollRight(roundUpElementScrollLeft(scrollElement) + scrollElement.offsetWidth < scrollElement.scrollWidth);
     }
   }, [hasMouse, scrollerRef, showArrows]);
   var scrollEvent = (0, _useEventListener.useEventListener)("scroll", onscroll);
@@ -176,33 +195,28 @@ var HorizontalScroll = function HorizontalScroll(_ref2) {
   }, [scrollEvent, scrollerRef]);
   React.useEffect(onscroll, [scrollerRef, children, onscroll]);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames2.classNames)("HorizontalScroll", (0, _defineProperty2.default)({}, "HorizontalScroll--withConstArrows", showArrows === "always"))
   }), showArrows && hasMouse && canScrollLeft && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.default, {
     direction: "left",
-    onClick: function onClick() {
-      if (getScrollToLeft) {
-        scrollTo(getScrollToLeft);
-      }
-    }
+    onClick: scrollToLeft
   }), showArrows && hasMouse && canScrollRight && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.default, {
     direction: "right",
-    onClick: function onClick() {
-      if (getScrollToRight) {
-        scrollTo(getScrollToRight);
-      }
-    }
+    onClick: scrollToRight
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "HorizontalScroll__in",
     ref: scrollerRef
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "HorizontalScroll__in-wrapper"
   }, children)));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/HorizontalScroll
+ */
 
 
-var _default = (0, _withAdaptivity.withAdaptivity)(HorizontalScroll, {
+var HorizontalScroll = (0, _withAdaptivity.withAdaptivity)(HorizontalScrollComponent, {
   hasMouse: true
 });
-
-exports.default = _default;
+exports.HorizontalScroll = HorizontalScroll;
 //# sourceMappingURL=HorizontalScroll.js.map

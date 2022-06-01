@@ -4,4 +4,7 @@ export interface PanelHeaderContextProps extends React.HTMLAttributes<HTMLDivEle
     opened: boolean;
     onClose: VoidFunction;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderContext
+ */
 export declare const PanelHeaderContext: React.FC<PanelHeaderContextProps>;

@@ -8,6 +8,9 @@ import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import SimpleCell from "../SimpleCell/SimpleCell";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CellButton
+ */
 var CellButton = function CellButton(_ref) {
   var _ref$centered = _ref.centered,
       centered = _ref$centered === void 0 ? false : _ref$centered,
@@ -19,6 +22,7 @@ var CellButton = function CellButton(_ref) {
   return createScopedElement(SimpleCell, _extends({
     stopPropagation: true
   }, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("CellButton", platform), "CellButton--".concat(mode), _defineProperty({}, "CellButton--centered", centered))
   }));
 };

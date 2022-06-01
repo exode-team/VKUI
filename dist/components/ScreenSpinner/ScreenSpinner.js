@@ -2,17 +2,22 @@ import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["style", "className"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import Spinner from "../Spinner/Spinner";
+import { Spinner } from "../Spinner/Spinner";
 import { PopoutWrapper } from "../PopoutWrapper/PopoutWrapper";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
+import { useScrollLock } from "../AppRoot/ScrollContext";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ScreenSpinner
+ */
 var ScreenSpinner = function ScreenSpinner(props) {
   var style = props.style,
       className = props.className,
       restProps = _objectWithoutProperties(props, _excluded);
 
   var platform = usePlatform();
+  useScrollLock();
   return createScopedElement(PopoutWrapper, {
     hasMask: false,
     vkuiClass: getClassName("ScreenSpinner", platform),

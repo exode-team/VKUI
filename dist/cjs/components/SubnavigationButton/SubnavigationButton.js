@@ -25,9 +25,9 @@ var _icons = require("@vkontakte/icons");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _excluded = ["textLevel"],
     _excluded2 = ["size", "selected", "textLevel", "before", "after", "expandable", "children"];
@@ -37,14 +37,17 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   if (textLevel === 1) {
-    return (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps);
+    return (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, restProps);
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-    level: textLevel === 2 ? "1" : "2",
-    weight: "regular"
+  return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+    level: textLevel === 2 ? "1" : "2"
   }, restProps));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/SubnavigationButton
+ */
+
 
 var SubnavigationButton = function SubnavigationButton(props) {
   var platform = (0, _usePlatform.usePlatform)();
@@ -58,7 +61,8 @@ var SubnavigationButton = function SubnavigationButton(props) {
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
   return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
     hasActive: false,
-    focusVisibleMode: "outside",
+    focusVisibleMode: "outside" // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SubnavigationButton", platform), "SubnavigationButton--".concat(size), {
       "SubnavigationButton--selected": selected
     }),

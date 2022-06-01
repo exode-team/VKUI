@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.File = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -15,61 +15,54 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = require("../Button/Button");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _useExternRef = require("../../hooks/useExternRef");
+var _VisuallyHiddenInput = require("../VisuallyHiddenInput/VisuallyHiddenInput");
 
-var _excluded = ["children", "align", "controlSize", "mode", "stretched", "before", "className", "style", "getRef", "getRootRef", "onClick", "appearance"];
+var _excluded = ["children", "align", "controlSize", "size", "mode", "stretched", "before", "className", "style", "getRef", "getRootRef", "appearance"];
 
-var File = function File(props) {
-  var children = props.children,
-      align = props.align,
-      controlSize = props.controlSize,
-      mode = props.mode,
-      stretched = props.stretched,
-      before = props.before,
-      className = props.className,
-      style = props.style,
-      getRef = props.getRef,
-      getRootRef = props.getRootRef,
-      _onClick = props.onClick,
-      appearance = props.appearance,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+/**
+ * @see https://vkcom.github.io/VKUI/#/File
+ */
+var File = function File(_ref) {
+  var _ref$children = _ref.children,
+      children = _ref$children === void 0 ? "Выберите файл" : _ref$children,
+      _ref$align = _ref.align,
+      align = _ref$align === void 0 ? "left" : _ref$align,
+      controlSize = _ref.controlSize,
+      size = _ref.size,
+      mode = _ref.mode,
+      stretched = _ref.stretched,
+      before = _ref.before,
+      className = _ref.className,
+      style = _ref.style,
+      getRef = _ref.getRef,
+      getRootRef = _ref.getRootRef,
+      appearance = _ref.appearance,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-  var inputRef = (0, _useExternRef.useExternRef)(getRef);
-  return (0, _jsxRuntime.createScopedElement)(_Button.default, {
+  return (0, _jsxRuntime.createScopedElement)(_Button.Button, {
+    Component: "label",
     align: align,
     vkuiClass: (0, _getClassName.getClassName)("File", platform),
     className: className,
     stretched: stretched,
     mode: mode,
-    appearance: appearance,
-    size: controlSize,
+    appearance: appearance // TODO: v5.0.0 удалить controlSize
+    ,
+    size: size !== null && size !== void 0 ? size : controlSize,
     before: before,
     style: style,
     getRootRef: getRootRef,
-    disabled: restProps.disabled,
-    type: "button",
-    onClick: function onClick(e) {
-      var _inputRef$current;
-
-      (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.click();
-      _onClick && _onClick(e);
-    }
-  }, (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({}, restProps, {
+    disabled: restProps.disabled
+  }, (0, _jsxRuntime.createScopedElement)(_VisuallyHiddenInput.VisuallyHiddenInput, (0, _extends2.default)({}, restProps, {
     vkuiClass: "File__input",
     type: "file",
-    ref: inputRef
+    getRef: getRef
   })), children);
 };
 
-File.defaultProps = {
-  children: "Выберите файл",
-  align: "left"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = File;
-exports.default = _default;
+exports.File = File;
 //# sourceMappingURL=File.js.map

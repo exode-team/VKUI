@@ -35,6 +35,7 @@ var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
   var circleCenter = 0.5 * size;
   var dashoffset = calcStrokeDashOffset(on ? 80 : progress, radius);
   return (0, _jsxRuntime.createScopedElement)("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)("PullToRefresh__spinner", {
       "PullToRefresh__spinner--on": on
     }),

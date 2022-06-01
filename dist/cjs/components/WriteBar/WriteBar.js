@@ -29,6 +29,9 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _excluded = ["className", "style", "before", "inlineAfter", "after", "value", "onChange", "getRootRef", "getRef", "onHeightChange"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/WriteBar
+ */
 var WriteBar = function WriteBar(props) {
   var platform = (0, _usePlatform.usePlatform)();
   var className = props.className,

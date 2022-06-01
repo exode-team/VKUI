@@ -8,6 +8,10 @@ exports.platform = platform;
 
 var _browser = require("./browser");
 
+var _vkjs = require("@vkontakte/vkjs");
+
+var _dom = require("./dom");
+
 var Platform;
 exports.Platform = Platform;
 
@@ -17,6 +21,27 @@ exports.Platform = Platform;
   Platform["VKCOM"] = "vkcom";
 })(Platform || (exports.Platform = Platform = {}));
 
+var PLATFORM_ALIAS = {
+  desktop_web: Platform.VKCOM
+};
+
+function isPlatformAlias(platformAlias) {
+  return platformAlias in PLATFORM_ALIAS;
+}
+/**
+ * Значение, которое передаётся в качестве query-параметра при открытии VK Mini Apps
+ * @see {@link https://dev.vk.com/mini-apps/development/launch-params#vk_platform vk_platform}
+ */
+
+
+function getPlatformByQueryString(queryString) {
+  var parsedQuery = _vkjs.querystring.parse(queryString);
+
+  var platformAliasByQuery = parsedQuery["vk_platform"];
+  return typeof platformAliasByQuery === "string" && isPlatformAlias(platformAliasByQuery) ? PLATFORM_ALIAS[platformAliasByQuery] : undefined;
+}
+
+var platformByQueryString = _dom.canUseDOM ? getPlatformByQueryString(location.search) : undefined;
 var ANDROID = Platform.ANDROID;
 exports.ANDROID = ANDROID;
 var IOS = Platform.IOS;
@@ -25,6 +50,10 @@ var VKCOM = Platform.VKCOM;
 exports.VKCOM = VKCOM;
 
 function platform(browserInfo) {
+  if (platformByQueryString) {
+    return platformByQueryString;
+  }
+
   if (!browserInfo) {
     browserInfo = (0, _browser.computeBrowserInfo)();
   }

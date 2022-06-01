@@ -74,7 +74,7 @@ Object.defineProperty(exports, "Banner", {
 Object.defineProperty(exports, "Button", {
   enumerable: true,
   get: function get() {
-    return _Button.default;
+    return _Button.Button;
   }
 });
 Object.defineProperty(exports, "ButtonGroup", {
@@ -98,7 +98,7 @@ Object.defineProperty(exports, "CalendarRange", {
 Object.defineProperty(exports, "Caption", {
   enumerable: true,
   get: function get() {
-    return _Caption.default;
+    return _Caption.Caption;
   }
 });
 Object.defineProperty(exports, "Card", {
@@ -146,7 +146,7 @@ Object.defineProperty(exports, "Chip", {
 Object.defineProperty(exports, "ChipsInput", {
   enumerable: true,
   get: function get() {
-    return _ChipsInput.default;
+    return _ChipsInput.ChipsInput;
   }
 });
 Object.defineProperty(exports, "ConfigProvider", {
@@ -176,13 +176,13 @@ Object.defineProperty(exports, "Counter", {
 Object.defineProperty(exports, "CustomSelect", {
   enumerable: true,
   get: function get() {
-    return _CustomSelect.default;
+    return _CustomSelect.CustomSelect;
   }
 });
 Object.defineProperty(exports, "CustomSelectOption", {
   enumerable: true,
   get: function get() {
-    return _CustomSelectOption.default;
+    return _CustomSelectOption.CustomSelectOption;
   }
 });
 Object.defineProperty(exports, "DateInput", {
@@ -218,7 +218,7 @@ Object.defineProperty(exports, "Epic", {
 Object.defineProperty(exports, "File", {
   enumerable: true,
   get: function get() {
-    return _File.default;
+    return _File.File;
   }
 });
 Object.defineProperty(exports, "FixedLayout", {
@@ -296,7 +296,7 @@ Object.defineProperty(exports, "Header", {
 Object.defineProperty(exports, "Headline", {
   enumerable: true,
   get: function get() {
-    return _Headline.default;
+    return _Headline.Headline;
   }
 });
 Object.defineProperty(exports, "HorizontalCell", {
@@ -308,7 +308,7 @@ Object.defineProperty(exports, "HorizontalCell", {
 Object.defineProperty(exports, "HorizontalScroll", {
   enumerable: true,
   get: function get() {
-    return _HorizontalScroll.default;
+    return _HorizontalScroll.HorizontalScroll;
   }
 });
 Object.defineProperty(exports, "IOS", {
@@ -350,7 +350,7 @@ Object.defineProperty(exports, "InitialsAvatar", {
 Object.defineProperty(exports, "Input", {
   enumerable: true,
   get: function get() {
-    return _Input.default;
+    return _Input.Input;
   }
 });
 Object.defineProperty(exports, "Link", {
@@ -422,7 +422,7 @@ Object.defineProperty(exports, "ModalRootContext", {
 Object.defineProperty(exports, "NativeSelect", {
   enumerable: true,
   get: function get() {
-    return _NativeSelect.default;
+    return _NativeSelect.NativeSelect;
   }
 });
 Object.defineProperty(exports, "Pagination", {
@@ -488,7 +488,13 @@ Object.defineProperty(exports, "PanelHeaderSubmit", {
 Object.defineProperty(exports, "PanelSpinner", {
   enumerable: true,
   get: function get() {
-    return _PanelSpinner.default;
+    return _PanelSpinner.PanelSpinner;
+  }
+});
+Object.defineProperty(exports, "Paragraph", {
+  enumerable: true,
+  get: function get() {
+    return _Paragraph.Paragraph;
   }
 });
 Object.defineProperty(exports, "Placeholder", {
@@ -518,7 +524,7 @@ Object.defineProperty(exports, "Popper", {
 Object.defineProperty(exports, "Progress", {
   enumerable: true,
   get: function get() {
-    return _Progress.default;
+    return _Progress.Progress;
   }
 });
 Object.defineProperty(exports, "PromoBanner", {
@@ -536,7 +542,7 @@ Object.defineProperty(exports, "PullToRefresh", {
 Object.defineProperty(exports, "Radio", {
   enumerable: true,
   get: function get() {
-    return _Radio.default;
+    return _Radio.Radio;
   }
 });
 Object.defineProperty(exports, "RadioGroup", {
@@ -596,19 +602,19 @@ Object.defineProperty(exports, "SegmentedControl", {
 Object.defineProperty(exports, "Select", {
   enumerable: true,
   get: function get() {
-    return _Select.default;
+    return _Select.Select;
   }
 });
 Object.defineProperty(exports, "SelectMimicry", {
   enumerable: true,
   get: function get() {
-    return _SelectMimicry.default;
+    return _SelectMimicry.SelectMimicry;
   }
 });
 Object.defineProperty(exports, "Separator", {
   enumerable: true,
   get: function get() {
-    return _Separator.default;
+    return _Separator.Separator;
   }
 });
 Object.defineProperty(exports, "SimpleCell", {
@@ -650,7 +656,7 @@ Object.defineProperty(exports, "Spacing", {
 Object.defineProperty(exports, "Spinner", {
   enumerable: true,
   get: function get() {
-    return _Spinner.default;
+    return _Spinner.Spinner;
   }
 });
 Object.defineProperty(exports, "SplitCol", {
@@ -668,7 +674,7 @@ Object.defineProperty(exports, "SplitLayout", {
 Object.defineProperty(exports, "Subhead", {
   enumerable: true,
   get: function get() {
-    return _Subhead.default;
+    return _Subhead.Subhead;
   }
 });
 Object.defineProperty(exports, "SubnavigationBar", {
@@ -722,7 +728,7 @@ Object.defineProperty(exports, "Tappable", {
 Object.defineProperty(exports, "Text", {
   enumerable: true,
   get: function get() {
-    return _Text.default;
+    return _Text.Text;
   }
 });
 Object.defineProperty(exports, "Textarea", {
@@ -734,7 +740,7 @@ Object.defineProperty(exports, "Textarea", {
 Object.defineProperty(exports, "Title", {
   enumerable: true,
   get: function get() {
-    return _Title.default;
+    return _Title.Title;
   }
 });
 Object.defineProperty(exports, "Tooltip", {
@@ -857,6 +863,12 @@ Object.defineProperty(exports, "useInsets", {
     return _useInsets.useInsets;
   }
 });
+Object.defineProperty(exports, "useNavTransition", {
+  enumerable: true,
+  get: function get() {
+    return _NavTransitionContext.useNavTransition;
+  }
+});
 Object.defineProperty(exports, "usePagination", {
   enumerable: true,
   get: function get() {
@@ -867,6 +879,12 @@ Object.defineProperty(exports, "usePlatform", {
   enumerable: true,
   get: function get() {
     return _usePlatform.usePlatform;
+  }
+});
+Object.defineProperty(exports, "useScrollLock", {
+  enumerable: true,
+  get: function get() {
+    return _ScrollContext.useScrollLock;
   }
 });
 Object.defineProperty(exports, "withAdaptivity", {
@@ -920,7 +938,7 @@ var _Tabbar = _interopRequireDefault(require("./components/Tabbar/Tabbar"));
 
 var _TabbarItem = _interopRequireDefault(require("./components/TabbarItem/TabbarItem"));
 
-var _HorizontalScroll = _interopRequireDefault(require("./components/HorizontalScroll/HorizontalScroll"));
+var _HorizontalScroll = require("./components/HorizontalScroll/HorizontalScroll");
 
 var _FixedLayout = _interopRequireDefault(require("./components/FixedLayout/FixedLayout"));
 
@@ -954,7 +972,7 @@ var _Badge = require("./components/Badge/Badge");
 
 var _ButtonGroup = require("./components/ButtonGroup/ButtonGroup");
 
-var _Button = _interopRequireDefault(require("./components/Button/Button"));
+var _Button = require("./components/Button/Button");
 
 var _IconButton = _interopRequireDefault(require("./components/IconButton/IconButton"));
 
@@ -996,7 +1014,7 @@ var _GridAvatar = require("./components/GridAvatar/GridAvatar");
 
 var _InitialsAvatar = require("./components/InitialsAvatar/InitialsAvatar");
 
-var _Progress = _interopRequireDefault(require("./components/Progress/Progress"));
+var _Progress = require("./components/Progress/Progress");
 
 var _Search = _interopRequireDefault(require("./components/Search/Search"));
 
@@ -1004,7 +1022,7 @@ var _Tabs = _interopRequireDefault(require("./components/Tabs/Tabs"));
 
 var _TabsItem = _interopRequireDefault(require("./components/TabsItem/TabsItem"));
 
-var _Spinner = _interopRequireDefault(require("./components/Spinner/Spinner"));
+var _Spinner = require("./components/Spinner/Spinner");
 
 var _PullToRefresh = _interopRequireDefault(require("./components/PullToRefresh/PullToRefresh"));
 
@@ -1018,7 +1036,7 @@ var _Counter = _interopRequireDefault(require("./components/Counter/Counter"));
 
 var _UsersStack = _interopRequireDefault(require("./components/UsersStack/UsersStack"));
 
-var _Separator = _interopRequireDefault(require("./components/Separator/Separator"));
+var _Separator = require("./components/Separator/Separator");
 
 var _Spacing = require("./components/Spacing/Spacing");
 
@@ -1050,13 +1068,13 @@ var _FormStatus = require("./components/FormStatus/FormStatus");
 
 var _Switch = require("./components/Switch/Switch");
 
-var _File = _interopRequireDefault(require("./components/File/File"));
+var _File = require("./components/File/File");
 
-var _Input = _interopRequireDefault(require("./components/Input/Input"));
+var _Input = require("./components/Input/Input");
 
 var _Chip = require("./components/Chip/Chip");
 
-var _ChipsInput = _interopRequireDefault(require("./components/ChipsInput/ChipsInput"));
+var _ChipsInput = require("./components/ChipsInput/ChipsInput");
 
 var _Slider = _interopRequireDefault(require("./components/Slider/Slider"));
 
@@ -1064,21 +1082,21 @@ var _RangeSlider = _interopRequireDefault(require("./components/RangeSlider/Rang
 
 var _Textarea = _interopRequireDefault(require("./components/Textarea/Textarea"));
 
-var _Radio = _interopRequireDefault(require("./components/Radio/Radio"));
+var _Radio = require("./components/Radio/Radio");
 
 var _RadioGroup = require("./components/RadioGroup/RadioGroup");
 
 var _Checkbox = _interopRequireDefault(require("./components/Checkbox/Checkbox"));
 
-var _Select = _interopRequireDefault(require("./components/Select/Select"));
+var _Select = require("./components/Select/Select");
 
-var _SelectMimicry = _interopRequireDefault(require("./components/SelectMimicry/SelectMimicry"));
+var _SelectMimicry = require("./components/SelectMimicry/SelectMimicry");
 
-var _NativeSelect = _interopRequireDefault(require("./components/NativeSelect/NativeSelect"));
+var _NativeSelect = require("./components/NativeSelect/NativeSelect");
 
-var _CustomSelect = _interopRequireDefault(require("./components/CustomSelect/CustomSelect"));
+var _CustomSelect = require("./components/CustomSelect/CustomSelect");
 
-var _CustomSelectOption = _interopRequireDefault(require("./components/CustomSelectOption/CustomSelectOption"));
+var _CustomSelectOption = require("./components/CustomSelectOption/CustomSelectOption");
 
 var _DatePicker = _interopRequireDefault(require("./components/DatePicker/DatePicker"));
 
@@ -1100,7 +1118,7 @@ var _Tappable = _interopRequireDefault(require("./components/Tappable/Tappable")
 
 var _Touch = require("./components/Touch/Touch");
 
-var _PanelSpinner = _interopRequireDefault(require("./components/PanelSpinner/PanelSpinner"));
+var _PanelSpinner = require("./components/PanelSpinner/PanelSpinner");
 
 var _PanelHeaderClose = _interopRequireDefault(require("./components/PanelHeaderClose/PanelHeaderClose"));
 
@@ -1128,15 +1146,17 @@ var _LocaleProviderContext = require("./components/LocaleProviderContext/LocaleP
 
 var _PromoBanner = _interopRequireDefault(require("./components/PromoBanner/PromoBanner"));
 
-var _Title = _interopRequireDefault(require("./components/Typography/Title/Title"));
+var _Title = require("./components/Typography/Title/Title");
 
-var _Headline = _interopRequireDefault(require("./components/Typography/Headline/Headline"));
+var _Headline = require("./components/Typography/Headline/Headline");
 
-var _Text = _interopRequireDefault(require("./components/Typography/Text/Text"));
+var _Text = require("./components/Typography/Text/Text");
 
-var _Caption = _interopRequireDefault(require("./components/Typography/Caption/Caption"));
+var _Caption = require("./components/Typography/Caption/Caption");
 
-var _Subhead = _interopRequireDefault(require("./components/Typography/Subhead/Subhead"));
+var _Subhead = require("./components/Typography/Subhead/Subhead");
+
+var _Paragraph = require("./components/Typography/Paragraph/Paragraph");
 
 var _withInsets = require("./hoc/withInsets");
 
@@ -1153,6 +1173,10 @@ var _useAdaptivity = require("./hooks/useAdaptivity");
 var _useAppearance = require("./hooks/useAppearance");
 
 var _usePagination = require("./hooks/usePagination");
+
+var _ScrollContext = require("./components/AppRoot/ScrollContext");
+
+var _NavTransitionContext = require("./components/NavTransitionContext/NavTransitionContext");
 
 var _classNames = require("./lib/classNames");
 

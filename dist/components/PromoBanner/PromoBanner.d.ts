@@ -36,5 +36,8 @@ export interface PromoBannerProps extends React.HTMLAttributes<HTMLDivElement> {
     /** Хандлер закрытия рекламы */
     onClose: () => void;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/PromoBanner
+ */
 declare const PromoBanner: (props: PromoBannerProps) => JSX.Element;
 export default PromoBanner;

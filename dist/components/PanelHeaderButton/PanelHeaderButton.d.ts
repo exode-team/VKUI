@@ -5,4 +5,7 @@ export interface PanelHeaderButtonProps extends Omit<TappableProps, "label"> {
     primary?: boolean;
     label?: React.ReactNode;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderButton
+ */
 export declare const PanelHeaderButton: React.FC<PanelHeaderButtonProps>;

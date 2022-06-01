@@ -7,4 +7,7 @@ export interface PopoutWrapperProps extends React.HTMLAttributes<HTMLDivElement>
     alignX?: "left" | "center" | "right";
     closing?: boolean;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/PopoutWrapper
+ */
 export declare const PopoutWrapper: React.FC<PopoutWrapperProps>;

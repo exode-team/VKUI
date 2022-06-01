@@ -17,12 +17,15 @@ var _classNames = require("../../lib/classNames");
 
 var _utils = require("../../lib/utils");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
 var _excluded = ["icon", "header", "action", "children", "stretched", "getRootRef"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Placeholder
+ */
 var Placeholder = function Placeholder(props) {
   var icon = props.icon,
       header = props.header,
@@ -32,7 +35,8 @@ var Placeholder = function Placeholder(props) {
       getRootRef = props.getRootRef,
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    ref: getRootRef,
+    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)("Placeholder", {
       "Placeholder--stretched": stretched
     })
@@ -40,12 +44,12 @@ var Placeholder = function Placeholder(props) {
     vkuiClass: "Placeholder__in"
   }, (0, _utils.hasReactNode)(icon) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Placeholder__icon"
-  }, icon), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Title.default, {
+  }, icon), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Title.Title, {
     level: "2",
     weight: "2",
     vkuiClass: "Placeholder__header"
-  }, header), (0, _utils.hasReactNode)(children) && (0, _jsxRuntime.createScopedElement)(_Headline.default, {
-    weight: "regular",
+  }, header), (0, _utils.hasReactNode)(children) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
+    weight: "3",
     vkuiClass: "Placeholder__text"
   }, children), (0, _utils.hasReactNode)(action) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Placeholder__action"

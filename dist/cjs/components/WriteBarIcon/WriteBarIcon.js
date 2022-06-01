@@ -36,6 +36,9 @@ var _utils = require("../../lib/utils");
 var _excluded = ["mode", "children", "count"];
 var warn = (0, _warnOnce.warnOnce)("WriteBarIcon");
 var IS_DEV = process.env.NODE_ENV === "development";
+/**
+ * @see https://vkcom.github.io/VKUI/#/WriteBarIcon
+ */
 
 var WriteBarIcon = function WriteBarIcon(_ref) {
   var mode = _ref.mode,
@@ -67,7 +70,7 @@ var WriteBarIcon = function WriteBarIcon(_ref) {
   }
 
   if (IS_DEV && !restProps["aria-label"] && !ariaLabel) {
-    warn("[WriteBarIcon/a11y] У WriteBarIcon нет aria-label. Кнопка будет недоступной для части пользователей.");
+    warn("a11y: У WriteBarIcon нет aria-label. Кнопка будет недоступной для части пользователей.", "error");
   }
 
   return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({
@@ -75,7 +78,8 @@ var WriteBarIcon = function WriteBarIcon(_ref) {
   }, restProps, {
     Component: "button",
     hasHover: false,
-    activeMode: "WriteBarIcon__active",
+    activeMode: "WriteBarIcon__active" // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("WriteBarIcon", platform), (0, _defineProperty2.default)({}, "WriteBarIcon--".concat(mode), !!mode))
   }), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "WriteBarIcon__in"

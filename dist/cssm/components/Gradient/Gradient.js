@@ -4,6 +4,10 @@ var _excluded = ["mode", "children", "to"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import "./Gradient.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Gradient
+ */
 export var Gradient = function Gradient(_ref) {
   var _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? "tint" : _ref$mode,

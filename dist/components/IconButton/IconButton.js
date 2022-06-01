@@ -10,6 +10,9 @@ import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { IOS } from "../../lib/platform";
 import { warnOnce } from "../../lib/warnOnce";
 var warn = warnOnce("IconButton");
+/**
+ * @see https://vkcom.github.io/VKUI/#/IconButton
+ */
 
 var IconButton = function IconButton(_ref) {
   var icon = _ref.icon,

@@ -10,10 +10,13 @@ import { VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { TabsModeContext } from "../Tabs/Tabs";
-import Headline from "../Typography/Headline/Headline";
-import Subhead from "../Typography/Subhead/Subhead";
-import Text from "../Typography/Text/Text";
+import { Headline } from "../Typography/Headline/Headline";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Text } from "../Typography/Text/Text";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/TabsItem
+ */
 var TabsItem = function TabsItem(_ref) {
   var children = _ref.children,
       selected = _ref.selected,
@@ -22,23 +25,24 @@ var TabsItem = function TabsItem(_ref) {
 
   var platform = usePlatform();
   var mode = React.useContext(TabsModeContext);
-  var TypographyComponent = mode === "buttons" || mode === "segmented" ? Subhead : Headline;
+  var ItemTypography = mode === "buttons" || mode === "segmented" ? Subhead : Headline;
 
   if (platform === VKCOM) {
-    TypographyComponent = Text;
+    ItemTypography = Text;
   }
 
   return createScopedElement(Tappable, _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("TabsItem", platform), {
       "TabsItem--selected": selected
     }),
     hasActive: mode === "segmented",
     activeMode: "TabsItem--active",
     focusVisibleMode: mode === "segmented" ? "outside" : "inside"
-  }), createScopedElement(TypographyComponent, {
+  }), createScopedElement(ItemTypography, {
     Component: "span",
     vkuiClass: "TabsItem__in",
-    weight: "medium"
+    weight: "2"
   }, children), hasReactNode(after) && createScopedElement("div", {
     vkuiClass: "TabsItem__after"
   }, after));

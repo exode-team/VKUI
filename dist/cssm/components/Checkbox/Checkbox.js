@@ -9,11 +9,15 @@ import { IOS, VKCOM } from "../../lib/platform";
 import { Icon20CheckBoxOn, Icon20CheckBoxOff, Icon24CheckBoxOn, Icon24CheckBoxOff } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
-import Text from "../Typography/Text/Text";
-import Headline from "../Typography/Headline/Headline";
+import { Text } from "../Typography/Text/Text";
+import { Headline } from "../Typography/Headline/Headline";
 import { hasReactNode } from "../../lib/utils";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import "./Checkbox.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Checkbox
+ */
 export var Checkbox = function Checkbox(_ref) {
   var children = _ref.children,
       className = _ref.className,
@@ -25,7 +29,7 @@ export var Checkbox = function Checkbox(_ref) {
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
-  var ContentComponent = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
+  var ContentTypography = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
   return createScopedElement(Tappable, {
     Component: "label",
     vkuiClass: classNames(getClassName("Checkbox", platform), "Checkbox--sizeY-".concat(sizeY)),
@@ -44,16 +48,12 @@ export var Checkbox = function Checkbox(_ref) {
     vkuiClass: "Checkbox__icon Checkbox__icon--on"
   }, sizeY === SizeType.COMPACT || platform === VKCOM ? createScopedElement(Icon20CheckBoxOn, null) : createScopedElement(Icon24CheckBoxOn, null)), createScopedElement("div", {
     vkuiClass: "Checkbox__icon Checkbox__icon--off"
-  }, sizeY === SizeType.COMPACT || platform === VKCOM ? createScopedElement(Icon20CheckBoxOff, null) : createScopedElement(Icon24CheckBoxOff, null)), createScopedElement(ContentComponent, {
-    weight: "regular",
+  }, sizeY === SizeType.COMPACT || platform === VKCOM ? createScopedElement(Icon20CheckBoxOff, null) : createScopedElement(Icon24CheckBoxOff, null)), createScopedElement(ContentTypography, {
     vkuiClass: "Checkbox__content",
     Component: "div"
   }, createScopedElement("div", {
     vkuiClass: "Checkbox__children"
   }, children), hasReactNode(description) && createScopedElement(Caption, {
-    level: "1",
-    Component: "span",
-    weight: "regular",
     vkuiClass: "Checkbox__description"
   }, description))));
 }; // eslint-disable-next-line import/no-default-export

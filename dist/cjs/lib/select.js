@@ -5,9 +5,15 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.defaultFilterFn = void 0;
+exports.getFormFieldModeFromSelectType = exports.defaultFilterFn = void 0;
 
 var _createForOfIteratorHelper2 = _interopRequireDefault(require("@babel/runtime/helpers/createForOfIteratorHelper"));
+
+var _utils = require("./utils");
+
+var _FormField = require("../components/FormField/FormField");
+
+var _Select = require("../components/Select/Select");
 
 var findAllIncludes = function findAllIncludes() {
   var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
@@ -29,16 +35,18 @@ try {
   letterRegexp = new RegExp("\\p{L}", "u");
 } catch (e) {}
 
+var _getOptionLabel = function _getOptionLabel(option) {
+  return (0, _utils.getTitleFromChildren)(option.label);
+};
+
 var defaultFilterFn = function defaultFilterFn() {
-  var _getOptionLabel;
+  var _getOptionLabel2;
 
   var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
   var option = arguments.length > 1 ? arguments[1] : undefined;
-  var getOptionLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function (option) {
-    return option.label;
-  };
+  var getOptionLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _getOptionLabel;
   query = query.toLocaleLowerCase();
-  var label = (_getOptionLabel = getOptionLabel(option)) === null || _getOptionLabel === void 0 ? void 0 : _getOptionLabel.toLocaleLowerCase();
+  var label = (_getOptionLabel2 = getOptionLabel(option)) === null || _getOptionLabel2 === void 0 ? void 0 : _getOptionLabel2.toLocaleLowerCase();
 
   if (label !== null && label !== void 0 && label.startsWith(query)) {
     return true;
@@ -72,4 +80,11 @@ var defaultFilterFn = function defaultFilterFn() {
 };
 
 exports.defaultFilterFn = defaultFilterFn;
+
+var getFormFieldModeFromSelectType = function getFormFieldModeFromSelectType() {
+  var selectType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _Select.SelectType.default;
+  return selectType === _Select.SelectType.default ? _FormField.FormFieldMode.default : _FormField.FormFieldMode.plain;
+};
+
+exports.getFormFieldModeFromSelectType = getFormFieldModeFromSelectType;
 //# sourceMappingURL=select.js.map

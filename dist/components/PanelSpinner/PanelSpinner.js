@@ -4,10 +4,14 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["height", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import Spinner from "../Spinner/Spinner";
+import { Spinner } from "../Spinner/Spinner";
 
-var PanelSpinner = function PanelSpinner(_ref) {
-  var height = _ref.height,
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelSpinner
+ */
+export var PanelSpinner = /*#__PURE__*/React.memo(function (_ref) {
+  var _ref$height = _ref.height,
+      height = _ref$height === void 0 ? 96 : _ref$height,
       style = _ref.style,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
@@ -18,11 +22,6 @@ var PanelSpinner = function PanelSpinner(_ref) {
       height: height
     }, style)
   }));
-};
-
-PanelSpinner.defaultProps = {
-  height: 96
-}; // eslint-disable-next-line import/no-default-export
-
-export default /*#__PURE__*/React.memo(PanelSpinner);
+});
+PanelSpinner.displayName = "PanelSpinner";
 //# sourceMappingURL=PanelSpinner.js.map

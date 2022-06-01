@@ -23,14 +23,17 @@ var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
 var _utils = require("../../lib/utils");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Paragraph = require("../Typography/Paragraph/Paragraph");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _excluded = ["children", "text", "caption", "before", "after", "bottom", "actions", "multiline", "sizeY"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichCell
+ */
 var RichCell = function RichCell(_ref) {
   var children = _ref.children,
       text = _ref.text,
@@ -44,22 +47,22 @@ var RichCell = function RichCell(_ref) {
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("RichCell", platform), {
       "RichCell--mult": multiline
     }, "RichCell--sizeY-".concat(sizeY))
   }), before, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__in"
-  }, after, (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: "medium",
+  }, after, (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
+    weight: "2",
     vkuiClass: "RichCell__content"
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__children"
   }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__after"
-  }, after)), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: "regular",
+  }, after)), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
     vkuiClass: "RichCell__text"
-  }, text), (0, _utils.hasReactNode)(caption) && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
+  }, text), (0, _utils.hasReactNode)(caption) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     Component: "span",
     vkuiClass: "RichCell__caption"
   }, caption), ((0, _utils.hasReactNode)(bottom) || (0, _utils.hasReactNode)(actions)) && (0, _jsxRuntime.createScopedElement)("div", {

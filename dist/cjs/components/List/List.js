@@ -29,6 +29,9 @@ var _ListContext = require("./ListContext");
 
 var _excluded = ["children"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/List
+ */
 var List = function List(_ref) {
   var children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
@@ -42,6 +45,7 @@ var List = function List(_ref) {
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
     role: "list"
   }, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("List", platform), {
       "List--dragging": isDragging
     })

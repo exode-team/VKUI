@@ -77,6 +77,10 @@ function useSchemeDetector(node, _scheme) {
 var deriveAppearance = function deriveAppearance(scheme) {
   return scheme === _scheme2.Scheme.SPACE_GRAY || scheme === _scheme2.Scheme.VKCOM_DARK ? "dark" : "light";
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/ConfigProvider
+ */
+
 
 var ConfigProvider = function ConfigProvider(_ref) {
   var children = _ref.children,
@@ -110,7 +114,7 @@ var ConfigProvider = function ConfigProvider(_ref) {
     }
 
     if (process.env.NODE_ENV === "development" && target !== null && target !== void 0 && target.hasAttribute("scheme")) {
-      warn('<body scheme> was set before VKUI mount - did you forget scheme="inherit"?');
+      warn('<body scheme> был установлен перед монтированием VKUI - вы не забыли scheme="inherit"?');
     }
 
     target === null || target === void 0 ? void 0 : target.setAttribute("scheme", normalizedScheme);

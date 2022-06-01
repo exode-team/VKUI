@@ -10,6 +10,9 @@ var preventDefault = function preventDefault(e) {
   return e.preventDefault();
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormLayout
+ */
 var FormLayout = function FormLayout(props) {
   var children = props.children,
       _props$Component = props.Component,

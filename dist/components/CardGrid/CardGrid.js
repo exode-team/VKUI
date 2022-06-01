@@ -7,6 +7,9 @@ import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CardGrid
+ */
 var CardGrid = function CardGrid(_ref) {
   var children = _ref.children,
       size = _ref.size,

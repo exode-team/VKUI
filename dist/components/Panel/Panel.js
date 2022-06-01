@@ -10,6 +10,10 @@ import { TooltipContainer } from "../Tooltip/TooltipContainer";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { IOS } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Panel
+ */
 export var Panel = withAdaptivity(function (_ref) {
   var _ref$centered = _ref.centered,
       centered = _ref$centered === void 0 ? false : _ref$centered,
@@ -21,7 +25,8 @@ export var Panel = withAdaptivity(function (_ref) {
 
   var platform = usePlatform();
   return createScopedElement("div", _extends({}, restProps, {
-    ref: getRootRef,
+    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("Panel", platform), "Panel--".concat(sizeX), _defineProperty({
       "Panel--centered": centered
     }, "Panel--sizeX-".concat(sizeX), true))

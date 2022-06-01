@@ -31,14 +31,17 @@ var _utils = require("../../lib/utils");
 
 var _Tabs = require("../Tabs/Tabs");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
 var _excluded = ["children", "selected", "after"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/TabsItem
+ */
 var TabsItem = function TabsItem(_ref) {
   var children = _ref.children,
       selected = _ref.selected,
@@ -46,23 +49,24 @@ var TabsItem = function TabsItem(_ref) {
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var mode = React.useContext(_Tabs.TabsModeContext);
-  var TypographyComponent = mode === "buttons" || mode === "segmented" ? _Subhead.default : _Headline.default;
+  var ItemTypography = mode === "buttons" || mode === "segmented" ? _Subhead.Subhead : _Headline.Headline;
 
   if (platform === _platform.VKCOM) {
-    TypographyComponent = _Text.default;
+    ItemTypography = _Text.Text;
   }
 
   return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("TabsItem", platform), {
       "TabsItem--selected": selected
     }),
     hasActive: mode === "segmented",
     activeMode: "TabsItem--active",
     focusVisibleMode: mode === "segmented" ? "outside" : "inside"
-  }), (0, _jsxRuntime.createScopedElement)(TypographyComponent, {
+  }), (0, _jsxRuntime.createScopedElement)(ItemTypography, {
     Component: "span",
     vkuiClass: "TabsItem__in",
-    weight: "medium"
+    weight: "2"
   }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "TabsItem__after"
   }, after));

@@ -27,6 +27,10 @@ export var generateVKUITokensClassName = function generateVKUITokensClassName(pl
 
   return "vkui--".concat(tokensPlatform, "--").concat(appearance);
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/AppearanceProvider
+ */
+
 export var AppearanceProvider = function AppearanceProvider(_ref) {
   var children = _ref.children,
       _ref$appearance = _ref.appearance,

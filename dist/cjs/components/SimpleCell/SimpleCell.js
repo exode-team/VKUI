@@ -9,9 +9,9 @@ exports.default = void 0;
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _classNames = require("../../lib/classNames");
 
@@ -31,13 +31,13 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
 var _excluded = ["badge", "before", "indicator", "children", "after", "description", "expandable", "multiline", "sizeY"];
 
@@ -48,23 +48,24 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
   var platform = (0, _usePlatform.usePlatform)();
 
   if (sizeY === _withAdaptivity.SizeType.COMPACT) {
-    return (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
-      Component: "span",
-      weight: "regular"
-    }, props));
+    return (0, _jsxRuntime.createScopedElement)(_Text.Text, props);
   } else if (platform === _platform.ANDROID) {
-    return (0, _jsxRuntime.createScopedElement)(_Headline.default, (0, _extends2.default)({
+    return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
       Component: "span",
-      weight: "regular"
+      weight: "3"
     }, props));
   } else {
-    return (0, _jsxRuntime.createScopedElement)(_Title.default, (0, _extends2.default)({
+    return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
       Component: "span",
       level: "3",
       weight: "3"
     }, props));
   }
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/SimpleCell
+ */
+
 
 var SimpleCell = function SimpleCell(_ref) {
   var badge = _ref.badge,
@@ -82,6 +83,7 @@ var SimpleCell = function SimpleCell(_ref) {
   var hasAfter = (0, _utils.hasReactNode)(after) || expandable && platform === _platform.IOS;
 
   return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SimpleCell", platform), {
       "SimpleCell--exp": expandable,
       "SimpleCell--mult": multiline
@@ -94,7 +96,7 @@ var SimpleCell = function SimpleCell(_ref) {
     vkuiClass: "SimpleCell__children"
   }, children), (0, _utils.hasReactNode)(badge) && (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "SimpleCell__badge"
-  }, badge)), description && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
+  }, badge)), description && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     Component: "span",
     vkuiClass: "SimpleCell__description"
   }, description)), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(SimpleCellTypography, {

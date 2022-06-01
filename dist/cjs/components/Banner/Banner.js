@@ -33,36 +33,31 @@ var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
 var _IconButton = _interopRequireDefault(require("../IconButton/IconButton"));
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
 var _excluded = ["size"],
-    _excluded2 = ["size"],
-    _excluded3 = ["mode", "imageTheme", "size", "before", "asideMode", "header", "subheader", "text", "children", "background", "actions", "onDismiss", "dismissLabel"];
+    _excluded2 = ["mode", "imageTheme", "size", "before", "asideMode", "header", "subheader", "text", "children", "background", "actions", "onDismiss", "dismissLabel"];
 
 var BannerHeader = function BannerHeader(_ref) {
   var size = _ref.size,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  return size === "m" ? (0, _jsxRuntime.createScopedElement)(_Title.default, (0, _extends2.default)({
+  return size === "m" ? (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
     level: "2",
     weight: "2"
-  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Headline.default, (0, _extends2.default)({
-    weight: "medium"
+  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+    weight: "2"
   }, restProps));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Banner
+ */
 
-var BannerSubheader = function BannerSubheader(_ref2) {
-  var size = _ref2.size,
-      restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
-  return size === "m" ? (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
-    weight: "regular"
-  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps);
-};
 
 var Banner = function Banner(props) {
   var platform = (0, _usePlatform.usePlatform)();
@@ -79,8 +74,10 @@ var Banner = function Banner(props) {
       actions = props.actions,
       onDismiss = props.onDismiss,
       dismissLabel = props.dismissLabel,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded3);
+      restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
+  var SubheaderTypography = size === "m" ? _Text.Text : _Subhead.Subhead;
   return (0, _jsxRuntime.createScopedElement)("section", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Banner", platform), "Banner--md-".concat(mode), "Banner--sz-".concat(size), {
       "Banner--inverted": mode === "image" && imageTheme === "dark"
     })
@@ -100,12 +97,10 @@ var Banner = function Banner(props) {
     size: size,
     Component: "span",
     vkuiClass: "Banner__header"
-  }, header), (0, _utils.hasReactNode)(subheader) && (0, _jsxRuntime.createScopedElement)(BannerSubheader, {
+  }, header), (0, _utils.hasReactNode)(subheader) && (0, _jsxRuntime.createScopedElement)(SubheaderTypography, {
     Component: "span",
-    size: size,
     vkuiClass: "Banner__subheader"
-  }, subheader), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: "regular",
+  }, subheader), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Text.Text, {
     vkuiClass: "Banner__text"
   }, text), (0, _utils.hasReactNode)(actions) && React.Children.count(actions) > 0 && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Banner__actions"

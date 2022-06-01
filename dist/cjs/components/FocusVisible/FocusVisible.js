@@ -9,6 +9,9 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _classNames = require("../../lib/classNames");
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FocusVisible
+ */
 var FocusVisible = function FocusVisible(_ref) {
   var mode = _ref.mode;
   return (0, _jsxRuntime.createScopedElement)("span", {

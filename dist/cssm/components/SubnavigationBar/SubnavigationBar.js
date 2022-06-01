@@ -5,7 +5,7 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import { usePlatform } from "../../hooks/usePlatform";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import HorizontalScroll from "../HorizontalScroll/HorizontalScroll";
+import { HorizontalScroll } from "../HorizontalScroll/HorizontalScroll";
 import "./SubnavigationBar.css";
 
 var defaultScrollToLeft = function defaultScrollToLeft(x) {
@@ -15,6 +15,10 @@ var defaultScrollToLeft = function defaultScrollToLeft(x) {
 var defaultScrollToRight = function defaultScrollToRight(x) {
   return x + 240;
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/SubnavigationBar
+ */
+
 
 export var SubnavigationBar = function SubnavigationBar(_ref) {
   var _ref$mode = _ref.mode,

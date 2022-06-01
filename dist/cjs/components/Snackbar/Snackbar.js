@@ -31,9 +31,9 @@ var _touch = require("../../lib/touch");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = require("../Button/Button");
 
 var _AppRootPortal = require("../AppRoot/AppRootPortal");
 
@@ -166,6 +166,7 @@ var SnackbarComponent = function SnackbarComponent(props) {
   }, [closeTimeout]);
   var resolvedLayout = after || isDesktop ? "vertical" : layout;
   return (0, _jsxRuntime.createScopedElement)(_AppRootPortal.AppRootPortal, null, (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Snackbar", platform), "Snackbar--l-".concat(resolvedLayout), {
       "Snackbar--closing": closing,
       "Snackbar--touched": touched,
@@ -184,10 +185,9 @@ var SnackbarComponent = function SnackbarComponent(props) {
     vkuiClass: "Snackbar__before"
   }, before), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Snackbar__content"
-  }, (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: "regular",
+  }, (0, _jsxRuntime.createScopedElement)(_Text.Text, {
     vkuiClass: "Snackbar__content-text"
-  }, children), action && (0, _jsxRuntime.createScopedElement)(_Button.default, {
+  }, children), action && (0, _jsxRuntime.createScopedElement)(_Button.Button, {
     align: "left",
     hasHover: false,
     mode: "tertiary",
@@ -204,6 +204,10 @@ SnackbarComponent.defaultProps = {
   duration: 4000,
   layout: "horizontal"
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Snackbar
+ */
+
 var Snackbar = (0, _withAdaptivity.withAdaptivity)(SnackbarComponent, {
   viewWidth: true
 });

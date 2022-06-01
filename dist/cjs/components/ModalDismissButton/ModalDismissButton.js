@@ -19,6 +19,9 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalDismissButton
+ */
 var ModalDismissButton = function ModalDismissButton(props) {
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({

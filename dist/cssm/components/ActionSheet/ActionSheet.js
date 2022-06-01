@@ -5,20 +5,24 @@ var _excluded = ["children", "className", "header", "text", "style", "iosCloseIt
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { PopoutWrapper } from "../PopoutWrapper/PopoutWrapper";
-import { ViewWidth, ViewHeight } from "../../hoc/withAdaptivity";
 import { IOS } from "../../lib/platform";
 import { ActionSheetDropdownDesktop } from "./ActionSheetDropdownDesktop";
 import { ActionSheetDropdown } from "./ActionSheetDropdown";
 import { hasReactNode, noop } from "../../lib/utils";
 import { ActionSheetContext } from "./ActionSheetContext";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useTimeout } from "../../hooks/useTimeout";
-import { useAdaptivity } from "../../hooks/useAdaptivity";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import { useObjectMemo } from "../../hooks/useObjectMemo";
 import { warnOnce } from "../../lib/warnOnce";
+import { useScrollLock } from "../AppRoot/ScrollContext";
 import "./ActionSheet.css";
 var warn = warnOnce("ActionSheet");
+/**
+ * @see https://vkcom.github.io/VKUI/#/ActionSheet
+ */
+
 export var ActionSheet = function ActionSheet(_ref) {
   var children = _ref.children,
       className = _ref.className,
@@ -52,15 +56,11 @@ export var ActionSheet = function ActionSheet(_ref) {
   };
 
   if (process.env.NODE_ENV === "development" && !restProps.onClose) {
-    warn("can't close on outer click without onClose");
+    warn("\u0411\u0435\u0437 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430 \"onClose\" \u043D\u0435\u043B\u044C\u0437\u044F \u0437\u0430\u043A\u0440\u044B\u0442\u044C ActionSheet \u043F\u043E \u043A\u043B\u0438\u043A\u0443 \u0432\u043D\u0435 \u043A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442\u0430", "error");
   }
 
-  var _useAdaptivity = useAdaptivity(),
-      viewWidth = _useAdaptivity.viewWidth,
-      viewHeight = _useAdaptivity.viewHeight,
-      hasMouse = _useAdaptivity.hasMouse;
-
-  var isDesktop = viewWidth >= ViewWidth.SMALL_TABLET && (hasMouse || viewHeight >= ViewHeight.MEDIUM);
+  var isDesktop = useAdaptivityIsDesktop();
+  useScrollLock(!isDesktop);
   var timeout = platform === IOS ? 300 : 200;
 
   if (isDesktop) {
@@ -108,12 +108,9 @@ export var ActionSheet = function ActionSheet(_ref) {
   }), (hasReactNode(header) || hasReactNode(text)) && createScopedElement("header", {
     vkuiClass: "ActionSheet__header"
   }, hasReactNode(header) && createScopedElement(Caption, {
-    level: "1",
-    weight: platform === IOS ? "semibold" : "medium",
+    weight: platform === IOS ? "1" : "2",
     vkuiClass: "ActionSheet__title"
   }, header), hasReactNode(text) && createScopedElement(Caption, {
-    level: "1",
-    weight: "regular",
     vkuiClass: "ActionSheet__text"
   }, text)), children, platform === IOS && !isDesktop && iosCloseItem));
 

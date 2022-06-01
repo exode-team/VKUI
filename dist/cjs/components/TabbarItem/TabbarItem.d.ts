@@ -5,7 +5,7 @@ export interface TabbarItemProps extends Omit<React.AllHTMLAttributes<HTMLElemen
 HasRootRef<HTMLElement>, HasComponent {
     selected?: boolean;
     /**
-     * Тест рядом с иконкой
+     * Текст рядом с иконкой
      */
     text?: React.ReactNode;
     /**
@@ -17,5 +17,8 @@ HasRootRef<HTMLElement>, HasComponent {
      */
     label?: React.ReactNode;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/TabbarItem
+ */
 declare const TabbarItem: React.FunctionComponent<TabbarItemProps>;
 export default TabbarItem;

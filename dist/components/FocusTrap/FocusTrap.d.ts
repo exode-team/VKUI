@@ -5,4 +5,7 @@ export interface FocusTrapProps extends React.AllHTMLAttributes<HTMLElement>, Ha
     restoreFocus?: boolean;
     timeout?: number;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/FocusTrap
+ */
 export declare const FocusTrap: React.FC<FocusTrapProps>;

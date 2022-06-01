@@ -26,5 +26,7 @@ export interface ChipsInputProps<Option extends ChipsInputOption> extends Omit<R
     inputAriaLabel?: string;
 }
 export declare const chipsInputDefaultProps: ChipsInputProps<any>;
-declare const ChipsInput: <Option extends ChipsInputOption>(props: ChipsInputProps<Option>) => JSX.Element;
-export default ChipsInput;
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsInput
+ */
+export declare const ChipsInput: <Option extends ChipsInputOption>(props: ChipsInputProps<Option>) => JSX.Element;

@@ -99,8 +99,12 @@ function modalTransitionReducer(state, action) {
  */
 
 
-function useModalManager(activeModal, children, onClose) {
-  var initModal = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _utils.noop;
+function useModalManager(activeModal, children) {
+  var onOpen = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _utils.noop;
+  var onOpened = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _utils.noop;
+  var onClose = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _utils.noop;
+  var onClosed = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : _utils.noop;
+  var initModal = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : _utils.noop;
   var modalsState = React.useRef({}).current;
   getModals(children).forEach(function (Modal) {
     var modalProps = Modal.props;
@@ -108,7 +112,10 @@ function useModalManager(activeModal, children, onClose) {
     var state = id !== undefined && modalsState[id] || {
       id: id !== null && id !== void 0 ? id : null
     };
+    state.onOpen = Modal.props.onOpen;
+    state.onOpened = Modal.props.onOpened;
     state.onClose = Modal.props.onClose;
+    state.onClosed = Modal.props.onClosed;
     state.dynamicContentHeight = !!modalProps.dynamicContentHeight; // ModalPage props
 
     if (typeof modalProps.settlingHeight === "number") {
@@ -137,7 +144,7 @@ function useModalManager(activeModal, children, onClose) {
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     // ignore non-existent activeModal
     if (process.env.NODE_ENV === "development" && isMissing) {
-      warn("Can't transition - modal ".concat(activeModal, " not found"));
+      warn("\u041F\u0435\u0440\u0435\u0445\u043E\u0434 \u043D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u0435\u043D - \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u043E\u0435 \u043E\u043A\u043D\u043E (\u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430) ".concat(activeModal, " \u043D\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442"), "error");
     }
 
     dispatchTransition({
@@ -162,24 +169,56 @@ function useModalManager(activeModal, children, onClose) {
     return id != null && ((_modalsState$id = modalsState[id]) === null || _modalsState$id === void 0 ? void 0 : _modalsState$id.type) === _types.ModalType.CARD;
   };
 
-  var onEnter = React.useCallback(function (id) {
-    return dispatchTransition({
+  var onEntered = React.useCallback(function (id) {
+    if (id) {
+      var modalState = modalsState[id];
+
+      if ((0, _utils.isFunction)(modalState.onOpened)) {
+        modalState.onOpened();
+      } else if ((0, _utils.isFunction)(onOpened)) {
+        onOpened(id);
+      }
+    }
+
+    dispatchTransition({
       type: "entered",
       id: id
     });
-  }, []);
-  var onExit = React.useCallback(function (id) {
-    return dispatchTransition({
+  }, [modalsState, onOpened]);
+  var onExited = React.useCallback(function (id) {
+    if (id) {
+      var modalState = modalsState[id];
+
+      if ((0, _utils.isFunction)(modalState.onClosed)) {
+        modalState.onClosed();
+      } else if ((0, _utils.isFunction)(onClosed)) {
+        onClosed(id);
+      }
+    }
+
+    dispatchTransition({
       type: "exited",
       id: id
     });
-  }, []);
+  }, [modalsState, onClosed]);
   var delayEnter = Boolean(transitionState.exitingModal && (isCard(activeModal) || isCard(transitionState.exitingModal)));
   var getModalState = React.useCallback(function (id) {
     return modalsState[id];
   }, [modalsState]);
 
-  function closeActiveModal() {
+  function onEnter() {
+    var modalState = transitionState.activeModal && modalsState[transitionState.activeModal];
+
+    if (modalState) {
+      if ((0, _utils.isFunction)(modalState.onOpen)) {
+        modalState.onOpen();
+      } else if ((0, _utils.isFunction)(onOpen)) {
+        onOpen(modalState.id);
+      }
+    }
+  }
+
+  function onExit() {
     var modalState = transitionState.activeModal && modalsState[transitionState.activeModal];
 
     if (modalState) {
@@ -187,19 +226,18 @@ function useModalManager(activeModal, children, onClose) {
         modalState.onClose();
       } else if ((0, _utils.isFunction)(onClose)) {
         onClose(modalState.id);
-      } else if (process.env.NODE_ENV === "development") {
-        warn("onClose is undefined");
       }
     }
   }
 
   return (0, _objectSpread2.default)((0, _objectSpread2.default)({
     onEnter: onEnter,
-    onExit: onExit
+    onEntered: onEntered,
+    onExit: onExit,
+    onExited: onExited
   }, transitionState), {}, {
     delayEnter: delayEnter,
-    getModalState: getModalState,
-    closeActiveModal: closeActiveModal
+    getModalState: getModalState
   });
 }
 
@@ -207,7 +245,7 @@ function withModalManager() {
   var initModal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _utils.noop;
   return function (Wrapped) {
     return function WithModalManager(props) {
-      var transitionManager = useModalManager(props.activeModal, props.children, props.onClose, initModal);
+      var transitionManager = useModalManager(props.activeModal, props.children, props.onOpen, props.onOpened, props.onClose, props.onClosed, initModal);
       return (0, _jsxRuntime.createScopedElement)(Wrapped, (0, _extends2.default)({}, props, transitionManager));
     };
   };

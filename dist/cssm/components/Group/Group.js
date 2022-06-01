@@ -6,13 +6,16 @@ import * as React from "react";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
-import Separator from "../Separator/Separator";
+import { Separator } from "../Separator/Separator";
 import { hasReactNode } from "../../lib/utils";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
 import ModalRootContext from "../ModalRoot/ModalRootContext";
 import "./Group.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Group
+ */
 var Group = function Group(props) {
   var header = props.header,
       description = props.description,
@@ -39,10 +42,9 @@ var Group = function Group(props) {
   }), createScopedElement("div", {
     vkuiClass: "Group__inner"
   }, header, children, hasReactNode(description) && createScopedElement(Caption, {
-    vkuiClass: "Group__description",
-    weight: "regular",
-    level: "1"
-  }, description)), separator !== "hide" && createScopedElement(Separator, {
+    vkuiClass: "Group__description"
+  }, description)), separator !== "hide" && createScopedElement(Separator // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  , {
     vkuiClass: classNames("Group__separator", {
       "Group__separator--force": separator === "show"
     }),

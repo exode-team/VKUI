@@ -28,7 +28,7 @@ var usePatchChildrenRef = function usePatchChildrenRef(children) {
   var patchedRef = (0, _useExternRef.useExternRef)(childRef);
   React.useEffect(function () {
     if (!patchedRef.current && process.env.NODE_ENV === "development") {
-      warn("Кажется, в `children` передан компонент, который не поддерживает свойство `getRootRef`. Мы не можем" + "получить ссылку на корневой dom-элемент этого компонента");
+      warn("Кажется, в children передан компонент, который не поддерживает свойство getRootRef. Мы не можем получить ссылку на корневой dom-элемент этого компонента", "error");
     }
   }, [children === null || children === void 0 ? void 0 : children.type, patchedRef]);
   return [patchedRef, /*#__PURE__*/React.isValidElement(children) ? /*#__PURE__*/React.cloneElement(children, (0, _defineProperty2.default)({}, isDOMTypeElement(children) ? "ref" : "getRootRef", patchedRef)) : children];

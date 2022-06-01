@@ -19,4 +19,7 @@ export interface SplitColProps extends React.HTMLAttributes<HTMLDivElement> {
     spaced?: boolean;
     fixed?: boolean;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/SplitCol
+ */
 export declare const SplitCol: React.FC<SplitColProps>;

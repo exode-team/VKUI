@@ -29,7 +29,7 @@ var _classNames = require("../../lib/classNames");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _NavTransitionContext = require("../NavTransitionContext/NavTransitionContext");
 
@@ -78,10 +78,10 @@ var SimpleTooltip = /*#__PURE__*/React.forwardRef(function SimpleTooltip(_ref, r
     ref: arrowRef
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Tooltip__content"
-  }, header && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
+  }, header && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     weight: "1",
     vkuiClass: "Tooltip__title"
-  }, header), text && (0, _jsxRuntime.createScopedElement)(_Subhead.default, {
+  }, header), text && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     vkuiClass: "Tooltip__text"
   }, text))));
 });
@@ -108,6 +108,10 @@ function getPlacement(alignX, alignY) {
 function isVerticalPlacement(placement) {
   return placement.startsWith("top") || placement.startsWith("bottom");
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tooltip
+ */
+
 
 var Tooltip = function Tooltip(_ref2) {
   var _attributes$arrow, _attributes$popper;
@@ -150,7 +154,7 @@ var Tooltip = function Tooltip(_ref2) {
     var multiChildren = React.Children.count(children) > 1; // Empty children is a noop
 
     var primitiveChild = (0, _utils.hasReactNode)(children) && (0, _typeof2.default)(children) !== "object";
-    (multiChildren || primitiveChild) && warn(["children must be a single React element, got", multiChildren && "multiple", primitiveChild && JSON.stringify(children)].filter(Boolean).join(" "));
+    (multiChildren || primitiveChild) && warn(["children должен быть одним React элементом, получено", multiChildren && "несколько", primitiveChild && JSON.stringify(children)].filter(Boolean).join(" "), "error");
   }
   /* eslint-disable no-restricted-properties */
 
@@ -171,7 +175,7 @@ var Tooltip = function Tooltip(_ref2) {
     throw new Error("Use TooltipContainer for Tooltip outside Panel (see docs)");
   }
 
-  var arrowOffsetModiifer = React.useMemo(function () {
+  var arrowOffsetModifier = React.useMemo(function () {
     return {
       name: "arrowOffset",
       enabled: true,
@@ -227,7 +231,7 @@ var Tooltip = function Tooltip(_ref2) {
       name: "preventOverflow"
     }, {
       name: "flip"
-    }, arrowOffsetModiifer]
+    }, arrowOffsetModifier]
   }),
       styles = _usePopper.styles,
       attributes = _usePopper.attributes;

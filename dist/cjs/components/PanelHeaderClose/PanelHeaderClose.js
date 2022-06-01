@@ -25,6 +25,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["children"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderClose
+ */
 var PanelHeaderClose = function PanelHeaderClose(_ref) {
   var children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);

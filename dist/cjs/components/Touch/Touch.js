@@ -31,6 +31,9 @@ var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
 var _excluded = ["onStart", "onStartX", "onStartY", "onMove", "onMoveX", "onMoveY", "onLeave", "onEnter", "onEnd", "onEndX", "onEndY", "onClickCapture", "usePointerHover", "slideThreshold", "useCapture", "Component", "getRootRef", "noSlideClick", "stopPropagation"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Touch
+ */
 var Touch = function Touch(_ref) {
   var onStart = _ref.onStart,
       onStartX = _ref.onStartX,
@@ -65,9 +68,9 @@ var Touch = function Touch(_ref) {
   var didSlide = React.useRef(false);
   var gesture = React.useRef(null);
 
-  var handle = function handle(e, handers) {
+  var handle = function handle(e, handlers) {
     stopPropagation && e.stopPropagation();
-    handers.forEach(function (cb) {
+    handlers.forEach(function (cb) {
       var _gesture$current$star, _gesture$current, _gesture$current$star2;
 
       var duration = Date.now() - ((_gesture$current$star = (_gesture$current = gesture.current) === null || _gesture$current === void 0 ? void 0 : (_gesture$current$star2 = _gesture$current.startT) === null || _gesture$current$star2 === void 0 ? void 0 : _gesture$current$star2.getTime()) !== null && _gesture$current$star !== void 0 ? _gesture$current$star : 0);
@@ -178,7 +181,7 @@ var Touch = function Touch(_ref) {
       onLeave && onLeave(e);
     }
 
-    subscribe(null);
+    unsubscribe();
   }
 
   var listenerParams = {
@@ -193,6 +196,12 @@ var Touch = function Touch(_ref) {
         return l.add(el);
       });
     }
+  }
+
+  function unsubscribe() {
+    listeners.forEach(function (l) {
+      return l.remove();
+    });
   }
   /**
    * Обработчик событий dragstart

@@ -13,6 +13,10 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { noop } from "../../lib/utils";
 import { AppRootContext } from "../AppRoot/AppRootContext";
 var FOCUSABLE_ELEMENTS = FOCUSABLE_ELEMENTS_LIST.join();
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/FocusTrap
+ */
 export var FocusTrap = function FocusTrap(_ref) {
   var _ref$Component = _ref.Component,
       Component = _ref$Component === void 0 ? "div" : _ref$Component,

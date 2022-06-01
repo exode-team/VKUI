@@ -37,6 +37,9 @@ var _excluded = ["targetRef", "children", "getRef", "placement", "onPlacementCha
 var ARROW_PADDING = 8;
 var ARROW_WIDTH = 20;
 var ARROW_HEIGHT = 8;
+/**
+ * @see https://vkcom.github.io/VKUI/#/Popper
+ */
 
 var Popper = function Popper(_ref) {
   var _targetRef$current3;
@@ -122,8 +125,8 @@ var Popper = function Popper(_ref) {
       attributes = _usePopper.attributes;
 
   var resolvedPlacement = state === null || state === void 0 ? void 0 : state.placement;
-  var isEdgePlacement = !!resolvedPlacement && resolvedPlacement.includes("-"); // true, если поппер отрисован скраю
-  // Если поппер рисуется скраю, то нужно опционально сместить его в тех случаях, когда стрелка не дотягивается до
+  var isEdgePlacement = !!resolvedPlacement && resolvedPlacement.includes("-"); // true, если поппер отрисован с краю
+  // Если поппер рисуется с краю, то нужно опционально сместить его в тех случаях, когда стрелка не дотягивается до
   // таргета из-за маленьких размеров последнего
 
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {

@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FormField = void 0;
+exports.FormFieldMode = exports.FormField = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -29,15 +29,26 @@ var _utils = require("../../lib/utils");
 
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
-var _excluded = ["Component", "children", "getRootRef", "after", "disabled"];
+var _excluded = ["Component", "children", "getRootRef", "before", "after", "disabled", "mode"];
+var FormFieldMode = {
+  default: "default",
+  plain: "plain"
+};
+exports.FormFieldMode = FormFieldMode;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormField
+ */
 var FormField = function FormField(_ref) {
   var _ref$Component = _ref.Component,
       Component = _ref$Component === void 0 ? "div" : _ref$Component,
       children = _ref.children,
       getRootRef = _ref.getRootRef,
+      before = _ref.before,
       after = _ref.after,
       disabled = _ref.disabled,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? FormFieldMode.default : _ref$mode,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -65,17 +76,16 @@ var FormField = function FormField(_ref) {
     ref: getRootRef,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormField", platform), "FormField--sizeY-".concat(sizeY), {
-      "FormField--disabled": disabled
-    })
-  }), children, (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormField", platform), "FormField--".concat(mode), "FormField--sizeY-".concat(sizeY), disabled && "FormField--disabled", !disabled && hover && "FormField--hover")
+  }), (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {
+    role: "presentation",
+    vkuiClass: "FormField__before"
+  }, before), children, (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
     role: "presentation",
     vkuiClass: "FormField__after"
   }, after), (0, _jsxRuntime.createScopedElement)("div", {
     role: "presentation",
-    vkuiClass: (0, _classNames.classNames)("FormField__border", {
-      "FormField__border--hover": !disabled && hover
-    })
+    vkuiClass: "FormField__border"
   }));
 };
 

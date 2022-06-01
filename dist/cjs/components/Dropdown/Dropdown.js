@@ -23,6 +23,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["action", "hideDelay", "showDelay"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Dropdown
+ */
 var Dropdown = function Dropdown(_ref) {
   var _ref$action = _ref.action,
       action = _ref$action === void 0 ? "click" : _ref$action,

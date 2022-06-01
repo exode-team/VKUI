@@ -23,4 +23,7 @@ export interface ActionSheetProps extends React.HTMLAttributes<HTMLDivElement> {
      */
     iosCloseItem?: React.ReactNode;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/ActionSheet
+ */
 export declare const ActionSheet: React.FC<ActionSheetProps>;

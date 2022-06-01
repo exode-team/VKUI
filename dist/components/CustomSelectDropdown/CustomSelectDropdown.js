@@ -7,7 +7,7 @@ import * as React from "react";
 import CustomScrollView from "../CustomScrollView/CustomScrollView";
 import { classNames } from "../../lib/classNames";
 import { Popper } from "../Popper/Popper";
-import Spinner from "../Spinner/Spinner";
+import { Spinner } from "../Spinner/Spinner";
 
 var calcIsTop = function calcIsTop(placement) {
   return placement === null || placement === void 0 ? void 0 : placement.includes("top");
@@ -46,15 +46,11 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref) {
     sameWidth: sameWidth,
     onPlacementChange: onPlacementChange,
     placement: placement,
-    vkuiClass: classNames("CustomSelectDropdown__options", {
-      "CustomSelectDropdown__options--popupDirectionTop": isTop,
-      "CustomSelectDropdown__options--not-adjacent": offsetDistance > 0,
-      "CustomSelectDropdown__options--same-width": sameWidth
-    }),
+    vkuiClass: classNames("CustomSelectDropdown", offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide"),
     forcePortal: forcePortal
   }, restProps), createScopedElement(CustomScrollView, {
     boxRef: scrollBoxRef,
-    vkuiClass: "CustomSelectDropdown__CustomScrollView"
+    vkuiClass: "CustomSelectDropdown__in"
   }, fetching ? createScopedElement("div", {
     vkuiClass: "CustomSelectDropdown__fetching"
   }, createScopedElement(Spinner, {

@@ -1,4 +1,4 @@
-interface UsePagintaionProps {
+interface UsePaginationProps {
     /**
      * Текущая страница.
      */
@@ -19,7 +19,7 @@ interface UsePagintaionProps {
 export declare type PaginationPageType = "start-ellipsis" | "end-ellipsis" | number;
 export declare type UsePaginationResult = PaginationPageType[];
 /**
- * Хук взаимствован у @mui с некоторыми изменениями.
+ * Хук позаимствован у @mui с некоторыми изменениями.
  *  [usePagination.js](https://github.com/mui/material-ui/blob/master/packages/mui-material/src/usePagination/usePagination.js).
  *
  * Примеры вывода:
@@ -30,5 +30,5 @@ export declare type UsePaginationResult = PaginationPageType[];
  *                          v
  * [1, 'start-ellipsis', 6, 7, 8, 9, 10]
  */
-export declare const usePagination: ({ currentPage, siblingCount, boundaryCount, totalPages: endPage, }?: UsePagintaionProps) => UsePaginationResult;
+export declare const usePagination: ({ currentPage, siblingCount, boundaryCount, totalPages: endPage, }?: UsePaginationProps) => UsePaginationResult;
 export {};

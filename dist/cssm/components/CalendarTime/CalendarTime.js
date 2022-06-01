@@ -1,8 +1,8 @@
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { setHours, setMinutes } from "date-fns";
-import CustomSelect from "../CustomSelect/CustomSelect";
-import Button from "../Button/Button";
+import { setHours, setMinutes } from "../../lib/date";
+import { CustomSelect } from "../CustomSelect/CustomSelect";
+import { Button } from "../Button/Button";
 import { SizeType } from "../../hoc/withAdaptivity";
 import "./CalendarTime.css";
 var hours = [];

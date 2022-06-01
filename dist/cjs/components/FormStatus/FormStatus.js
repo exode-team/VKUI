@@ -19,14 +19,17 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _utils = require("../../lib/utils");
 
 var _excluded = ["mode", "header", "children", "dangerouslySetInnerHTML"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormStatus
+ */
 var FormStatus = function FormStatus(_ref) {
   var mode = _ref.mode,
       header = _ref.header,
@@ -36,17 +39,12 @@ var FormStatus = function FormStatus(_ref) {
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormStatus", platform), "FormStatus--".concat(mode))
-  }), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Headline.default, {
-    weight: "medium",
+  }), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
+    weight: "2",
     vkuiClass: "FormStatus__header"
-  }, header), dangerouslySetInnerHTML && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    level: "1",
-    weight: "regular",
+  }, header), dangerouslySetInnerHTML && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     dangerouslySetInnerHTML: dangerouslySetInnerHTML
-  }), (0, _utils.hasReactNode)(children) && !dangerouslySetInnerHTML && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    level: "1",
-    weight: "regular"
-  }, children));
+  }), (0, _utils.hasReactNode)(children) && !dangerouslySetInnerHTML && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, null, children));
 };
 
 exports.FormStatus = FormStatus;

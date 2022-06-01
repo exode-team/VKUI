@@ -15,6 +15,9 @@ var _ScrollContext = require("../AppRoot/ScrollContext");
 
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ScrollSaver
+ */
 var ScrollSaver = function ScrollSaver(_ref) {
   var children = _ref.children,
       initialScroll = _ref.initialScroll,

@@ -23,6 +23,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["popout", "modal", "header", "children", "getRootRef", "getRef"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/SplitLayout
+ */
 var SplitLayout = function SplitLayout(_ref) {
   var popout = _ref.popout,
       modal = _ref.modal,
@@ -38,7 +41,8 @@ var SplitLayout = function SplitLayout(_ref) {
     modal: modal,
     getRootRef: getRootRef
   }, header, (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    ref: getRef,
+    ref: getRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)("SplitLayout__inner", {
       "SplitLayout__inner--header": !!header
     })

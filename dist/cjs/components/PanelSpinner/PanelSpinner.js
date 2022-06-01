@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PanelSpinner = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -19,28 +19,26 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
+var _Spinner = require("../Spinner/Spinner");
 
 var _excluded = ["height", "style"];
 
-var PanelSpinner = function PanelSpinner(_ref) {
-  var height = _ref.height,
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelSpinner
+ */
+var PanelSpinner = /*#__PURE__*/React.memo(function (_ref) {
+  var _ref$height = _ref.height,
+      height = _ref$height === void 0 ? 96 : _ref$height,
       style = _ref.style,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  return (0, _jsxRuntime.createScopedElement)(_Spinner.default, (0, _extends2.default)({
+  return (0, _jsxRuntime.createScopedElement)(_Spinner.Spinner, (0, _extends2.default)({
     size: "regular"
   }, restProps, {
     style: (0, _objectSpread2.default)({
       height: height
     }, style)
   }));
-};
-
-PanelSpinner.defaultProps = {
-  height: 96
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = /*#__PURE__*/React.memo(PanelSpinner);
-
-exports.default = _default;
+});
+exports.PanelSpinner = PanelSpinner;
+PanelSpinner.displayName = "PanelSpinner";
 //# sourceMappingURL=PanelSpinner.js.map

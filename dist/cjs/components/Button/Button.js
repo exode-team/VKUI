@@ -7,11 +7,9 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Button = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
@@ -19,19 +17,19 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _ConfigProviderContext = require("../ConfigProvider/ConfigProviderContext");
 
 var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
@@ -39,12 +37,12 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _platform = require("../../lib/platform");
 
-var _Spinner = _interopRequireDefault(require("../Spinner/Spinner"));
+var _Spinner = require("../Spinner/Spinner");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
 var _excluded = ["size", "sizeY", "platform"],
-    _excluded2 = ["size", "mode", "appearance", "stretched", "align", "children", "before", "after", "getRootRef", "sizeY", "Component", "loading", "onClick"];
+    _excluded2 = ["size", "mode", "appearance", "stretched", "align", "children", "before", "after", "getRootRef", "sizeY", "Component", "loading", "onClick", "stopPropagation"];
 
 var ButtonTypography = function ButtonTypography(props) {
   var size = props.size,
@@ -56,56 +54,52 @@ var ButtonTypography = function ButtonTypography(props) {
   switch (size) {
     case "l":
       if (isCompact) {
-        return (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
-          weight: "medium"
+        return (0, _jsxRuntime.createScopedElement)(_Text.Text, (0, _extends2.default)({
+          weight: "2"
         }, restProps));
       }
 
       if (platform === _platform.ANDROID) {
-        return (0, _jsxRuntime.createScopedElement)(_Headline.default, (0, _extends2.default)({
-          weight: "medium"
+        return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+          weight: "2"
         }, restProps));
       }
 
-      return (0, _jsxRuntime.createScopedElement)(_Title.default, (0, _extends2.default)({
+      return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
         level: "3",
         weight: "2"
       }, restProps));
 
     case "m":
       if (isCompact) {
-        return (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
+        return (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, (0, _extends2.default)({
           weight: platform === _platform.VKCOM ? "3" : "2"
         }, restProps));
       }
 
-      return (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
-        weight: "medium"
+      return (0, _jsxRuntime.createScopedElement)(_Text.Text, (0, _extends2.default)({
+        weight: "2"
       }, restProps));
 
     case "s":
     default:
       if (platform === _platform.IOS) {
-        return (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
+        return (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, (0, _extends2.default)({
           weight: "2"
         }, restProps));
       }
 
       if (platform === _platform.VKCOM) {
-        return (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-          level: "1",
-          weight: "regular"
-        }, restProps));
+        return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, restProps);
       }
 
       if (isCompact) {
-        return (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-          level: "1",
-          weight: "medium"
+        return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+          weight: "2"
         }, restProps));
       }
 
-      return (0, _jsxRuntime.createScopedElement)(_Subhead.default, (0, _extends2.default)({
+      return (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, (0, _extends2.default)({
         weight: "2"
       }, restProps));
   }
@@ -157,26 +151,31 @@ function resolveButtonAppearance(appearance, mode) {
   };
 }
 
-var Button = function Button(props) {
-  var _classNames;
-
+var ButtonComponent = function ButtonComponent(_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? "s" : _ref$size,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "primary" : _ref$mode,
+      appearance = _ref.appearance,
+      _ref$stretched = _ref.stretched,
+      stretched = _ref$stretched === void 0 ? false : _ref$stretched,
+      _ref$align = _ref.align,
+      align = _ref$align === void 0 ? "center" : _ref$align,
+      children = _ref.children,
+      before = _ref.before,
+      after = _ref.after,
+      getRootRef = _ref.getRootRef,
+      sizeY = _ref.sizeY,
+      _ref$Component = _ref.Component,
+      Component = _ref$Component === void 0 ? "button" : _ref$Component,
+      loading = _ref.loading,
+      onClick = _ref.onClick,
+      _ref$stopPropagation = _ref.stopPropagation,
+      stopPropagation = _ref$stopPropagation === void 0 ? true : _ref$stopPropagation,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded2);
   var platform = (0, _usePlatform.usePlatform)();
-  var size = props.size,
-      mode = props.mode,
-      appearance = props.appearance,
-      stretched = props.stretched,
-      align = props.align,
-      children = props.children,
-      before = props.before,
-      after = props.after,
-      getRootRef = props.getRootRef,
-      sizeY = props.sizeY,
-      _props$Component = props.Component,
-      Component = _props$Component === void 0 ? "button" : _props$Component,
-      loading = props.loading,
-      onClick = props.onClick,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
   var hasIcons = Boolean(before || after);
+  var hasIconOnly = !children && Boolean(after) !== Boolean(before);
 
   var _resolveButtonAppeara = resolveButtonAppearance(appearance, mode),
       resolvedMode = _resolveButtonAppeara.resolvedMode,
@@ -187,17 +186,19 @@ var Button = function Button(props) {
     Component: restProps.href ? "a" : Component,
     onClick: loading ? undefined : onClick,
     focusVisibleMode: "outside",
-    vkuiClass: (0, _classNames2.classNames)("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), (_classNames = {}, (0, _defineProperty2.default)(_classNames, "Button--stretched", stretched), (0, _defineProperty2.default)(_classNames, "Button--with-icon", hasIcons), (0, _defineProperty2.default)(_classNames, "Button--singleIcon", Boolean(!children && !after && before || !children && after && !before)), _classNames)),
+    stopPropagation: stopPropagation,
+    vkuiClass: (0, _classNames.classNames)("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), stretched && "Button--stretched", hasIcons && "Button--with-icon", hasIconOnly && "Button--singleIcon"),
     getRootRef: getRootRef,
     hoverMode: hasNewTokens ? "Button--hover" : "background",
     activeMode: hasNewTokens ? "Button--active" : "opacity"
-  }), loading && (0, _jsxRuntime.createScopedElement)(_Spinner.default, {
+  }), loading && (0, _jsxRuntime.createScopedElement)(_Spinner.Spinner, {
     size: "small",
     vkuiClass: "Button__spinner"
   }), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "Button__in"
   }, before && (0, _jsxRuntime.createScopedElement)("span", {
-    vkuiClass: "Button__before"
+    vkuiClass: "Button__before",
+    role: "presentation"
   }, before), children && (0, _jsxRuntime.createScopedElement)(ButtonTypography, {
     size: size,
     sizeY: sizeY,
@@ -205,21 +206,17 @@ var Button = function Button(props) {
     vkuiClass: "Button__content",
     Component: "span"
   }, children), after && (0, _jsxRuntime.createScopedElement)("span", {
-    vkuiClass: "Button__after"
+    vkuiClass: "Button__after",
+    role: "presentation"
   }, after)));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Button
+ */
 
-Button.defaultProps = {
-  mode: "primary",
-  align: "center",
-  size: "s",
-  stretched: false,
-  stopPropagation: true
-}; // eslint-disable-next-line import/no-default-export
 
-var _default = (0, _withAdaptivity.withAdaptivity)(Button, {
+var Button = (0, _withAdaptivity.withAdaptivity)(ButtonComponent, {
   sizeY: true
 });
-
-exports.default = _default;
+exports.Button = Button;
 //# sourceMappingURL=Button.js.map

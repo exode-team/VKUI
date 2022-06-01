@@ -31,6 +31,9 @@ var _FocusVisible = require("../FocusVisible/FocusVisible");
 
 var _excluded = ["style", "className", "getRootRef"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Switch
+ */
 var Switch = function Switch(_ref) {
   var style = _ref.style,
       className = _ref.className,
@@ -47,10 +50,7 @@ var Switch = function Switch(_ref) {
       onFocus = _useFocusVisible.onFocus;
 
   return (0, _jsxRuntime.createScopedElement)("label", {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Switch", platform), "Switch--sizeY-".concat(sizeY), {
-      "Switch--disabled": restProps.disabled,
-      "Switch--focus-visible": focusVisible
-    }),
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Switch", platform), "Switch--sizeY-".concat(sizeY), restProps.disabled && "Switch--disabled", focusVisible && "Switch--focus-visible"),
     className: className,
     style: style,
     ref: getRootRef,

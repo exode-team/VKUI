@@ -21,6 +21,9 @@ var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
 var _excluded = ["children"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Link
+ */
 var Link = function Link(_ref) {
   var children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);

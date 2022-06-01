@@ -1,13 +1,15 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["children", "weight", "level", "Component"];
 import { createScopedElement } from "../../../lib/jsxRuntime";
 import { classNames } from "../../../lib/classNames";
 import { warnOnce } from "../../../lib/warnOnce";
 var warn = warnOnce("Title");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Title
+ */
 
-var Title = function Title(_ref) {
+export var Title = function Title(_ref) {
   var children = _ref.children,
       weight = _ref.weight,
       _ref$level = _ref.level,
@@ -24,10 +26,7 @@ var Title = function Title(_ref) {
   }
 
   return createScopedElement(Component, _extends({}, restProps, {
-    vkuiClass: classNames("Title", "Title--l-".concat(level), _defineProperty({}, "Title--w-".concat(weight), !!weight))
+    vkuiClass: classNames("Title", "Title--l-".concat(level), weight && "Title--w-".concat(weight))
   }), children);
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default Title;
+};
 //# sourceMappingURL=Title.js.map

@@ -39,8 +39,13 @@ var _useTimeout = require("../../hooks/useTimeout");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
+var _ScrollContext = require("../AppRoot/ScrollContext");
+
 var _excluded = ["children", "onClose", "opened"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderContext
+ */
 var PanelHeaderContext = function PanelHeaderContext(_ref) {
   var children = _ref.children,
       onClose = _ref.onClose,
@@ -67,7 +72,8 @@ var PanelHeaderContext = function PanelHeaderContext(_ref) {
   var elementRef = React.useRef(null);
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     opened && setVisible(true);
-  }, [opened]); // start closing on outer click
+  }, [opened]);
+  (0, _ScrollContext.useScrollLock)(!isDesktop && opened); // start closing on outer click
 
   (0, _useGlobalEventListener.useGlobalEventListener)(document, "click", isDesktop && opened && !closing && function (event) {
     if (elementRef.current && !elementRef.current.contains(event.target)) {
@@ -84,6 +90,7 @@ var PanelHeaderContext = function PanelHeaderContext(_ref) {
     return closing ? animationFallback.set() : animationFallback.clear();
   }, [animationFallback, closing]);
   return (0, _jsxRuntime.createScopedElement)(_FixedLayout.default, (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderContext", platform), {
       "PanelHeaderContext--opened": opened,
       "PanelHeaderContext--closing": closing,

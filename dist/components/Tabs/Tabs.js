@@ -9,6 +9,9 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { IOS } from "../../lib/platform";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 export var TabsModeContext = /*#__PURE__*/React.createContext("default");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tabs
+ */
 
 var Tabs = function Tabs(_ref) {
   var children = _ref.children,

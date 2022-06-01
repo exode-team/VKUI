@@ -4,16 +4,17 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["size", "separator", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
-import { usePlatform } from "../../hooks/usePlatform";
-import { getClassName } from "../../helpers/getClassName";
 import "./Spacing.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Spacing
+ */
 export var Spacing = function Spacing(_ref) {
-  var size = _ref.size,
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 8 : _ref$size,
       separator = _ref.separator,
       style = _ref.style,
       restProps = _objectWithoutProperties(_ref, _excluded);
-
-  var platform = usePlatform();
 
   var styles = _objectSpread({
     height: size
@@ -21,16 +22,8 @@ export var Spacing = function Spacing(_ref) {
 
   return createScopedElement("div", _extends({}, restProps, {
     "aria-hidden": "true",
-    vkuiClass: classNames(getClassName("Spacing", platform), {
-      "Spacing--separator": !!separator,
-      "Spacing--separator-center": separator === true || separator === "center",
-      "Spacing--separator-top": separator === "top",
-      "Spacing--separator-bottom": separator === "bottom"
-    }),
+    vkuiClass: classNames("Spacing", !!separator && "Spacing--separator", (separator === true || separator === "center") && "Spacing--separator-center", separator === "top" && "Spacing--separator-top", separator === "bottom" && "Spacing--separator-bottom"),
     style: styles
   }));
-};
-Spacing.defaultProps = {
-  size: 8
 };
 //# sourceMappingURL=Spacing.js.map

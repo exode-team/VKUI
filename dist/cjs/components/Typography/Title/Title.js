@@ -5,22 +5,23 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Title = void 0;
 
 var _jsxRuntime = require("../../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _classNames2 = require("../../../lib/classNames");
+var _classNames = require("../../../lib/classNames");
 
 var _warnOnce = require("../../../lib/warnOnce");
 
 var _excluded = ["children", "weight", "level", "Component"];
 var warn = (0, _warnOnce.warnOnce)("Title");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Title
+ */
 
 var Title = function Title(_ref) {
   var children = _ref.children,
@@ -39,11 +40,9 @@ var Title = function Title(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames2.classNames)("Title", "Title--l-".concat(level), (0, _defineProperty2.default)({}, "Title--w-".concat(weight), !!weight))
+    vkuiClass: (0, _classNames.classNames)("Title", "Title--l-".concat(level), weight && "Title--w-".concat(weight))
   }), children);
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = Title;
-exports.default = _default;
+exports.Title = Title;
 //# sourceMappingURL=Title.js.map

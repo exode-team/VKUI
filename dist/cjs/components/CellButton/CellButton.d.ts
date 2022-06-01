@@ -5,5 +5,8 @@ export interface CellButtonProps extends SimpleCellProps {
     mode?: "primary" | "danger";
     centered?: boolean;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/CellButton
+ */
 declare const CellButton: React.FC<CellButtonProps>;
 export { CellButton };

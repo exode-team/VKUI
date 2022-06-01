@@ -9,5 +9,8 @@ export interface FormLayoutGroupProps extends React.HTMLAttributes<HTMLDivElemen
      */
     removable?: boolean;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormLayoutGroup
+ */
 declare const FormLayoutGroup: React.FC<FormLayoutGroupProps>;
 export default FormLayoutGroup;

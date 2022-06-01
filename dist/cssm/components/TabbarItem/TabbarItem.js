@@ -12,6 +12,9 @@ import { Platform } from "../../lib/platform";
 import { warnOnce } from "../../lib/warnOnce";
 import "./TabbarItem.css";
 var warn = warnOnce("TabbarItem");
+/**
+ * @see https://vkcom.github.io/VKUI/#/TabbarItem
+ */
 
 var TabbarItem = function TabbarItem(_ref) {
   var children = _ref.children,
@@ -33,7 +36,8 @@ var TabbarItem = function TabbarItem(_ref) {
 
   return createScopedElement(Component, _extends({}, restProps, {
     disabled: disabled,
-    href: href,
+    href: href // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("TabbarItem", platform), {
       "TabbarItem--selected": selected,
       "TabbarItem--text": !!text

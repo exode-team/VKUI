@@ -8,11 +8,15 @@ import { useExternRef } from "../../hooks/useExternRef";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import { hasReactNode, noop } from "../../lib/utils";
-import Subhead from "../Typography/Subhead/Subhead";
-import Caption from "../Typography/Caption/Caption";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Caption } from "../Typography/Caption/Caption";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { Removable } from "../Removable/Removable";
 import "./FormItem.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormItem
+ */
 export var FormItem = function FormItem(_ref) {
   var children = _ref.children,
       top = _ref.top,
@@ -38,12 +42,11 @@ export var FormItem = function FormItem(_ref) {
   var wrappedChildren = createScopedElement(React.Fragment, null, hasReactNode(top) && createScopedElement(Subhead, {
     vkuiClass: "FormItem__top"
   }, top), children, hasReactNode(bottom) && createScopedElement(Caption, {
-    level: "1",
-    weight: "regular",
     vkuiClass: "FormItem__bottom"
   }, bottom));
   return createScopedElement(Component, _extends({}, restProps, {
-    ref: rootEl,
+    ref: rootEl // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("FormItem", platform), "FormItem--".concat(status), "FormItem--sizeY-".concat(sizeY), {
       "FormItem--withTop": hasReactNode(top),
       "FormItem--removable": removable

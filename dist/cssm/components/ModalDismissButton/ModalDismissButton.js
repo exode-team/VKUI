@@ -6,6 +6,9 @@ import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import "./ModalDismissButton.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalDismissButton
+ */
 var ModalDismissButton = function ModalDismissButton(props) {
   var platform = usePlatform();
   return createScopedElement(Tappable, _extends({

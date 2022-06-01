@@ -2,7 +2,7 @@ import * as React from "react";
 import { CalendarHeaderProps } from "../CalendarHeader/CalendarHeader";
 import { HasRootRef } from "../../types";
 import "./CalendarRange.css";
-export interface CalendarRangeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">, Pick<CalendarHeaderProps, "prevMonthAriaLabel" | "nextMonthAriaLabel" | "changeMonthAriaLabel" | "changeYearAriaLabel">, HasRootRef<HTMLDivElement> {
+export interface CalendarRangeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">, Pick<CalendarHeaderProps, "prevMonthAriaLabel" | "nextMonthAriaLabel" | "changeMonthAriaLabel" | "changeYearAriaLabel" | "prevMonthIcon" | "nextMonthIcon">, HasRootRef<HTMLDivElement> {
     value?: Array<Date | null>;
     disablePast?: boolean;
     disableFuture?: boolean;
@@ -13,4 +13,7 @@ export interface CalendarRangeProps extends Omit<React.HTMLAttributes<HTMLDivEle
     shouldDisableDate?(value: Date): boolean;
     onClose?(): void;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/CalendarRange
+ */
 export declare const CalendarRange: React.FC<CalendarRangeProps>;

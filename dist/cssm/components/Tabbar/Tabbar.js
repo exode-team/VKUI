@@ -8,6 +8,9 @@ import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import "./Tabbar.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tabbar
+ */
 var Tabbar = function Tabbar(props) {
   var children = props.children,
       shadow = props.shadow,
@@ -28,6 +31,7 @@ var Tabbar = function Tabbar(props) {
   };
 
   return createScopedElement("div", _extends({
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("Tabbar", platform), "Tabbar--l-".concat(getItemsLayout()), {
       "Tabbar--shadow": shadow
     })

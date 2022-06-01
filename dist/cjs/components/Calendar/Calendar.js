@@ -17,7 +17,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _dateFns = require("date-fns");
+var _date = require("../../lib/date");
 
 var _CalendarHeader = require("../CalendarHeader/CalendarHeader");
 
@@ -35,8 +35,11 @@ var _classNames = require("../../lib/classNames");
 
 var _warnOnce = require("../../lib/warnOnce");
 
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon"];
 var warn = (0, _warnOnce.warnOnce)("Calendar");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Calendar
+ */
 
 var Calendar = function Calendar(_ref) {
   var value = _ref.value,
@@ -63,13 +66,22 @@ var Calendar = function Calendar(_ref) {
       changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? "m" : _ref$size,
+      externalViewDate = _ref.viewDate,
+      onHeaderChange = _ref.onHeaderChange,
+      onNextMonth = _ref.onNextMonth,
+      onPrevMonth = _ref.onPrevMonth,
+      prevMonthIcon = _ref.prevMonthIcon,
+      nextMonthIcon = _ref.nextMonthIcon,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useCalendar = (0, _useCalendar2.useCalendar)({
     value: value,
     disableFuture: disableFuture,
     disablePast: disablePast,
-    shouldDisableDate: shouldDisableDate
+    shouldDisableDate: shouldDisableDate,
+    onHeaderChange: onHeaderChange,
+    onNextMonth: onNextMonth,
+    onPrevMonth: onPrevMonth
   }),
       viewDate = _useCalendar.viewDate,
       setViewDate = _useCalendar.setViewDate,
@@ -88,11 +100,11 @@ var Calendar = function Calendar(_ref) {
   }, [value]);
 
   if (process.env.NODE_ENV === "development" && !disablePickers && size === "s") {
-    warn("Нельзя включить селекты выбора месяца/года если размер календаря 's'");
+    warn("Нельзя включить селекты выбора месяца/года, если размер календаря 's'", "error");
   }
 
   if (process.env.NODE_ENV === "development" && enableTime && size === "s") {
-    warn("Нельзя включить выбор времени если размер календаря 's'");
+    warn("Нельзя включить выбор времени, если размер календаря 's'", "error");
   }
 
   var handleKeyDown = React.useCallback(function (event) {
@@ -102,7 +114,7 @@ var Calendar = function Calendar(_ref) {
 
     var newFocusedDay = (0, _calendar.navigateDate)(focusedDay !== null && focusedDay !== void 0 ? focusedDay : value, event.key);
 
-    if (newFocusedDay && !(0, _dateFns.isSameMonth)(newFocusedDay, viewDate)) {
+    if (newFocusedDay && !(0, _date.isSameMonth)(newFocusedDay, viewDate)) {
       setViewDate(newFocusedDay);
     }
 
@@ -112,13 +124,13 @@ var Calendar = function Calendar(_ref) {
     onChange === null || onChange === void 0 ? void 0 : onChange((0, _calendar.setTimeEqual)(date, value));
   }, [value, onChange]);
   var isDayActive = React.useCallback(function (day) {
-    return Boolean(value && (0, _dateFns.isSameDay)(day, value));
+    return Boolean(value && (0, _date.isSameDay)(day, value));
   }, [value]);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, props, {
     ref: getRootRef,
     vkuiClass: (0, _classNames.classNames)("Calendar", "Calendar--size-".concat(size))
   }), (0, _jsxRuntime.createScopedElement)(_CalendarHeader.CalendarHeader, {
-    viewDate: viewDate,
+    viewDate: externalViewDate || viewDate,
     onChange: setViewDate,
     onNextMonth: setNextMonth,
     onPrevMonth: setPrevMonth,
@@ -127,9 +139,11 @@ var Calendar = function Calendar(_ref) {
     prevMonthAriaLabel: prevMonthAriaLabel,
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
-    changeYearAriaLabel: changeYearAriaLabel
+    changeYearAriaLabel: changeYearAriaLabel,
+    prevMonthIcon: prevMonthIcon,
+    nextMonthIcon: nextMonthIcon
   }), (0, _jsxRuntime.createScopedElement)(_CalendarDays.CalendarDays, {
-    viewDate: viewDate,
+    viewDate: externalViewDate || viewDate,
     value: value,
     weekStartsOn: weekStartsOn,
     isDayFocused: isDayFocused,

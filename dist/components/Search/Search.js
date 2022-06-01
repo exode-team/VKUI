@@ -12,10 +12,10 @@ import { Icon16SearchOutline, Icon16Clear, Icon24Cancel } from "@vkontakte/icons
 import { IOS, VKCOM, ANDROID } from "../../lib/platform";
 import { Touch } from "../Touch/Touch";
 import { noop } from "../../lib/utils";
-import Text from "../Typography/Text/Text";
-import Title from "../Typography/Title/Title";
-import Headline from "../Typography/Headline/Headline";
-import Separator from "../Separator/Separator";
+import { Text } from "../Typography/Text/Text";
+import { Title } from "../Typography/Title/Title";
+import { Headline } from "../Typography/Headline/Headline";
+import { Separator } from "../Separator/Separator";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useEnsuredControl } from "../../hooks/useEnsuredControl";
 
@@ -32,18 +32,19 @@ var SearchPlaceholderTypography = function SearchPlaceholderTypography(_ref) {
       }), children);
 
     case VKCOM:
-      return createScopedElement(Text, _extends({}, restProps, {
-        weight: "regular"
-      }), children);
+      return createScopedElement(Text, restProps, children);
 
     case ANDROID:
     default:
       return createScopedElement(Headline, _extends({}, restProps, {
-        weight: "regular"
+        weight: "3"
       }), children);
   }
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Search
+ */
 var Search = function Search(_ref2) {
   var before = _ref2.before,
       className = _ref2.className,
@@ -104,6 +105,7 @@ var Search = function Search(_ref2) {
     onCancel();
   }, [inputRef, onCancel]);
   return createScopedElement("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("Search", platform), {
       "Search--focused": isFocused,
       "Search--has-value": !!value,

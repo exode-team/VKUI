@@ -23,9 +23,9 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
 var _platform = require("../../lib/platform");
 
@@ -38,13 +38,17 @@ var CounterTypography = function CounterTypography(_ref) {
   var size = _ref.size,
       platform = _ref.platform,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  return size === "s" ? (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
+  return size === "s" ? (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
     level: "2",
-    weight: platform === _platform.VKCOM ? "medium" : "regular"
-  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
-    weight: "medium"
+    weight: platform === _platform.VKCOM ? "1" : undefined
+  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Text.Text, (0, _extends2.default)({
+    weight: "2"
   }, restProps));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Counter
+ */
+
 
 var Counter = function Counter(props) {
   var mode = props.mode,

@@ -23,20 +23,18 @@ var _utils = require("../../lib/utils");
 
 var _platform = require("../../lib/platform");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
-var _Subhead = _interopRequireDefault(require("../Typography/Subhead/Subhead"));
+var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _excluded = ["platform", "mode"],
-    _excluded2 = ["platform"],
-    _excluded3 = ["mode"],
-    _excluded4 = ["mode", "children", "subtitle", "indicator", "aside", "getRootRef", "multiline"];
+    _excluded2 = ["mode", "children", "subtitle", "indicator", "aside", "getRootRef", "multiline"];
 
 var HeaderContent = function HeaderContent(_ref) {
   var platform = _ref.platform,
@@ -47,15 +45,14 @@ var HeaderContent = function HeaderContent(_ref) {
     switch (mode) {
       case "primary":
       case "tertiary":
-        return (0, _jsxRuntime.createScopedElement)(_Title.default, (0, _extends2.default)({
+        return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
           weight: "1",
           level: "3"
         }, restProps));
 
       case "secondary":
-        return (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-          level: "1",
-          weight: "semibold",
+        return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+          weight: "2",
           caps: true
         }, restProps));
     }
@@ -64,66 +61,52 @@ var HeaderContent = function HeaderContent(_ref) {
   if (platform === _platform.Platform.VKCOM) {
     switch (mode) {
       case "primary":
-        return (0, _jsxRuntime.createScopedElement)(_Headline.default, (0, _extends2.default)({
-          weight: "regular"
+        return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+          weight: "3"
         }, restProps));
 
       case "secondary":
       case "tertiary":
-        return (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-          level: "1",
-          weight: "regular"
-        }, restProps));
+        return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, restProps);
     }
   }
 
   switch (mode) {
     case "primary":
     case "tertiary":
-      return (0, _jsxRuntime.createScopedElement)(_Headline.default, (0, _extends2.default)({
-        weight: "medium"
+      return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+        weight: "2"
       }, restProps));
 
     case "secondary":
-      return (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-        level: "1",
-        weight: "medium",
+      return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+        weight: "1",
         caps: true
       }, restProps));
   }
 
   return null;
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Header
+ */
 
-var HeaderAside = function HeaderAside(_ref2) {
-  var platform = _ref2.platform,
+
+var Header = function Header(_ref2) {
+  var mode = _ref2.mode,
+      children = _ref2.children,
+      subtitle = _ref2.subtitle,
+      indicator = _ref2.indicator,
+      aside = _ref2.aside,
+      getRootRef = _ref2.getRootRef,
+      multiline = _ref2.multiline,
       restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
-  return platform === _platform.Platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps) : (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({
-    weight: "regular"
-  }, restProps));
-};
-
-var HeaderSubtitle = function HeaderSubtitle(_ref3) {
-  var mode = _ref3.mode,
-      restProps = (0, _objectWithoutProperties2.default)(_ref3, _excluded3);
-  return mode === "secondary" ? (0, _jsxRuntime.createScopedElement)(_Subhead.default, restProps) : (0, _jsxRuntime.createScopedElement)(_Caption.default, (0, _extends2.default)({
-    weight: "regular",
-    level: "1"
-  }, restProps));
-};
-
-var Header = function Header(_ref4) {
-  var mode = _ref4.mode,
-      children = _ref4.children,
-      subtitle = _ref4.subtitle,
-      indicator = _ref4.indicator,
-      aside = _ref4.aside,
-      getRootRef = _ref4.getRootRef,
-      multiline = _ref4.multiline,
-      restProps = (0, _objectWithoutProperties2.default)(_ref4, _excluded4);
   var platform = (0, _usePlatform.usePlatform)();
+  var AsideTypography = platform === _platform.Platform.VKCOM ? _Subhead.Subhead : _Text.Text;
+  var SubtitleTypography = mode === "secondary" ? _Subhead.Subhead : _Caption.Caption;
   return (0, _jsxRuntime.createScopedElement)("header", (0, _extends2.default)({}, restProps, {
-    ref: getRootRef,
+    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Header", platform), "Header--mode-".concat(mode), {
       "Header--pi": (0, _utils.isPrimitiveReactNode)(indicator)
     })
@@ -135,20 +118,19 @@ var Header = function Header(_ref4) {
     mode: mode,
     platform: platform
   }, (0, _jsxRuntime.createScopedElement)("span", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)("Header__content-in", {
       "Header__content-in--multiline": multiline
     })
-  }, children), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
+  }, children), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "Header__indicator",
-    weight: mode === "primary" || mode === "secondary" ? "medium" : "regular",
-    level: "1"
-  }, indicator)), (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(HeaderSubtitle, {
+    weight: mode === "primary" || mode === "secondary" ? "1" : undefined
+  }, indicator)), (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(SubtitleTypography, {
     vkuiClass: "Header__subtitle",
     Component: "span"
-  }, subtitle)), (0, _utils.hasReactNode)(aside) && (0, _jsxRuntime.createScopedElement)(HeaderAside, {
+  }, subtitle)), (0, _utils.hasReactNode)(aside) && (0, _jsxRuntime.createScopedElement)(AsideTypography, {
     vkuiClass: "Header__aside",
-    Component: "span",
-    platform: platform
+    Component: "span"
   }, aside));
 };
 

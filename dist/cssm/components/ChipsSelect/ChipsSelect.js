@@ -1,6 +1,5 @@
 import _typeof from "@babel/runtime/helpers/typeof";
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _objectSpread from "@babel/runtime/helpers/objectSpread2";
@@ -10,13 +9,13 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
 import { classNames } from "../../lib/classNames";
-import ChipsInput, { chipsInputDefaultProps } from "../ChipsInput/ChipsInput";
-import CustomSelectOption from "../CustomSelectOption/CustomSelectOption";
+import { ChipsInput, chipsInputDefaultProps } from "../ChipsInput/ChipsInput";
+import { CustomSelectOption } from "../CustomSelectOption/CustomSelectOption";
 import { useChipsSelect } from "./useChipsSelect";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { noop } from "../../lib/utils";
 import { useDOM } from "../../lib/dom";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import { prefixClass } from "../../lib/prefixClass";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
@@ -45,8 +44,6 @@ var chipsSelectDefaultProps = _objectSpread(_objectSpread({}, chipsInputDefaultP
 });
 
 var ChipsSelectComponent = function ChipsSelectComponent(props) {
-  var _classNames;
-
   var propsWithDefault = _objectSpread(_objectSpread({}, chipsSelectDefaultProps), props);
 
   var style = propsWithDefault.style,
@@ -285,7 +282,7 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
     placeholder: placeholder,
-    vkuiClass: classNames((_classNames = {}, _defineProperty(_classNames, "ChipsSelect__open", opened), _defineProperty(_classNames, "ChipsSelect__open--popupDirectionTop", isPopperDirectionTop), _classNames)),
+    vkuiClass: classNames(opened && "Select--open", opened && (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")),
     getRef: getRef,
     disabled: disabled,
     onInputChange: handleInputChange,
@@ -305,8 +302,6 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
       return setFocusedOptionIndex(0);
     }
   }, creatableText), !(filteredOptions !== null && filteredOptions !== void 0 && filteredOptions.length) && !showCreatable && emptyText ? createScopedElement(Caption, {
-    level: "1",
-    weight: "regular",
     vkuiClass: "ChipsSelect__empty"
   }, emptyText) : filteredOptions.map(function (option, index) {
     var label = getOptionLabel(option);
@@ -345,6 +340,10 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     }));
   })));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsSelect
+ */
+
 
 export var ChipsSelect = withAdaptivity(ChipsSelectComponent, {
   sizeY: true

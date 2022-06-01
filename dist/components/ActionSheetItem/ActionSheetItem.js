@@ -8,14 +8,14 @@ import { getClassName } from "../../helpers/getClassName";
 import Tappable from "../Tappable/Tappable";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode, noop } from "../../lib/utils";
-import Subhead from "../Typography/Subhead/Subhead";
-import Title from "../Typography/Title/Title";
-import Text from "../Typography/Text/Text";
+import { Subhead } from "../Typography/Subhead/Subhead";
+import { Title } from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
 import { ANDROID, VKCOM } from "../../lib/platform";
 import { Icon16Done, Icon24Done } from "@vkontakte/icons";
 import { ActionSheetContext } from "../ActionSheet/ActionSheetContext";
-import Caption from "../Typography/Caption/Caption";
-import Headline from "../Typography/Headline/Headline";
+import { Caption } from "../Typography/Caption/Caption";
+import { Headline } from "../Typography/Headline/Headline";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
 
 var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
@@ -55,7 +55,8 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
   var isCompact = hasReactNode(subtitle) || hasReactNode(meta) || selectable;
   return createScopedElement(Tappable, _extends({}, restProps, {
     onClick: selectable ? onClick : onItemClick(onClick, onImmediateClick, Boolean(autoclose)),
-    activeMode: "ActionSheetItem--active",
+    activeMode: "ActionSheetItem--active" // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("ActionSheetItem", platform), "ActionSheetItem--".concat(mode), "ActionSheetItem--sizeY-".concat(sizeY), {
       "ActionSheetItem--compact": isCompact,
       "ActionSheetItem--desktop": isDesktop,
@@ -69,27 +70,24 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
   }, createScopedElement("div", {
     vkuiClass: "ActionSheetItem__content"
   }, sizeY === SizeType.COMPACT ? createScopedElement(React.Fragment, null, createScopedElement(Text, {
-    weight: mode === "cancel" ? "medium" : "regular",
+    weight: mode === "cancel" ? "2" : undefined,
     vkuiClass: "ActionSheetItem__children"
   }, children), hasReactNode(meta) && createScopedElement(Text, {
-    weight: "regular",
     vkuiClass: "ActionSheetItem__meta"
   }, meta)) : createScopedElement(React.Fragment, null, platform === ANDROID ? createScopedElement(Headline, {
-    weight: mode === "cancel" ? "medium" : "regular"
+    weight: mode === "cancel" ? "2" : "3"
   }, children) : createScopedElement(Title, {
     weight: mode === "cancel" ? "2" : "3",
     level: isCompact || hasReactNode(before) ? "3" : "2",
     vkuiClass: "ActionSheetItem__children"
   }, children), hasReactNode(meta) && (platform === ANDROID ? createScopedElement(Headline, {
-    weight: mode === "cancel" ? "medium" : "regular"
+    weight: mode === "cancel" ? "2" : "3"
   }, children) : createScopedElement(Title, {
     weight: "3",
     level: isCompact || hasReactNode(before) ? "3" : "2",
     vkuiClass: "ActionSheetItem__meta"
   }, meta)))), hasReactNode(subtitle) && (sizeY === SizeType.COMPACT ? createScopedElement(Caption, {
-    weight: "regular",
-    vkuiClass: "ActionSheetItem__subtitle",
-    level: "1"
+    vkuiClass: "ActionSheetItem__subtitle"
   }, subtitle) : createScopedElement(Subhead, {
     vkuiClass: "ActionSheetItem__subtitle"
   }, subtitle))), selectable && createScopedElement("div", {
@@ -108,6 +106,10 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     vkuiClass: "ActionSheetItem__marker"
   }, platform === VKCOM ? createScopedElement(Icon24Done, null) : createScopedElement(Icon16Done, null))));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/ActionSheetItem
+ */
+
 
 export var ActionSheetItem = withAdaptivity(ActionSheetItemComponent, {
   sizeY: true

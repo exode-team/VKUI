@@ -12,12 +12,17 @@ import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { classScopingMode } from "../../lib/classScopingMode";
 import { IconSettingsProvider } from "@vkontakte/icons";
-import { elementScrollController, globalScrollController, ScrollContext } from "./ScrollContext";
+import { ElementScrollController, GlobalScrollController } from "./ScrollContext";
 import { noop } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
 import { useKeyboardInputTracker } from "../../hooks/useKeyboardInputTracker";
 import { useInsets } from "../../hooks/useInsets";
+import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
 var warn = warnOnce("AppRoot");
+/**
+ * @see https://vkcom.github.io/VKUI/#/AppRoot
+ */
+
 export var AppRoot = withAdaptivity(function (_ref) {
   var children = _ref.children,
       _mode = _ref.mode,
@@ -41,10 +46,13 @@ export var AppRoot = withAdaptivity(function (_ref) {
       setPortalRoot = _React$useState2[1];
 
   var _useDOM = useDOM(),
-      window = _useDOM.window,
       document = _useDOM.document;
 
   var insets = useInsets();
+
+  var _React$useContext = React.useContext(ConfigProviderContext),
+      appearance = _React$useContext.appearance;
+
   var initialized = React.useRef(false);
 
   if (!initialized.current) {
@@ -58,11 +66,11 @@ export var AppRoot = withAdaptivity(function (_ref) {
 
   if (process.env.NODE_ENV === "development") {
     if (scroll !== "global" && mode !== "embedded") {
-      warn("Scroll modes only supported in embedded mode");
+      warn("\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E scroll=\"".concat(scroll, "\" \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u0432 \u0440\u0435\u0436\u0438\u043C\u0435 embedded"), "error");
     }
 
     if (_mode && _embedded) {
-      warn("mode=\"".concat(mode, "\" overrides embedded"));
+      warn("\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E mode=\"".concat(mode, "\" \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442\u043D\u0435\u0435, \u0447\u0435\u043C \"embedded\""));
     }
   } // setup portal
 
@@ -140,9 +148,19 @@ export var AppRoot = withAdaptivity(function (_ref) {
       return container === null || container === void 0 ? void 0 : container.classList.remove("vkui--sizeX-regular");
     };
   }, [sizeX]);
-  var scrollController = React.useMemo(function () {
-    return scroll === "contain" ? elementScrollController(rootRef) : globalScrollController(window, document);
-  }, [document, scroll, window]);
+  useIsomorphicLayoutEffect(function () {
+    if (mode !== "full" || appearance === undefined) {
+      return noop;
+    }
+
+    document.documentElement.style.setProperty("color-scheme", appearance);
+    return function () {
+      return document.documentElement.style.removeProperty("color-scheme");
+    };
+  }, [appearance]);
+  var ScrollController = React.useMemo(function () {
+    return scroll === "contain" ? ElementScrollController : GlobalScrollController;
+  }, [scroll]);
   var content = createScopedElement(AppRootContext.Provider, {
     value: {
       appRoot: rootRef,
@@ -151,14 +169,15 @@ export var AppRoot = withAdaptivity(function (_ref) {
       keyboardInput: isKeyboardInputActive,
       mode: mode
     }
-  }, createScopedElement(ScrollContext.Provider, {
-    value: scrollController
+  }, createScopedElement(ScrollController, {
+    elRef: rootRef
   }, createScopedElement(IconSettingsProvider, {
     classPrefix: "vkui",
     globalClasses: !noLegacyClasses
   }, children)));
   return mode === "partial" ? content : createScopedElement("div", _extends({
-    ref: rootRef,
+    ref: rootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames("AppRoot", {
       "AppRoot--no-mouse": !hasMouse
     })

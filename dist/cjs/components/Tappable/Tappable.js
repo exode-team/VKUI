@@ -211,7 +211,7 @@ var Tappable = function Tappable(_ref) {
   var hovered = _hovered && !props.disabled;
   var hasActive = _hasActive && !childHover && !props.disabled;
   var hasHover = deviceHasHover && _hasHover && !childHover;
-  var isCustomElement = Component !== "a" && Component !== "button" && !props.contentEditable;
+  var isCustomElement = Component !== "a" && Component !== "button" && Component !== "label" && !props.contentEditable;
   var isPresetHoverMode = ["opacity", "background"].includes(hoverMode);
   var isPresetActiveMode = ["opacity", "background"].includes(activeMode);
   var isPresetFocusVisibleMode = ["inside", "outside"].includes(focusVisibleMode);
@@ -305,11 +305,12 @@ var Tappable = function Tappable(_ref) {
     } // отключить без задержки при длинном тапе
 
 
-    var activeDuraion = duration - ACTIVE_DELAY;
-    stop(activeDuraion >= 100 ? 0 : activeEffectDelay - activeDuraion);
-  }
+    var activeDuration = duration - ACTIVE_DELAY;
+    stop(activeDuration >= 100 ? 0 : activeEffectDelay - activeDuration);
+  } // eslint-disable-next-line vkui/no-object-expression-in-arguments
 
-  var classes = (0, _classNames2.classNames)((0, _getClassName.getClassName)("Tappable", platform), "Tappable--sizeX-".concat(sizeX), hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
+
+  var classes = (0, _classNames2.classNames)((0, _getClassName.getClassName)("Tappable", platform), "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
     "Tappable--active": hasActive && active,
     "Tappable--mouse": hasMouse
   }, (0, _defineProperty2.default)(_classNames, "Tappable--hover-".concat(hoverMode), hasHover && hovered && isPresetHoverMode), (0, _defineProperty2.default)(_classNames, "Tappable--active-".concat(activeMode), hasActive && active && isPresetActiveMode), (0, _defineProperty2.default)(_classNames, "Tappable--focus-visible", focusVisible), _classNames));

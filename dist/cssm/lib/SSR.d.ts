@@ -11,4 +11,7 @@ export interface SSRWrapperProps {
     userAgent?: string;
     browserInfo?: BrowserInfo;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/SSR
+ */
 export declare const SSRWrapper: React.FC<SSRWrapperProps>;

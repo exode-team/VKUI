@@ -14,7 +14,12 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
 import { useTimeout } from "../../hooks/useTimeout";
 import { usePlatform } from "../../hooks/usePlatform";
+import { useScrollLock } from "../AppRoot/ScrollContext";
 import "./PanelHeaderContext.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderContext
+ */
 export var PanelHeaderContext = function PanelHeaderContext(_ref) {
   var children = _ref.children,
       onClose = _ref.onClose,
@@ -41,7 +46,8 @@ export var PanelHeaderContext = function PanelHeaderContext(_ref) {
   var elementRef = React.useRef(null);
   useIsomorphicLayoutEffect(function () {
     opened && setVisible(true);
-  }, [opened]); // start closing on outer click
+  }, [opened]);
+  useScrollLock(!isDesktop && opened); // start closing on outer click
 
   useGlobalEventListener(document, "click", isDesktop && opened && !closing && function (event) {
     if (elementRef.current && !elementRef.current.contains(event.target)) {
@@ -58,6 +64,7 @@ export var PanelHeaderContext = function PanelHeaderContext(_ref) {
     return closing ? animationFallback.set() : animationFallback.clear();
   }, [animationFallback, closing]);
   return createScopedElement(FixedLayout, _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("PanelHeaderContext", platform), {
       "PanelHeaderContext--opened": opened,
       "PanelHeaderContext--closing": closing,

@@ -24,6 +24,9 @@ var SSRContext = /*#__PURE__*/React.createContext({
 });
 exports.SSRContext = SSRContext;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/SSR
+ */
 var SSRWrapper = function SSRWrapper(props) {
   var userAgent = props.userAgent,
       browserInfo = props.browserInfo,

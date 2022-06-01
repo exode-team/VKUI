@@ -33,6 +33,9 @@ var _classNames = require("../../lib/classNames");
 
 var _excluded = ["label", "sizeX"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderBack
+ */
 var PanelHeaderBack = function PanelHeaderBack(_ref) {
   var label = _ref.label,
       sizeX = _ref.sizeX,
@@ -40,6 +43,7 @@ var PanelHeaderBack = function PanelHeaderBack(_ref) {
   var platform = (0, _usePlatform.usePlatform)();
   var showLabel = platform === _platform.VKCOM || platform === _platform.IOS && sizeX === _withAdaptivity.SizeType.REGULAR;
   return (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderBack", platform), {
       "PanelHeaderBack--has-label": showLabel && !!label
     }),

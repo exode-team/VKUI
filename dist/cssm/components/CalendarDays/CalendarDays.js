@@ -4,12 +4,12 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["viewDate", "value", "weekStartsOn", "onDayChange", "isDaySelected", "isDayActive", "isDaySelectionEnd", "isDaySelectionStart", "onDayEnter", "onDayLeave", "isDayHinted", "isHintedDaySelectionStart", "isHintedDaySelectionEnd", "isDayFocused", "isDayDisabled", "size", "showNeighboringMonth"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { isSameDay, isSameMonth } from "date-fns";
+import { isSameDay, isSameMonth } from "../../lib/date";
 import { CalendarDay } from "../CalendarDay/CalendarDay";
 import { getDaysNames, getWeeks } from "../../lib/calendar";
 import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
 import { classNames } from "../../lib/classNames";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import "./CalendarDays.css";
 export var CalendarDays = function CalendarDays(_ref) {
   var viewDate = _ref.viewDate,
@@ -58,10 +58,9 @@ export var CalendarDays = function CalendarDays(_ref) {
     vkuiClass: classNames("CalendarDays__row", "CalendarDays__row--size-".concat(size))
   }, daysNames.map(function (dayName) {
     return createScopedElement(Caption, {
+      key: dayName,
       level: "1",
-      weight: "regular",
-      vkuiClass: "CalendarDays__weekday",
-      key: dayName
+      vkuiClass: "CalendarDays__weekday"
     }, dayName);
   })), weeks.map(function (week, i) {
     return createScopedElement("div", {

@@ -45,5 +45,8 @@ declare type HoverHandler = (outputEvent: MouseEvent) => void;
 export declare type TouchEventHandler = (e: TouchEvent) => void;
 export declare type ClickHandler = (e: React.MouseEvent<HTMLElement>) => void;
 export declare type DragHandler = (e: React.DragEvent<HTMLElement>) => void;
+/**
+ * @see https://vkcom.github.io/VKUI/#/Touch
+ */
 export declare const Touch: React.FC<TouchProps>;
 export {};

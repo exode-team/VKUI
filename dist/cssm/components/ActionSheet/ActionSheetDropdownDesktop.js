@@ -44,7 +44,7 @@ export var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref
     var toggleEl = getEl(toggleRef);
 
     if (!toggleEl) {
-      warn("toggleRef not passed");
+      warn("\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E \"toggleRef\" \u043D\u0435 \u043F\u0435\u0440\u0435\u0434\u0430\u043D\u043E", "error");
     }
   }, [toggleRef]);
   var isPopupDirectionTop = React.useMemo(function () {

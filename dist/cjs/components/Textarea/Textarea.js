@@ -34,6 +34,10 @@ var _useExternRef = require("../../hooks/useExternRef");
 var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows"];
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Textarea
+ */
 var Textarea = /*#__PURE__*/React.memo(function (_ref) {
   var _ref$defaultValue = _ref.defaultValue,
       defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,

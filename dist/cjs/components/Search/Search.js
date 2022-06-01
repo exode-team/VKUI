@@ -33,13 +33,13 @@ var _Touch = require("../Touch/Touch");
 
 var _utils = require("../../lib/utils");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
-var _Separator = _interopRequireDefault(require("../Separator/Separator"));
+var _Separator = require("../Separator/Separator");
 
 var _useExternRef = require("../../hooks/useExternRef");
 
@@ -55,24 +55,25 @@ var SearchPlaceholderTypography = function SearchPlaceholderTypography(_ref) {
 
   switch (platform) {
     case _platform.IOS:
-      return (0, _jsxRuntime.createScopedElement)(_Title.default, (0, _extends2.default)({}, restProps, {
+      return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({}, restProps, {
         level: "3",
         weight: "3"
       }), children);
 
     case _platform.VKCOM:
-      return (0, _jsxRuntime.createScopedElement)(_Text.default, (0, _extends2.default)({}, restProps, {
-        weight: "regular"
-      }), children);
+      return (0, _jsxRuntime.createScopedElement)(_Text.Text, restProps, children);
 
     case _platform.ANDROID:
     default:
-      return (0, _jsxRuntime.createScopedElement)(_Headline.default, (0, _extends2.default)({}, restProps, {
-        weight: "regular"
+      return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({}, restProps, {
+        weight: "3"
       }), children);
   }
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Search
+ */
 var Search = function Search(_ref2) {
   var before = _ref2.before,
       className = _ref2.className,
@@ -132,6 +133,7 @@ var Search = function Search(_ref2) {
     onCancel();
   }, [inputRef, onCancel]);
   return (0, _jsxRuntime.createScopedElement)("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Search", platform), {
       "Search--focused": isFocused,
       "Search--has-value": !!value,
@@ -179,7 +181,7 @@ var Search = function Search(_ref2) {
     vkuiClass: "Search__icon"
   }, platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon16Clear, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24Cancel, null))), platform === _platform.IOS && after && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Search__after-in"
-  }, after))), platform === _platform.VKCOM && (0, _jsxRuntime.createScopedElement)(_Separator.default, {
+  }, after))), platform === _platform.VKCOM && (0, _jsxRuntime.createScopedElement)(_Separator.Separator, {
     vkuiClass: "Search__separator",
     wide: true
   }));

@@ -9,6 +9,10 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { useAppearance } from "../../hooks/useAppearance";
 import { classNames } from "../../lib/classNames";
 import { prefixClass } from "../../lib/prefixClass";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichTooltip
+ */
 export var RichTooltip = function RichTooltip(_ref) {
   var children = _ref.children,
       _ref$arrow = _ref.arrow,
@@ -17,7 +21,8 @@ export var RichTooltip = function RichTooltip(_ref) {
 
   var platform = usePlatform();
   var appearance = useAppearance();
-  return createScopedElement(HoverPopper, _extends({
+  return createScopedElement(HoverPopper // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  , _extends({
     vkuiClass: classNames(getClassName("RichTooltip", platform), _defineProperty({}, "RichTooltip--".concat(appearance), !!appearance)),
     arrow: arrow,
     arrowClassName: prefixClass("RichTooltip__arrow")

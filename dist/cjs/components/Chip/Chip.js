@@ -23,12 +23,15 @@ var _utils = require("../../lib/utils");
 
 var _classNames = require("../../lib/classNames");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
 var _excluded = ["value", "option", "removable", "onRemove", "removeAriaLabel", "before", "after", "children"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Chip
+ */
 var Chip = function Chip(_ref) {
   var _ref$value = _ref.value,
       value = _ref$value === void 0 ? "" : _ref$value,
@@ -49,6 +52,7 @@ var Chip = function Chip(_ref) {
   }, [onRemove, value]);
   var title = (0, _utils.getTitleFromChildren)(children);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)("Chip", {
       "Chip--removable": removable
     }),
@@ -59,9 +63,7 @@ var Chip = function Chip(_ref) {
     role: "presentation"
   }, (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Chip__before"
-  }, before), (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    level: "1",
-    weight: "regular",
+  }, before), (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "Chip__content",
     title: title,
     "aria-hidden": "true"

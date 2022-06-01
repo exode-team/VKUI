@@ -4,7 +4,7 @@ import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["disabled", "value", "label"],
-    _excluded2 = ["style", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "onFocus", "children", "className", "inputValue", "getRef", "getRootRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "after", "inputAriaLabel"];
+    _excluded2 = ["style", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "onFocus", "children", "className", "inputValue", "getRef", "getRootRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "before", "after", "inputAriaLabel"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { FormField } from "../FormField/FormField";
@@ -53,8 +53,11 @@ export var chipsInputDefaultProps = {
     }, rest), label);
   }
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsInput
+ */
 
-var ChipsInput = function ChipsInput(props) {
+export var ChipsInput = function ChipsInput(props) {
   var propsWithDefault = _objectSpread(_objectSpread({}, chipsInputDefaultProps), props);
 
   var style = propsWithDefault.style,
@@ -74,6 +77,7 @@ var ChipsInput = function ChipsInput(props) {
       getOptionLabel = propsWithDefault.getOptionLabel,
       getNewOptionData = propsWithDefault.getNewOptionData,
       renderChip = propsWithDefault.renderChip,
+      before = propsWithDefault.before,
       after = propsWithDefault.after,
       inputAriaLabel = propsWithDefault.inputAriaLabel,
       restProps = _objectWithoutProperties(propsWithDefault, _excluded2);
@@ -150,13 +154,11 @@ var ChipsInput = function ChipsInput(props) {
 
   return createScopedElement(FormField, {
     getRootRef: getRootRef,
-    vkuiClass: classNames("ChipsInput", "ChipsInput--sizeY-".concat(sizeY), {
-      "ChipsInput--focused": focused,
-      "ChipsInput--withChips": !!selectedOptions.length
-    }),
+    vkuiClass: classNames("ChipsInput", "ChipsInput--sizeY-".concat(sizeY), focused && "ChipsInput--focused", !!selectedOptions.length && "ChipsInput--withChips"),
     className: className,
     style: style,
     disabled: restProps.disabled,
+    before: before,
     after: after,
     onClick: handleClick,
     role: "application",
@@ -196,8 +198,5 @@ var ChipsInput = function ChipsInput(props) {
     onBlur: handleBlur,
     placeholder: selectedOptions.length ? undefined : placeholder
   }, restProps)))));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default ChipsInput;
+};
 //# sourceMappingURL=ChipsInput.js.map

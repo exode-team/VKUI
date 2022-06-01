@@ -27,12 +27,15 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _HorizontalScroll = _interopRequireDefault(require("../HorizontalScroll/HorizontalScroll"));
+var _HorizontalScroll = require("../HorizontalScroll/HorizontalScroll");
 
 var _dom = require("../../lib/dom");
 
 var _excluded = ["children", "size", "showArrows", "withSpaces"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CardScroll
+ */
 var CardScroll = function CardScroll(_ref) {
   var children = _ref.children,
       _ref$size = _ref.size,
@@ -99,8 +102,9 @@ var CardScroll = function CardScroll(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("CardScroll", platform), "CardScroll--sizeX-".concat(sizeX), "CardScroll--".concat(size), (0, _defineProperty2.default)({}, "CardScroll--withSpaces", withSpaces))
-  }), (0, _jsxRuntime.createScopedElement)(_HorizontalScroll.default, {
+  }), (0, _jsxRuntime.createScopedElement)(_HorizontalScroll.HorizontalScroll, {
     getScrollToLeft: getScrollToLeft,
     getScrollToRight: getScrollToRight,
     showArrows: showArrows

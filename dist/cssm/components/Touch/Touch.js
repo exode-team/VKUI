@@ -9,6 +9,10 @@ import { useDOM } from "../../lib/dom";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useEventListener } from "../../hooks/useEventListener";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Touch
+ */
 export var Touch = function Touch(_ref) {
   var onStart = _ref.onStart,
       onStartX = _ref.onStartX,
@@ -43,9 +47,9 @@ export var Touch = function Touch(_ref) {
   var didSlide = React.useRef(false);
   var gesture = React.useRef(null);
 
-  var handle = function handle(e, handers) {
+  var handle = function handle(e, handlers) {
     stopPropagation && e.stopPropagation();
-    handers.forEach(function (cb) {
+    handlers.forEach(function (cb) {
       var _gesture$current$star, _gesture$current, _gesture$current$star2;
 
       var duration = Date.now() - ((_gesture$current$star = (_gesture$current = gesture.current) === null || _gesture$current === void 0 ? void 0 : (_gesture$current$star2 = _gesture$current.startT) === null || _gesture$current$star2 === void 0 ? void 0 : _gesture$current$star2.getTime()) !== null && _gesture$current$star !== void 0 ? _gesture$current$star : 0);
@@ -156,7 +160,7 @@ export var Touch = function Touch(_ref) {
       onLeave && onLeave(e);
     }
 
-    subscribe(null);
+    unsubscribe();
   }
 
   var listenerParams = {
@@ -171,6 +175,12 @@ export var Touch = function Touch(_ref) {
         return l.add(el);
       });
     }
+  }
+
+  function unsubscribe() {
+    listeners.forEach(function (l) {
+      return l.remove();
+    });
   }
   /**
    * Обработчик событий dragstart

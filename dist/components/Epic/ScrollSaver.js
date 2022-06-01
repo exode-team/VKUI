@@ -2,6 +2,10 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { ScrollContext } from "../AppRoot/ScrollContext";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/ScrollSaver
+ */
 export var ScrollSaver = function ScrollSaver(_ref) {
   var children = _ref.children,
       initialScroll = _ref.initialScroll,

@@ -2,7 +2,7 @@ import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import * as React from "react";
 
 /**
- * Хук взаимствован у @mui с некоторыми изменениями.
+ * Хук позаимствован у @mui с некоторыми изменениями.
  *  [usePagination.js](https://github.com/mui/material-ui/blob/master/packages/mui-material/src/usePagination/usePagination.js).
  *
  * Примеры вывода:
@@ -42,8 +42,8 @@ export var usePagination = function usePagination() {
     var endPages = range(Math.max(endPage - boundaryCount + 1, boundaryCount + 1), endPage);
     var lowerBoundaryWhenCurrentPageHigh = endPage - boundaryCount - 1 - 2 * siblingCount;
     var siblingsStart = Math.max(Math.min(currentPage - siblingCount, lowerBoundaryWhenCurrentPageHigh), boundaryCount + 2);
-    var upperBounadryWhenCurrentPageLow = boundaryCount + 2 + 2 * siblingCount;
-    var siblingsEnd = Math.min(Math.max(currentPage + siblingCount, upperBounadryWhenCurrentPageLow), endPages.length > 0 ? endPages[0] - 2 : endPage - 1);
+    var upperBoundaryWhenCurrentPageLow = boundaryCount + 2 + 2 * siblingCount;
+    var siblingsEnd = Math.min(Math.max(currentPage + siblingCount, upperBoundaryWhenCurrentPageLow), endPages.length > 0 ? endPages[0] - 2 : endPage - 1);
     var pages = startPages;
 
     if (siblingsStart > boundaryCount + 2) {

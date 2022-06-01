@@ -1,26 +1,21 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline"];
+var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline", "selectType"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
 import { FormField } from "../FormField/FormField";
-import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
+import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { getClassName } from "../../helpers/getClassName";
-import Headline from "../Typography/Headline/Headline";
-import Text from "../Typography/Text/Text";
-import { VKCOM } from "../../lib/platform";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { useEnsuredControl } from "../../hooks/useEnsuredControl";
 import { useExternRef } from "../../hooks/useExternRef";
 import { usePlatform } from "../../hooks/usePlatform";
+import { SelectType, SelectTypography } from "../Select/Select";
 
-var NativeSelect = function NativeSelect(_ref) {
-  var _classNames;
-
+var NativeSelectComponent = function NativeSelectComponent(_ref) {
   var style = _ref.style,
       _ref$defaultValue = _ref.defaultValue,
       defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,
@@ -34,6 +29,8 @@ var NativeSelect = function NativeSelect(_ref) {
       sizeX = _ref.sizeX,
       sizeY = _ref.sizeY,
       multiline = _ref.multiline,
+      _ref$selectType = _ref.selectType,
+      selectType = _ref$selectType === void 0 ? SelectType.default : _ref$selectType,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -45,8 +42,8 @@ var NativeSelect = function NativeSelect(_ref) {
 
   var _React$useState3 = React.useState(false),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
-      notSelected = _React$useState4[0],
-      setNotSelected = _React$useState4[1];
+      empty = _React$useState4[0],
+      setEmpty = _React$useState4[1];
 
   var _useEnsuredControl = useEnsuredControl(restProps, {
     defaultValue: defaultValue
@@ -63,13 +60,12 @@ var NativeSelect = function NativeSelect(_ref) {
 
     if (selectedOption) {
       setTitle(selectedOption.text);
-      setNotSelected(selectedOption.value === "" && placeholder != null);
+      setEmpty(selectedOption.value === "" && placeholder != null);
     }
   }, [value, children]);
-  var TypographyComponent = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
   return createScopedElement(FormField, {
     Component: "label",
-    vkuiClass: classNames(getClassName("Select", platform), (_classNames = {}, _defineProperty(_classNames, "Select--not-selected", notSelected), _defineProperty(_classNames, "Select--align-".concat(align), !!align), _defineProperty(_classNames, "Select--sizeX--".concat(sizeX), !!sizeX), _defineProperty(_classNames, "Select--sizeY--".concat(sizeY), !!sizeY), _defineProperty(_classNames, "Select--multiline", multiline), _classNames)),
+    vkuiClass: classNames(getClassName("Select", platform), "Select--".concat(selectType), empty && "Select--empty", multiline && "Select--multiline", align && "Select--align-".concat(align), "Select--sizeX-".concat(sizeX), "Select--sizeY-".concat(sizeY)),
     className: className,
     style: style,
     getRootRef: getRootRef,
@@ -83,17 +79,18 @@ var NativeSelect = function NativeSelect(_ref) {
     ref: selectRef
   }), placeholder && createScopedElement("option", {
     value: ""
-  }, placeholder), children), createScopedElement(TypographyComponent, {
-    Component: "div",
-    weight: "regular",
+  }, placeholder), children), createScopedElement("div", {
     vkuiClass: "Select__container"
-  }, createScopedElement("span", {
+  }, createScopedElement(SelectTypography, {
     vkuiClass: "Select__title"
   }, title)));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/NativeSelect
+ */
 
 
-export default withAdaptivity(NativeSelect, {
+export var NativeSelect = withAdaptivity(NativeSelectComponent, {
   sizeX: true,
   sizeY: true
 });

@@ -21,7 +21,7 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
 var _Tappable = _interopRequireDefault(require("../../components/Tappable/Tappable"));
 
@@ -29,6 +29,9 @@ var _utils = require("../../lib/utils");
 
 var _excluded = ["before", "after", "mode", "textWrap", "textLevel", "children"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/MiniInfoCell
+ */
 var MiniInfoCell = function MiniInfoCell(props) {
   var _classNames;
 
@@ -46,12 +49,13 @@ var MiniInfoCell = function MiniInfoCell(props) {
     disabled: !isClickable,
     role: isClickable ? "button" : undefined
   }, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("MiniInfoCell", platform), (_classNames = {}, (0, _defineProperty2.default)(_classNames, "MiniInfoCell--md-".concat(mode), mode !== "base"), (0, _defineProperty2.default)(_classNames, "MiniInfoCell--wr-".concat(textWrap), textWrap !== "nowrap"), _classNames), "MiniInfoCell--lvl-".concat(textLevel))
   }), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "MiniInfoCell__icon"
-  }, before), (0, _jsxRuntime.createScopedElement)(_Text.default, {
+  }, before), (0, _jsxRuntime.createScopedElement)(_Text.Text, {
     vkuiClass: "MiniInfoCell__content",
-    weight: mode === "more" ? "medium" : "regular"
+    weight: mode === "more" ? "2" : undefined
   }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "MiniInfoCell__after"
   }, after));

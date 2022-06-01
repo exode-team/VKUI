@@ -25,6 +25,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["children", "shadow", "itemsLayout"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tabbar
+ */
 var Tabbar = function Tabbar(props) {
   var children = props.children,
       shadow = props.shadow,
@@ -44,6 +47,7 @@ var Tabbar = function Tabbar(props) {
   };
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Tabbar", platform), "Tabbar--l-".concat(getItemsLayout()), {
       "Tabbar--shadow": shadow
     })

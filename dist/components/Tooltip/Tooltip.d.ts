@@ -51,5 +51,8 @@ export interface TooltipProps {
      */
     onClose?: () => void;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tooltip
+ */
 declare const Tooltip: React.FC<TooltipProps>;
 export default Tooltip;

@@ -9,23 +9,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Alert = void 0;
 
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
-
-var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/createSuper"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -37,252 +27,224 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _classNames = require("../../lib/classNames");
 
-var _supportEvents = require("../../lib/supportEvents");
-
 var _platform = require("../../lib/platform");
-
-var _withPlatform = require("../../hoc/withPlatform");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = require("../Button/Button");
 
 var _utils = require("../../lib/utils");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
-var _Title = _interopRequireDefault(require("../Typography/Title/Title"));
+var _Title = require("../Typography/Title/Title");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _ModalDismissButton = _interopRequireDefault(require("../ModalDismissButton/ModalDismissButton"));
 
 var _FocusTrap = require("../FocusTrap/FocusTrap");
 
-var _excluded = ["actions", "actionsLayout", "children", "className", "style", "platform", "viewWidth", "text", "header"];
+var _ScrollContext = require("../AppRoot/ScrollContext");
 
-var AlertComponent = /*#__PURE__*/function (_React$Component) {
-  (0, _inherits2.default)(AlertComponent, _React$Component);
+var _useWaitTransitionFinish = require("../../hooks/useWaitTransitionFinish");
 
-  var _super = (0, _createSuper2.default)(AlertComponent);
+var _usePlatform = require("../../hooks/usePlatform");
 
-  function AlertComponent(props) {
-    var _this;
+var _useAdaptivity3 = require("../../hooks/useAdaptivity");
 
-    (0, _classCallCheck2.default)(this, AlertComponent);
-    _this = _super.call(this, props);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "element", void 0);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "transitionFinishTimeout", undefined);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onItemClick", function (item) {
-      return function () {
-        var action = item.action,
-            autoclose = item.autoclose;
+var _excluded = ["action", "onItemClick"],
+    _excluded2 = ["actions", "actionsLayout", "children", "className", "style", "text", "header", "onClose", "dismissLabel"];
 
-        if (autoclose) {
-          _this.setState({
-            closing: true
-          });
+var AlertHeader = function AlertHeader(props) {
+  var platform = (0, _usePlatform.usePlatform)();
 
-          _this.waitTransitionFinish(function (e) {
-            if (!e || e.propertyName === "opacity") {
-              var _this$props$onClose, _this$props;
+  switch (platform) {
+    case _platform.VKCOM:
+      return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+        vkuiClass: "Alert__header",
+        weight: "2"
+      }, props));
 
-              autoclose && ((_this$props$onClose = (_this$props = _this.props).onClose) === null || _this$props$onClose === void 0 ? void 0 : _this$props$onClose.call(_this$props));
-              action && action();
-            }
-          });
-        } else {
-          action && action();
-        }
-      };
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onClose", function () {
-      _this.setState({
-        closing: true
-      });
+    case _platform.IOS:
+      return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
+        vkuiClass: "Alert__header",
+        weight: "1",
+        level: "3"
+      }, props));
 
-      _this.waitTransitionFinish(function (e) {
-        if (!e || e.propertyName === "opacity") {
-          var _this$props$onClose2, _this$props2;
+    default:
+      return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
+        vkuiClass: "Alert__header",
+        weight: "2",
+        level: "2"
+      }, props));
+  }
+};
 
-          (_this$props$onClose2 = (_this$props2 = _this.props).onClose) === null || _this$props$onClose2 === void 0 ? void 0 : _this$props$onClose2.call(_this$props2);
-        }
-      });
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "stopPropagation", function (e) {
-      e.stopPropagation();
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "renderAction", function (action, i) {
-      var platform = _this.props.platform;
+var AlertText = function AlertText(props) {
+  var platform = (0, _usePlatform.usePlatform)();
 
-      if (platform === _platform.IOS) {
-        var _action$Component = action.Component,
-            Component = _action$Component === void 0 ? "button" : _action$Component;
-        return (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
-          Component: action.href ? "a" : Component,
-          vkuiClass: (0, _classNames.classNames)("Alert__action", "Alert__action--".concat(action.mode)),
-          onClick: _this.onItemClick(action),
-          href: action.href,
-          key: "alert-action-".concat(i),
-          target: action.target
-        }, action.title);
-      }
+  switch (platform) {
+    case _platform.VKCOM:
+      return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+        vkuiClass: "Alert__text"
+      }, props));
 
-      var mode = action.mode === "cancel" ? "secondary" : "primary";
+    case _platform.IOS:
+      return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+        vkuiClass: "Alert__text",
+        level: "2"
+      }, props));
 
-      if (platform === _platform.ANDROID) {
-        mode = "tertiary";
+    default:
+      return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+        Component: "span",
+        vkuiClass: "Alert__text",
+        weight: "3"
+      }, props));
+  }
+};
 
-        if (_this.props.viewWidth === _withAdaptivity.ViewWidth.DESKTOP && action.mode === "destructive") {
-          mode = "destructive";
-        }
-      }
+var AlertAction = function AlertAction(_ref) {
+  var action = _ref.action,
+      onItemClick = _ref.onItemClick,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+  var platform = (0, _usePlatform.usePlatform)();
 
-      return (0, _jsxRuntime.createScopedElement)(_Button.default, {
-        vkuiClass: (0, _classNames.classNames)("Alert__button", "Alert__button--".concat(action.mode)),
-        mode: mode,
-        size: "m",
-        onClick: _this.onItemClick(action),
-        Component: action.Component,
-        href: action.href,
-        key: "alert-action-".concat(i),
-        target: action.target
-      }, action.title);
-    });
-    _this.element = /*#__PURE__*/React.createRef();
-    _this.state = {
-      closing: false
-    };
-    return _this;
+  var _useAdaptivity = (0, _useAdaptivity3.useAdaptivity)(),
+      viewWidth = _useAdaptivity.viewWidth;
+
+  var handleItemClick = React.useCallback(function () {
+    return onItemClick(action);
+  }, [onItemClick, action]);
+
+  if (platform === _platform.IOS) {
+    var _action$Component = action.Component,
+        Component = _action$Component === void 0 ? "button" : _action$Component;
+    return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({
+      Component: action.href ? "a" : Component,
+      vkuiClass: (0, _classNames.classNames)("Alert__action", "Alert__action--".concat(action.mode)),
+      onClick: handleItemClick,
+      href: action.href,
+      target: action.target
+    }, restProps), action.title);
   }
 
-  (0, _createClass2.default)(AlertComponent, [{
-    key: "timeout",
-    get: function get() {
-      return this.props.platform === _platform.ANDROID || this.props.platform === _platform.VKCOM ? 200 : 300;
+  var mode = action.mode === "cancel" ? "secondary" : "primary";
+
+  if (platform === _platform.ANDROID) {
+    mode = "tertiary";
+
+    if (viewWidth === _withAdaptivity.ViewWidth.DESKTOP && action.mode === "destructive") {
+      mode = "destructive";
     }
-  }, {
-    key: "waitTransitionFinish",
-    value: function waitTransitionFinish(eventHandler) {
-      if (_supportEvents.transitionEvent.supported && this.element.current) {
-        this.element.current.removeEventListener(_supportEvents.transitionEvent.name, eventHandler);
-        this.element.current.addEventListener(_supportEvents.transitionEvent.name, eventHandler);
-      } else {
-        if (this.transitionFinishTimeout) {
-          clearTimeout(this.transitionFinishTimeout);
+  }
+
+  return (0, _jsxRuntime.createScopedElement)(_Button.Button, {
+    vkuiClass: (0, _classNames.classNames)("Alert__button", "Alert__button--".concat(action.mode)),
+    mode: mode,
+    size: "m",
+    onClick: handleItemClick,
+    Component: action.Component,
+    href: action.href,
+    target: action.target
+  }, action.title);
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Alert
+ */
+
+
+var Alert = function Alert(_ref2) {
+  var _ref2$actions = _ref2.actions,
+      actions = _ref2$actions === void 0 ? [] : _ref2$actions,
+      _ref2$actionsLayout = _ref2.actionsLayout,
+      actionsLayout = _ref2$actionsLayout === void 0 ? "horizontal" : _ref2$actionsLayout,
+      children = _ref2.children,
+      className = _ref2.className,
+      style = _ref2.style,
+      text = _ref2.text,
+      header = _ref2.header,
+      onClose = _ref2.onClose,
+      _ref2$dismissLabel = _ref2.dismissLabel,
+      dismissLabel = _ref2$dismissLabel === void 0 ? "Закрыть предупреждение" : _ref2$dismissLabel,
+      restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
+  var platform = (0, _usePlatform.usePlatform)();
+
+  var _useAdaptivity2 = (0, _useAdaptivity3.useAdaptivity)(),
+      viewWidth = _useAdaptivity2.viewWidth;
+
+  var _useWaitTransitionFin = (0, _useWaitTransitionFinish.useWaitTransitionFinish)(),
+      waitTransitionFinish = _useWaitTransitionFin.waitTransitionFinish;
+
+  var _React$useState = React.useState(false),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      closing = _React$useState2[0],
+      setClosing = _React$useState2[1];
+
+  var elementRef = React.useRef(null);
+  var resolvedActionsLayout = platform === _platform.VKCOM ? "horizontal" : actionsLayout;
+  var canShowCloseButton = platform === _platform.VKCOM || platform === _platform.ANDROID && viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET;
+  var isDesktop = viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET;
+  var timeout = platform === _platform.ANDROID || platform === _platform.VKCOM ? 200 : 300;
+  var close = React.useCallback(function () {
+    setClosing(true);
+    waitTransitionFinish(elementRef.current, function () {
+      onClose && onClose();
+    }, timeout);
+  }, [elementRef, waitTransitionFinish, onClose, timeout]);
+  var onItemClick = React.useCallback(function (item) {
+    var action = item.action,
+        autoclose = item.autoclose;
+
+    if (autoclose) {
+      setClosing(true);
+      waitTransitionFinish(elementRef.current, function (e) {
+        if (!e || e.propertyName === "opacity") {
+          onClose && onClose();
+          action && action();
         }
-
-        this.transitionFinishTimeout = setTimeout(eventHandler.bind(this), this.timeout);
-      }
+      }, timeout);
+    } else {
+      action && action();
     }
-  }, {
-    key: "renderHeader",
-    value: function renderHeader(header) {
-      switch (this.props.platform) {
-        case _platform.VKCOM:
-          return (0, _jsxRuntime.createScopedElement)(_Headline.default, {
-            vkuiClass: "Alert__header",
-            weight: "medium"
-          }, header);
+  }, [elementRef, waitTransitionFinish, onClose, timeout]);
+  (0, _ScrollContext.useScrollLock)();
+  return (0, _jsxRuntime.createScopedElement)(_PopoutWrapper.PopoutWrapper, {
+    className: className,
+    closing: closing,
+    style: style,
+    onClick: close
+  }, (0, _jsxRuntime.createScopedElement)(_FocusTrap.FocusTrap, (0, _extends2.default)({}, restProps, {
+    getRootRef: elementRef,
+    onClick: _utils.stopPropagation,
+    onClose: close,
+    timeout: timeout,
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Alert", platform), resolvedActionsLayout === "vertical" ? "Alert--v" : "Alert--h", closing && "Alert--closing", isDesktop && "Alert--desktop"),
+    role: "alertdialog",
+    "aria-modal": true,
+    "aria-labelledby": "vkui--alert--title",
+    "aria-describedby": "vkui--alert--desc"
+  }), (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "Alert__content"
+  }, (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(AlertHeader, {
+    id: "vkui--alert--title"
+  }, header), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(AlertText, {
+    id: "vkui--alert--desc"
+  }, text), children), (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "Alert__actions"
+  }, actions.map(function (action, i) {
+    return (0, _jsxRuntime.createScopedElement)(AlertAction, {
+      key: i,
+      action: action,
+      onItemClick: onItemClick
+    });
+  })), canShowCloseButton && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.default, {
+    onClick: close,
+    "aria-label": dismissLabel
+  })));
+};
 
-        case _platform.IOS:
-          return (0, _jsxRuntime.createScopedElement)(_Title.default, {
-            vkuiClass: "Alert__header",
-            weight: "1",
-            level: "3"
-          }, header);
-
-        case _platform.ANDROID:
-          return (0, _jsxRuntime.createScopedElement)(_Title.default, {
-            vkuiClass: "Alert__header",
-            weight: "2",
-            level: "2"
-          }, header);
-
-        default:
-          return undefined;
-      }
-    }
-  }, {
-    key: "renderText",
-    value: function renderText(text) {
-      switch (this.props.platform) {
-        case _platform.VKCOM:
-          return (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-            vkuiClass: "Alert__text",
-            level: "1",
-            weight: "regular"
-          }, text);
-
-        case _platform.IOS:
-          return (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-            vkuiClass: "Alert__text",
-            level: "2",
-            weight: "regular"
-          }, text);
-
-        case _platform.ANDROID:
-          return (0, _jsxRuntime.createScopedElement)(_Headline.default, {
-            vkuiClass: "Alert__text",
-            weight: "regular"
-          }, text);
-
-        default:
-          return undefined;
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props3 = this.props,
-          actions = _this$props3.actions,
-          actionsLayout = _this$props3.actionsLayout,
-          children = _this$props3.children,
-          className = _this$props3.className,
-          style = _this$props3.style,
-          platform = _this$props3.platform,
-          viewWidth = _this$props3.viewWidth,
-          text = _this$props3.text,
-          header = _this$props3.header,
-          restProps = (0, _objectWithoutProperties2.default)(_this$props3, _excluded);
-      var closing = this.state.closing;
-      var resolvedActionsLayout = platform === _platform.VKCOM ? "horizontal" : actionsLayout;
-      var canShowCloseButton = platform === _platform.VKCOM || platform === _platform.ANDROID && viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET;
-      var isDesktop = viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET;
-      return (0, _jsxRuntime.createScopedElement)(_PopoutWrapper.PopoutWrapper, {
-        className: className,
-        closing: closing,
-        style: style,
-        onClick: this.onClose
-      }, (0, _jsxRuntime.createScopedElement)(_FocusTrap.FocusTrap, (0, _extends2.default)({}, restProps, {
-        getRootRef: this.element,
-        onClick: this.stopPropagation,
-        onClose: this.onClose,
-        timeout: this.timeout,
-        vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Alert", platform), {
-          "Alert--v": resolvedActionsLayout === "vertical",
-          "Alert--h": resolvedActionsLayout === "horizontal",
-          "Alert--closing": closing,
-          "Alert--desktop": isDesktop
-        })
-      }), canShowCloseButton && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.default, {
-        onClick: this.onClose
-      }), (0, _jsxRuntime.createScopedElement)("div", {
-        vkuiClass: "Alert__content"
-      }, (0, _utils.hasReactNode)(header) && this.renderHeader(header), (0, _utils.hasReactNode)(text) && this.renderText(text), children), (0, _jsxRuntime.createScopedElement)("footer", {
-        vkuiClass: "Alert__actions"
-      }, actions === null || actions === void 0 ? void 0 : actions.map(this.renderAction))));
-    }
-  }]);
-  return AlertComponent;
-}(React.Component);
-
-(0, _defineProperty2.default)(AlertComponent, "defaultProps", {
-  actionsLayout: "horizontal",
-  actions: []
-});
-var Alert = (0, _withPlatform.withPlatform)((0, _withAdaptivity.withAdaptivity)(AlertComponent, {
-  viewWidth: true
-}));
 exports.Alert = Alert;
 //# sourceMappingURL=Alert.js.map

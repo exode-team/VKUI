@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Subhead = void 0;
 
 var _jsxRuntime = require("../../../lib/jsxRuntime");
 
@@ -21,6 +21,9 @@ var _useAdaptivity2 = require("../../../hooks/useAdaptivity");
 
 var _excluded = ["children", "weight", "Component"];
 var warn = (0, _warnOnce.warnOnce)("Subhead");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Subhead
+ */
 
 var Subhead = function Subhead(_ref) {
   var children = _ref.children,
@@ -37,11 +40,9 @@ var Subhead = function Subhead(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames.classNames)("Subhead", "Subhead--sizeY-".concat(sizeY), "Subhead--w-".concat(weight))
+    vkuiClass: (0, _classNames.classNames)("Subhead", "Subhead--sizeY-".concat(sizeY), weight && "Subhead--w-".concat(weight))
   }), children);
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = Subhead;
-exports.default = _default;
+exports.Subhead = Subhead;
 //# sourceMappingURL=Subhead.js.map

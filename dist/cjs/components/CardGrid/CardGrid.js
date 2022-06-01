@@ -23,6 +23,9 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _excluded = ["children", "size", "sizeX"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/CardGrid
+ */
 var CardGrid = function CardGrid(_ref) {
   var children = _ref.children,
       size = _ref.size,

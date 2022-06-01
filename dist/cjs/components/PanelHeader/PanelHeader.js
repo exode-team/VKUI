@@ -25,7 +25,7 @@ var _classNames = require("../../lib/classNames");
 
 var _FixedLayout = _interopRequireDefault(require("../FixedLayout/FixedLayout"));
 
-var _Separator = _interopRequireDefault(require("../Separator/Separator"));
+var _Separator = require("../Separator/Separator");
 
 var _platform = require("../../lib/platform");
 
@@ -33,18 +33,21 @@ var _ConfigProviderContext = require("../ConfigProvider/ConfigProviderContext");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
 var _TooltipContainer = require("../Tooltip/TooltipContainer");
 
 var _ModalRootContext = _interopRequireDefault(require("../ModalRoot/ModalRootContext"));
+
+var _Spacing = require("../Spacing/Spacing");
 
 var _excluded = ["left", "children", "right", "separator", "visor", "transparent", "shadow", "getRef", "getRootRef", "sizeX", "sizeY", "fixed"];
 
 var PanelHeaderIn = function PanelHeaderIn(_ref) {
   var children = _ref.children,
       left = _ref.left,
-      right = _ref.right;
+      right = _ref.right,
+      separator = _ref.separator;
 
   var _React$useContext = React.useContext(_ConfigProviderContext.ConfigProviderContext),
       webviewType = _React$useContext.webviewType;
@@ -53,21 +56,27 @@ var PanelHeaderIn = function PanelHeaderIn(_ref) {
       isInsideModal = _React$useContext2.isInsideModal;
 
   var platform = (0, _usePlatform.usePlatform)();
-  return (0, _jsxRuntime.createScopedElement)(_TooltipContainer.TooltipContainer, {
+  return (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _jsxRuntime.createScopedElement)(_TooltipContainer.TooltipContainer, {
     fixed: true,
     vkuiClass: "PanelHeader__in"
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeader__left"
   }, left), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeader__content"
-  }, platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: "medium"
+  }, platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_Text.Text, {
+    weight: "2"
   }, children) : (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "PanelHeader__content-in"
   }, children)), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeader__right"
-  }, (webviewType === _ConfigProviderContext.WebviewType.INTERNAL || isInsideModal) && right));
+  }, (webviewType === _ConfigProviderContext.WebviewType.INTERNAL || isInsideModal) && right)), separator && platform === _platform.VKCOM && (0, _jsxRuntime.createScopedElement)(_Separator.Separator, {
+    wide: true
+  }));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeader
+ */
+
 
 var PanelHeader = function PanelHeader(props) {
   var left = props.left,
@@ -94,6 +103,7 @@ var PanelHeader = function PanelHeader(props) {
   var needShadow = shadow && sizeX === _withAdaptivity.SizeType.REGULAR;
   var isFixed = fixed !== undefined ? fixed : platform !== _platform.Platform.VKCOM;
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeader", platform), {
       "PanelHeader--trnsp": transparent,
       "PanelHeader--shadow": needShadow,
@@ -109,10 +119,9 @@ var PanelHeader = function PanelHeader(props) {
     vkuiClass: "PanelHeader__fixed",
     vertical: "top",
     getRootRef: getRef
-  }, (0, _jsxRuntime.createScopedElement)(PanelHeaderIn, props)) : (0, _jsxRuntime.createScopedElement)(PanelHeaderIn, props), separator && visor && platform !== _platform.VKCOM && (0, _jsxRuntime.createScopedElement)(_Separator.default, {
-    vkuiClass: "PanelHeader__separator",
-    expanded: sizeX === _withAdaptivity.SizeType.REGULAR
-  }));
+  }, (0, _jsxRuntime.createScopedElement)(PanelHeaderIn, props)) : (0, _jsxRuntime.createScopedElement)(PanelHeaderIn, props), separator && visor && platform !== _platform.VKCOM && (sizeX === _withAdaptivity.SizeType.REGULAR ? (0, _jsxRuntime.createScopedElement)(_Spacing.Spacing, {
+    size: 16
+  }) : (0, _jsxRuntime.createScopedElement)(_Separator.Separator, null)));
 };
 
 PanelHeader.defaultProps = {

@@ -5,9 +5,13 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
-import Headline from "../Typography/Headline/Headline";
-import Caption from "../Typography/Caption/Caption";
+import { Headline } from "../Typography/Headline/Headline";
+import { Caption } from "../Typography/Caption/Caption";
 import { hasReactNode } from "../../lib/utils";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormStatus
+ */
 export var FormStatus = function FormStatus(_ref) {
   var mode = _ref.mode,
       header = _ref.header,
@@ -19,15 +23,10 @@ export var FormStatus = function FormStatus(_ref) {
   return createScopedElement("div", _extends({}, restProps, {
     vkuiClass: classNames(getClassName("FormStatus", platform), "FormStatus--".concat(mode))
   }), hasReactNode(header) && createScopedElement(Headline, {
-    weight: "medium",
+    weight: "2",
     vkuiClass: "FormStatus__header"
   }, header), dangerouslySetInnerHTML && createScopedElement(Caption, {
-    level: "1",
-    weight: "regular",
     dangerouslySetInnerHTML: dangerouslySetInnerHTML
-  }), hasReactNode(children) && !dangerouslySetInnerHTML && createScopedElement(Caption, {
-    level: "1",
-    weight: "regular"
-  }, children));
+  }), hasReactNode(children) && !dangerouslySetInnerHTML && createScopedElement(Caption, null, children));
 };
 //# sourceMappingURL=FormStatus.js.map

@@ -7,9 +7,9 @@ import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
-import Caption from "../Typography/Caption/Caption";
+import { Caption } from "../Typography/Caption/Caption";
 import Tappable from "../Tappable/Tappable";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import Avatar from "../Avatar/Avatar";
 import "./HorizontalCell.css";
 
@@ -19,11 +19,13 @@ var CellTypography = function CellTypography(_ref) {
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   return size === "s" ? createScopedElement(Caption, _extends({
-    level: "2",
-    weight: "regular"
+    level: "2"
   }, restProps), children) : createScopedElement(Subhead, restProps, children);
 };
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/HorizontalCell
+ */
 export var HorizontalCell = function HorizontalCell(_ref2) {
   var className = _ref2.className,
       header = _ref2.header,
@@ -56,8 +58,6 @@ export var HorizontalCell = function HorizontalCell(_ref2) {
     size: size,
     vkuiClass: "HorizontalCell__title"
   }, header), hasReactNode(subtitle) && createScopedElement(Caption, {
-    weight: "regular",
-    level: "1",
     vkuiClass: "HorizontalCell__subtitle"
   }, subtitle))));
 };

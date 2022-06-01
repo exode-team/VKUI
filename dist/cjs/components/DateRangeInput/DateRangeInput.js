@@ -17,7 +17,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _dateFns = require("date-fns");
+var _date = require("../../lib/date");
 
 var _icons = require("@vkontakte/icons");
 
@@ -43,7 +43,7 @@ var _InputLikeDivider = require("../InputLike/InputLikeDivider");
 
 var _callMultiple = require("../../lib/callMultiple");
 
-var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel"];
+var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "prevMonthIcon", "nextMonthIcon"];
 
 var elementsConfig = function elementsConfig(index) {
   var length = 2;
@@ -93,6 +93,10 @@ var getInternalValue = function getInternalValue(value) {
 
   return newValue;
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/DateRangeInput
+ */
+
 
 var DateRangeInput = function DateRangeInput(_ref) {
   var shouldDisableDate = _ref.shouldDisableDate,
@@ -134,6 +138,8 @@ var DateRangeInput = function DateRangeInput(_ref) {
       clearFieldAriaLabel = _ref$clearFieldAriaLa === void 0 ? "Очистить поле" : _ref$clearFieldAriaLa,
       _ref$showCalendarAria = _ref.showCalendarAriaLabel,
       showCalendarAriaLabel = _ref$showCalendarAria === void 0 ? "Показать календарь" : _ref$showCalendarAria,
+      prevMonthIcon = _ref.prevMonthIcon,
+      nextMonthIcon = _ref.nextMonthIcon,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var daysStartRef = React.useRef(null);
   var monthsStartRef = React.useRef(null);
@@ -161,11 +167,11 @@ var DateRangeInput = function DateRangeInput(_ref) {
     var formattedEndValue = "".concat(internalValue[3], ".").concat(internalValue[4], ".").concat(internalValue[5]);
     var mask = "dd.MM.yyyy";
 
-    if (!(0, _dateFns.isMatch)(formattedStartValue, mask)) {
+    if (!(0, _date.isMatch)(formattedStartValue, mask)) {
       isStartValid = false;
     }
 
-    if (!(0, _dateFns.isMatch)(formattedEndValue, mask)) {
+    if (!(0, _date.isMatch)(formattedEndValue, mask)) {
       isEndValid = false;
     }
 
@@ -175,10 +181,10 @@ var DateRangeInput = function DateRangeInput(_ref) {
 
     var valueExists = Array.isArray(value);
     var now = new Date();
-    var start = isStartValid ? (0, _dateFns.parse)(formattedStartValue, mask, valueExists && (value === null || value === void 0 ? void 0 : value[0]) || now) : null;
-    var end = isEndValid ? (0, _dateFns.parse)(formattedEndValue, mask, valueExists && (value === null || value === void 0 ? void 0 : value[1]) || now) : null;
+    var start = isStartValid ? (0, _date.parse)(formattedStartValue, mask, valueExists && (value === null || value === void 0 ? void 0 : value[0]) || now) : null;
+    var end = isEndValid ? (0, _date.parse)(formattedEndValue, mask, valueExists && (value === null || value === void 0 ? void 0 : value[1]) || now) : null;
 
-    if (start && end && (0, _dateFns.isAfter)(end, start)) {
+    if (start && end && (0, _date.isAfter)(end, start)) {
       onChange === null || onChange === void 0 ? void 0 : onChange([start, end]);
     }
   }, [onChange, value]);
@@ -239,7 +245,7 @@ var DateRangeInput = function DateRangeInput(_ref) {
   }, props), (0, _jsxRuntime.createScopedElement)("input", {
     type: "hidden",
     name: name,
-    value: value ? "".concat(value[0] ? (0, _dateFns.format)(value[0], "dd.MM.yyyy") : "", " - ").concat(value[1] ? (0, _dateFns.format)(value[1], "dd.MM.yyyy") : "") : ""
+    value: value ? "".concat(value[0] ? (0, _date.format)(value[0], "DD.MM.YYYY") : "", " - ").concat(value[1] ? (0, _date.format)(value[1], "DD.MM.YYYY") : "") : ""
   }), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "DateInput__input",
     onKeyDown: handleKeyDown
@@ -302,7 +308,9 @@ var DateRangeInput = function DateRangeInput(_ref) {
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
     changeYearAriaLabel: changeYearAriaLabel,
-    changeDayAriaLabel: changeDayAriaLabel
+    changeDayAriaLabel: changeDayAriaLabel,
+    prevMonthIcon: prevMonthIcon,
+    nextMonthIcon: nextMonthIcon
   })));
 };
 

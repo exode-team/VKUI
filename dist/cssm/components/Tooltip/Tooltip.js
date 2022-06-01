@@ -9,7 +9,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import { useNavTransition } from "../NavTransitionContext/NavTransitionContext";
 import { usePopper } from "react-popper";
 import { tooltipContainerAttr } from "./TooltipContainer";
@@ -79,6 +79,10 @@ function getPlacement(alignX, alignY) {
 function isVerticalPlacement(placement) {
   return placement.startsWith("top") || placement.startsWith("bottom");
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tooltip
+ */
+
 
 var Tooltip = function Tooltip(_ref2) {
   var _attributes$arrow, _attributes$popper;
@@ -121,7 +125,7 @@ var Tooltip = function Tooltip(_ref2) {
     var multiChildren = React.Children.count(children) > 1; // Empty children is a noop
 
     var primitiveChild = hasReactNode(children) && _typeof(children) !== "object";
-    (multiChildren || primitiveChild) && warn(["children must be a single React element, got", multiChildren && "multiple", primitiveChild && JSON.stringify(children)].filter(Boolean).join(" "));
+    (multiChildren || primitiveChild) && warn(["children должен быть одним React элементом, получено", multiChildren && "несколько", primitiveChild && JSON.stringify(children)].filter(Boolean).join(" "), "error");
   }
   /* eslint-disable no-restricted-properties */
 
@@ -142,7 +146,7 @@ var Tooltip = function Tooltip(_ref2) {
     throw new Error("Use TooltipContainer for Tooltip outside Panel (see docs)");
   }
 
-  var arrowOffsetModiifer = React.useMemo(function () {
+  var arrowOffsetModifier = React.useMemo(function () {
     return {
       name: "arrowOffset",
       enabled: true,
@@ -198,7 +202,7 @@ var Tooltip = function Tooltip(_ref2) {
       name: "preventOverflow"
     }, {
       name: "flip"
-    }, arrowOffsetModiifer]
+    }, arrowOffsetModifier]
   }),
       styles = _usePopper.styles,
       attributes = _usePopper.attributes;

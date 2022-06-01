@@ -1,9 +1,9 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { isSameMonth, isSameDay } from "date-fns";
+import { isSameMonth, isSameDay } from "../../lib/date";
 import { CalendarHeader } from "../CalendarHeader/CalendarHeader";
 import { CalendarDays } from "../CalendarDays/CalendarDays";
 import { CalendarTime } from "../CalendarTime/CalendarTime";
@@ -14,6 +14,10 @@ import { classNames } from "../../lib/classNames";
 import { warnOnce } from "../../lib/warnOnce";
 import "./Calendar.css";
 var warn = warnOnce("Calendar");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Calendar
+ */
+
 export var Calendar = function Calendar(_ref) {
   var value = _ref.value,
       onChange = _ref.onChange,
@@ -39,13 +43,22 @@ export var Calendar = function Calendar(_ref) {
       changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? "m" : _ref$size,
+      externalViewDate = _ref.viewDate,
+      onHeaderChange = _ref.onHeaderChange,
+      onNextMonth = _ref.onNextMonth,
+      onPrevMonth = _ref.onPrevMonth,
+      prevMonthIcon = _ref.prevMonthIcon,
+      nextMonthIcon = _ref.nextMonthIcon,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var _useCalendar = useCalendar({
     value: value,
     disableFuture: disableFuture,
     disablePast: disablePast,
-    shouldDisableDate: shouldDisableDate
+    shouldDisableDate: shouldDisableDate,
+    onHeaderChange: onHeaderChange,
+    onNextMonth: onNextMonth,
+    onPrevMonth: onPrevMonth
   }),
       viewDate = _useCalendar.viewDate,
       setViewDate = _useCalendar.setViewDate,
@@ -64,11 +77,11 @@ export var Calendar = function Calendar(_ref) {
   }, [value]);
 
   if (process.env.NODE_ENV === "development" && !disablePickers && size === "s") {
-    warn("Нельзя включить селекты выбора месяца/года если размер календаря 's'");
+    warn("Нельзя включить селекты выбора месяца/года, если размер календаря 's'", "error");
   }
 
   if (process.env.NODE_ENV === "development" && enableTime && size === "s") {
-    warn("Нельзя включить выбор времени если размер календаря 's'");
+    warn("Нельзя включить выбор времени, если размер календаря 's'", "error");
   }
 
   var handleKeyDown = React.useCallback(function (event) {
@@ -94,7 +107,7 @@ export var Calendar = function Calendar(_ref) {
     ref: getRootRef,
     vkuiClass: classNames("Calendar", "Calendar--size-".concat(size))
   }), createScopedElement(CalendarHeader, {
-    viewDate: viewDate,
+    viewDate: externalViewDate || viewDate,
     onChange: setViewDate,
     onNextMonth: setNextMonth,
     onPrevMonth: setPrevMonth,
@@ -103,9 +116,11 @@ export var Calendar = function Calendar(_ref) {
     prevMonthAriaLabel: prevMonthAriaLabel,
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
-    changeYearAriaLabel: changeYearAriaLabel
+    changeYearAriaLabel: changeYearAriaLabel,
+    prevMonthIcon: prevMonthIcon,
+    nextMonthIcon: nextMonthIcon
   }), createScopedElement(CalendarDays, {
-    viewDate: viewDate,
+    viewDate: externalViewDate || viewDate,
     value: value,
     weekStartsOn: weekStartsOn,
     isDayFocused: isDayFocused,

@@ -1,8 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["align", "getRef", "className", "getRootRef", "sizeY", "style", "after", "onInput", "value"];
+var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { useEffect, useRef, useState } from 'react';
 import { getClassName } from "../../helpers/getClassName";
@@ -12,13 +11,16 @@ import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { usePlatform } from "../../hooks/usePlatform";
 import "./Input.css";
 
-var Input = function Input(_ref) {
-  var align = _ref.align,
+var InputComponent = function InputComponent(_ref) {
+  var _ref$type = _ref.type,
+      type = _ref$type === void 0 ? "text" : _ref$type,
+      align = _ref.align,
       getRef = _ref.getRef,
       className = _ref.className,
       getRootRef = _ref.getRootRef,
       sizeY = _ref.sizeY,
       style = _ref.style,
+      before = _ref.before,
       after = _ref.after,
       onInput = _ref.onInput,
       value = _ref.value,
@@ -42,25 +44,27 @@ var Input = function Input(_ref) {
 
   var platform = usePlatform();
   return createScopedElement(FormField, {
-    vkuiClass: classNames(getClassName("Input", platform), _defineProperty({}, "Input--".concat(align), !!align), "Input--sizeY-".concat(sizeY)),
+    vkuiClass: classNames(getClassName("Input", platform), !!align && "Input--".concat(align), "Input--sizeY-".concat(sizeY)),
     style: style,
     className: className,
     getRootRef: getRootRef,
+    before: before,
     after: after,
     disabled: restProps.disabled
   }, createScopedElement("input", _extends({}, restProps, {
+    type: type,
     onInput: handleChange,
     value: value,
     vkuiClass: "Input__el",
     ref: ref || getRef
   })));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Input
+ */
 
-Input.defaultProps = {
-  type: "text"
-}; // eslint-disable-next-line import/no-default-export
 
-export default withAdaptivity(Input, {
+export var Input = withAdaptivity(InputComponent, {
   sizeY: true
 });
 //# sourceMappingURL=Input.js.map

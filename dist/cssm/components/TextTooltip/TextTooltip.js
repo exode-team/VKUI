@@ -7,9 +7,13 @@ import { HoverPopper } from "../HoverPopper/HoverPopper";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import { prefixClass } from "../../lib/prefixClass";
 import "./TextTooltip.css";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/TextTooltip
+ */
 export var TextTooltip = function TextTooltip(_ref) {
   var children = _ref.children,
       text = _ref.text,

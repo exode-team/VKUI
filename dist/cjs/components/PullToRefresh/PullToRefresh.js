@@ -74,6 +74,10 @@ function cancelEvent(event) {
 
   return false;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/PullToRefresh
+ */
+
 
 var PullToRefresh = /*#__PURE__*/function (_React$PureComponent) {
   (0, _inherits2.default)(PullToRefresh, _React$PureComponent);
@@ -303,7 +307,8 @@ var PullToRefresh = /*#__PURE__*/function (_React$PureComponent) {
       }, (0, _jsxRuntime.createScopedElement)(_Touch.Touch, (0, _extends2.default)({}, restProps, {
         onStart: this.onTouchStart,
         onMove: this.onTouchMove,
-        onEnd: this.onTouchEnd,
+        onEnd: this.onTouchEnd // eslint-disable-next-line vkui/no-object-expression-in-arguments
+        ,
         vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PullToRefresh", platform), {
           "PullToRefresh--watching": watching,
           "PullToRefresh--refreshing": refreshing

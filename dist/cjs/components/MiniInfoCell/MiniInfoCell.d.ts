@@ -36,4 +36,7 @@ export interface MiniInfoCellProps extends React.HTMLAttributes<HTMLDivElement> 
      */
     textLevel?: "primary" | "secondary";
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/MiniInfoCell
+ */
 export declare const MiniInfoCell: React.FC<MiniInfoCellProps>;

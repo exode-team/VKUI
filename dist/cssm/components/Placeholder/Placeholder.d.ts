@@ -19,5 +19,8 @@ export interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement>, 
      */
     stretched?: boolean;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Placeholder
+ */
 declare const Placeholder: React.FC<PlaceholderProps>;
 export default Placeholder;

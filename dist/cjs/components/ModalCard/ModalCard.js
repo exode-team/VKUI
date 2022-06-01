@@ -35,8 +35,13 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _ModalCardBase = require("../ModalCardBase/ModalCardBase");
 
+var _useAdaptivity = require("../../hooks/useAdaptivity");
+
 var _excluded = ["icon", "header", "subheader", "children", "actions", "actionsLayout", "onClose", "platform", "viewWidth", "viewHeight", "hasMouse", "nav"];
 var warn = (0, _warnOnce.warnOnce)("ModalCard");
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalCard
+ */
 
 var ModalCard = function ModalCard(props) {
   var icon = props.icon,
@@ -52,13 +57,14 @@ var ModalCard = function ModalCard(props) {
       hasMouse = props.hasMouse,
       nav = props.nav,
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
-  var isDesktop = viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET && (hasMouse || viewHeight >= _withAdaptivity.ViewHeight.MEDIUM);
+  var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
   var modalContext = React.useContext(_ModalRootContext.default);
 
   var _useModalRegistry = (0, _ModalRootContext.useModalRegistry)((0, _getNavId.getNavId)(props, warn), _types.ModalType.CARD),
       refs = _useModalRegistry.refs;
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalCard", platform), {
       "ModalCard--desktop": isDesktop
     })

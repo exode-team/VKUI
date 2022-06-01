@@ -23,13 +23,13 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _utils = require("../../lib/utils");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
-var _Headline = _interopRequireDefault(require("../Typography/Headline/Headline"));
+var _Headline = require("../Typography/Headline/Headline");
 
 var _platform = require("../../lib/platform");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Text = require("../Typography/Text/Text");
 
 var _excluded = ["className", "style", "aside", "status", "before", "children", "onClick"];
 
@@ -40,19 +40,23 @@ var PanelHeaderChildren = function PanelHeaderChildren(_ref) {
       children = _ref.children;
 
   if (platform === _platform.Platform.VKCOM) {
-    return (0, _jsxRuntime.createScopedElement)(_Text.default, {
+    return (0, _jsxRuntime.createScopedElement)(_Text.Text, {
       Component: "div",
-      weight: "medium"
+      weight: "2"
     }, children);
   }
 
-  return hasStatus || hasBefore ? (0, _jsxRuntime.createScopedElement)(_Headline.default, {
+  return hasStatus || hasBefore ? (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     Component: "div",
-    weight: "medium"
+    weight: "2"
   }, children) : (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeaderContent__children-in"
   }, children);
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderContent
+ */
+
 
 var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   var className = _ref2.className,
@@ -81,9 +85,7 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
     vkuiClass: "PanelHeaderContent__before"
   }, before), (0, _jsxRuntime.createScopedElement)(InComponent, (0, _extends2.default)({}, inProps, {
     vkuiClass: "PanelHeaderContent__in"
-  }), (0, _utils.hasReactNode)(status) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    level: "1",
-    weight: "regular",
+  }), (0, _utils.hasReactNode)(status) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "PanelHeaderContent__status"
   }, status), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeaderContent__children"

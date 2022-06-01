@@ -11,11 +11,9 @@ exports.CalendarHeader = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
-var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var React = _interopRequireWildcard(require("react"));
 
-var _dateFns = require("date-fns");
+var _date = require("../../lib/date");
 
 var _icons = require("@vkontakte/icons");
 
@@ -23,9 +21,9 @@ var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
 
 var _classNames = require("../../lib/classNames");
 
-var _CustomSelect = _interopRequireWildcard(require("../CustomSelect/CustomSelect"));
+var _Select = require("../Select/Select");
 
-var _CustomSelectOption = _interopRequireDefault(require("../CustomSelectOption/CustomSelectOption"));
+var _CustomSelect = require("../CustomSelect/CustomSelect");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
@@ -33,48 +31,60 @@ var _calendar = require("../../lib/calendar");
 
 var _LocaleProviderContext = require("../LocaleProviderContext/LocaleProviderContext");
 
-var _Text = _interopRequireDefault(require("../Typography/Text/Text"));
+var _Paragraph = require("../Typography/Paragraph/Paragraph");
 
-var _excluded = ["option", "children"];
+var _AdaptivityProvider = require("../AdaptivityProvider/AdaptivityProvider");
 
-var renderOption = function renderOption(_ref) {
-  var option = _ref.option,
-      children = _ref.children,
-      props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.default, props, (0, _jsxRuntime.createScopedElement)("span", {
-    vkuiClass: "CalendarHeader__month_name"
-  }, children));
-};
-
-var CalendarHeader = function CalendarHeader(_ref2) {
-  var viewDate = _ref2.viewDate,
-      onChange = _ref2.onChange,
-      _ref2$prevMonth = _ref2.prevMonth,
-      prevMonth = _ref2$prevMonth === void 0 ? true : _ref2$prevMonth,
-      _ref2$nextMonth = _ref2.nextMonth,
-      nextMonth = _ref2$nextMonth === void 0 ? true : _ref2$nextMonth,
-      _ref2$disablePickers = _ref2.disablePickers,
-      disablePickers = _ref2$disablePickers === void 0 ? false : _ref2$disablePickers,
-      onNextMonth = _ref2.onNextMonth,
-      onPrevMonth = _ref2.onPrevMonth,
-      className = _ref2.className,
-      _ref2$prevMonthAriaLa = _ref2.prevMonthAriaLabel,
-      prevMonthAriaLabel = _ref2$prevMonthAriaLa === void 0 ? "Предыдущий месяц" : _ref2$prevMonthAriaLa,
-      _ref2$nextMonthAriaLa = _ref2.nextMonthAriaLabel,
-      nextMonthAriaLabel = _ref2$nextMonthAriaLa === void 0 ? "Следующий месяц" : _ref2$nextMonthAriaLa,
-      _ref2$changeMonthAria = _ref2.changeMonthAriaLabel,
-      changeMonthAriaLabel = _ref2$changeMonthAria === void 0 ? "Изменить месяц" : _ref2$changeMonthAria,
-      _ref2$changeYearAriaL = _ref2.changeYearAriaLabel,
-      changeYearAriaLabel = _ref2$changeYearAriaL === void 0 ? "Изменить год" : _ref2$changeYearAriaL;
+var CalendarHeader = function CalendarHeader(_ref) {
+  var viewDate = _ref.viewDate,
+      onChange = _ref.onChange,
+      _ref$prevMonth = _ref.prevMonth,
+      prevMonth = _ref$prevMonth === void 0 ? true : _ref$prevMonth,
+      _ref$nextMonth = _ref.nextMonth,
+      nextMonth = _ref$nextMonth === void 0 ? true : _ref$nextMonth,
+      _ref$disablePickers = _ref.disablePickers,
+      disablePickers = _ref$disablePickers === void 0 ? false : _ref$disablePickers,
+      onNextMonth = _ref.onNextMonth,
+      onPrevMonth = _ref.onPrevMonth,
+      className = _ref.className,
+      _ref$prevMonthAriaLab = _ref.prevMonthAriaLabel,
+      prevMonthAriaLabel = _ref$prevMonthAriaLab === void 0 ? "Предыдущий месяц" : _ref$prevMonthAriaLab,
+      _ref$nextMonthAriaLab = _ref.nextMonthAriaLabel,
+      nextMonthAriaLabel = _ref$nextMonthAriaLab === void 0 ? "Следующий месяц" : _ref$nextMonthAriaLab,
+      _ref$changeMonthAriaL = _ref.changeMonthAriaLabel,
+      changeMonthAriaLabel = _ref$changeMonthAriaL === void 0 ? "Изменить месяц" : _ref$changeMonthAriaL,
+      _ref$changeYearAriaLa = _ref.changeYearAriaLabel,
+      changeYearAriaLabel = _ref$changeYearAriaLa === void 0 ? "Изменить год" : _ref$changeYearAriaLa,
+      _ref$prevMonthIcon = _ref.prevMonthIcon,
+      prevMonthIcon = _ref$prevMonthIcon === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronLeftOutline, {
+    vkuiClass: "CalendarHeader__nav-icon--accent",
+    width: 30,
+    height: 30
+  }) : _ref$prevMonthIcon,
+      _ref$nextMonthIcon = _ref.nextMonthIcon,
+      nextMonthIcon = _ref$nextMonthIcon === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronRightOutline, {
+    vkuiClass: "CalendarHeader__nav-icon--accent",
+    width: 30,
+    height: 30
+  }) : _ref$nextMonthIcon;
   var locale = React.useContext(_LocaleProviderContext.LocaleProviderContext);
   var onMonthsChange = React.useCallback(function (event) {
-    return onChange((0, _dateFns.setMonth)(viewDate, Number(event.target.value)));
+    return onChange((0, _date.setMonth)(viewDate, Number(event.target.value)));
   }, [onChange, viewDate]);
   var onYearChange = React.useCallback(function (event) {
-    return onChange((0, _dateFns.setYear)(viewDate, Number(event.target.value)));
+    return onChange((0, _date.setYear)(viewDate, Number(event.target.value)));
   }, [onChange, viewDate]);
   var months = React.useMemo(function () {
-    return (0, _calendar.getMonths)(locale);
+    return (0, _calendar.getMonths)(locale).map(function (_ref2) {
+      var value = _ref2.value,
+          label = _ref2.label;
+      return {
+        value: value,
+        label: (0, _jsxRuntime.createScopedElement)("span", {
+          vkuiClass: "CalendarHeader__month"
+        }, label)
+      };
+    });
   }, [locale]);
   var currentYear = viewDate.getFullYear();
   var years = React.useMemo(function () {
@@ -87,38 +97,37 @@ var CalendarHeader = function CalendarHeader(_ref2) {
   return (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarHeader",
     className: className
-  }, prevMonth && (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  }, prevMonth && (0, _jsxRuntime.createScopedElement)(_AdaptivityProvider.AdaptivityProvider, {
+    sizeX: _withAdaptivity.SizeType.REGULAR
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-prev"),
     onClick: onPrevMonth,
-    "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatter.format((0, _dateFns.subMonths)(viewDate, 1)))
-  }, (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronLeftOutline, {
-    width: 30,
-    height: 30
-  })), (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "CalendarHeader__pickers"
-  }, disablePickers ? (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: "medium",
-    vkuiClass: "CalendarHeader__pickers-placeholder"
+    "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatter.format((0, _date.subMonths)(viewDate, 1)))
+  }, prevMonthIcon)), disablePickers ? (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
+    vkuiClass: "CalendarHeader__pickers",
+    weight: "2"
+  }, (0, _jsxRuntime.createScopedElement)("span", {
+    vkuiClass: "CalendarHeader__month"
   }, new Intl.DateTimeFormat(locale, {
     month: "long"
-  }).format(viewDate)), (0, _jsxRuntime.createScopedElement)(_Text.default, {
-    weight: "medium",
-    vkuiClass: "CalendarHeader__pickers-placeholder"
-  }, new Intl.DateTimeFormat(locale, {
+  }).format(viewDate)), "\xA0", new Intl.DateTimeFormat(locale, {
     year: "numeric"
-  }).format(viewDate))) : (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _jsxRuntime.createScopedElement)(_CustomSelect.default, {
+  }).format(viewDate)) : (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "CalendarHeader__pickers"
+  }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
+    vkuiClass: "CalendarHeader__picker",
     value: viewDate.getMonth(),
     options: months,
-    renderOption: renderOption,
     dropdownOffsetDistance: 4,
     fixDropdownWidth: false,
     sizeY: _withAdaptivity.SizeType.COMPACT,
     icon: (0, _jsxRuntime.createScopedElement)(_icons.Icon12Dropdown, null),
     onChange: onMonthsChange,
     forceDropdownPortal: false,
-    selectType: _CustomSelect.SelectType.Plain,
+    selectType: _Select.SelectType.accent,
     "aria-label": changeMonthAriaLabel
-  }), (0, _jsxRuntime.createScopedElement)(_CustomSelect.default, {
+  }), (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
+    vkuiClass: "CalendarHeader__picker",
     value: viewDate.getFullYear(),
     options: years,
     dropdownOffsetDistance: 4,
@@ -127,16 +136,15 @@ var CalendarHeader = function CalendarHeader(_ref2) {
     icon: (0, _jsxRuntime.createScopedElement)(_icons.Icon12Dropdown, null),
     onChange: onYearChange,
     forceDropdownPortal: false,
-    selectType: _CustomSelect.SelectType.Plain,
+    selectType: _Select.SelectType.accent,
     "aria-label": changeYearAriaLabel
-  }))), nextMonth && (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  })), nextMonth && (0, _jsxRuntime.createScopedElement)(_AdaptivityProvider.AdaptivityProvider, {
+    sizeX: _withAdaptivity.SizeType.REGULAR
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-next"),
     onClick: onNextMonth,
-    "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format((0, _dateFns.addMonths)(viewDate, 1)))
-  }, (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronRightOutline, {
-    width: 30,
-    height: 30
-  })));
+    "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format((0, _date.addMonths)(viewDate, 1)))
+  }, nextMonthIcon)));
 };
 
 exports.CalendarHeader = CalendarHeader;

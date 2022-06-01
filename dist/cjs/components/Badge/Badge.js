@@ -21,6 +21,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["mode"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Badge
+ */
 var Badge = function Badge(_ref) {
   var mode = _ref.mode,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);

@@ -5,12 +5,14 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import { usePlatform } from "../../hooks/usePlatform";
 import { VKCOM } from "../../lib/platform";
 import PanelHeader from "../PanelHeader/PanelHeader";
-import Separator from "../Separator/Separator";
-import { useAdaptivity } from "../../hooks/useAdaptivity";
+import { Separator } from "../Separator/Separator";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import { ViewHeight, ViewWidth } from "../AdaptivityProvider/AdaptivityContext";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalPageHeader
+ */
 var ModalPageHeader = function ModalPageHeader(_ref) {
   var children = _ref.children,
       separator = _ref.separator,
@@ -18,15 +20,10 @@ var ModalPageHeader = function ModalPageHeader(_ref) {
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
-
-  var _useAdaptivity = useAdaptivity(),
-      viewWidth = _useAdaptivity.viewWidth,
-      viewHeight = _useAdaptivity.viewHeight,
-      hasMouse = _useAdaptivity.hasMouse;
-
   var hasSeparator = separator && platform === VKCOM;
-  var isDesktop = viewWidth >= ViewWidth.SMALL_TABLET && (hasMouse || viewHeight >= ViewHeight.MEDIUM);
+  var isDesktop = useAdaptivityIsDesktop();
   return createScopedElement("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("ModalPageHeader", platform), {
       "ModalPageHeader--desktop": isDesktop
     }),

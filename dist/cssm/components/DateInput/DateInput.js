@@ -1,9 +1,9 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel"];
+var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { format, isMatch, parse } from "date-fns";
+import { format, isMatch, parse } from "../../lib/date";
 import { Icon16Clear, Icon20CalendarOutline } from "@vkontakte/icons";
 import { Calendar } from "../Calendar/Calendar";
 import { Popper } from "../Popper/Popper";
@@ -67,6 +67,10 @@ var getInternalValue = function getInternalValue(value) {
 
   return newValue;
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/DateInput
+ */
+
 
 export var DateInput = function DateInput(_ref) {
   var enableTime = _ref.enableTime,
@@ -107,6 +111,12 @@ export var DateInput = function DateInput(_ref) {
       clearFieldAriaLabel = _ref$clearFieldAriaLa === void 0 ? "Очистить поле" : _ref$clearFieldAriaLa,
       _ref$showCalendarAria = _ref.showCalendarAriaLabel,
       showCalendarAriaLabel = _ref$showCalendarAria === void 0 ? "Показать календарь" : _ref$showCalendarAria,
+      viewDate = _ref.viewDate,
+      onHeaderChange = _ref.onHeaderChange,
+      onNextMonth = _ref.onNextMonth,
+      onPrevMonth = _ref.onPrevMonth,
+      prevMonthIcon = _ref.prevMonthIcon,
+      nextMonthIcon = _ref.nextMonthIcon,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var daysRef = React.useRef(null);
@@ -123,7 +133,7 @@ export var DateInput = function DateInput(_ref) {
     }
 
     var formattedValue = "".concat(internalValue[0], ".").concat(internalValue[1], ".").concat(internalValue[2]);
-    var mask = "dd.MM.yyyy";
+    var mask = "DD.MM.YYYY";
 
     if (enableTime) {
       formattedValue += " ".concat(internalValue[3], ":").concat(internalValue[4]);
@@ -191,7 +201,7 @@ export var DateInput = function DateInput(_ref) {
   }, props), createScopedElement("input", {
     type: "hidden",
     name: name,
-    value: value ? format(value, enableTime ? "dd.MM.yyyy'T'HH:mm" : "dd.MM.yyyy") : ""
+    value: value ? format(value, enableTime ? "DD.MM.YYYYTHH:mm" : "DD.MM.YYYY") : ""
   }), createScopedElement("span", {
     vkuiClass: "DateInput__input",
     onKeyDown: handleKeyDown
@@ -256,7 +266,13 @@ export var DateInput = function DateInput(_ref) {
     changeYearAriaLabel: changeYearAriaLabel,
     changeDayAriaLabel: changeDayAriaLabel,
     showNeighboringMonth: showNeighboringMonth,
-    size: size
+    size: size,
+    viewDate: viewDate,
+    onHeaderChange: onHeaderChange,
+    onNextMonth: onNextMonth,
+    onPrevMonth: onPrevMonth,
+    prevMonthIcon: prevMonthIcon,
+    nextMonthIcon: nextMonthIcon
   })));
 };
 //# sourceMappingURL=DateInput.js.map

@@ -9,8 +9,8 @@ import { getTitleFromChildren, hasReactNode } from "../../lib/utils";
 import Tappable from "../Tappable/Tappable";
 import { Icon16Dropdown } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
-import Caption from "../Typography/Caption/Caption";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Caption } from "../Typography/Caption/Caption";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import "./SubnavigationButton.css";
 
 var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref) {
@@ -22,10 +22,13 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
   }
 
   return createScopedElement(Caption, _extends({
-    level: textLevel === 2 ? "1" : "2",
-    weight: "regular"
+    level: textLevel === 2 ? "1" : "2"
   }, restProps));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/SubnavigationButton
+ */
+
 
 export var SubnavigationButton = function SubnavigationButton(props) {
   var platform = usePlatform();
@@ -41,7 +44,8 @@ export var SubnavigationButton = function SubnavigationButton(props) {
 
   return createScopedElement(Tappable, _extends({}, restProps, {
     hasActive: false,
-    focusVisibleMode: "outside",
+    focusVisibleMode: "outside" // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("SubnavigationButton", platform), "SubnavigationButton--".concat(size), {
       "SubnavigationButton--selected": selected
     }),

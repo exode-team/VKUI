@@ -7,11 +7,14 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import Tappable from "../Tappable/Tappable";
 import { hasReactNode } from "../../lib/utils";
-import Text from "../Typography/Text/Text";
-import Subhead from "../Typography/Subhead/Subhead";
+import { Paragraph } from "../Typography/Paragraph/Paragraph";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import "./RichCell.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichCell
+ */
 var RichCell = function RichCell(_ref) {
   var children = _ref.children,
       text = _ref.text,
@@ -26,20 +29,20 @@ var RichCell = function RichCell(_ref) {
 
   var platform = usePlatform();
   return createScopedElement(Tappable, _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("RichCell", platform), {
       "RichCell--mult": multiline
     }, "RichCell--sizeY-".concat(sizeY))
   }), before, createScopedElement("div", {
     vkuiClass: "RichCell__in"
-  }, after, createScopedElement(Text, {
-    weight: "medium",
+  }, after, createScopedElement(Paragraph, {
+    weight: "2",
     vkuiClass: "RichCell__content"
   }, createScopedElement("div", {
     vkuiClass: "RichCell__children"
   }, children), hasReactNode(after) && createScopedElement("div", {
     vkuiClass: "RichCell__after"
-  }, after)), hasReactNode(text) && createScopedElement(Text, {
-    weight: "regular",
+  }, after)), hasReactNode(text) && createScopedElement(Paragraph, {
     vkuiClass: "RichCell__text"
   }, text), hasReactNode(caption) && createScopedElement(Subhead, {
     Component: "span",

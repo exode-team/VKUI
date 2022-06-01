@@ -1,10 +1,10 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "prevMonthIcon", "nextMonthIcon"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { addMonths, isSameMonth, isSameDay, isBefore, isAfter, startOfDay, endOfDay, isWithinInterval } from "date-fns";
+import { addMonths, isSameMonth, isSameDay, isBefore, isAfter, startOfDay, endOfDay, isWithinInterval } from "../../lib/date";
 import { CalendarHeader } from "../CalendarHeader/CalendarHeader";
 import { CalendarDays } from "../CalendarDays/CalendarDays";
 import { navigateDate, setTimeEqual, isLastDay, isFirstDay } from "../../lib/calendar";
@@ -15,11 +15,12 @@ var getIsDaySelected = function getIsDaySelected(day, value) {
     return false;
   }
 
-  return Boolean(isWithinInterval(day, {
-    start: startOfDay(value[0]),
-    end: endOfDay(value[1])
-  }));
+  return Boolean(isWithinInterval(day, startOfDay(value[0]), endOfDay(value[1])));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/CalendarRange
+ */
+
 
 export var CalendarRange = function CalendarRange(_ref) {
   var value = _ref.value,
@@ -38,6 +39,8 @@ export var CalendarRange = function CalendarRange(_ref) {
       changeYearAriaLabel = _ref.changeYearAriaLabel,
       _ref$changeDayAriaLab = _ref.changeDayAriaLabel,
       changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
+      prevMonthIcon = _ref.prevMonthIcon,
+      nextMonthIcon = _ref.nextMonthIcon,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var _useCalendar = useCalendar({
@@ -139,7 +142,8 @@ export var CalendarRange = function CalendarRange(_ref) {
     prevMonthAriaLabel: prevMonthAriaLabel,
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
-    changeYearAriaLabel: changeYearAriaLabel
+    changeYearAriaLabel: changeYearAriaLabel,
+    prevMonthIcon: prevMonthIcon
   }), createScopedElement(CalendarDays, {
     viewDate: viewDate,
     value: value,
@@ -170,7 +174,8 @@ export var CalendarRange = function CalendarRange(_ref) {
     prevMonthAriaLabel: prevMonthAriaLabel,
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
-    changeYearAriaLabel: changeYearAriaLabel
+    changeYearAriaLabel: changeYearAriaLabel,
+    nextMonthIcon: nextMonthIcon
   }), createScopedElement(CalendarDays, {
     viewDate: secondViewDate,
     value: value,

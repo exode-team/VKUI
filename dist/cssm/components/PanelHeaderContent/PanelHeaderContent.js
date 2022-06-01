@@ -7,10 +7,10 @@ import { getClassName } from "../../helpers/getClassName";
 import Tappable from "../Tappable/Tappable";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
-import Caption from "../Typography/Caption/Caption";
-import Headline from "../Typography/Headline/Headline";
+import { Caption } from "../Typography/Caption/Caption";
+import { Headline } from "../Typography/Headline/Headline";
 import { IOS, Platform } from "../../lib/platform";
-import Text from "../Typography/Text/Text";
+import { Text } from "../Typography/Text/Text";
 import "./PanelHeaderContent.css";
 
 var PanelHeaderChildren = function PanelHeaderChildren(_ref) {
@@ -22,17 +22,21 @@ var PanelHeaderChildren = function PanelHeaderChildren(_ref) {
   if (platform === Platform.VKCOM) {
     return createScopedElement(Text, {
       Component: "div",
-      weight: "medium"
+      weight: "2"
     }, children);
   }
 
   return hasStatus || hasBefore ? createScopedElement(Headline, {
     Component: "div",
-    weight: "medium"
+    weight: "2"
   }, children) : createScopedElement("div", {
     vkuiClass: "PanelHeaderContent__children-in"
   }, children);
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderContent
+ */
+
 
 var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   var className = _ref2.className,
@@ -63,8 +67,6 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   }, before), createScopedElement(InComponent, _extends({}, inProps, {
     vkuiClass: "PanelHeaderContent__in"
   }), hasReactNode(status) && createScopedElement(Caption, {
-    level: "1",
-    weight: "regular",
     vkuiClass: "PanelHeaderContent__status"
   }, status), createScopedElement("div", {
     vkuiClass: "PanelHeaderContent__children"

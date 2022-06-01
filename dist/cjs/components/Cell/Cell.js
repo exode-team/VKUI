@@ -33,6 +33,8 @@ var _Removable = require("../Removable/Removable");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
+var _useExternRef = require("../../hooks/useExternRef");
+
 var _useDraggable2 = require("./useDraggable");
 
 var _ListContext = require("../List/ListContext");
@@ -42,8 +44,11 @@ var _CellDragger = require("./CellDragger/CellDragger");
 var _CellCheckbox = require("./CellCheckbox/CellCheckbox");
 
 var _excluded = ["mode", "onRemove", "removePlaceholder", "onDragFinish", "before", "after", "disabled", "removable", "draggable", "selectable", "Component", "onChange", "name", "value", "checked", "defaultChecked", "getRootRef", "draggerLabel", "className", "style"],
-    _excluded2 = ["dragging", "rootElRef"];
+    _excluded2 = ["dragging"];
 var warn = (0, _warnOnce.warnOnce)("Cell");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Cell
+ */
 
 var Cell = function Cell(_ref) {
   var propsMode = _ref.mode,
@@ -78,8 +83,8 @@ var Cell = function Cell(_ref) {
     mode = deprecatedSelectable ? "selectable" : "removable";
 
     if (process.env.NODE_ENV === "development") {
-      deprecatedSelectable && warn('Свойство selectable устарелo и будет удалено в 5.0.0. Используйте mode="selectable".');
-      deprecatedRemovable && warn('Свойство removable устарелo и будет удалено в 5.0.0. Используйте mode="removable".');
+      deprecatedSelectable && warn('Свойство selectable устарело и будет удалено в 5.0.0. Используйте mode="selectable".');
+      deprecatedRemovable && warn('Свойство removable устарело и будет удалено в 5.0.0. Используйте mode="removable".');
     }
   } // /end TODO
 
@@ -87,12 +92,13 @@ var Cell = function Cell(_ref) {
   var selectable = mode === "selectable";
   var removable = mode === "removable";
   var platform = (0, _usePlatform.usePlatform)();
+  var rootElRef = (0, _useExternRef.useExternRef)(getRootRef);
 
   var _useDraggable = (0, _useDraggable2.useDraggable)({
+    rootElRef: rootElRef,
     onDragFinish: onDragFinish
   }),
       dragging = _useDraggable.dragging,
-      rootElRef = _useDraggable.rootElRef,
       draggableProps = (0, _objectWithoutProperties2.default)(_useDraggable, _excluded2);
 
   var _React$useContext = React.useContext(_ListContext.ListContext),
@@ -134,7 +140,8 @@ var Cell = function Cell(_ref) {
   }
 
   var simpleCellDisabled = draggable && !selectable || removable || disabled;
-  var hasActive = !simpleCellDisabled && !dragging;
+  var hasActive = !simpleCellDisabled && !dragging; // eslint-disable-next-line vkui/no-object-expression-in-arguments
+
   var cellClasses = (0, _classNames.classNames)((0, _getClassName.getClassName)("Cell", platform), {
     "Cell--dragging": dragging,
     "Cell--removable": removable,
@@ -160,7 +167,7 @@ var Cell = function Cell(_ref) {
       getRootRef: rootElRef,
       removePlaceholder: removePlaceholder,
       onRemove: function onRemove(e) {
-        return _onRemove(e, rootElRef === null || rootElRef === void 0 ? void 0 : rootElRef.current);
+        return _onRemove(e, rootElRef.current);
       }
     }, simpleCell);
   }

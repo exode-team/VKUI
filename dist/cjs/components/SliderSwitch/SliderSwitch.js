@@ -41,6 +41,7 @@ var _excluded = ["name", "options", "activeValue", "onSwitch"];
 var warn = (0, _warnOnce.warnOnce)("SliderSwitch");
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](#/SegmentedControl).
+ * @see https://vkcom.github.io/VKUI/#/SliderSwitch
  */
 
 var SliderSwitch = /*#__PURE__*/function (_React$Component) {
@@ -173,6 +174,7 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
       }), !firstActive && !secondActive && (0, _jsxRuntime.createScopedElement)("div", {
         vkuiClass: "SliderSwitch__border"
       }), (0, _jsxRuntime.createScopedElement)("div", {
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass: (0, _classNames2.classNames)("SliderSwitch__slider", (_classNames = {}, (0, _defineProperty2.default)(_classNames, "SliderSwitch--firstActive", firstActive), (0, _defineProperty2.default)(_classNames, "SliderSwitch--secondActive", secondActive), _classNames))
       }), (0, _jsxRuntime.createScopedElement)("input", {
         type: "hidden",

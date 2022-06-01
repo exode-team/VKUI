@@ -9,8 +9,20 @@ export interface ModalRootProps extends HasPlatform {
      */
     configProvider?: ConfigProviderContextInterface;
     /**
-     * Будет вызвано при закрытии активной модалки с её id
+     * Будет вызвано при начале открытия активной модалки с её id
+     */
+    onOpen?(modalId: string): void;
+    /**
+     * Будет вызвано при окончательном открытии активной модалки с её id
+     */
+    onOpened?(modalId: string): void;
+    /**
+     * Будет вызвано при начале закрытия активной модалки с её id
      */
     onClose?(modalId: string): void;
+    /**
+     * Будет вызвано при окончательном закрытии активной модалки с её id
+     */
+    onClosed?(modalId: string): void;
 }
-export declare const ModalRootDesktop: React.FC<Pick<ModalRootProps, "configProvider" | "onClose" | "activeModal">>;
+export declare const ModalRootDesktop: React.FC<Pick<ModalRootProps, "configProvider" | "onOpen" | "onOpened" | "onClose" | "onClosed" | "activeModal">>;

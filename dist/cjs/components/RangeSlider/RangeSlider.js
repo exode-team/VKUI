@@ -25,6 +25,9 @@ var _UniversalSlider = require("./UniversalSlider");
 
 var _excluded = ["onChange", "defaultValue", "min", "max", "step"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/RangeSlider
+ */
 var RangeSlider = function RangeSlider(_ref) {
   var onChange = _ref.onChange,
       defaultValue = _ref.defaultValue,

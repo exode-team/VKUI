@@ -3,6 +3,10 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["mode", "gap", "stretched", "getRootRef", "children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/ButtonGroup
+ */
 export var ButtonGroup = function ButtonGroup(_ref) {
   var _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? "horizontal" : _ref$mode,

@@ -9,14 +9,19 @@ exports.useWaitTransitionFinish = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
+var _dom = require("../lib/dom");
+
 var _supportEvents = require("../lib/supportEvents");
 
 var useWaitTransitionFinish = function useWaitTransitionFinish() {
   var timeoutRef = React.useRef(null);
 
-  var waitTransitionFinish = function waitTransitionFinish(element, eventHandler, durationFallback) {
+  var _useDOM = (0, _dom.useDOM)(),
+      document = _useDOM.document;
+
+  var waitTransitionFinish = React.useCallback(function (element, eventHandler, durationFallback) {
     if (element) {
-      if (_supportEvents.transitionEvent.supported && _supportEvents.transitionEvent.name) {
+      if (!(document !== null && document !== void 0 && document.hidden) && _supportEvents.transitionEvent.supported && _supportEvents.transitionEvent.name) {
         element.removeEventListener(_supportEvents.transitionEvent.name, eventHandler);
         element.addEventListener(_supportEvents.transitionEvent.name, eventHandler);
       } else {
@@ -27,8 +32,7 @@ var useWaitTransitionFinish = function useWaitTransitionFinish() {
         timeoutRef.current = setTimeout(eventHandler, durationFallback);
       }
     }
-  };
-
+  }, [document, timeoutRef]);
   return {
     waitTransitionFinish: waitTransitionFinish
   };

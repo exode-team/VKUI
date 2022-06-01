@@ -23,11 +23,11 @@ var _classNames = require("../../lib/classNames");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _Separator = _interopRequireDefault(require("../Separator/Separator"));
+var _Separator = require("../Separator/Separator");
 
 var _utils = require("../../lib/utils");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
@@ -35,6 +35,9 @@ var _ModalRootContext = _interopRequireDefault(require("../ModalRoot/ModalRootCo
 
 var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "sizeX"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/Group
+ */
 var Group = function Group(props) {
   var header = props.header,
       description = props.description,
@@ -60,11 +63,10 @@ var Group = function Group(props) {
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Group", platform), "Group--sizeX-".concat(sizeX), "Group--".concat(computedMode))
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Group__inner"
-  }, header, children, (0, _utils.hasReactNode)(description) && (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    vkuiClass: "Group__description",
-    weight: "regular",
-    level: "1"
-  }, description)), separator !== "hide" && (0, _jsxRuntime.createScopedElement)(_Separator.default, {
+  }, header, children, (0, _utils.hasReactNode)(description) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+    vkuiClass: "Group__description"
+  }, description)), separator !== "hide" && (0, _jsxRuntime.createScopedElement)(_Separator.Separator // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  , {
     vkuiClass: (0, _classNames.classNames)("Group__separator", {
       "Group__separator--force": separator === "show"
     }),

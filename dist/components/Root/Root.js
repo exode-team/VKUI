@@ -19,6 +19,9 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { useTimeout } from "../../hooks/useTimeout";
 import { usePlatform } from "../../hooks/usePlatform";
 var warn = warnOnce("Root");
+/**
+ * @see https://vkcom.github.io/VKUI/#/Root
+ */
 
 var Root = function Root(_ref) {
   var _ref$popout = _ref.popout,
@@ -74,7 +77,7 @@ var Root = function Root(_ref) {
       _setState({
         activeView: panel,
         prevView: activeView,
-        transition: true,
+        transition: !disableAnimation,
         isBack: _isBack
       });
     }
@@ -105,7 +108,7 @@ var Root = function Root(_ref) {
         to: activeView
       });
     }
-  }, [transition]);
+  }, [transition, prevView]);
   var fallbackTransition = useTimeout(finishTransition, platform === IOS ? 600 : 300);
   React.useEffect(function () {
     if (!transition) {
@@ -113,8 +116,8 @@ var Root = function Root(_ref) {
       return;
     }
 
-    disableAnimation ? finishTransition() : fallbackTransition.set();
-  }, [disableAnimation, fallbackTransition, finishTransition, transition]);
+    fallbackTransition.set();
+  }, [fallbackTransition, transition]);
 
   var onAnimationEnd = function onAnimationEnd(e) {
     if (["vkui-root-android-animation-hide-back", "vkui-root-android-animation-show-forward", "vkui-root-ios-animation-hide-back", "vkui-root-ios-animation-show-forward"].includes(e.animationName)) {
@@ -128,9 +131,9 @@ var Root = function Root(_ref) {
   }
 
   return createScopedElement("div", _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("Root", platform), {
-      "Root--transition": !disableAnimation && transition,
-      "Root--no-motion": disableAnimation
+      "Root--transition": transition
     })
   }), views.map(function (view) {
     var _scrolls$viewId;
@@ -148,7 +151,8 @@ var Root = function Root(_ref) {
       ref: function ref(e) {
         return viewId && (viewNodes[viewId] = e);
       },
-      onAnimationEnd: isTransitionTarget ? onAnimationEnd : undefined,
+      onAnimationEnd: isTransitionTarget ? onAnimationEnd : undefined // eslint-disable-next-line vkui/no-object-expression-in-arguments
+      ,
       vkuiClass: classNames("Root__view", {
         "Root__view--hide-back": transition && viewId === prevView && isBack,
         "Root__view--hide-forward": transition && viewId === prevView && !isBack,

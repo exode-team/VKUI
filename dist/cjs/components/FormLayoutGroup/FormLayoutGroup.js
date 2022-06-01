@@ -29,6 +29,9 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _excluded = ["children", "mode", "removable", "removePlaceholder", "onRemove", "getRootRef"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormLayoutGroup
+ */
 var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var children = _ref.children,
       _ref$mode = _ref.mode,
@@ -49,7 +52,8 @@ var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var isRemovable = removable && mode === "horizontal";
   var rootEl = (0, _useExternRef.useExternRef)(getRootRef);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
-    ref: rootEl,
+    ref: rootEl // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormLayoutGroup", platform), "FormLayoutGroup--sizeY-".concat(sizeY), "FormLayoutGroup--".concat(mode), {
       "FormLayoutGroup--removable": isRemovable
     })

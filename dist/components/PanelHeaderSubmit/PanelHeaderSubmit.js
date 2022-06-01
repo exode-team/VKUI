@@ -7,6 +7,9 @@ import { Icon28DoneOutline } from "@vkontakte/icons";
 import { ANDROID, VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getTitleFromChildren } from "../../lib/utils";
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderSubmit
+ */
 
 var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
   var children = _ref.children,

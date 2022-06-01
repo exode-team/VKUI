@@ -27,5 +27,8 @@ export interface RootState {
     isBack?: boolean;
     prevView?: string;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/Root
+ */
 declare const Root: React.FC<RootProps>;
 export default Root;

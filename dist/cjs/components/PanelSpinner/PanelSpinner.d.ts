@@ -3,5 +3,7 @@ import { SpinnerProps } from "../Spinner/Spinner";
 export interface PanelSpinnerProps extends SpinnerProps {
     height?: number;
 }
-declare const _default: React.NamedExoticComponent<PanelSpinnerProps>;
-export default _default;
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelSpinner
+ */
+export declare const PanelSpinner: React.MemoExoticComponent<({ height, style, ...restProps }: PanelSpinnerProps) => JSX.Element>;

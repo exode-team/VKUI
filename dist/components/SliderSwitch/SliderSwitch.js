@@ -16,6 +16,7 @@ import { warnOnce } from "../../lib/warnOnce";
 var warn = warnOnce("SliderSwitch");
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](#/SegmentedControl).
+ * @see https://vkcom.github.io/VKUI/#/SliderSwitch
  */
 
 var SliderSwitch = /*#__PURE__*/function (_React$Component) {
@@ -160,6 +161,7 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
       }), !firstActive && !secondActive && createScopedElement("div", {
         vkuiClass: "SliderSwitch__border"
       }), createScopedElement("div", {
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass: classNames("SliderSwitch__slider", (_classNames = {}, _defineProperty(_classNames, "SliderSwitch--firstActive", firstActive), _defineProperty(_classNames, "SliderSwitch--secondActive", secondActive), _classNames))
       }), createScopedElement("input", {
         type: "hidden",

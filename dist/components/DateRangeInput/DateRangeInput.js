@@ -1,9 +1,9 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel"];
+var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "prevMonthIcon", "nextMonthIcon"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { format, isMatch, parse, isAfter } from "date-fns";
+import { format, isMatch, parse, isAfter } from "../../lib/date";
 import { Icon16Clear, Icon20CalendarOutline } from "@vkontakte/icons";
 import { CalendarRange } from "../CalendarRange/CalendarRange";
 import { Popper } from "../Popper/Popper";
@@ -65,6 +65,10 @@ var getInternalValue = function getInternalValue(value) {
 
   return newValue;
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/DateRangeInput
+ */
+
 
 export var DateRangeInput = function DateRangeInput(_ref) {
   var shouldDisableDate = _ref.shouldDisableDate,
@@ -106,6 +110,8 @@ export var DateRangeInput = function DateRangeInput(_ref) {
       clearFieldAriaLabel = _ref$clearFieldAriaLa === void 0 ? "Очистить поле" : _ref$clearFieldAriaLa,
       _ref$showCalendarAria = _ref.showCalendarAriaLabel,
       showCalendarAriaLabel = _ref$showCalendarAria === void 0 ? "Показать календарь" : _ref$showCalendarAria,
+      prevMonthIcon = _ref.prevMonthIcon,
+      nextMonthIcon = _ref.nextMonthIcon,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var daysStartRef = React.useRef(null);
@@ -212,7 +218,7 @@ export var DateRangeInput = function DateRangeInput(_ref) {
   }, props), createScopedElement("input", {
     type: "hidden",
     name: name,
-    value: value ? "".concat(value[0] ? format(value[0], "dd.MM.yyyy") : "", " - ").concat(value[1] ? format(value[1], "dd.MM.yyyy") : "") : ""
+    value: value ? "".concat(value[0] ? format(value[0], "DD.MM.YYYY") : "", " - ").concat(value[1] ? format(value[1], "DD.MM.YYYY") : "") : ""
   }), createScopedElement("span", {
     vkuiClass: "DateInput__input",
     onKeyDown: handleKeyDown
@@ -275,7 +281,9 @@ export var DateRangeInput = function DateRangeInput(_ref) {
     nextMonthAriaLabel: nextMonthAriaLabel,
     changeMonthAriaLabel: changeMonthAriaLabel,
     changeYearAriaLabel: changeYearAriaLabel,
-    changeDayAriaLabel: changeDayAriaLabel
+    changeDayAriaLabel: changeDayAriaLabel,
+    prevMonthIcon: prevMonthIcon,
+    nextMonthIcon: nextMonthIcon
   })));
 };
 //# sourceMappingURL=DateRangeInput.js.map

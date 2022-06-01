@@ -1,14 +1,13 @@
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import * as React from "react";
 export var useDraggable = function useDraggable(_ref) {
-  var onDragFinish = _ref.onDragFinish;
+  var rootElRef = _ref.rootElRef,
+      onDragFinish = _ref.onDragFinish;
 
   var _React$useState = React.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       dragging = _React$useState2[0],
       setDragging = _React$useState2[1];
-
-  var rootElRef = React.useRef(null);
 
   var _React$useState3 = React.useState([]),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
@@ -130,8 +129,7 @@ export var useDraggable = function useDraggable(_ref) {
     onDragStart: onDragStart,
     onDragMove: onDragMove,
     onDragEnd: onDragEnd,
-    dragging: dragging,
-    rootElRef: rootElRef
+    dragging: dragging
   };
   return useDraggableProps;
 };

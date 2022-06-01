@@ -19,7 +19,11 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
+var _ScrollContext = require("../AppRoot/ScrollContext");
+
 var _classNames = require("../../lib/classNames");
+
+var _utils = require("../../lib/utils");
 
 var _excluded = ["children", "width", "maxWidth", "minWidth", "spaced", "animate", "fixed", "style"];
 var SplitColContext = /*#__PURE__*/React.createContext({
@@ -28,6 +32,9 @@ var SplitColContext = /*#__PURE__*/React.createContext({
 });
 exports.SplitColContext = SplitColContext;
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/SplitCol
+ */
 var SplitCol = function SplitCol(props) {
   var children = props.children,
       width = props.width,
@@ -40,12 +47,25 @@ var SplitCol = function SplitCol(props) {
       style = props.style,
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
   var baseRef = React.useRef(null);
+  var fixedInnerRef = React.useRef(null);
   var contextValue = React.useMemo(function () {
     return {
       colRef: baseRef,
       animate: animate
     };
   }, [baseRef, animate]);
+  (0, _ScrollContext.useScrollLockEffect)(function () {
+    var fixedInner = fixedInnerRef.current;
+
+    if (!fixedInner) {
+      return _utils.noop;
+    }
+
+    fixedInner.style.top = "".concat(fixedInner.offsetTop, "px");
+    return function () {
+      fixedInner.style.top = "";
+    };
+  }, [fixedInnerRef.current]);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     style: (0, _objectSpread2.default)((0, _objectSpread2.default)({}, style), {}, {
       width: width,
@@ -53,13 +73,11 @@ var SplitCol = function SplitCol(props) {
       minWidth: minWidth
     }),
     ref: baseRef,
-    vkuiClass: (0, _classNames.classNames)("SplitCol", {
-      "SplitCol--spaced": spaced,
-      "SplitCol--fixed": fixed
-    })
+    vkuiClass: (0, _classNames.classNames)("SplitCol", spaced && "SplitCol--spaced", fixed && "SplitCol--fixed")
   }), (0, _jsxRuntime.createScopedElement)(SplitColContext.Provider, {
     value: contextValue
   }, fixed ? (0, _jsxRuntime.createScopedElement)("div", {
+    ref: fixedInnerRef,
     vkuiClass: "SplitCol__fixedInner"
   }, children) : children));
 };

@@ -11,6 +11,9 @@ import { Removable } from "../Removable/Removable";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import "./FormLayoutGroup.css";
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FormLayoutGroup
+ */
 var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var children = _ref.children,
       _ref$mode = _ref.mode,
@@ -31,7 +34,8 @@ var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var isRemovable = removable && mode === "horizontal";
   var rootEl = useExternRef(getRootRef);
   return createScopedElement("div", _extends({
-    ref: rootEl,
+    ref: rootEl // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames(getClassName("FormLayoutGroup", platform), "FormLayoutGroup--sizeY-".concat(sizeY), "FormLayoutGroup--".concat(mode), {
       "FormLayoutGroup--removable": isRemovable
     })

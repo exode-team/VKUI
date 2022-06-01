@@ -12,5 +12,8 @@ export interface ConfigProviderProps extends Partial<ConfigProviderContextInterf
      */
     locale?: string;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/ConfigProvider
+ */
 declare const ConfigProvider: React.FC<ConfigProviderProps>;
 export default ConfigProvider;

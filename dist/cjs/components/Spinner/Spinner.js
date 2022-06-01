@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Spinner = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -17,48 +17,35 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _icons = require("@vkontakte/icons");
 
-var _usePlatform = require("../../hooks/usePlatform");
+var _excluded = ["size", "aria-label"];
 
-var _excluded = ["size"];
-
-var Spinner = function Spinner(_ref) {
-  var size = _ref.size,
+/**
+ * @see https://vkcom.github.io/VKUI/#/Spinner
+ */
+var Spinner = /*#__PURE__*/React.memo(function (_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? "regular" : _ref$size,
+      _ref$ariaLabel = _ref["aria-label"],
+      ariaLabel = _ref$ariaLabel === void 0 ? "Загружается..." : _ref$ariaLabel,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
-  var SpinnerIcon = _icons.Icon24Spinner;
-
-  if (size === "large") {
-    SpinnerIcon = _icons.Icon44Spinner;
-  }
-
-  if (size === "medium") {
-    SpinnerIcon = _icons.Icon32Spinner;
-  }
-
-  if (size === "small") {
-    SpinnerIcon = _icons.Icon16Spinner;
-  }
-
+  var SpinnerIcon = {
+    small: _icons.Icon16Spinner,
+    regular: _icons.Icon24Spinner,
+    medium: _icons.Icon32Spinner,
+    large: _icons.Icon44Spinner
+  }[size];
   return (0, _jsxRuntime.createScopedElement)("span", (0, _extends2.default)({
-    role: "status"
+    role: "status",
+    "aria-label": ariaLabel
   }, restProps, {
-    vkuiClass: (0, _getClassName.getClassName)("Spinner", platform)
+    vkuiClass: "Spinner"
   }), (0, _jsxRuntime.createScopedElement)(SpinnerIcon, {
     "aria-hidden": "true",
     vkuiClass: "Spinner__self"
   }));
-};
-
-Spinner.defaultProps = {
-  size: "regular",
-  "aria-label": "Загружается..."
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = /*#__PURE__*/React.memo(Spinner);
-
-exports.default = _default;
+});
+exports.Spinner = Spinner;
+Spinner.displayName = "Spinner";
 //# sourceMappingURL=Spinner.js.map

@@ -15,8 +15,6 @@ var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
@@ -27,11 +25,11 @@ var React = _interopRequireWildcard(require("react"));
 
 var _DropdownIcon = require("../DropdownIcon/DropdownIcon");
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
-var _ChipsInput = _interopRequireWildcard(require("../ChipsInput/ChipsInput"));
+var _ChipsInput = require("../ChipsInput/ChipsInput");
 
-var _CustomSelectOption = _interopRequireDefault(require("../CustomSelectOption/CustomSelectOption"));
+var _CustomSelectOption = require("../CustomSelectOption/CustomSelectOption");
 
 var _useChipsSelect2 = require("./useChipsSelect");
 
@@ -41,7 +39,7 @@ var _utils = require("../../lib/utils");
 
 var _dom = require("../../lib/dom");
 
-var _Caption = _interopRequireDefault(require("../Typography/Caption/Caption"));
+var _Caption = require("../Typography/Caption/Caption");
 
 var _prefixClass = require("../../lib/prefixClass");
 
@@ -70,13 +68,11 @@ var chipsSelectDefaultProps = (0, _objectSpread2.default)((0, _objectSpread2.def
   renderOption: function renderOption(_ref) {
     var option = _ref.option,
         restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-    return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.default, restProps);
+    return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.CustomSelectOption, restProps);
   }
 });
 
 var ChipsSelectComponent = function ChipsSelectComponent(props) {
-  var _classNames;
-
   var propsWithDefault = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, chipsSelectDefaultProps), props);
   var style = propsWithDefault.style,
       onFocus = propsWithDefault.onFocus,
@@ -299,11 +295,11 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     setFocusedOptionIndex(null);
   }, [setFocusedOptionIndex]);
   return (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: (0, _classNames2.classNames)("ChipsSelect", "ChipsSelect--sizeY-".concat(sizeY)),
+    vkuiClass: (0, _classNames.classNames)("ChipsSelect", "ChipsSelect--sizeY-".concat(sizeY)),
     ref: rootRef,
     style: style,
     className: className
-  }, (0, _jsxRuntime.createScopedElement)(_ChipsInput.default, (0, _extends2.default)({}, restProps, {
+  }, (0, _jsxRuntime.createScopedElement)(_ChipsInput.ChipsInput, (0, _extends2.default)({}, restProps, {
     tabIndex: tabIndex,
     value: selectedOptions,
     inputValue: fieldValue,
@@ -314,7 +310,7 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
     placeholder: placeholder,
-    vkuiClass: (0, _classNames2.classNames)((_classNames = {}, (0, _defineProperty2.default)(_classNames, "ChipsSelect__open", opened), (0, _defineProperty2.default)(_classNames, "ChipsSelect__open--popupDirectionTop", isPopperDirectionTop), _classNames)),
+    vkuiClass: (0, _classNames.classNames)(opened && "Select--open", opened && (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")),
     getRef: getRef,
     disabled: disabled,
     onInputChange: handleInputChange,
@@ -327,15 +323,13 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     onMouseLeave: onDropdownMouseLeave,
     fetching: fetching,
     vkuiClass: "ChipsSelect__options"
-  }, showCreatable && (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.default, {
+  }, showCreatable && (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.CustomSelectOption, {
     hovered: focusedOptionIndex === 0,
     onMouseDown: addOptionFromInput,
     onMouseEnter: function onMouseEnter() {
       return setFocusedOptionIndex(0);
     }
-  }, creatableText), !(filteredOptions !== null && filteredOptions !== void 0 && filteredOptions.length) && !showCreatable && emptyText ? (0, _jsxRuntime.createScopedElement)(_Caption.default, {
-    level: "1",
-    weight: "regular",
+  }, creatableText), !(filteredOptions !== null && filteredOptions !== void 0 && filteredOptions.length) && !showCreatable && emptyText ? (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "ChipsSelect__empty"
   }, emptyText) : filteredOptions.map(function (option, index) {
     var label = getOptionLabel(option);
@@ -374,6 +368,10 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     }));
   })));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsSelect
+ */
+
 
 var ChipsSelect = (0, _withAdaptivity.withAdaptivity)(ChipsSelectComponent, {
   sizeY: true

@@ -1,23 +1,19 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY", "after", "selectType"];
+var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY", "before", "after", "selectType"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
 import { FormField } from "../FormField/FormField";
-import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
+import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
-import Headline from "../Typography/Headline/Headline";
-import Text from "../Typography/Text/Text";
-import { VKCOM } from "../../lib/platform";
-import { SelectType } from "../CustomSelect/CustomSelect";
+import { getFormFieldModeFromSelectType } from "../../lib/select";
+import { SelectType, SelectTypography } from "../Select/Select";
 
-var SelectMimicry = function SelectMimicry(_ref) {
-  var _classNames;
-
-  var tabIndex = _ref.tabIndex,
+var SelectMimicryComponent = function SelectMimicryComponent(_ref) {
+  var _ref$tabIndex = _ref.tabIndex,
+      tabIndex = _ref$tabIndex === void 0 ? 0 : _ref$tabIndex,
       placeholder = _ref.placeholder,
       children = _ref.children,
       align = _ref.align,
@@ -27,38 +23,37 @@ var SelectMimicry = function SelectMimicry(_ref) {
       onClick = _ref.onClick,
       sizeX = _ref.sizeX,
       sizeY = _ref.sizeY,
+      before = _ref.before,
       _ref$after = _ref.after,
       after = _ref$after === void 0 ? createScopedElement(DropdownIcon, null) : _ref$after,
       _ref$selectType = _ref.selectType,
-      selectType = _ref$selectType === void 0 ? SelectType.Default : _ref$selectType,
+      selectType = _ref$selectType === void 0 ? SelectType.default : _ref$selectType,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
-  var TypographyComponent = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
+  var title = children || placeholder;
   return createScopedElement(FormField, _extends({}, restProps, {
     tabIndex: disabled ? undefined : tabIndex,
-    vkuiClass: classNames(getClassName("Select", platform), "Select--mimicry", "Select--mimicry-".concat(selectType), (_classNames = {
-      "Select--not-selected": !children,
-      "Select--multiline": multiline
-    }, _defineProperty(_classNames, "Select--align-".concat(align), !!align), _defineProperty(_classNames, "Select--sizeX--".concat(sizeX), !!sizeX), _defineProperty(_classNames, "Select--sizeY--".concat(sizeY), !!sizeY), _classNames)),
+    vkuiClass: classNames(getClassName("Select", platform), "Select--".concat(selectType), !children && "Select--empty", multiline && "Select--multiline", align && "Select--align-".concat(align), "Select--sizeX-".concat(sizeX), "Select--sizeY-".concat(sizeY)),
     getRootRef: getRootRef,
     onClick: disabled ? undefined : onClick,
     disabled: disabled,
-    after: after
-  }), createScopedElement(TypographyComponent, {
-    Component: "div",
-    weight: selectType === SelectType.Plain ? "semibold" : "regular",
-    vkuiClass: classNames("Select__container", "Select__container--".concat(selectType))
-  }, createScopedElement("span", {
+    before: before,
+    after: after,
+    mode: getFormFieldModeFromSelectType(selectType)
+  }), createScopedElement("div", {
+    vkuiClass: "Select__container"
+  }, createScopedElement(SelectTypography, {
+    selectType: selectType,
     vkuiClass: "Select__title"
-  }, children || placeholder)));
+  }, title)));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/SelectMimicry
+ */
 
-SelectMimicry.defaultProps = {
-  tabIndex: 0
-}; // eslint-disable-next-line import/no-default-export
 
-export default withAdaptivity(SelectMimicry, {
+export var SelectMimicry = withAdaptivity(SelectMimicryComponent, {
   sizeX: true,
   sizeY: true
 });

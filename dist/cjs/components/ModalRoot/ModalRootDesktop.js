@@ -81,7 +81,7 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
         return Object.assign(_this.getModalState(id), data);
       },
       onClose: function onClose() {
-        return _this.props.closeActiveModal();
+        return _this.props.onExit();
       },
       isInsideModal: true
     };
@@ -121,10 +121,11 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
       if (this.props.enteringModal && this.props.enteringModal !== prevProps.enteringModal) {
         var enteringModal = this.props.enteringModal;
         var enteringState = this.getModalState(enteringModal);
+        this.props.onEnter();
         requestAnimationFrame(function () {
           if (_this2.props.enteringModal === enteringModal) {
             _this2.waitTransitionFinish(enteringState, function () {
-              return _this2.props.onEnter(enteringModal);
+              return _this2.props.onEntered(enteringModal);
             });
 
             _this2.animateModalOpacity(enteringState, true);
@@ -156,7 +157,7 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
       }
 
       this.waitTransitionFinish(prevModalState, function () {
-        return _this3.props.onExit(id);
+        return _this3.props.onExited(id);
       });
       this.animateModalOpacity(prevModalState, false);
 
@@ -182,7 +183,7 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
         setTimeout(eventHandler, this.timeout);
       }
     }
-    /* Анимирует сдивг модалки */
+    /* Анимирует сдвиг модалки */
 
   }, {
     key: "animateModalOpacity",
@@ -239,13 +240,14 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
       return (0, _jsxRuntime.createScopedElement)(_ModalRootContext.default.Provider, {
         value: this.modalRootContext
       }, (0, _jsxRuntime.createScopedElement)("div", {
+        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalRoot", this.props.platform), {
           "ModalRoot--vkapps": ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === _ConfigProviderContext.WebviewType.VKAPPS
         }, "ModalRoot--desktop")
       }, (0, _jsxRuntime.createScopedElement)("div", {
         vkuiClass: "ModalRoot__mask",
         ref: this.maskElementRef,
-        onClick: this.props.closeActiveModal
+        onClick: this.props.onExit
       }), (0, _jsxRuntime.createScopedElement)("div", {
         vkuiClass: "ModalRoot__viewport"
       }, this.modals.map(function (Modal) {
@@ -258,9 +260,10 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
         var key = "modal-".concat(modalId);
         return (0, _jsxRuntime.createScopedElement)(_FocusTrap.FocusTrap, {
           restoreFocus: false,
-          onClose: _this5.props.closeActiveModal,
+          onClose: _this5.props.onExit,
           timeout: _this5.timeout,
-          key: key,
+          key: key // eslint-disable-next-line vkui/no-object-expression-in-arguments
+          ,
           vkuiClass: (0, _classNames.classNames)("ModalRoot__modal", {
             "ModalRoot__modal--active": !exitingModal && !enteringModal && modalId === activeModal,
             "ModalRoot__modal--prev": modalId === exitingModal,

@@ -6,6 +6,10 @@ import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { PopoutRoot } from "../PopoutRoot/PopoutRoot";
 import { usePlatform } from "../../hooks/usePlatform";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/SplitLayout
+ */
 export var SplitLayout = function SplitLayout(_ref) {
   var popout = _ref.popout,
       modal = _ref.modal,
@@ -22,7 +26,8 @@ export var SplitLayout = function SplitLayout(_ref) {
     modal: modal,
     getRootRef: getRootRef
   }, header, createScopedElement("div", _extends({}, restProps, {
-    ref: getRef,
+    ref: getRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: classNames("SplitLayout__inner", {
       "SplitLayout__inner--header": !!header
     })

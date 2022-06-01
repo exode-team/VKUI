@@ -65,7 +65,8 @@ var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     });
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.default // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  , {
     vkuiClass: (0, _classNames.classNames)("CalendarDay", "CalendarDay--size-".concat(size), {
       "CalendarDay--today": today,
       "CalendarDay--selected": selected && !disabled,
@@ -91,12 +92,14 @@ var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     onEnter: handleEnter,
     onLeave: handleLeave
   }, (0, _jsxRuntime.createScopedElement)("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)("CalendarDay__hinted", {
       "CalendarDay__hinted--active": hinted,
       "CalendarDay__hinted--selection-start": hintedSelectionStart,
       "CalendarDay__hinted--selection-end": hintedSelectionEnd
     })
   }, (0, _jsxRuntime.createScopedElement)("div", {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)("CalendarDay__inner", {
       "CalendarDay__inner--active": active && !disabled
     })

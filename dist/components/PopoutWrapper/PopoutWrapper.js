@@ -11,6 +11,10 @@ import { useTimeout } from "../../hooks/useTimeout";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
 import { useDOM } from "../../lib/dom";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/PopoutWrapper
+ */
 export var PopoutWrapper = function PopoutWrapper(_ref) {
   var _ref$alignY = _ref.alignY,
       alignY = _ref$alignY === void 0 ? "center" : _ref$alignY,
@@ -56,6 +60,7 @@ export var PopoutWrapper = function PopoutWrapper(_ref) {
   });
   var baseClassNames = getClassName("PopoutWrapper", platform);
   return createScopedElement("div", _extends({}, restProps, {
+    // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(baseClassNames, "PopoutWrapper--v-".concat(alignY), "PopoutWrapper--h-".concat(alignX), {
       "PopoutWrapper--closing": closing,
       "PopoutWrapper--opened": opened,

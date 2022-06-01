@@ -23,6 +23,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["isActive", "editLabel", "doneLabel"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeaderEdit
+ */
 var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
   var isActive = _ref.isActive,
       editLabel = _ref.editLabel,

@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.chipsInputDefaultProps = void 0;
+exports.chipsInputDefaultProps = exports.ChipsInput = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -40,7 +40,7 @@ var _prefixClass = require("../../lib/prefixClass");
 var _useExternRef = require("../../hooks/useExternRef");
 
 var _excluded = ["disabled", "value", "label"],
-    _excluded2 = ["style", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "onFocus", "children", "className", "inputValue", "getRef", "getRootRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "after", "inputAriaLabel"];
+    _excluded2 = ["style", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "onFocus", "children", "className", "inputValue", "getRef", "getRootRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "before", "after", "inputAriaLabel"];
 var chipsInputDefaultProps = {
   type: "text",
   onChange: _utils.noop,
@@ -78,6 +78,10 @@ var chipsInputDefaultProps = {
     }, rest), label);
   }
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsInput
+ */
+
 exports.chipsInputDefaultProps = chipsInputDefaultProps;
 
 var ChipsInput = function ChipsInput(props) {
@@ -99,6 +103,7 @@ var ChipsInput = function ChipsInput(props) {
       getOptionLabel = propsWithDefault.getOptionLabel,
       getNewOptionData = propsWithDefault.getNewOptionData,
       renderChip = propsWithDefault.renderChip,
+      before = propsWithDefault.before,
       after = propsWithDefault.after,
       inputAriaLabel = propsWithDefault.inputAriaLabel,
       restProps = (0, _objectWithoutProperties2.default)(propsWithDefault, _excluded2);
@@ -175,13 +180,11 @@ var ChipsInput = function ChipsInput(props) {
 
   return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, {
     getRootRef: getRootRef,
-    vkuiClass: (0, _classNames.classNames)("ChipsInput", "ChipsInput--sizeY-".concat(sizeY), {
-      "ChipsInput--focused": focused,
-      "ChipsInput--withChips": !!selectedOptions.length
-    }),
+    vkuiClass: (0, _classNames.classNames)("ChipsInput", "ChipsInput--sizeY-".concat(sizeY), focused && "ChipsInput--focused", !!selectedOptions.length && "ChipsInput--withChips"),
     className: className,
     style: style,
     disabled: restProps.disabled,
+    before: before,
     after: after,
     onClick: handleClick,
     role: "application",
@@ -221,9 +224,7 @@ var ChipsInput = function ChipsInput(props) {
     onBlur: handleBlur,
     placeholder: selectedOptions.length ? undefined : placeholder
   }, restProps)))));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = ChipsInput;
-exports.default = _default;
+exports.ChipsInput = ChipsInput;
 //# sourceMappingURL=ChipsInput.js.map

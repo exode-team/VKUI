@@ -29,4 +29,7 @@ export interface InitialsAvatarProps extends React.HTMLAttributes<HTMLDivElement
      */
     gradientColor?: InitialsAvatarNumberGradients | InitialsAvatarTextGradients;
 }
+/**
+ * @see https://vkcom.github.io/VKUI/#/InitialsAvatar
+ */
 export declare const InitialsAvatar: React.FC<InitialsAvatarProps>;

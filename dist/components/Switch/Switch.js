@@ -10,6 +10,10 @@ import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { VisuallyHiddenInput } from "../VisuallyHiddenInput/VisuallyHiddenInput";
 import { useFocusVisible } from "../../hooks/useFocusVisible";
 import { FocusVisible } from "../FocusVisible/FocusVisible";
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/Switch
+ */
 export var Switch = function Switch(_ref) {
   var style = _ref.style,
       className = _ref.className,
@@ -27,10 +31,7 @@ export var Switch = function Switch(_ref) {
       onFocus = _useFocusVisible.onFocus;
 
   return createScopedElement("label", {
-    vkuiClass: classNames(getClassName("Switch", platform), "Switch--sizeY-".concat(sizeY), {
-      "Switch--disabled": restProps.disabled,
-      "Switch--focus-visible": focusVisible
-    }),
+    vkuiClass: classNames(getClassName("Switch", platform), "Switch--sizeY-".concat(sizeY), restProps.disabled && "Switch--disabled", focusVisible && "Switch--focus-visible"),
     className: className,
     style: style,
     ref: getRootRef,

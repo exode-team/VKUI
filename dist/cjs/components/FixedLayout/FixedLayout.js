@@ -37,6 +37,9 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["children", "style", "vertical", "getRootRef", "getRef", "filled"];
 
+/**
+ * @see https://vkcom.github.io/VKUI/#/FixedLayout
+ */
 var FixedLayout = function FixedLayout(_ref) {
   var children = _ref.children,
       style = _ref.style,
@@ -66,7 +69,8 @@ var FixedLayout = function FixedLayout(_ref) {
   (0, _useGlobalEventListener.useGlobalEventListener)(window, "resize", doResize);
   return (0, _jsxRuntime.createScopedElement)(_TooltipContainer.TooltipContainer, (0, _extends2.default)({}, restProps, {
     fixed: true,
-    ref: getRootRef,
+    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FixedLayout", platform), {
       "FixedLayout--filled": filled
     }, "FixedLayout--".concat(vertical)),

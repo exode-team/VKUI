@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { FormField, FormFieldProps } from "../FormField/FormField";
@@ -59,8 +58,7 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
       after={after}
       disabled={restProps.disabled}
     >
-      <input {...restProps} type={type} vkuiClass="Input__el" ref={getRef} />
-      <input {...restProps} onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
+      <input {...restProps} type={type} onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
     </FormField>
   );
 };

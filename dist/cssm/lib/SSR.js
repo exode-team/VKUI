@@ -8,6 +8,10 @@ export var SSRContext = /*#__PURE__*/React.createContext({
   userAgent: "",
   browserInfo: undefined
 });
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/SSR
+ */
 export var SSRWrapper = function SSRWrapper(props) {
   var userAgent = props.userAgent,
       browserInfo = props.browserInfo,

@@ -4,12 +4,18 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "width", "maxWidth", "minWidth", "spaced", "animate", "fixed", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
+import { useScrollLockEffect } from "../AppRoot/ScrollContext";
 import { classNames } from "../../lib/classNames";
+import { noop } from "../../lib/utils";
 import "./SplitCol.css";
 export var SplitColContext = /*#__PURE__*/React.createContext({
   colRef: null,
   animate: true
 });
+
+/**
+ * @see https://vkcom.github.io/VKUI/#/SplitCol
+ */
 export var SplitCol = function SplitCol(props) {
   var children = props.children,
       width = props.width,
@@ -23,12 +29,25 @@ export var SplitCol = function SplitCol(props) {
       restProps = _objectWithoutProperties(props, _excluded);
 
   var baseRef = React.useRef(null);
+  var fixedInnerRef = React.useRef(null);
   var contextValue = React.useMemo(function () {
     return {
       colRef: baseRef,
       animate: animate
     };
   }, [baseRef, animate]);
+  useScrollLockEffect(function () {
+    var fixedInner = fixedInnerRef.current;
+
+    if (!fixedInner) {
+      return noop;
+    }
+
+    fixedInner.style.top = "".concat(fixedInner.offsetTop, "px");
+    return function () {
+      fixedInner.style.top = "";
+    };
+  }, [fixedInnerRef.current]);
   return createScopedElement("div", _extends({}, restProps, {
     style: _objectSpread(_objectSpread({}, style), {}, {
       width: width,
@@ -36,13 +55,11 @@ export var SplitCol = function SplitCol(props) {
       minWidth: minWidth
     }),
     ref: baseRef,
-    vkuiClass: classNames("SplitCol", {
-      "SplitCol--spaced": spaced,
-      "SplitCol--fixed": fixed
-    })
+    vkuiClass: classNames("SplitCol", spaced && "SplitCol--spaced", fixed && "SplitCol--fixed")
   }), createScopedElement(SplitColContext.Provider, {
     value: contextValue
   }, fixed ? createScopedElement("div", {
+    ref: fixedInnerRef,
     vkuiClass: "SplitCol__fixedInner"
   }, children) : children));
 };
