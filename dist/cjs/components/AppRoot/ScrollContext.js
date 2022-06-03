@@ -23,6 +23,8 @@ var _math = require("../../helpers/math");
 
 var _dom = require("../../lib/dom");
 
+var _useAdaptivity = require("../../hooks/useAdaptivity");
+
 var clearDisableScrollStyle = function clearDisableScrollStyle(node) {
   Object.assign(node.style, {
     position: "",
@@ -248,6 +250,8 @@ var useScrollLock = function useScrollLock() {
       enableScrollLock = _useScroll2.enableScrollLock,
       disableScrollLock = _useScroll2.disableScrollLock;
 
+  var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
+  enabled = !isDesktop ? enabled : false;
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (enabled) {
       enableScrollLock();
