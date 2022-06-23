@@ -4,7 +4,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["size", "children", "gradientColor", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
-import Avatar, { AVATAR_DEFAULT_SIZE } from "../Avatar/Avatar";
+import { AVATAR_DEFAULT_SIZE, Avatar } from "../Avatar/Avatar";
 var COLORS_NUMBER_TO_TEXT_MAP = {
   1: "red",
   2: "orange",

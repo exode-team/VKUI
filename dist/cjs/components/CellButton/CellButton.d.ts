@@ -8,5 +8,4 @@ export interface CellButtonProps extends SimpleCellProps {
 /**
  * @see https://vkcom.github.io/VKUI/#/CellButton
  */
-declare const CellButton: React.FC<CellButtonProps>;
-export { CellButton };
+export declare const CellButton: React.FC<CellButtonProps>;

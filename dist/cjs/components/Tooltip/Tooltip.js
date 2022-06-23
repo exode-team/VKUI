@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Tooltip = void 0;
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
@@ -47,7 +47,7 @@ var _utils = require("../../lib/utils");
 
 var _useGlobalEventListener = require("../../hooks/useGlobalEventListener");
 
-var _excluded = ["children", "isShown", "offsetX", "offsetY", "alignX", "alignY", "onClose", "cornerOffset", "cornerAbsoluteOffset"];
+var _excluded = ["children", "isShown", "offsetX", "offsetY", "alignX", "alignY", "onClose", "cornerOffset", "cornerAbsoluteOffset", "mode"];
 
 var isDOMTypeElement = function isDOMTypeElement(element) {
   return /*#__PURE__*/React.isValidElement(element) && typeof element.type === "string";
@@ -117,7 +117,8 @@ var Tooltip = function Tooltip(_ref2) {
   var _attributes$arrow, _attributes$popper;
 
   var children = _ref2.children,
-      _isShown = _ref2.isShown,
+      _ref2$isShown = _ref2.isShown,
+      _isShown = _ref2$isShown === void 0 ? true : _ref2$isShown,
       _ref2$offsetX = _ref2.offsetX,
       offsetX = _ref2$offsetX === void 0 ? 0 : _ref2$offsetX,
       _ref2$offsetY = _ref2.offsetY,
@@ -128,6 +129,8 @@ var Tooltip = function Tooltip(_ref2) {
       _ref2$cornerOffset = _ref2.cornerOffset,
       cornerOffset = _ref2$cornerOffset === void 0 ? 0 : _ref2$cornerOffset,
       cornerAbsoluteOffset = _ref2.cornerAbsoluteOffset,
+      _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "accent" : _ref2$mode,
       restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded);
 
   var _useNavTransition = (0, _NavTransitionContext.useNavTransition)(),
@@ -247,6 +250,7 @@ var Tooltip = function Tooltip(_ref2) {
   var patchedRef = (0, _useExternRef.useExternRef)(setTarget, childRef);
   var child = /*#__PURE__*/React.isValidElement(children) ? /*#__PURE__*/React.cloneElement(children, (0, _defineProperty2.default)({}, isDOMTypeElement(children) ? "ref" : "getRootRef", patchedRef)) : children;
   return (0, _jsxRuntime.createScopedElement)(React.Fragment, null, child, isShown && target != null && /*#__PURE__*/_reactDom.default.createPortal((0, _jsxRuntime.createScopedElement)(SimpleTooltip, (0, _extends2.default)({}, restProps, {
+    mode: mode,
     ref: function ref(el) {
       return setTooltipRef(el);
     },
@@ -264,14 +268,5 @@ var Tooltip = function Tooltip(_ref2) {
   })), tooltipContainer));
 };
 
-Tooltip.defaultProps = {
-  offsetX: 0,
-  offsetY: 15,
-  cornerOffset: 0,
-  isShown: true,
-  mode: "accent"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = Tooltip;
-exports.default = _default;
+exports.Tooltip = Tooltip;
 //# sourceMappingURL=Tooltip.js.map

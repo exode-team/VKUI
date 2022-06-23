@@ -1,26 +1,27 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["left", "children", "right", "separator", "visor", "transparent", "shadow", "getRef", "getRootRef", "sizeX", "sizeY", "fixed"];
+var _excluded = ["before", "left", "after", "right", "children", "separator", "visor", "transparent", "shadow", "getRef", "getRootRef", "sizeX", "sizeY", "fixed"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
-import FixedLayout from "../FixedLayout/FixedLayout";
+import { warnOnce } from "../../lib/warnOnce";
+import { FixedLayout } from "../FixedLayout/FixedLayout";
 import { Separator } from "../Separator/Separator";
 import { Platform, VKCOM } from "../../lib/platform";
 import { ConfigProviderContext, WebviewType } from "../ConfigProvider/ConfigProviderContext";
 import { SizeType, withAdaptivity } from "../../hoc/withAdaptivity";
 import { Text } from "../Typography/Text/Text";
 import { TooltipContainer } from "../Tooltip/TooltipContainer";
-import ModalRootContext from "../ModalRoot/ModalRootContext";
+import { ModalRootContext } from "../ModalRoot/ModalRootContext";
 import { Spacing } from "../Spacing/Spacing";
 
 var PanelHeaderIn = function PanelHeaderIn(_ref) {
-  var children = _ref.children,
-      left = _ref.left,
-      right = _ref.right,
-      separator = _ref.separator;
+  var before = _ref.before,
+      after = _ref.after,
+      separator = _ref.separator,
+      children = _ref.children;
 
   var _React$useContext = React.useContext(ConfigProviderContext),
       webviewType = _React$useContext.webviewType;
@@ -33,38 +34,41 @@ var PanelHeaderIn = function PanelHeaderIn(_ref) {
     fixed: true,
     vkuiClass: "PanelHeader__in"
   }, createScopedElement("div", {
-    vkuiClass: "PanelHeader__left"
-  }, left), createScopedElement("div", {
+    vkuiClass: "PanelHeader__before"
+  }, before), createScopedElement("div", {
     vkuiClass: "PanelHeader__content"
   }, platform === VKCOM ? createScopedElement(Text, {
     weight: "2"
   }, children) : createScopedElement("span", {
     vkuiClass: "PanelHeader__content-in"
   }, children)), createScopedElement("div", {
-    vkuiClass: "PanelHeader__right"
-  }, (webviewType === WebviewType.INTERNAL || isInsideModal) && right)), separator && platform === VKCOM && createScopedElement(Separator, {
+    vkuiClass: "PanelHeader__after"
+  }, (webviewType === WebviewType.INTERNAL || isInsideModal) && after)), separator && platform === VKCOM && createScopedElement(Separator, {
     wide: true
   }));
 };
-/**
- * @see https://vkcom.github.io/VKUI/#/PanelHeader
- */
 
+var warn = warnOnce("PanelHeader");
 
-var PanelHeader = function PanelHeader(props) {
-  var left = props.left,
-      children = props.children,
-      right = props.right,
-      separator = props.separator,
-      visor = props.visor,
-      transparent = props.transparent,
-      shadow = props.shadow,
-      getRef = props.getRef,
-      getRootRef = props.getRootRef,
-      sizeX = props.sizeX,
-      sizeY = props.sizeY,
-      fixed = props.fixed,
-      restProps = _objectWithoutProperties(props, _excluded);
+var PanelHeaderComponent = function PanelHeaderComponent(_ref2) {
+  var propsBefore = _ref2.before,
+      left = _ref2.left,
+      propsAfter = _ref2.after,
+      right = _ref2.right,
+      children = _ref2.children,
+      _ref2$separator = _ref2.separator,
+      separator = _ref2$separator === void 0 ? true : _ref2$separator,
+      _ref2$visor = _ref2.visor,
+      visor = _ref2$visor === void 0 ? true : _ref2$visor,
+      _ref2$transparent = _ref2.transparent,
+      transparent = _ref2$transparent === void 0 ? false : _ref2$transparent,
+      shadow = _ref2.shadow,
+      getRef = _ref2.getRef,
+      getRootRef = _ref2.getRootRef,
+      sizeX = _ref2.sizeX,
+      sizeY = _ref2.sizeY,
+      fixed = _ref2.fixed,
+      restProps = _objectWithoutProperties(_ref2, _excluded);
 
   var platform = usePlatform();
 
@@ -75,7 +79,23 @@ var PanelHeader = function PanelHeader(props) {
       isInsideModal = _React$useContext4.isInsideModal;
 
   var needShadow = shadow && sizeX === SizeType.REGULAR;
-  var isFixed = fixed !== undefined ? fixed : platform !== Platform.VKCOM;
+  var isFixed = fixed !== undefined ? fixed : platform !== Platform.VKCOM; // TODO: удалить перед 5.0.0
+
+  var before = propsBefore !== null && propsBefore !== void 0 ? propsBefore : left;
+  var after = propsAfter !== null && propsAfter !== void 0 ? propsAfter : right;
+
+  if (process.env.NODE_ENV === "development") {
+    right && warn("Свойство right устарелo и будет удалено в 5.0.0. Используйте after.");
+    left && warn("Свойство left устарелo и будет удалено в 5.0.0. Используйте before.");
+  } // /end TODO
+
+
+  var innerProps = {
+    before: before,
+    after: after,
+    separator: separator,
+    children: children
+  };
   return createScopedElement("div", _extends({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName("PanelHeader", platform), {
@@ -84,8 +104,8 @@ var PanelHeader = function PanelHeader(props) {
       "PanelHeader--vis": visor,
       "PanelHeader--sep": separator && visor,
       "PanelHeader--vkapps": webviewType === WebviewType.VKAPPS && !isInsideModal,
-      "PanelHeader--no-left": !left,
-      "PanelHeader--no-right": !right,
+      "PanelHeader--no-before": !before,
+      "PanelHeader--no-after": !after,
       "PanelHeader--fixed": isFixed
     }, "PanelHeader--sizeX-".concat(sizeX)),
     ref: isFixed ? getRootRef : getRef
@@ -93,18 +113,16 @@ var PanelHeader = function PanelHeader(props) {
     vkuiClass: "PanelHeader__fixed",
     vertical: "top",
     getRootRef: getRef
-  }, createScopedElement(PanelHeaderIn, props)) : createScopedElement(PanelHeaderIn, props), separator && visor && platform !== VKCOM && (sizeX === SizeType.REGULAR ? createScopedElement(Spacing, {
+  }, createScopedElement(PanelHeaderIn, innerProps)) : createScopedElement(PanelHeaderIn, innerProps), separator && visor && platform !== VKCOM && (sizeX === SizeType.REGULAR ? createScopedElement(Spacing, {
     size: 16
   }) : createScopedElement(Separator, null)));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/PanelHeader
+ */
 
-PanelHeader.defaultProps = {
-  separator: true,
-  transparent: false,
-  visor: true
-}; // eslint-disable-next-line import/no-default-export
 
-export default withAdaptivity(PanelHeader, {
+export var PanelHeader = withAdaptivity(PanelHeaderComponent, {
   sizeX: true,
   sizeY: true
 });

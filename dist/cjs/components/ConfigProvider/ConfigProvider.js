@@ -7,7 +7,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.ConfigProvider = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -147,9 +147,7 @@ var ConfigProvider = function ConfigProvider(_ref) {
   }, (0, _jsxRuntime.createScopedElement)(_AppearanceProvider.AppearanceProvider, {
     appearance: configContext.appearance
   }, children)));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = ConfigProvider;
-exports.default = _default;
+exports.ConfigProvider = ConfigProvider;
 //# sourceMappingURL=ConfigProvider.js.map

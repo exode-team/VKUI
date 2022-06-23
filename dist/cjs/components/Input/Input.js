@@ -11,8 +11,6 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var _react = require("react");
@@ -27,7 +25,7 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value"];
+var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "onBlur", "value", "caretPosition", "alwaysInFocus", "isFocus"];
 
 var InputComponent = function InputComponent(_ref) {
   var _ref$type = _ref.type,
@@ -41,26 +39,40 @@ var InputComponent = function InputComponent(_ref) {
       before = _ref.before,
       after = _ref.after,
       onInput = _ref.onInput,
+      onBlur = _ref.onBlur,
       value = _ref.value,
+      caretPosition = _ref.caretPosition,
+      alwaysInFocus = _ref.alwaysInFocus,
+      _ref$isFocus = _ref.isFocus,
+      isFocus = _ref$isFocus === void 0 ? false : _ref$isFocus,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-
-  var _useState = (0, _react.useState)(0),
-      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
-      cursor = _useState2[0],
-      setCursor = _useState2[1];
-
+  var platform = (0, _usePlatform.usePlatform)();
   var ref = (0, _react.useRef)(null);
-  (0, _react.useEffect)(function () {
-    var input = ref.current;
-    if (input) input.setSelectionRange(cursor, cursor);
-  }, [ref, cursor, value]);
 
   var handleChange = function handleChange(e) {
-    e.target.selectionStart && setCursor(e.target.selectionStart);
+    var caret = e.target.selectionStart;
+    var element = e.target;
+    window.requestAnimationFrame(function () {
+      element.selectionStart = caret;
+      element.selectionEnd = caret;
+    });
     onInput && onInput(e);
   };
 
-  var platform = (0, _usePlatform.usePlatform)();
+  var handleBlur = function handleBlur() {
+    if (alwaysInFocus) {
+      var _ref$current;
+
+      (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus();
+    }
+  };
+
+  (0, _react.useEffect)(function () {
+    var _ref$current2, _ref$current3;
+
+    isFocus && ((_ref$current2 = ref.current) === null || _ref$current2 === void 0 ? void 0 : _ref$current2.focus());
+    caretPosition && ((_ref$current3 = ref.current) === null || _ref$current3 === void 0 ? void 0 : _ref$current3.setSelectionRange(caretPosition, caretPosition));
+  }, []);
   return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, {
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Input", platform), !!align && "Input--".concat(align), "Input--sizeY-".concat(sizeY)),
     style: style,
@@ -71,6 +83,7 @@ var InputComponent = function InputComponent(_ref) {
     disabled: restProps.disabled
   }, (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({}, restProps, {
     type: type,
+    onBlur: handleBlur || onBlur,
     onInput: handleChange,
     value: value,
     vkuiClass: "Input__el",

@@ -5,5 +5,4 @@ export declare type LinkProps = TappableProps;
 /**
  * @see https://vkcom.github.io/VKUI/#/Link
  */
-declare const Link: React.FC<LinkProps>;
-export default Link;
+export declare const Link: React.FC<LinkProps>;

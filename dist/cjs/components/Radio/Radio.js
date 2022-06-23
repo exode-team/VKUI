@@ -2,8 +2,6 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -15,7 +13,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
-var _Tappable = _interopRequireWildcard(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _classNames = require("../../lib/classNames");
 
@@ -68,7 +66,7 @@ var RadioComponent = function RadioComponent(props) {
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var RadioTypography = platform === _platform.VKCOM || sizeY === _withAdaptivity.SizeType.COMPACT ? _Text.Text : _Headline.Headline;
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     Component: "label",
     style: style,
     className: className,

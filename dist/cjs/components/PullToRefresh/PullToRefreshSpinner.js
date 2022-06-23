@@ -1,15 +1,11 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PullToRefreshSpinner = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
-var React = _interopRequireWildcard(require("react"));
 
 var _classNames = require("../../lib/classNames");
 
@@ -35,10 +31,7 @@ var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
   var circleCenter = 0.5 * size;
   var dashoffset = calcStrokeDashOffset(on ? 80 : progress, radius);
   return (0, _jsxRuntime.createScopedElement)("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)("PullToRefresh__spinner", {
-      "PullToRefresh__spinner--on": on
-    }),
+    vkuiClass: (0, _classNames.classNames)("PullToRefresh__spinner", on && "PullToRefresh__spinner--on"),
     style: style,
     "aria-label": on ? ariaLabel : undefined
   }, (0, _jsxRuntime.createScopedElement)("svg", {
@@ -67,10 +60,7 @@ var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
     cy: circleCenter,
     r: radius
   }))));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = /*#__PURE__*/React.memo(PullToRefreshSpinner);
-
-exports.default = _default;
+exports.PullToRefreshSpinner = PullToRefreshSpinner;
 //# sourceMappingURL=PullToRefreshSpinner.js.map

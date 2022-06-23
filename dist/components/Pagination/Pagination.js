@@ -7,7 +7,7 @@ import { Icon24ChevronCompactLeft, Icon24ChevronCompactRight } from "@vkontakte/
 import { classNames } from "../../lib/classNames";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { usePagination } from "../../hooks/usePagination";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { Button } from "../Button/Button";
 
 function getPageAriaLabelDefault(page, isCurrent) {

@@ -56,7 +56,7 @@ Object.defineProperty(exports, "AppearanceProvider", {
 Object.defineProperty(exports, "Avatar", {
   enumerable: true,
   get: function get() {
-    return _Avatar.default;
+    return _Avatar.Avatar;
   }
 });
 Object.defineProperty(exports, "Badge", {
@@ -68,7 +68,7 @@ Object.defineProperty(exports, "Badge", {
 Object.defineProperty(exports, "Banner", {
   enumerable: true,
   get: function get() {
-    return _Banner.default;
+    return _Banner.Banner;
   }
 });
 Object.defineProperty(exports, "Button", {
@@ -134,7 +134,7 @@ Object.defineProperty(exports, "CellButton", {
 Object.defineProperty(exports, "Checkbox", {
   enumerable: true,
   get: function get() {
-    return _Checkbox.default;
+    return _Checkbox.Checkbox;
   }
 });
 Object.defineProperty(exports, "Chip", {
@@ -152,7 +152,7 @@ Object.defineProperty(exports, "ChipsInput", {
 Object.defineProperty(exports, "ConfigProvider", {
   enumerable: true,
   get: function get() {
-    return _ConfigProvider.default;
+    return _ConfigProvider.ConfigProvider;
   }
 });
 Object.defineProperty(exports, "ConfigProviderContext", {
@@ -164,13 +164,13 @@ Object.defineProperty(exports, "ConfigProviderContext", {
 Object.defineProperty(exports, "ContentCard", {
   enumerable: true,
   get: function get() {
-    return _ContentCard.default;
+    return _ContentCard.ContentCard;
   }
 });
 Object.defineProperty(exports, "Counter", {
   enumerable: true,
   get: function get() {
-    return _Counter.default;
+    return _Counter.Counter;
   }
 });
 Object.defineProperty(exports, "CustomSelect", {
@@ -194,7 +194,7 @@ Object.defineProperty(exports, "DateInput", {
 Object.defineProperty(exports, "DatePicker", {
   enumerable: true,
   get: function get() {
-    return _DatePicker.default;
+    return _DatePicker.DatePicker;
   }
 });
 Object.defineProperty(exports, "DateRangeInput", {
@@ -212,7 +212,7 @@ Object.defineProperty(exports, "Div", {
 Object.defineProperty(exports, "Epic", {
   enumerable: true,
   get: function get() {
-    return _Epic.default;
+    return _Epic.Epic;
   }
 });
 Object.defineProperty(exports, "File", {
@@ -224,13 +224,19 @@ Object.defineProperty(exports, "File", {
 Object.defineProperty(exports, "FixedLayout", {
   enumerable: true,
   get: function get() {
-    return _FixedLayout.default;
+    return _FixedLayout.FixedLayout;
   }
 });
 Object.defineProperty(exports, "Footer", {
   enumerable: true,
   get: function get() {
     return _Footer.Footer;
+  }
+});
+Object.defineProperty(exports, "Footnote", {
+  enumerable: true,
+  get: function get() {
+    return _Footnote.Footnote;
   }
 });
 Object.defineProperty(exports, "FormField", {
@@ -248,13 +254,13 @@ Object.defineProperty(exports, "FormItem", {
 Object.defineProperty(exports, "FormLayout", {
   enumerable: true,
   get: function get() {
-    return _FormLayout.default;
+    return _FormLayout.FormLayout;
   }
 });
 Object.defineProperty(exports, "FormLayoutGroup", {
   enumerable: true,
   get: function get() {
-    return _FormLayoutGroup.default;
+    return _FormLayoutGroup.FormLayoutGroup;
   }
 });
 Object.defineProperty(exports, "FormStatus", {
@@ -266,7 +272,7 @@ Object.defineProperty(exports, "FormStatus", {
 Object.defineProperty(exports, "Gallery", {
   enumerable: true,
   get: function get() {
-    return _Gallery.default;
+    return _Gallery.Gallery;
   }
 });
 Object.defineProperty(exports, "Gradient", {
@@ -284,13 +290,13 @@ Object.defineProperty(exports, "GridAvatar", {
 Object.defineProperty(exports, "Group", {
   enumerable: true,
   get: function get() {
-    return _Group.default;
+    return _Group.Group;
   }
 });
 Object.defineProperty(exports, "Header", {
   enumerable: true,
   get: function get() {
-    return _Header.default;
+    return _Header.Header;
   }
 });
 Object.defineProperty(exports, "Headline", {
@@ -332,13 +338,13 @@ Object.defineProperty(exports, "IS_PLATFORM_IOS", {
 Object.defineProperty(exports, "IconButton", {
   enumerable: true,
   get: function get() {
-    return _IconButton.default;
+    return _IconButton.IconButton;
   }
 });
 Object.defineProperty(exports, "InfoRow", {
   enumerable: true,
   get: function get() {
-    return _InfoRow.default;
+    return _InfoRow.InfoRow;
   }
 });
 Object.defineProperty(exports, "InitialsAvatar", {
@@ -356,13 +362,13 @@ Object.defineProperty(exports, "Input", {
 Object.defineProperty(exports, "Link", {
   enumerable: true,
   get: function get() {
-    return _Link.default;
+    return _Link.Link;
   }
 });
 Object.defineProperty(exports, "List", {
   enumerable: true,
   get: function get() {
-    return _List.default;
+    return _List.List;
   }
 });
 Object.defineProperty(exports, "LocaleProviderContext", {
@@ -380,7 +386,7 @@ Object.defineProperty(exports, "MiniInfoCell", {
 Object.defineProperty(exports, "ModalCard", {
   enumerable: true,
   get: function get() {
-    return _ModalCard.default;
+    return _ModalCard.ModalCard;
   }
 });
 Object.defineProperty(exports, "ModalCardBase", {
@@ -392,19 +398,19 @@ Object.defineProperty(exports, "ModalCardBase", {
 Object.defineProperty(exports, "ModalDismissButton", {
   enumerable: true,
   get: function get() {
-    return _ModalDismissButton.default;
+    return _ModalDismissButton.ModalDismissButton;
   }
 });
 Object.defineProperty(exports, "ModalPage", {
   enumerable: true,
   get: function get() {
-    return _ModalPage.default;
+    return _ModalPage.ModalPage;
   }
 });
 Object.defineProperty(exports, "ModalPageHeader", {
   enumerable: true,
   get: function get() {
-    return _ModalPageHeader.default;
+    return _ModalPageHeader.ModalPageHeader;
   }
 });
 Object.defineProperty(exports, "ModalRoot", {
@@ -416,7 +422,7 @@ Object.defineProperty(exports, "ModalRoot", {
 Object.defineProperty(exports, "ModalRootContext", {
   enumerable: true,
   get: function get() {
-    return _ModalRootContext.default;
+    return _ModalRootContext.ModalRootContext;
   }
 });
 Object.defineProperty(exports, "NativeSelect", {
@@ -440,13 +446,13 @@ Object.defineProperty(exports, "Panel", {
 Object.defineProperty(exports, "PanelHeader", {
   enumerable: true,
   get: function get() {
-    return _PanelHeader.default;
+    return _PanelHeader.PanelHeader;
   }
 });
 Object.defineProperty(exports, "PanelHeaderBack", {
   enumerable: true,
   get: function get() {
-    return _PanelHeaderBack.default;
+    return _PanelHeaderBack.PanelHeaderBack;
   }
 });
 Object.defineProperty(exports, "PanelHeaderButton", {
@@ -458,13 +464,13 @@ Object.defineProperty(exports, "PanelHeaderButton", {
 Object.defineProperty(exports, "PanelHeaderClose", {
   enumerable: true,
   get: function get() {
-    return _PanelHeaderClose.default;
+    return _PanelHeaderClose.PanelHeaderClose;
   }
 });
 Object.defineProperty(exports, "PanelHeaderContent", {
   enumerable: true,
   get: function get() {
-    return _PanelHeaderContent.default;
+    return _PanelHeaderContent.PanelHeaderContent;
   }
 });
 Object.defineProperty(exports, "PanelHeaderContext", {
@@ -476,13 +482,13 @@ Object.defineProperty(exports, "PanelHeaderContext", {
 Object.defineProperty(exports, "PanelHeaderEdit", {
   enumerable: true,
   get: function get() {
-    return _PanelHeaderEdit.default;
+    return _PanelHeaderEdit.PanelHeaderEdit;
   }
 });
 Object.defineProperty(exports, "PanelHeaderSubmit", {
   enumerable: true,
   get: function get() {
-    return _PanelHeaderSubmit.default;
+    return _PanelHeaderSubmit.PanelHeaderSubmit;
   }
 });
 Object.defineProperty(exports, "PanelSpinner", {
@@ -500,7 +506,7 @@ Object.defineProperty(exports, "Paragraph", {
 Object.defineProperty(exports, "Placeholder", {
   enumerable: true,
   get: function get() {
-    return _Placeholder.default;
+    return _Placeholder.Placeholder;
   }
 });
 Object.defineProperty(exports, "Platform", {
@@ -530,13 +536,13 @@ Object.defineProperty(exports, "Progress", {
 Object.defineProperty(exports, "PromoBanner", {
   enumerable: true,
   get: function get() {
-    return _PromoBanner.default;
+    return _PromoBanner.PromoBanner;
   }
 });
 Object.defineProperty(exports, "PullToRefresh", {
   enumerable: true,
   get: function get() {
-    return _PullToRefresh.default;
+    return _PullToRefresh.PullToRefresh;
   }
 });
 Object.defineProperty(exports, "Radio", {
@@ -554,19 +560,19 @@ Object.defineProperty(exports, "RadioGroup", {
 Object.defineProperty(exports, "RangeSlider", {
   enumerable: true,
   get: function get() {
-    return _RangeSlider.default;
+    return _RangeSlider.RangeSlider;
   }
 });
 Object.defineProperty(exports, "RichCell", {
   enumerable: true,
   get: function get() {
-    return _RichCell.default;
+    return _RichCell.RichCell;
   }
 });
 Object.defineProperty(exports, "Root", {
   enumerable: true,
   get: function get() {
-    return _Root.default;
+    return _Root.Root;
   }
 });
 Object.defineProperty(exports, "SSRWrapper", {
@@ -584,13 +590,13 @@ Object.defineProperty(exports, "Scheme", {
 Object.defineProperty(exports, "ScreenSpinner", {
   enumerable: true,
   get: function get() {
-    return _ScreenSpinner.default;
+    return _ScreenSpinner.ScreenSpinner;
   }
 });
 Object.defineProperty(exports, "Search", {
   enumerable: true,
   get: function get() {
-    return _Search.default;
+    return _Search.Search;
   }
 });
 Object.defineProperty(exports, "SegmentedControl", {
@@ -620,7 +626,7 @@ Object.defineProperty(exports, "Separator", {
 Object.defineProperty(exports, "SimpleCell", {
   enumerable: true,
   get: function get() {
-    return _SimpleCell.default;
+    return _SimpleCell.SimpleCell;
   }
 });
 Object.defineProperty(exports, "SizeType", {
@@ -632,7 +638,7 @@ Object.defineProperty(exports, "SizeType", {
 Object.defineProperty(exports, "Slider", {
   enumerable: true,
   get: function get() {
-    return _Slider.default;
+    return _Slider.Slider;
   }
 });
 Object.defineProperty(exports, "SliderSwitch", {
@@ -698,31 +704,31 @@ Object.defineProperty(exports, "Switch", {
 Object.defineProperty(exports, "Tabbar", {
   enumerable: true,
   get: function get() {
-    return _Tabbar.default;
+    return _Tabbar.Tabbar;
   }
 });
 Object.defineProperty(exports, "TabbarItem", {
   enumerable: true,
   get: function get() {
-    return _TabbarItem.default;
+    return _TabbarItem.TabbarItem;
   }
 });
 Object.defineProperty(exports, "Tabs", {
   enumerable: true,
   get: function get() {
-    return _Tabs.default;
+    return _Tabs.Tabs;
   }
 });
 Object.defineProperty(exports, "TabsItem", {
   enumerable: true,
   get: function get() {
-    return _TabsItem.default;
+    return _TabsItem.TabsItem;
   }
 });
 Object.defineProperty(exports, "Tappable", {
   enumerable: true,
   get: function get() {
-    return _Tappable.default;
+    return _Tappable.Tappable;
   }
 });
 Object.defineProperty(exports, "Text", {
@@ -734,7 +740,7 @@ Object.defineProperty(exports, "Text", {
 Object.defineProperty(exports, "Textarea", {
   enumerable: true,
   get: function get() {
-    return _Textarea.default;
+    return _Textarea.Textarea;
   }
 });
 Object.defineProperty(exports, "Title", {
@@ -746,7 +752,7 @@ Object.defineProperty(exports, "Title", {
 Object.defineProperty(exports, "Tooltip", {
   enumerable: true,
   get: function get() {
-    return _Tooltip.default;
+    return _Tooltip.Tooltip;
   }
 });
 Object.defineProperty(exports, "TooltipContainer", {
@@ -764,7 +770,7 @@ Object.defineProperty(exports, "Touch", {
 Object.defineProperty(exports, "UsersStack", {
   enumerable: true,
   get: function get() {
-    return _UsersStack.default;
+    return _UsersStack.UsersStack;
   }
 });
 Object.defineProperty(exports, "VKCOM", {
@@ -776,7 +782,7 @@ Object.defineProperty(exports, "VKCOM", {
 Object.defineProperty(exports, "View", {
   enumerable: true,
   get: function get() {
-    return _View.default;
+    return _View.View;
   }
 });
 Object.defineProperty(exports, "ViewHeight", {
@@ -812,7 +818,7 @@ Object.defineProperty(exports, "WriteBarIcon", {
 Object.defineProperty(exports, "animate", {
   enumerable: true,
   get: function get() {
-    return _animate.default;
+    return _animate.animate;
   }
 });
 Object.defineProperty(exports, "calcInitialsAvatarColor", {
@@ -914,17 +920,17 @@ Object.defineProperty(exports, "withPlatform", {
 
 require("./lib/polyfills");
 
-var _Root = _interopRequireDefault(require("./components/Root/Root"));
+var _Root = require("./components/Root/Root");
 
-var _View = _interopRequireDefault(require("./components/View/View"));
+var _View = require("./components/View/View");
 
 var _Panel = require("./components/Panel/Panel");
 
 var _PanelHeaderButton = require("./components/PanelHeaderButton/PanelHeaderButton");
 
-var _PanelHeader = _interopRequireDefault(require("./components/PanelHeader/PanelHeader"));
+var _PanelHeader = require("./components/PanelHeader/PanelHeader");
 
-var _PanelHeaderContent = _interopRequireDefault(require("./components/PanelHeaderContent/PanelHeaderContent"));
+var _PanelHeaderContent = require("./components/PanelHeaderContent/PanelHeaderContent");
 
 var _PanelHeaderContext = require("./components/PanelHeaderContext/PanelHeaderContext");
 
@@ -932,15 +938,15 @@ var _SplitLayout = require("./components/SplitLayout/SplitLayout");
 
 var _SplitCol = require("./components/SplitCol/SplitCol");
 
-var _Epic = _interopRequireDefault(require("./components/Epic/Epic"));
+var _Epic = require("./components/Epic/Epic");
 
-var _Tabbar = _interopRequireDefault(require("./components/Tabbar/Tabbar"));
+var _Tabbar = require("./components/Tabbar/Tabbar");
 
-var _TabbarItem = _interopRequireDefault(require("./components/TabbarItem/TabbarItem"));
+var _TabbarItem = require("./components/TabbarItem/TabbarItem");
 
 var _HorizontalScroll = require("./components/HorizontalScroll/HorizontalScroll");
 
-var _FixedLayout = _interopRequireDefault(require("./components/FixedLayout/FixedLayout"));
+var _FixedLayout = require("./components/FixedLayout/FixedLayout");
 
 var _PopoutWrapper = require("./components/PopoutWrapper/PopoutWrapper");
 
@@ -950,7 +956,7 @@ var _ActionSheet = require("./components/ActionSheet/ActionSheet");
 
 var _ActionSheetItem = require("./components/ActionSheetItem/ActionSheetItem");
 
-var _ScreenSpinner = _interopRequireDefault(require("./components/ScreenSpinner/ScreenSpinner"));
+var _ScreenSpinner = require("./components/ScreenSpinner/ScreenSpinner");
 
 var _Snackbar = require("./components/Snackbar/Snackbar");
 
@@ -958,15 +964,15 @@ var _ModalRootAdaptive = require("./components/ModalRoot/ModalRootAdaptive");
 
 var _withModalRootContext = require("./components/ModalRoot/withModalRootContext");
 
-var _ModalRootContext = _interopRequireDefault(require("./components/ModalRoot/ModalRootContext"));
+var _ModalRootContext = require("./components/ModalRoot/ModalRootContext");
 
-var _ModalPage = _interopRequireDefault(require("./components/ModalPage/ModalPage"));
+var _ModalPage = require("./components/ModalPage/ModalPage");
 
-var _ModalPageHeader = _interopRequireDefault(require("./components/ModalPageHeader/ModalPageHeader"));
+var _ModalPageHeader = require("./components/ModalPageHeader/ModalPageHeader");
 
-var _ModalCard = _interopRequireDefault(require("./components/ModalCard/ModalCard"));
+var _ModalCard = require("./components/ModalCard/ModalCard");
 
-var _ModalDismissButton = _interopRequireDefault(require("./components/ModalDismissButton/ModalDismissButton"));
+var _ModalDismissButton = require("./components/ModalDismissButton/ModalDismissButton");
 
 var _Badge = require("./components/Badge/Badge");
 
@@ -974,7 +980,7 @@ var _ButtonGroup = require("./components/ButtonGroup/ButtonGroup");
 
 var _Button = require("./components/Button/Button");
 
-var _IconButton = _interopRequireDefault(require("./components/IconButton/IconButton"));
+var _IconButton = require("./components/IconButton/IconButton");
 
 var _Card = require("./components/Card/Card");
 
@@ -982,33 +988,33 @@ var _CardGrid = _interopRequireDefault(require("./components/CardGrid/CardGrid")
 
 var _CardScroll = require("./components/CardScroll/CardScroll");
 
-var _ContentCard = _interopRequireDefault(require("./components/ContentCard/ContentCard"));
+var _ContentCard = require("./components/ContentCard/ContentCard");
 
 var _CellButton = require("./components/CellButton/CellButton");
 
-var _Header = _interopRequireDefault(require("./components/Header/Header"));
+var _Header = require("./components/Header/Header");
 
-var _Group = _interopRequireDefault(require("./components/Group/Group"));
+var _Group = require("./components/Group/Group");
 
 var _Gradient = require("./components/Gradient/Gradient");
 
-var _List = _interopRequireDefault(require("./components/List/List"));
+var _List = require("./components/List/List");
 
 var _Cell = require("./components/Cell/Cell");
 
-var _RichCell = _interopRequireDefault(require("./components/RichCell/RichCell"));
+var _RichCell = require("./components/RichCell/RichCell");
 
-var _SimpleCell = _interopRequireDefault(require("./components/SimpleCell/SimpleCell"));
+var _SimpleCell = require("./components/SimpleCell/SimpleCell");
 
 var _HorizontalCell = require("./components/HorizontalCell/HorizontalCell");
 
 var _Footer = require("./components/Footer/Footer");
 
-var _InfoRow = _interopRequireDefault(require("./components/InfoRow/InfoRow"));
+var _InfoRow = require("./components/InfoRow/InfoRow");
 
-var _Gallery = _interopRequireDefault(require("./components/Gallery/Gallery"));
+var _Gallery = require("./components/Gallery/Gallery");
 
-var _Avatar = _interopRequireDefault(require("./components/Avatar/Avatar"));
+var _Avatar = require("./components/Avatar/Avatar");
 
 var _GridAvatar = require("./components/GridAvatar/GridAvatar");
 
@@ -1016,33 +1022,33 @@ var _InitialsAvatar = require("./components/InitialsAvatar/InitialsAvatar");
 
 var _Progress = require("./components/Progress/Progress");
 
-var _Search = _interopRequireDefault(require("./components/Search/Search"));
+var _Search = require("./components/Search/Search");
 
-var _Tabs = _interopRequireDefault(require("./components/Tabs/Tabs"));
+var _Tabs = require("./components/Tabs/Tabs");
 
-var _TabsItem = _interopRequireDefault(require("./components/TabsItem/TabsItem"));
+var _TabsItem = require("./components/TabsItem/TabsItem");
 
 var _Spinner = require("./components/Spinner/Spinner");
 
-var _PullToRefresh = _interopRequireDefault(require("./components/PullToRefresh/PullToRefresh"));
+var _PullToRefresh = require("./components/PullToRefresh/PullToRefresh");
 
-var _Link = _interopRequireDefault(require("./components/Link/Link"));
+var _Link = require("./components/Link/Link");
 
-var _Tooltip = _interopRequireDefault(require("./components/Tooltip/Tooltip"));
+var _Tooltip = require("./components/Tooltip/Tooltip");
 
 var _TooltipContainer = require("./components/Tooltip/TooltipContainer");
 
-var _Counter = _interopRequireDefault(require("./components/Counter/Counter"));
+var _Counter = require("./components/Counter/Counter");
 
-var _UsersStack = _interopRequireDefault(require("./components/UsersStack/UsersStack"));
+var _UsersStack = require("./components/UsersStack/UsersStack");
 
 var _Separator = require("./components/Separator/Separator");
 
 var _Spacing = require("./components/Spacing/Spacing");
 
-var _Placeholder = _interopRequireDefault(require("./components/Placeholder/Placeholder"));
+var _Placeholder = require("./components/Placeholder/Placeholder");
 
-var _Banner = _interopRequireDefault(require("./components/Banner/Banner"));
+var _Banner = require("./components/Banner/Banner");
 
 var _MiniInfoCell = require("./components/MiniInfoCell/MiniInfoCell");
 
@@ -1056,13 +1062,13 @@ var _SubnavigationButton = require("./components/SubnavigationButton/Subnavigati
 
 var _Pagination = require("./components/Pagination/Pagination");
 
-var _FormLayout = _interopRequireDefault(require("./components/FormLayout/FormLayout"));
+var _FormLayout = require("./components/FormLayout/FormLayout");
 
 var _FormItem = require("./components/FormItem/FormItem");
 
 var _FormField = require("./components/FormField/FormField");
 
-var _FormLayoutGroup = _interopRequireDefault(require("./components/FormLayoutGroup/FormLayoutGroup"));
+var _FormLayoutGroup = require("./components/FormLayoutGroup/FormLayoutGroup");
 
 var _FormStatus = require("./components/FormStatus/FormStatus");
 
@@ -1076,17 +1082,17 @@ var _Chip = require("./components/Chip/Chip");
 
 var _ChipsInput = require("./components/ChipsInput/ChipsInput");
 
-var _Slider = _interopRequireDefault(require("./components/Slider/Slider"));
+var _Slider = require("./components/Slider/Slider");
 
-var _RangeSlider = _interopRequireDefault(require("./components/RangeSlider/RangeSlider"));
+var _RangeSlider = require("./components/RangeSlider/RangeSlider");
 
-var _Textarea = _interopRequireDefault(require("./components/Textarea/Textarea"));
+var _Textarea = require("./components/Textarea/Textarea");
 
 var _Radio = require("./components/Radio/Radio");
 
 var _RadioGroup = require("./components/RadioGroup/RadioGroup");
 
-var _Checkbox = _interopRequireDefault(require("./components/Checkbox/Checkbox"));
+var _Checkbox = require("./components/Checkbox/Checkbox");
 
 var _Select = require("./components/Select/Select");
 
@@ -1098,7 +1104,7 @@ var _CustomSelect = require("./components/CustomSelect/CustomSelect");
 
 var _CustomSelectOption = require("./components/CustomSelectOption/CustomSelectOption");
 
-var _DatePicker = _interopRequireDefault(require("./components/DatePicker/DatePicker"));
+var _DatePicker = require("./components/DatePicker/DatePicker");
 
 var _SliderSwitch = require("./components/SliderSwitch/SliderSwitch");
 
@@ -1114,19 +1120,19 @@ var _DateRangeInput = require("./components/DateRangeInput/DateRangeInput");
 
 var _Div = require("./components/Div/Div");
 
-var _Tappable = _interopRequireDefault(require("./components/Tappable/Tappable"));
+var _Tappable = require("./components/Tappable/Tappable");
 
 var _Touch = require("./components/Touch/Touch");
 
 var _PanelSpinner = require("./components/PanelSpinner/PanelSpinner");
 
-var _PanelHeaderClose = _interopRequireDefault(require("./components/PanelHeaderClose/PanelHeaderClose"));
+var _PanelHeaderClose = require("./components/PanelHeaderClose/PanelHeaderClose");
 
-var _PanelHeaderBack = _interopRequireDefault(require("./components/PanelHeaderBack/PanelHeaderBack"));
+var _PanelHeaderBack = require("./components/PanelHeaderBack/PanelHeaderBack");
 
-var _PanelHeaderSubmit = _interopRequireDefault(require("./components/PanelHeaderSubmit/PanelHeaderSubmit"));
+var _PanelHeaderSubmit = require("./components/PanelHeaderSubmit/PanelHeaderSubmit");
 
-var _PanelHeaderEdit = _interopRequireDefault(require("./components/PanelHeaderEdit/PanelHeaderEdit"));
+var _PanelHeaderEdit = require("./components/PanelHeaderEdit/PanelHeaderEdit");
 
 var _ModalCardBase = require("./components/ModalCardBase/ModalCardBase");
 
@@ -1134,7 +1140,7 @@ var _AppRoot = require("./components/AppRoot/AppRoot");
 
 var _AdaptivityProvider = require("./components/AdaptivityProvider/AdaptivityProvider");
 
-var _ConfigProvider = _interopRequireDefault(require("./components/ConfigProvider/ConfigProvider"));
+var _ConfigProvider = require("./components/ConfigProvider/ConfigProvider");
 
 var _ConfigProviderContext = require("./components/ConfigProvider/ConfigProviderContext");
 
@@ -1144,7 +1150,7 @@ var _scheme = require("./helpers/scheme");
 
 var _LocaleProviderContext = require("./components/LocaleProviderContext/LocaleProviderContext");
 
-var _PromoBanner = _interopRequireDefault(require("./components/PromoBanner/PromoBanner"));
+var _PromoBanner = require("./components/PromoBanner/PromoBanner");
 
 var _Title = require("./components/Typography/Title/Title");
 
@@ -1152,11 +1158,13 @@ var _Headline = require("./components/Typography/Headline/Headline");
 
 var _Text = require("./components/Typography/Text/Text");
 
-var _Caption = require("./components/Typography/Caption/Caption");
+var _Paragraph = require("./components/Typography/Paragraph/Paragraph");
 
 var _Subhead = require("./components/Typography/Subhead/Subhead");
 
-var _Paragraph = require("./components/Typography/Paragraph/Paragraph");
+var _Footnote = require("./components/Typography/Footnote/Footnote");
+
+var _Caption = require("./components/Typography/Caption/Caption");
 
 var _withInsets = require("./hoc/withInsets");
 
@@ -1180,7 +1188,7 @@ var _NavTransitionContext = require("./components/NavTransitionContext/NavTransi
 
 var _classNames = require("./lib/classNames");
 
-var _animate = _interopRequireDefault(require("./lib/animate"));
+var _animate = require("./lib/animate");
 
 var _removeObjectKeys = require("./lib/removeObjectKeys");
 

@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
 Object.defineProperty(exports, "__esModule", {
@@ -17,7 +15,7 @@ var _date = require("../../lib/date");
 
 var _icons = require("@vkontakte/icons");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _classNames = require("../../lib/classNames");
 
@@ -99,7 +97,7 @@ var CalendarHeader = function CalendarHeader(_ref) {
     className: className
   }, prevMonth && (0, _jsxRuntime.createScopedElement)(_AdaptivityProvider.AdaptivityProvider, {
     sizeX: _withAdaptivity.SizeType.REGULAR
-  }, (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-prev"),
     onClick: onPrevMonth,
     "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatter.format((0, _date.subMonths)(viewDate, 1)))
@@ -140,7 +138,7 @@ var CalendarHeader = function CalendarHeader(_ref) {
     "aria-label": changeYearAriaLabel
   })), nextMonth && (0, _jsxRuntime.createScopedElement)(_AdaptivityProvider.AdaptivityProvider, {
     sizeX: _withAdaptivity.SizeType.REGULAR
-  }, (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-next"),
     onClick: onNextMonth,
     "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format((0, _date.addMonths)(viewDate, 1)))

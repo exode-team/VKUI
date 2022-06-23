@@ -21,8 +21,6 @@ var React = _interopRequireWildcard(require("react"));
 
 var _Touch = require("../Touch/Touch");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _math = require("../../helpers/math");
@@ -30,8 +28,6 @@ var _math = require("../../helpers/math");
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _useExternRef = require("../../hooks/useExternRef");
-
-var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["min", "max", "step", "value", "defaultValue", "onChange", "getRootRef", "sizeY", "disabled"];
 
@@ -49,7 +45,6 @@ var UniversalSliderDumb = function UniversalSliderDumb(_ref) {
       sizeY = _ref.sizeY,
       disabled = _ref.disabled,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
 
   var _value = (0, _slicedToArray2.default)(value, 2),
       start = _value[0],
@@ -154,7 +149,7 @@ var UniversalSliderDumb = function UniversalSliderDumb(_ref) {
     onMove: onMove,
     onEnd: onEnd
   }, {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Slider", platform), "Slider--sizeY-".concat(sizeY), disabled && "Slider--disabled")
+    vkuiClass: (0, _classNames.classNames)("Slider", "Slider--sizeY-".concat(sizeY), disabled && "Slider--disabled")
   }), (0, _jsxRuntime.createScopedElement)("div", {
     ref: container,
     vkuiClass: "Slider__in"

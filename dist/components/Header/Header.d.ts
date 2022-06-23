@@ -17,5 +17,4 @@ export interface HeaderProps extends React.HTMLAttributes<HTMLElement>, HasRootR
 /**
  * @see https://vkcom.github.io/VKUI/#/Header
  */
-declare const Header: React.FC<HeaderProps>;
-export default Header;
+export declare const Header: React.FC<HeaderProps>;

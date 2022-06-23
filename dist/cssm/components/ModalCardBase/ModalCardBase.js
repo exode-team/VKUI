@@ -4,14 +4,14 @@ var _excluded = ["getRootRef", "icon", "header", "subheader", "children", "actio
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { hasReactNode } from "../../lib/utils";
 import { Title } from "../Typography/Title/Title";
-import { Headline } from "../Typography/Headline/Headline";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { ViewWidth, withAdaptivity } from "../../hoc/withAdaptivity";
 import { PanelHeaderButton } from "../PanelHeaderButton/PanelHeaderButton";
 import { ANDROID, IOS, Platform } from "../../lib/platform";
-import ModalDismissButton from "../ModalDismissButton/ModalDismissButton";
+import { ModalDismissButton } from "../ModalDismissButton/ModalDismissButton";
 import { Icon24Dismiss } from "@vkontakte/icons";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
@@ -58,8 +58,7 @@ export var ModalCardBase = withAdaptivity(function (_ref) {
     level: "2",
     weight: platform === ANDROID ? "2" : "1",
     vkuiClass: "ModalCardBase__header"
-  }, header), hasReactNode(subheader) && createScopedElement(Headline, {
-    weight: "3",
+  }, header), hasReactNode(subheader) && createScopedElement(Subhead, {
     vkuiClass: "ModalCardBase__subheader"
   }, subheader), children, hasReactNode(actions) && createScopedElement("div", {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments

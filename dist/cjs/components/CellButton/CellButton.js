@@ -11,17 +11,11 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _getClassName = require("../../helpers/getClassName");
+var _classNames = require("../../lib/classNames");
 
-var _classNames2 = require("../../lib/classNames");
-
-var _usePlatform = require("../../hooks/usePlatform");
-
-var _SimpleCell = _interopRequireDefault(require("../SimpleCell/SimpleCell"));
+var _SimpleCell = require("../SimpleCell/SimpleCell");
 
 var _excluded = ["centered", "mode"];
 
@@ -34,12 +28,10 @@ var CellButton = function CellButton(_ref) {
       _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? "primary" : _ref$mode,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
-  return (0, _jsxRuntime.createScopedElement)(_SimpleCell.default, (0, _extends2.default)({
+  return (0, _jsxRuntime.createScopedElement)(_SimpleCell.SimpleCell, (0, _extends2.default)({
     stopPropagation: true
   }, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("CellButton", platform), "CellButton--".concat(mode), (0, _defineProperty2.default)({}, "CellButton--centered", centered))
+    vkuiClass: (0, _classNames.classNames)("CellButton", "CellButton--".concat(mode), centered && "CellButton--centered")
   }));
 };
 

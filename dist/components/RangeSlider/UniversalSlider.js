@@ -5,12 +5,10 @@ var _excluded = ["min", "max", "step", "value", "defaultValue", "onChange", "get
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Touch } from "../Touch/Touch";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { rescale } from "../../helpers/math";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { useExternRef } from "../../hooks/useExternRef";
-import { usePlatform } from "../../hooks/usePlatform";
 
 var UniversalSliderDumb = function UniversalSliderDumb(_ref) {
   var _ref$min = _ref.min,
@@ -26,8 +24,6 @@ var UniversalSliderDumb = function UniversalSliderDumb(_ref) {
       sizeY = _ref.sizeY,
       disabled = _ref.disabled,
       restProps = _objectWithoutProperties(_ref, _excluded);
-
-  var platform = usePlatform();
 
   var _value = _slicedToArray(value, 2),
       start = _value[0],
@@ -132,7 +128,7 @@ var UniversalSliderDumb = function UniversalSliderDumb(_ref) {
     onMove: onMove,
     onEnd: onEnd
   }, {
-    vkuiClass: classNames(getClassName("Slider", platform), "Slider--sizeY-".concat(sizeY), disabled && "Slider--disabled")
+    vkuiClass: classNames("Slider", "Slider--sizeY-".concat(sizeY), disabled && "Slider--disabled")
   }), createScopedElement("div", {
     ref: container,
     vkuiClass: "Slider__in"

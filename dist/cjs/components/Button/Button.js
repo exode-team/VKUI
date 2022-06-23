@@ -21,7 +21,7 @@ var _classNames = require("../../lib/classNames");
 
 var _ConfigProviderContext = require("../ConfigProvider/ConfigProviderContext");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _Title = require("../Typography/Title/Title");
 
@@ -182,12 +182,12 @@ var ButtonComponent = function ButtonComponent(_ref) {
       resolvedAppearance = _resolveButtonAppeara.resolvedAppearance;
 
   var hasNewTokens = React.useContext(_ConfigProviderContext.ConfigProviderContext).hasNewTokens;
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     Component: restProps.href ? "a" : Component,
     onClick: loading ? undefined : onClick,
     focusVisibleMode: "outside",
     stopPropagation: stopPropagation,
-    vkuiClass: (0, _classNames.classNames)("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), stretched && "Button--stretched", hasIcons && "Button--with-icon", hasIconOnly && "Button--singleIcon"),
+    vkuiClass: (0, _classNames.classNames)("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), stretched && "Button--stretched", hasIcons && "Button--with-icon", hasIconOnly && "Button--singleIcon", loading && "Button--loading"),
     getRootRef: getRootRef,
     hoverMode: hasNewTokens ? "Button--hover" : "background",
     activeMode: hasNewTokens ? "Button--active" : "opacity"

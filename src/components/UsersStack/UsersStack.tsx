@@ -1,14 +1,14 @@
-import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
-import { hasReactNode } from "../../lib/utils";
-import { classNames } from "../../lib/classNames";
-import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
-import { Caption } from "../Typography/Caption/Caption";
-import { Subhead } from "../Typography/Subhead/Subhead";
-import { createMasks } from "./masks";
-import { useDOM } from "../../lib/dom";
-import "./UsersStack.css";
+import * as React from 'react';
+import { getClassName } from '../../helpers/getClassName';
+import { usePlatform } from '../../hooks/usePlatform';
+import { hasReactNode } from '../../lib/utils';
+import { classNames } from '../../lib/classNames';
+import { useIsomorphicLayoutEffect } from '../../lib/useIsomorphicLayoutEffect';
+import { Caption } from '../Typography/Caption/Caption';
+import { Subhead } from '../Typography/Subhead/Subhead';
+import { createMasks } from './masks';
+import { useDOM } from '../../lib/dom';
+import './UsersStack.css';
 
 export interface UsersStackProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -18,11 +18,11 @@ export interface UsersStackProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Размер аватарок
    */
-  size?: "xs" | "s" | "m";
+  size?: 'xs' | 's' | 'm';
   /**
    * Вертикальный режим рекомендуется использовать с размером `m`
    */
-  layout?: "vertical" | "horizontal";
+  layout?: 'vertical' | 'horizontal';
   /**
    * Количество аватарок, которые будут показаны.
    * Если в массиве `photos` больше элементов и используется размер `m`, то будет показано количество остальных элементов
@@ -33,13 +33,13 @@ export interface UsersStackProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/UsersStack
  */
-const UsersStack: React.FC<UsersStackProps> = (props: UsersStackProps) => {
+export const UsersStack: React.FC<UsersStackProps> = (props: UsersStackProps) => {
   const platform = usePlatform();
   const {
     photos = [],
-    visibleCount = 0,
-    size,
-    layout,
+    visibleCount = 3,
+    size = 's',
+    layout = 'horizontal',
     children,
     ...restProps
   } = props;
@@ -50,38 +50,41 @@ const UsersStack: React.FC<UsersStackProps> = (props: UsersStackProps) => {
   }, [document]);
 
   const othersCount = Math.max(0, photos.length - visibleCount);
-  const canShowOthers = othersCount > 0 && size === "m";
+  const canShowOthers = othersCount > 0 && size === 'm';
 
   const photosShown = photos.slice(0, visibleCount);
+
+  const parseSize = {
+    xs: 16,
+    s: 24,
+    m: 32,
+  };
+
+  const getClipPath = (index: number) => index === 0 ? '' : `url(#users_stack_mask_${parseSize[size]}_left)`
 
   return (
     <div
       {...restProps}
       // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
-        getClassName("UsersStack", platform),
+        getClassName('UsersStack', platform),
         `UsersStack--size-${size}`,
         `UsersStack--l-${layout}`,
         {
-          "UsersStack--others": canShowOthers,
+          'UsersStack--others': canShowOthers,
         }
       )}
     >
       <div vkuiClass="UsersStack__photos" role="presentation">
-        {photosShown.map((item, i) => {
-          return typeof item === 'string'
-            ? (<div
-              key={i}
-              vkuiClass="UsersStack__photo"
-              style={{ backgroundImage: `url(${item})` }}
-            />)
-            : (<div
+        {photosShown.map((item, i) => (
+          <div
                 key={i}
                 vkuiClass="UsersStack__photo"
+                style={{clipPath: getClipPath(i)}}
               >
                 {item}
               </div>
-            )})}
+        ))}
 
         {canShowOthers && (
           <Caption
@@ -102,12 +105,4 @@ const UsersStack: React.FC<UsersStackProps> = (props: UsersStackProps) => {
   );
 };
 
-UsersStack.defaultProps = {
-  photos: [],
-  size: "s",
-  visibleCount: 3,
-  layout: "horizontal",
-};
-
 // eslint-disable-next-line import/no-default-export
-export default React.memo(UsersStack);

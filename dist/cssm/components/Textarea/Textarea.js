@@ -1,22 +1,20 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows"];
+var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows", "maxHeight"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { FormField } from "../FormField/FormField";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
-import { getClassName } from "../../helpers/getClassName";
 import { useEnsuredControl } from "../../hooks/useEnsuredControl";
 import { useExternRef } from "../../hooks/useExternRef";
-import { usePlatform } from "../../hooks/usePlatform";
 import "./Textarea.css";
 
 /**
  * @see https://vkcom.github.io/VKUI/#/Textarea
  */
-var Textarea = /*#__PURE__*/React.memo(function (_ref) {
+var TextareaComponent = function TextareaComponent(_ref) {
   var _ref$defaultValue = _ref.defaultValue,
       defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,
       _ref$grow = _ref.grow,
@@ -29,6 +27,7 @@ var Textarea = /*#__PURE__*/React.memo(function (_ref) {
       sizeY = _ref.sizeY,
       _ref$rows = _ref.rows,
       rows = _ref$rows === void 0 ? 2 : _ref$rows,
+      maxHeight = _ref.maxHeight,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _useEnsuredControl = useEnsuredControl(restProps, {
@@ -39,8 +38,7 @@ var Textarea = /*#__PURE__*/React.memo(function (_ref) {
       onChange = _useEnsuredControl2[1];
 
   var currentScrollHeight = React.useRef();
-  var elementRef = useExternRef(getRef);
-  var platform = usePlatform(); // autosize input
+  var elementRef = useExternRef(getRef); // autosize input
 
   React.useEffect(function () {
     var el = elementRef.current;
@@ -56,21 +54,26 @@ var Textarea = /*#__PURE__*/React.memo(function (_ref) {
     }
   }, [grow, value, sizeY, elementRef, onResize]);
   return createScopedElement(FormField, {
-    vkuiClass: classNames(getClassName("Textarea", platform), "Textarea--sizeY-".concat(sizeY)),
+    vkuiClass: classNames("Textarea", // TODO. v5.0.0 Новая адаптивность
+    "Textarea--sizeY-".concat(sizeY)),
     className: className,
     style: style,
     getRootRef: getRootRef,
     disabled: restProps.disabled
   }, createScopedElement("textarea", _extends({}, restProps, {
+    style: {
+      maxHeight: maxHeight
+    },
     rows: rows,
     vkuiClass: "Textarea__el",
     value: value,
     onChange: onChange,
     ref: elementRef
   })));
-}); // eslint-disable-next-line import/no-default-export
+}; // eslint-disable-next-line import/no-default-export
 
-export default withAdaptivity(Textarea, {
+
+export var Textarea = withAdaptivity(TextareaComponent, {
   sizeY: true
 });
 //# sourceMappingURL=Textarea.js.map

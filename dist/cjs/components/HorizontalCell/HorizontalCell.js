@@ -23,11 +23,11 @@ var _utils = require("../../lib/utils");
 
 var _Caption = require("../Typography/Caption/Caption");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
+var _Avatar = require("../Avatar/Avatar");
 
 var _excluded = ["size", "children"],
     _excluded2 = ["className", "header", "style", "subtitle", "size", "children", "getRootRef", "getRef"];
@@ -52,7 +52,7 @@ var HorizontalCell = function HorizontalCell(_ref2) {
       _ref2$size = _ref2.size,
       size = _ref2$size === void 0 ? "s" : _ref2$size,
       _ref2$children = _ref2.children,
-      children = _ref2$children === void 0 ? (0, _jsxRuntime.createScopedElement)(_Avatar.default, {
+      children = _ref2$children === void 0 ? (0, _jsxRuntime.createScopedElement)(_Avatar.Avatar, {
     size: 56
   }) : _ref2$children,
       getRootRef = _ref2.getRootRef,
@@ -64,7 +64,7 @@ var HorizontalCell = function HorizontalCell(_ref2) {
     ref: getRootRef,
     style: style,
     className: className
-  }, (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
     vkuiClass: "HorizontalCell__body",
     getRootRef: getRef
   }, restProps), (0, _utils.hasReactNode)(children) && (0, _jsxRuntime.createScopedElement)("div", {

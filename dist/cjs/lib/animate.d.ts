@@ -12,4 +12,4 @@ export interface AnimateArgumentsInterface {
     timing: TimingInterface;
     draw: DrawInterface;
 }
-export default function animate({ duration, timing, draw, }: AnimateArgumentsInterface): void;
+export declare function animate({ duration, timing, draw, }: AnimateArgumentsInterface): void;

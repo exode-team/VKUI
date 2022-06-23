@@ -33,5 +33,4 @@ export interface ContentCardProps extends HasRootRef<HTMLDivElement>, Omit<Tappa
 /**
  * @see https://vkcom.github.io/VKUI/#/ContentCard
  */
-declare const ContentCard: React.FC<ContentCardProps>;
-export default ContentCard;
+export declare const ContentCard: ({ subtitle, header, text, caption, className, mode, style, getRootRef, getRef, maxHeight, image, src, srcSet, alt, width, height, crossOrigin, decoding, loading, referrerPolicy, sizes, useMap, ...restProps }: ContentCardProps) => JSX.Element;

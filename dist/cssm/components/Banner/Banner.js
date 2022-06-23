@@ -4,14 +4,13 @@ var _excluded = ["size"],
     _excluded2 = ["mode", "imageTheme", "size", "before", "asideMode", "header", "subheader", "text", "children", "background", "actions", "onDismiss", "dismissLabel"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
-import { ANDROID, IOS, VKCOM } from "../../lib/platform";
+import { IOS } from "../../lib/platform";
 import { hasReactNode } from "../../lib/utils";
 import { Icon24Chevron, Icon24DismissSubstract, Icon24DismissDark, Icon24Cancel } from "@vkontakte/icons";
-import Tappable from "../Tappable/Tappable";
-import IconButton from "../IconButton/IconButton";
+import { Tappable } from "../Tappable/Tappable";
+import { IconButton } from "../IconButton/IconButton";
 import { Headline } from "../Typography/Headline/Headline";
 import { Subhead } from "../Typography/Subhead/Subhead";
 import { Text } from "../Typography/Text/Text";
@@ -34,30 +33,30 @@ var BannerHeader = function BannerHeader(_ref) {
  */
 
 
-var Banner = function Banner(props) {
+export var Banner = function Banner(_ref2) {
+  var _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "tint" : _ref2$mode,
+      _ref2$imageTheme = _ref2.imageTheme,
+      imageTheme = _ref2$imageTheme === void 0 ? "dark" : _ref2$imageTheme,
+      _ref2$size = _ref2.size,
+      size = _ref2$size === void 0 ? "s" : _ref2$size,
+      before = _ref2.before,
+      asideMode = _ref2.asideMode,
+      header = _ref2.header,
+      subheader = _ref2.subheader,
+      text = _ref2.text,
+      children = _ref2.children,
+      background = _ref2.background,
+      actions = _ref2.actions,
+      onDismiss = _ref2.onDismiss,
+      _ref2$dismissLabel = _ref2.dismissLabel,
+      dismissLabel = _ref2$dismissLabel === void 0 ? "Скрыть" : _ref2$dismissLabel,
+      restProps = _objectWithoutProperties(_ref2, _excluded2);
+
   var platform = usePlatform();
-
-  var mode = props.mode,
-      imageTheme = props.imageTheme,
-      size = props.size,
-      before = props.before,
-      asideMode = props.asideMode,
-      header = props.header,
-      subheader = props.subheader,
-      text = props.text,
-      children = props.children,
-      background = props.background,
-      actions = props.actions,
-      onDismiss = props.onDismiss,
-      dismissLabel = props.dismissLabel,
-      restProps = _objectWithoutProperties(props, _excluded2);
-
   var SubheaderTypography = size === "m" ? Text : Subhead;
   return createScopedElement("section", _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("Banner", platform), "Banner--md-".concat(mode), "Banner--sz-".concat(size), {
-      "Banner--inverted": mode === "image" && imageTheme === "dark"
-    })
+    vkuiClass: classNames("Banner", platform === IOS && "Banner--ios", "Banner--md-".concat(mode), "Banner--sz-".concat(size), mode === "image" && imageTheme === "dark" && "Banner--inverted")
   }), createScopedElement(Tappable, {
     vkuiClass: "Banner__in",
     activeMode: platform === IOS ? "opacity" : "background",
@@ -89,15 +88,6 @@ var Banner = function Banner(props) {
     onClick: onDismiss,
     hoverMode: "opacity",
     hasActive: false
-  }, (platform === ANDROID || platform === VKCOM) && createScopedElement(Icon24Cancel, null), platform === IOS && (mode === "image" ? createScopedElement(Icon24DismissDark, null) : createScopedElement(Icon24DismissSubstract, null))))));
+  }, platform === IOS ? mode === "image" ? createScopedElement(Icon24DismissDark, null) : createScopedElement(Icon24DismissSubstract, null) : createScopedElement(Icon24Cancel, null)))));
 };
-
-Banner.defaultProps = {
-  dismissLabel: "Скрыть",
-  mode: "tint",
-  size: "s",
-  imageTheme: "dark"
-}; // eslint-disable-next-line import/no-default-export
-
-export default Banner;
 //# sourceMappingURL=Banner.js.map

@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PanelHeaderEdit = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -27,9 +27,12 @@ var _excluded = ["isActive", "editLabel", "doneLabel"];
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderEdit
  */
 var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
-  var isActive = _ref.isActive,
-      editLabel = _ref.editLabel,
-      doneLabel = _ref.doneLabel,
+  var _ref$isActive = _ref.isActive,
+      isActive = _ref$isActive === void 0 ? false : _ref$isActive,
+      _ref$editLabel = _ref.editLabel,
+      editLabel = _ref$editLabel === void 0 ? "Редактировать" : _ref$editLabel,
+      _ref$doneLabel = _ref.doneLabel,
+      doneLabel = _ref$doneLabel === void 0 ? "Готово" : _ref$doneLabel,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var iOSText = isActive ? doneLabel : editLabel;
   var AndroidIcon = isActive ? _icons.Icon28DoneOutline : _icons.Icon28EditOutline;
@@ -39,12 +42,5 @@ var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
   }, restProps), platform === _platform.ANDROID || platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(AndroidIcon, null) : iOSText);
 };
 
-PanelHeaderEdit.defaultProps = {
-  isActive: false,
-  editLabel: "Редактировать",
-  doneLabel: "Готово"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = PanelHeaderEdit;
-exports.default = _default;
+exports.PanelHeaderEdit = PanelHeaderEdit;
 //# sourceMappingURL=PanelHeaderEdit.js.map

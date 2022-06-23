@@ -7,5 +7,4 @@ export interface ModalPageHeaderProps extends React.HTMLAttributes<HTMLDivElemen
 /**
  * @see https://vkcom.github.io/VKUI/#/ModalPageHeader
  */
-declare const ModalPageHeader: React.FunctionComponent<ModalPageHeaderProps>;
-export default ModalPageHeader;
+export declare const ModalPageHeader: ({ children, separator, getRef, ...restProps }: ModalPageHeaderProps) => JSX.Element;

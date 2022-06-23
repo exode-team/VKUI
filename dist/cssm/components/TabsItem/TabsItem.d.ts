@@ -7,5 +7,4 @@ export interface TabsItemProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/TabsItem
  */
-declare const TabsItem: React.FC<TabsItemProps>;
-export default TabsItem;
+export declare const TabsItem: React.FC<TabsItemProps>;

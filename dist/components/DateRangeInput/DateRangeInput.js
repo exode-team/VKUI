@@ -7,7 +7,7 @@ import { format, isMatch, parse, isAfter } from "../../lib/date";
 import { Icon16Clear, Icon20CalendarOutline } from "@vkontakte/icons";
 import { CalendarRange } from "../CalendarRange/CalendarRange";
 import { Popper } from "../Popper/Popper";
-import IconButton from "../IconButton/IconButton";
+import { IconButton } from "../IconButton/IconButton";
 import { useDateInput } from "../../hooks/useDateInput";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { classNames } from "../../lib/classNames";

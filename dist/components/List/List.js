@@ -12,7 +12,7 @@ import { ListContext } from "./ListContext";
 /**
  * @see https://vkcom.github.io/VKUI/#/List
  */
-var List = function List(_ref) {
+export var List = function List(_ref) {
   var children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
@@ -37,8 +37,5 @@ var List = function List(_ref) {
       };
     }, [])
   }, children));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default List;
+};
 //# sourceMappingURL=List.js.map

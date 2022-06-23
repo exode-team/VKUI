@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Tabbar = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -28,11 +28,12 @@ var _excluded = ["children", "shadow", "itemsLayout"];
 /**
  * @see https://vkcom.github.io/VKUI/#/Tabbar
  */
-var Tabbar = function Tabbar(props) {
-  var children = props.children,
-      shadow = props.shadow,
-      itemsLayout = props.itemsLayout,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var Tabbar = function Tabbar(_ref) {
+  var children = _ref.children,
+      _ref$shadow = _ref.shadow,
+      shadow = _ref$shadow === void 0 ? true : _ref$shadow,
+      itemsLayout = _ref.itemsLayout,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
   var getItemsLayout = function getItemsLayout() {
@@ -56,10 +57,5 @@ var Tabbar = function Tabbar(props) {
   }, children));
 };
 
-Tabbar.defaultProps = {
-  shadow: true
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = Tabbar;
-exports.default = _default;
+exports.Tabbar = Tabbar;
 //# sourceMappingURL=Tabbar.js.map

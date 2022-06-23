@@ -21,5 +21,4 @@ export declare const AVATAR_DEFAULT_SHADOW = true;
 /**
  * @see https://vkcom.github.io/VKUI/#/Avatar
  */
-declare const Avatar: React.FC<AvatarProps>;
-export default Avatar;
+export declare const Avatar: React.FC<AvatarProps>;

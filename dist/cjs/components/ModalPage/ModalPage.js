@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.ModalPage = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -29,7 +29,7 @@ var _useOrientationChange = require("../../hooks/useOrientationChange");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _ModalDismissButton = _interopRequireDefault(require("../ModalDismissButton/ModalDismissButton"));
+var _ModalDismissButton = require("../ModalDismissButton/ModalDismissButton");
 
 var _utils = require("../../lib/utils");
 
@@ -43,31 +43,30 @@ var _platform = require("../../lib/platform");
 
 var _useAdaptivity = require("../../hooks/useAdaptivity");
 
-var _excluded = ["children", "header", "viewWidth", "viewHeight", "sizeX", "hasMouse", "onOpen", "onOpened", "onClose", "onClosed", "settlingHeight", "dynamicContentHeight", "getModalContentRef", "nav"];
+var _excluded = ["children", "header", "viewWidth", "viewHeight", "sizeX", "hasMouse", "onOpen", "onOpened", "onClose", "onClosed", "settlingHeight", "dynamicContentHeight", "getModalContentRef", "nav", "id"];
 var warn = (0, _warnOnce.warnOnce)("ModalPage");
-/**
- * @see https://vkcom.github.io/VKUI/#/ModalPage
- */
 
-var ModalPage = function ModalPage(props) {
+var ModalPageComponent = function ModalPageComponent(_ref) {
+  var children = _ref.children,
+      header = _ref.header,
+      viewWidth = _ref.viewWidth,
+      viewHeight = _ref.viewHeight,
+      sizeX = _ref.sizeX,
+      hasMouse = _ref.hasMouse,
+      onOpen = _ref.onOpen,
+      onOpened = _ref.onOpened,
+      onClose = _ref.onClose,
+      onClosed = _ref.onClosed,
+      settlingHeight = _ref.settlingHeight,
+      dynamicContentHeight = _ref.dynamicContentHeight,
+      getModalContentRef = _ref.getModalContentRef,
+      nav = _ref.nav,
+      id = _ref.id,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+
   var _React$useContext = React.useContext(_ModalRootContext.ModalRootContext),
       updateModalHeight = _React$useContext.updateModalHeight;
 
-  var children = props.children,
-      header = props.header,
-      viewWidth = props.viewWidth,
-      viewHeight = props.viewHeight,
-      sizeX = props.sizeX,
-      hasMouse = props.hasMouse,
-      onOpen = props.onOpen,
-      onOpened = props.onOpened,
-      onClose = props.onClose,
-      onClosed = props.onClosed,
-      settlingHeight = props.settlingHeight,
-      dynamicContentHeight = props.dynamicContentHeight,
-      getModalContentRef = props.getModalContentRef,
-      nav = props.nav,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var orientation = (0, _useOrientationChange.useOrientationChange)();
   React.useEffect(updateModalHeight, [children, orientation, updateModalHeight]);
@@ -75,11 +74,15 @@ var ModalPage = function ModalPage(props) {
   var canShowCloseBtn = viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET || platform === _platform.Platform.VKCOM;
   var modalContext = React.useContext(_ModalRootContext.ModalRootContext);
 
-  var _useModalRegistry = (0, _ModalRootContext.useModalRegistry)((0, _getNavId.getNavId)(props, warn), _types.ModalType.PAGE),
+  var _useModalRegistry = (0, _ModalRootContext.useModalRegistry)((0, _getNavId.getNavId)({
+    nav: nav,
+    id: id
+  }, warn), _types.ModalType.PAGE),
       refs = _useModalRegistry.refs;
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    id: id // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalPage", platform), "ModalPage--sizeX-".concat(sizeX), {
       "ModalPage--desktop": isDesktop
     })
@@ -98,21 +101,21 @@ var ModalPage = function ModalPage(props) {
     ref: (0, _utils.multiRef)(refs.contentElement, getModalContentRef)
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "ModalPage__content-in"
-  }, children))), canShowCloseBtn && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.default, {
+  }, children))), canShowCloseBtn && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.ModalDismissButton, {
     onClick: onClose || modalContext.onClose
   }))));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/ModalPage
+ */
 
-ModalPage.defaultProps = {
-  settlingHeight: 75
-}; // eslint-disable-next-line import/no-default-export
 
-var _default = (0, _withAdaptivity.withAdaptivity)(ModalPage, {
+var ModalPage = (0, _withAdaptivity.withAdaptivity)(ModalPageComponent, {
   viewWidth: true,
   viewHeight: true,
   sizeX: true,
   hasMouse: true
 });
-
-exports.default = _default;
+exports.ModalPage = ModalPage;
+ModalPage.displayName = "ModalPage";
 //# sourceMappingURL=ModalPage.js.map

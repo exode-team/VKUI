@@ -1,7 +1,7 @@
 import * as React from "react";
 import { HasRootRef } from "../../types";
 import { classNames } from "../../lib/classNames";
-import Avatar, { AVATAR_DEFAULT_SIZE, AvatarProps } from "../Avatar/Avatar";
+import { AVATAR_DEFAULT_SIZE, Avatar, AvatarProps } from "../Avatar/Avatar";
 import "./InitialsAvatar.css";
 
 /**
@@ -65,7 +65,7 @@ function getInitialsFontSize(avatarSize: number) {
 /**
  * @see https://vkcom.github.io/VKUI/#/InitialsAvatar
  */
-export const InitialsAvatar: React.FC<InitialsAvatarProps> = ({
+export const InitialsAvatar = ({
   size = AVATAR_DEFAULT_SIZE,
   children,
   gradientColor,

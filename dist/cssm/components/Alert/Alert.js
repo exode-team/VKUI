@@ -5,7 +5,7 @@ var _excluded = ["action", "onItemClick"],
     _excluded2 = ["actions", "actionsLayout", "children", "className", "style", "text", "header", "onClose", "dismissLabel"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { PopoutWrapper } from "../PopoutWrapper/PopoutWrapper";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
@@ -13,10 +13,10 @@ import { ANDROID, VKCOM, IOS } from "../../lib/platform";
 import { ViewWidth } from "../../hoc/withAdaptivity";
 import { Button } from "../Button/Button";
 import { hasReactNode, stopPropagation } from "../../lib/utils";
-import { Headline } from "../Typography/Headline/Headline";
 import { Title } from "../Typography/Title/Title";
 import { Caption } from "../Typography/Caption/Caption";
-import ModalDismissButton from "../ModalDismissButton/ModalDismissButton";
+import { Text } from "../Typography/Text/Text";
+import { ModalDismissButton } from "../ModalDismissButton/ModalDismissButton";
 import { FocusTrap } from "../FocusTrap/FocusTrap";
 import { useScrollLock } from "../AppRoot/ScrollContext";
 import { useWaitTransitionFinish } from "../../hooks/useWaitTransitionFinish";
@@ -28,12 +28,6 @@ var AlertHeader = function AlertHeader(props) {
   var platform = usePlatform();
 
   switch (platform) {
-    case VKCOM:
-      return createScopedElement(Headline, _extends({
-        vkuiClass: "Alert__header",
-        weight: "2"
-      }, props));
-
     case IOS:
       return createScopedElement(Title, _extends({
         vkuiClass: "Alert__header",
@@ -66,7 +60,7 @@ var AlertText = function AlertText(props) {
       }, props));
 
     default:
-      return createScopedElement(Headline, _extends({
+      return createScopedElement(Text, _extends({
         Component: "span",
         vkuiClass: "Alert__text",
         weight: "3"
@@ -160,8 +154,10 @@ export var Alert = function Alert(_ref2) {
   var timeout = platform === ANDROID || platform === VKCOM ? 200 : 300;
   var close = React.useCallback(function () {
     setClosing(true);
-    waitTransitionFinish(elementRef.current, function () {
-      onClose && onClose();
+    waitTransitionFinish(elementRef.current, function (e) {
+      if (!e || e.propertyName === "opacity") {
+        onClose && onClose();
+      }
     }, timeout);
   }, [elementRef, waitTransitionFinish, onClose, timeout]);
   var onItemClick = React.useCallback(function (item) {

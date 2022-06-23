@@ -16,9 +16,7 @@ export interface PullToRefreshSpinnerProps
   "aria-label"?: string;
 }
 
-const PullToRefreshSpinner: React.FunctionComponent<
-  PullToRefreshSpinnerProps
-> = ({
+export const PullToRefreshSpinner = ({
   on = true,
   size = 24,
   strokeWidth = 2.5,
@@ -34,10 +32,10 @@ const PullToRefreshSpinner: React.FunctionComponent<
 
   return (
     <div
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
-      vkuiClass={classNames("PullToRefresh__spinner", {
-        "PullToRefresh__spinner--on": on,
-      })}
+      vkuiClass={classNames(
+        "PullToRefresh__spinner",
+        on && "PullToRefresh__spinner--on"
+      )}
       style={style}
       aria-label={on ? ariaLabel : undefined}
     >
@@ -74,6 +72,3 @@ const PullToRefreshSpinner: React.FunctionComponent<
     </div>
   );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default React.memo(PullToRefreshSpinner);

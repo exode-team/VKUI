@@ -3,11 +3,11 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "selected", "label", "indicator", "text", "href", "Component", "disabled"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { getClassName } from "../../helpers/getClassName";
-import Counter from "../Counter/Counter";
+import { Counter } from "../Counter/Counter";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { Platform } from "../../lib/platform";
 import { warnOnce } from "../../lib/warnOnce";
 import "./TabbarItem.css";
@@ -16,7 +16,7 @@ var warn = warnOnce("TabbarItem");
  * @see https://vkcom.github.io/VKUI/#/TabbarItem
  */
 
-var TabbarItem = function TabbarItem(_ref) {
+export var TabbarItem = function TabbarItem(_ref) {
   var children = _ref.children,
       selected = _ref.selected,
       label = _ref.label,
@@ -62,8 +62,5 @@ var TabbarItem = function TabbarItem(_ref) {
   }, label))), text && createScopedElement("div", {
     vkuiClass: "TabbarItem__text"
   }, text)));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default TabbarItem;
+};
 //# sourceMappingURL=TabbarItem.js.map

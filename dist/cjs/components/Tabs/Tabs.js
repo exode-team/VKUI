@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.TabsModeContext = void 0;
+exports.TabsModeContext = exports.Tabs = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -29,15 +29,12 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _excluded = ["children", "mode", "getRootRef", "sizeX"];
 var TabsModeContext = /*#__PURE__*/React.createContext("default");
-/**
- * @see https://vkcom.github.io/VKUI/#/Tabs
- */
-
 exports.TabsModeContext = TabsModeContext;
 
-var Tabs = function Tabs(_ref) {
+var TabsComponent = function TabsComponent(_ref) {
   var children = _ref.children,
-      mode = _ref.mode,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "default" : _ref$mode,
       getRootRef = _ref.getRootRef,
       sizeX = _ref.sizeX,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
@@ -56,14 +53,14 @@ var Tabs = function Tabs(_ref) {
     value: mode
   }, children)));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tabs
+ */
 
-Tabs.defaultProps = {
-  mode: "default"
-}; // eslint-disable-next-line import/no-default-export
 
-var _default = (0, _withAdaptivity.withAdaptivity)(Tabs, {
+var Tabs = (0, _withAdaptivity.withAdaptivity)(TabsComponent, {
   sizeX: true
 });
-
-exports.default = _default;
+exports.Tabs = Tabs;
+Tabs.displayName = "Tabs";
 //# sourceMappingURL=Tabs.js.map

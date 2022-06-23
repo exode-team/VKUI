@@ -3,7 +3,7 @@ import _typeof from "@babel/runtime/helpers/typeof";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _extends from "@babel/runtime/helpers/extends";
-var _excluded = ["children", "isShown", "offsetX", "offsetY", "alignX", "alignY", "onClose", "cornerOffset", "cornerAbsoluteOffset"];
+var _excluded = ["children", "isShown", "offsetX", "offsetY", "alignX", "alignY", "onClose", "cornerOffset", "cornerAbsoluteOffset", "mode"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -84,11 +84,12 @@ function isVerticalPlacement(placement) {
  */
 
 
-var Tooltip = function Tooltip(_ref2) {
+export var Tooltip = function Tooltip(_ref2) {
   var _attributes$arrow, _attributes$popper;
 
   var children = _ref2.children,
-      _isShown = _ref2.isShown,
+      _ref2$isShown = _ref2.isShown,
+      _isShown = _ref2$isShown === void 0 ? true : _ref2$isShown,
       _ref2$offsetX = _ref2.offsetX,
       offsetX = _ref2$offsetX === void 0 ? 0 : _ref2$offsetX,
       _ref2$offsetY = _ref2.offsetY,
@@ -99,6 +100,8 @@ var Tooltip = function Tooltip(_ref2) {
       _ref2$cornerOffset = _ref2.cornerOffset,
       cornerOffset = _ref2$cornerOffset === void 0 ? 0 : _ref2$cornerOffset,
       cornerAbsoluteOffset = _ref2.cornerAbsoluteOffset,
+      _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "accent" : _ref2$mode,
       restProps = _objectWithoutProperties(_ref2, _excluded);
 
   var _useNavTransition = useNavTransition(),
@@ -218,6 +221,7 @@ var Tooltip = function Tooltip(_ref2) {
   var patchedRef = useExternRef(setTarget, childRef);
   var child = /*#__PURE__*/React.isValidElement(children) ? /*#__PURE__*/React.cloneElement(children, _defineProperty({}, isDOMTypeElement(children) ? "ref" : "getRootRef", patchedRef)) : children;
   return createScopedElement(React.Fragment, null, child, isShown && target != null && /*#__PURE__*/ReactDOM.createPortal(createScopedElement(SimpleTooltip, _extends({}, restProps, {
+    mode: mode,
     ref: function ref(el) {
       return setTooltipRef(el);
     },
@@ -234,14 +238,4 @@ var Tooltip = function Tooltip(_ref2) {
     }
   })), tooltipContainer));
 };
-
-Tooltip.defaultProps = {
-  offsetX: 0,
-  offsetY: 15,
-  cornerOffset: 0,
-  isShown: true,
-  mode: "accent"
-}; // eslint-disable-next-line import/no-default-export
-
-export default Tooltip;
 //# sourceMappingURL=Tooltip.js.map

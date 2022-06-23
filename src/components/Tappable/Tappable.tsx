@@ -4,8 +4,7 @@ import { noop } from "@vkontakte/vkjs";
 import { Touch, TouchEvent, TouchProps } from "../Touch/Touch";
 import TouchRootContext from "../Touch/TouchContext";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { ANDROID } from "../../lib/platform";
+import { IOS, ANDROID } from "../../lib/platform";
 import { getOffsetRect } from "../../lib/offset";
 import { coordX, coordY } from "../../lib/touch";
 import { HasComponent, HasRootRef } from "../../types";
@@ -20,6 +19,8 @@ import { useFocusVisible } from "../../hooks/useFocusVisible";
 import { callMultiple } from "../../lib/callMultiple";
 import { useBooleanState } from "../../hooks/useBooleanState";
 import "./Tappable.css";
+
+const WAVE_LIVE = 225;
 
 export interface TappableProps
   extends Omit<
@@ -62,14 +63,15 @@ export interface TappableProps
    * Стиль аутлайна focus visible. Если передать произвольную строку, она добавится как css-класс во время focus-visible
    */
   focusVisibleMode?: FocusVisibleMode | string;
-  onEnter?: (outputEvent: MouseEvent) => void;
-  onLeave?: (outputEvent: MouseEvent) => void;
+  children?: React.ReactNode;
+  onEnter?(outputEvent: MouseEvent): void;
+  onLeave?(outputEvent: MouseEvent): void;
 }
 
 interface Wave {
   x: number;
   y: number;
-  id: string;
+  id: number;
 }
 
 export interface RootComponentProps extends TouchProps {
@@ -145,7 +147,7 @@ function useActivity(hasActive: boolean, stopDelay: number) {
   return [activity, { delayStart, start, stop }] as const;
 }
 
-const Tappable: React.FC<TappableProps> = ({
+const TappableComponent = ({
   children,
   Component,
   onClick,
@@ -226,6 +228,24 @@ const Tappable: React.FC<TappableProps> = ({
     }
   }
 
+  const needWaves =
+    platform === ANDROID &&
+    !hasMouse &&
+    hasActive &&
+    activeMode === "background";
+
+  const clearClicks = useTimeout(() => setClicks([]), WAVE_LIVE);
+
+  function addClick(x: number, y: number) {
+    const dateNow = Date.now();
+    const filteredClicks = clicks.filter(
+      (click) => click.id + WAVE_LIVE > dateNow
+    );
+
+    setClicks([...filteredClicks, { x, y, id: dateNow }]);
+    clearClicks.set();
+  }
+
   function onStart({ originalEvent }: TouchEvent) {
     if (hasActive) {
       if (originalEvent.touches && originalEvent.touches.length > 1) {
@@ -233,11 +253,11 @@ const Tappable: React.FC<TappableProps> = ({
         return stop();
       }
 
-      if (platform === ANDROID) {
+      if (needWaves) {
         const { top, left } = getOffsetRect(containerRef.current);
         const x = coordX(originalEvent) - (left ?? 0);
         const y = coordY(originalEvent) - (top ?? 0);
-        setClicks([...clicks, { x, y, id: Date.now().toString() }]);
+        addClick(x, y);
       }
 
       delayStart();
@@ -266,7 +286,8 @@ const Tappable: React.FC<TappableProps> = ({
 
   // eslint-disable-next-line vkui/no-object-expression-in-arguments
   const classes = classNames(
-    getClassName("Tappable", platform),
+    "Tappable",
+    platform === IOS && "Tappable--ios",
     `Tappable--sizeX-${sizeX}`,
     hasHover && `Tappable--hasHover`,
     hasActive && `Tappable--hasActive`,
@@ -315,22 +336,17 @@ const Tappable: React.FC<TappableProps> = ({
       <TappableContext.Provider value={childContext}>
         {children}
       </TappableContext.Provider>
-      {platform === ANDROID &&
-        !hasMouse &&
-        hasActive &&
-        activeMode === "background" && (
-          <span aria-hidden="true" vkuiClass="Tappable__waves">
-            {clicks.map((wave) => (
-              <Wave
-                {...wave}
-                key={wave.id}
-                onClear={() =>
-                  setClicks(clicks.filter((c) => c.id !== wave.id))
-                }
-              />
-            ))}
-          </span>
-        )}
+      {needWaves && (
+        <span aria-hidden="true" vkuiClass="Tappable__waves">
+          {clicks.map((wave) => (
+            <span
+              key={wave.id}
+              vkuiClass="Tappable__wave"
+              style={{ top: wave.y, left: wave.x }}
+            />
+          ))}
+        </span>
+      )}
       {hasHover && hoverMode === "background" && (
         <span aria-hidden="true" vkuiClass="Tappable__hoverShadow" />
       )}
@@ -341,15 +357,13 @@ const Tappable: React.FC<TappableProps> = ({
   );
 };
 
-// eslint-disable-next-line import/no-default-export
-export default withAdaptivity(Tappable, {
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tappable
+ */
+export const Tappable = withAdaptivity(TappableComponent, {
   sizeX: true,
   hasMouse: true,
   deviceHasHover: true,
 });
 
-function Wave({ x, y, onClear }: Wave & { onClear: VoidFunction }) {
-  const timeout = useTimeout(onClear, 225);
-  React.useEffect(() => timeout.set(), [timeout]);
-  return <span vkuiClass="Tappable__wave" style={{ top: y, left: x }} />;
-}
+Tappable.displayName = "Tappable";

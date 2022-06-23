@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PanelHeaderContent = void 0;
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
@@ -17,7 +17,7 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
@@ -67,7 +67,7 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
       children = _ref2.children,
       onClick = _ref2.onClick,
       restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded);
-  var InComponent = onClick ? _Tappable.default : "div";
+  var InComponent = onClick ? _Tappable.Tappable : "div";
   var rootProps = onClick ? {} : restProps;
   var platform = (0, _usePlatform.usePlatform)();
   var inProps = onClick ? (0, _objectSpread2.default)((0, _objectSpread2.default)({}, restProps), {}, {
@@ -98,9 +98,7 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   }, aside)), (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeaderContent__width"
   })));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = PanelHeaderContent;
-exports.default = _default;
+exports.PanelHeaderContent = PanelHeaderContent;
 //# sourceMappingURL=PanelHeaderContent.js.map

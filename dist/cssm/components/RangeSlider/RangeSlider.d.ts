@@ -5,5 +5,4 @@ export declare type RangeSliderProps = UniversalSliderProps<Value>;
 /**
  * @see https://vkcom.github.io/VKUI/#/RangeSlider
  */
-declare const RangeSlider: React.FC<RangeSliderProps>;
-export default RangeSlider;
+export declare const RangeSlider: React.FC<RangeSliderProps>;

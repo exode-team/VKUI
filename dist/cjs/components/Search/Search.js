@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Search = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -46,7 +46,7 @@ var _useExternRef = require("../../hooks/useExternRef");
 var _useEnsuredControl3 = require("../../hooks/useEnsuredControl");
 
 var _excluded = ["platform", "children"],
-    _excluded2 = ["before", "className", "defaultValue", "placeholder", "after", "getRef", "platform", "icon", "onIconClick", "style"];
+    _excluded2 = ["before", "className", "defaultValue", "placeholder", "after", "getRef", "platform", "icon", "onIconClick", "style", "autoComplete"];
 
 var SearchPlaceholderTypography = function SearchPlaceholderTypography(_ref) {
   var platform = _ref.platform,
@@ -74,18 +74,26 @@ var SearchPlaceholderTypography = function SearchPlaceholderTypography(_ref) {
 /**
  * @see https://vkcom.github.io/VKUI/#/Search
  */
-var Search = function Search(_ref2) {
-  var before = _ref2.before,
+var SearchComponent = function SearchComponent(_ref2) {
+  var _ref2$before = _ref2.before,
+      before = _ref2$before === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon16SearchOutline, {
+    "aria-hidden": true
+  }) : _ref2$before,
       className = _ref2.className,
-      defaultValue = _ref2.defaultValue,
-      placeholder = _ref2.placeholder,
-      after = _ref2.after,
+      _ref2$defaultValue = _ref2.defaultValue,
+      defaultValue = _ref2$defaultValue === void 0 ? "" : _ref2$defaultValue,
+      _ref2$placeholder = _ref2.placeholder,
+      placeholder = _ref2$placeholder === void 0 ? "Поиск" : _ref2$placeholder,
+      _ref2$after = _ref2.after,
+      after = _ref2$after === void 0 ? "Отмена" : _ref2$after,
       getRef = _ref2.getRef,
       platform = _ref2.platform,
       icon = _ref2.icon,
       _ref2$onIconClick = _ref2.onIconClick,
       onIconClick = _ref2$onIconClick === void 0 ? _utils.noop : _ref2$onIconClick,
       style = _ref2.style,
+      _ref2$autoComplete = _ref2.autoComplete,
+      autoComplete = _ref2$autoComplete === void 0 ? "off" : _ref2$autoComplete,
       inputProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
   var inputRef = (0, _useExternRef.useExternRef)(getRef);
 
@@ -151,6 +159,7 @@ var Search = function Search(_ref2) {
   }, (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({
     type: "search"
   }, inputProps, {
+    autoComplete: autoComplete,
     ref: inputRef,
     vkuiClass: "Search__input",
     onFocus: onFocus,
@@ -187,15 +196,7 @@ var Search = function Search(_ref2) {
   }));
 };
 
-Search.defaultProps = {
-  autoComplete: "off",
-  defaultValue: "",
-  placeholder: "Поиск",
-  after: "Отмена",
-  before: (0, _jsxRuntime.createScopedElement)(_icons.Icon16SearchOutline, null)
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = (0, _withPlatform.withPlatform)(Search);
-
-exports.default = _default;
+var Search = (0, _withPlatform.withPlatform)(SearchComponent);
+exports.Search = Search;
+Search.displayName = "Search";
 //# sourceMappingURL=Search.js.map

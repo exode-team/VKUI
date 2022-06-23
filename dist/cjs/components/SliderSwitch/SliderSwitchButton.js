@@ -21,7 +21,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _getClassName = require("../../helpers/getClassName");
 
@@ -55,7 +55,7 @@ var SliderSwitchButton = function SliderSwitchButton(props) {
     setFocus(!focus);
   };
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("SliderSwitch__button", platform), (_classNames = {}, (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--active", active), (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--hover", !active && hovered), (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--activeHover", active && hovered), (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--focus", focus && !hovered), _classNames)),
     Component: "button",

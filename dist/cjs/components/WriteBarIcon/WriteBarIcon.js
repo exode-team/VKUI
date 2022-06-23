@@ -25,9 +25,9 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _platform = require("../../lib/platform");
 
-var _Counter = _interopRequireDefault(require("../Counter/Counter"));
+var _Counter = require("../Counter/Counter");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _warnOnce = require("../../lib/warnOnce");
 
@@ -73,7 +73,7 @@ var WriteBarIcon = function WriteBarIcon(_ref) {
     warn("a11y: У WriteBarIcon нет aria-label. Кнопка будет недоступной для части пользователей.", "error");
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
     "aria-label": ariaLabel
   }, restProps, {
     Component: "button",
@@ -83,7 +83,7 @@ var WriteBarIcon = function WriteBarIcon(_ref) {
     vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("WriteBarIcon", platform), (0, _defineProperty2.default)({}, "WriteBarIcon--".concat(mode), !!mode))
   }), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "WriteBarIcon__in"
-  }, icon || children, (0, _utils.hasReactNode)(count) && (0, _jsxRuntime.createScopedElement)(_Counter.default, {
+  }, icon || children, (0, _utils.hasReactNode)(count) && (0, _jsxRuntime.createScopedElement)(_Counter.Counter, {
     vkuiClass: "WriteBarIcon__counter",
     size: "s"
   }, count)));

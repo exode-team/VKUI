@@ -15,6 +15,8 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _usePlatform = require("../../../hooks/usePlatform");
 
+var _useAdaptivity2 = require("../../../hooks/useAdaptivity");
+
 var _classNames = require("../../../lib/classNames");
 
 var _getClassName = require("../../../helpers/getClassName");
@@ -34,8 +36,13 @@ var Headline = function Headline(_ref) {
       Component = _ref$Component === void 0 ? "h3" : _ref$Component,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
+
+  var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
+      sizeY = _useAdaptivity.sizeY;
+
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Headline", platform), // TODO: v5 remove
+    "Headline--sizeY-".concat(sizeY), // TODO: новая адаптивность
     "Headline--l-".concat(level), "Headline--w-".concat(weight))
   }), children);
 };

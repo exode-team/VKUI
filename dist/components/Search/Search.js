@@ -2,7 +2,7 @@ import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["platform", "children"],
-    _excluded2 = ["before", "className", "defaultValue", "placeholder", "after", "getRef", "platform", "icon", "onIconClick", "style"];
+    _excluded2 = ["before", "className", "defaultValue", "placeholder", "after", "getRef", "platform", "icon", "onIconClick", "style", "autoComplete"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -45,18 +45,26 @@ var SearchPlaceholderTypography = function SearchPlaceholderTypography(_ref) {
 /**
  * @see https://vkcom.github.io/VKUI/#/Search
  */
-var Search = function Search(_ref2) {
-  var before = _ref2.before,
+var SearchComponent = function SearchComponent(_ref2) {
+  var _ref2$before = _ref2.before,
+      before = _ref2$before === void 0 ? createScopedElement(Icon16SearchOutline, {
+    "aria-hidden": true
+  }) : _ref2$before,
       className = _ref2.className,
-      defaultValue = _ref2.defaultValue,
-      placeholder = _ref2.placeholder,
-      after = _ref2.after,
+      _ref2$defaultValue = _ref2.defaultValue,
+      defaultValue = _ref2$defaultValue === void 0 ? "" : _ref2$defaultValue,
+      _ref2$placeholder = _ref2.placeholder,
+      placeholder = _ref2$placeholder === void 0 ? "Поиск" : _ref2$placeholder,
+      _ref2$after = _ref2.after,
+      after = _ref2$after === void 0 ? "Отмена" : _ref2$after,
       getRef = _ref2.getRef,
       platform = _ref2.platform,
       icon = _ref2.icon,
       _ref2$onIconClick = _ref2.onIconClick,
       onIconClick = _ref2$onIconClick === void 0 ? noop : _ref2$onIconClick,
       style = _ref2.style,
+      _ref2$autoComplete = _ref2.autoComplete,
+      autoComplete = _ref2$autoComplete === void 0 ? "off" : _ref2$autoComplete,
       inputProps = _objectWithoutProperties(_ref2, _excluded2);
 
   var inputRef = useExternRef(getRef);
@@ -123,6 +131,7 @@ var Search = function Search(_ref2) {
   }, createScopedElement("input", _extends({
     type: "search"
   }, inputProps, {
+    autoComplete: autoComplete,
     ref: inputRef,
     vkuiClass: "Search__input",
     onFocus: onFocus,
@@ -159,13 +168,6 @@ var Search = function Search(_ref2) {
   }));
 };
 
-Search.defaultProps = {
-  autoComplete: "off",
-  defaultValue: "",
-  placeholder: "Поиск",
-  after: "Отмена",
-  before: createScopedElement(Icon16SearchOutline, null)
-}; // eslint-disable-next-line import/no-default-export
-
-export default withPlatform(Search);
+export var Search = withPlatform(SearchComponent);
+Search.displayName = "Search";
 //# sourceMappingURL=Search.js.map

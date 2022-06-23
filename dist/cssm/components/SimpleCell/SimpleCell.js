@@ -4,7 +4,7 @@ var _excluded = ["badge", "before", "indicator", "children", "after", "descripti
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { Icon24Chevron } from "@vkontakte/icons";
 import { ANDROID, IOS } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -38,12 +38,8 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
     }, props));
   }
 };
-/**
- * @see https://vkcom.github.io/VKUI/#/SimpleCell
- */
 
-
-var SimpleCell = function SimpleCell(_ref) {
+var SimpleCellComponent = function SimpleCellComponent(_ref) {
   var badge = _ref.badge,
       before = _ref.before,
       indicator = _ref.indicator,
@@ -80,10 +76,13 @@ var SimpleCell = function SimpleCell(_ref) {
   }, indicator), hasAfter && createScopedElement("div", {
     vkuiClass: "SimpleCell__after"
   }, after, expandable && platform === IOS && createScopedElement(Icon24Chevron, null)));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/SimpleCell
+ */
 
 
-export default withAdaptivity(SimpleCell, {
+export var SimpleCell = withAdaptivity(SimpleCellComponent, {
   sizeY: true
 });
 //# sourceMappingURL=SimpleCell.js.map

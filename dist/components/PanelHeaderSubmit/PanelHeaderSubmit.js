@@ -11,8 +11,9 @@ import { getTitleFromChildren } from "../../lib/utils";
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderSubmit
  */
 
-var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
-  var children = _ref.children,
+export var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
+  var _ref$children = _ref.children,
+      children = _ref$children === void 0 ? "Готово" : _ref$children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -21,10 +22,4 @@ var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
     primary: true
   }, restProps), platform === ANDROID || platform === VKCOM ? createScopedElement(Icon28DoneOutline, null) : children);
 };
-
-PanelHeaderSubmit.defaultProps = {
-  children: "Готово"
-}; // eslint-disable-next-line import/no-default-export
-
-export default PanelHeaderSubmit;
 //# sourceMappingURL=PanelHeaderSubmit.js.map

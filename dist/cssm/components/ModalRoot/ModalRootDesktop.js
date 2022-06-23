@@ -12,7 +12,7 @@ import { classNames } from "../../lib/classNames";
 import { transitionEvent } from "../../lib/supportEvents";
 import { withPlatform } from "../../hoc/withPlatform";
 import { withContext } from "../../hoc/withContext";
-import ModalRootContext from "./ModalRootContext";
+import { ModalRootContext } from "./ModalRootContext";
 import { ConfigProviderContext, WebviewType } from "../ConfigProvider/ConfigProviderContext";
 import { ANDROID, VKCOM } from "../../lib/platform";
 import { getClassName } from "../../helpers/getClassName";

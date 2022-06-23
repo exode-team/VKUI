@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
 Object.defineProperty(exports, "__esModule", {
@@ -15,7 +13,7 @@ var React = _interopRequireWildcard(require("react"));
 
 var _classNames = require("../../lib/classNames");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _useKeyboardInputTracker = require("../../hooks/useKeyboardInputTracker");
 
@@ -65,7 +63,7 @@ var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     });
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable // eslint-disable-next-line vkui/no-object-expression-in-arguments
   , {
     vkuiClass: (0, _classNames.classNames)("CalendarDay", "CalendarDay--size-".concat(size), {
       "CalendarDay--today": today,

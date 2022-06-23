@@ -3,29 +3,23 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["header", "children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { Subhead } from "../Typography/Subhead/Subhead";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
 import { Headline } from "../Typography/Headline/Headline";
 import { hasReactNode } from "../../lib/utils";
 
 /**
  * @see https://vkcom.github.io/VKUI/#/InfoRow
  */
-var InfoRow = function InfoRow(_ref) {
+export var InfoRow = function InfoRow(_ref) {
   var header = _ref.header,
       children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var platform = usePlatform();
   return createScopedElement(Headline, _extends({}, restProps, {
-    vkuiClass: getClassName("InfoRow", platform),
+    vkuiClass: "InfoRow",
     weight: "3"
   }), hasReactNode(header) && createScopedElement(Subhead, {
     Component: "span",
     vkuiClass: "InfoRow__header"
   }, header), children);
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default InfoRow;
+};
 //# sourceMappingURL=InfoRow.js.map

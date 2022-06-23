@@ -3,19 +3,20 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "separator", "getRef"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { usePlatform } from "../../hooks/usePlatform";
-import { VKCOM } from "../../lib/platform";
-import PanelHeader from "../PanelHeader/PanelHeader";
-import { Separator } from "../Separator/Separator";
 import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
+import { VKCOM } from "../../lib/platform";
+import { Separator } from "../Separator/Separator";
+import { PanelHeader } from "../PanelHeader/PanelHeader";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 
 /**
  * @see https://vkcom.github.io/VKUI/#/ModalPageHeader
  */
-var ModalPageHeader = function ModalPageHeader(_ref) {
+export var ModalPageHeader = function ModalPageHeader(_ref) {
   var children = _ref.children,
-      separator = _ref.separator,
+      _ref$separator = _ref.separator,
+      separator = _ref$separator === void 0 ? true : _ref$separator,
       getRef = _ref.getRef,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
@@ -23,10 +24,7 @@ var ModalPageHeader = function ModalPageHeader(_ref) {
   var hasSeparator = separator && platform === VKCOM;
   var isDesktop = useAdaptivityIsDesktop();
   return createScopedElement("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("ModalPageHeader", platform), {
-      "ModalPageHeader--desktop": isDesktop
-    }),
+    vkuiClass: classNames(getClassName("ModalPageHeader", platform), isDesktop && "ModalPageHeader--desktop"),
     ref: getRef
   }, createScopedElement(PanelHeader, _extends({
     vkuiClass: "ModalPageHeader__in"
@@ -38,10 +36,4 @@ var ModalPageHeader = function ModalPageHeader(_ref) {
     wide: true
   }));
 };
-
-ModalPageHeader.defaultProps = {
-  separator: true
-}; // eslint-disable-next-line import/no-default-export
-
-export default ModalPageHeader;
 //# sourceMappingURL=ModalPageHeader.js.map

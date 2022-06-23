@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.FixedLayout = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -21,7 +21,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
+var _platform = require("../../lib/platform");
 
 var _classNames = require("../../lib/classNames");
 
@@ -69,11 +69,8 @@ var FixedLayout = function FixedLayout(_ref) {
   (0, _useGlobalEventListener.useGlobalEventListener)(window, "resize", doResize);
   return (0, _jsxRuntime.createScopedElement)(_TooltipContainer.TooltipContainer, (0, _extends2.default)({}, restProps, {
     fixed: true,
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FixedLayout", platform), {
-      "FixedLayout--filled": filled
-    }, "FixedLayout--".concat(vertical)),
+    ref: getRootRef,
+    vkuiClass: (0, _classNames.classNames)("FixedLayout", platform === _platform.IOS && "FixedLayout--ios", filled && "FixedLayout--filled", "FixedLayout--".concat(vertical)),
     style: (0, _objectSpread2.default)((0, _objectSpread2.default)({}, style), {}, {
       width: width
     })
@@ -81,9 +78,7 @@ var FixedLayout = function FixedLayout(_ref) {
     vkuiClass: "FixedLayout__in",
     ref: getRef
   }, children));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = FixedLayout;
-exports.default = _default;
+exports.FixedLayout = FixedLayout;
 //# sourceMappingURL=FixedLayout.js.map

@@ -54,5 +54,4 @@ export interface TooltipProps {
 /**
  * @see https://vkcom.github.io/VKUI/#/Tooltip
  */
-declare const Tooltip: React.FC<TooltipProps>;
-export default Tooltip;
+export declare const Tooltip: React.FC<TooltipProps>;

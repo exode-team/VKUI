@@ -3,7 +3,6 @@ import { noop } from "../../lib/utils";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { clamp } from "../../helpers/math";
 import { useDOM } from "../../lib/dom";
-import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 
 const clearDisableScrollStyle = (node: HTMLElement) => {
   Object.assign(node.style, {
@@ -250,16 +249,18 @@ export const useScrollLockEffect = (
   }, [isScrollLock]);
 };
 
-export const useScrollLock = (enabled = true) => {
+export const useScrollLock = (enabled = false) => {
   const { enableScrollLock, disableScrollLock } = useScroll();
-  const isDesktop = useAdaptivityIsDesktop();
+  // Todo: test in mobile app
 
-  enabled = !isDesktop ? enabled : false;
+  // const isDesktop = useAdaptivityIsDesktop();
+  //
+  // enabled = !isDesktop ? enabled : false;
 
   useIsomorphicLayoutEffect(() => {
     if (enabled) {
       enableScrollLock();
-      return disableScrollLock;
+      // return disableScrollLock;
     }
     return noop;
   }, [enableScrollLock, disableScrollLock, enabled]);

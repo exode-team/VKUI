@@ -10,7 +10,7 @@ import { Headline } from "../Typography/Headline/Headline";
 /**
  * @see https://vkcom.github.io/VKUI/#/Placeholder
  */
-var Placeholder = function Placeholder(props) {
+export var Placeholder = function Placeholder(props) {
   var icon = props.icon,
       header = props.header,
       action = props.action,
@@ -39,8 +39,5 @@ var Placeholder = function Placeholder(props) {
   }, children), hasReactNode(action) && createScopedElement("div", {
     vkuiClass: "Placeholder__action"
   }, action)));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default Placeholder;
+};
 //# sourceMappingURL=Placeholder.js.map

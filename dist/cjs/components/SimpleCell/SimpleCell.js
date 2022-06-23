@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.SimpleCell = void 0;
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
@@ -17,7 +17,7 @@ var _classNames = require("../../lib/classNames");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _icons = require("@vkontakte/icons");
 
@@ -62,12 +62,8 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
     }, props));
   }
 };
-/**
- * @see https://vkcom.github.io/VKUI/#/SimpleCell
- */
 
-
-var SimpleCell = function SimpleCell(_ref) {
+var SimpleCellComponent = function SimpleCellComponent(_ref) {
   var badge = _ref.badge,
       before = _ref.before,
       indicator = _ref.indicator,
@@ -82,7 +78,7 @@ var SimpleCell = function SimpleCell(_ref) {
 
   var hasAfter = (0, _utils.hasReactNode)(after) || expandable && platform === _platform.IOS;
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SimpleCell", platform), {
       "SimpleCell--exp": expandable,
@@ -105,12 +101,14 @@ var SimpleCell = function SimpleCell(_ref) {
   }, indicator), hasAfter && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "SimpleCell__after"
   }, after, expandable && platform === _platform.IOS && (0, _jsxRuntime.createScopedElement)(_icons.Icon24Chevron, null)));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/SimpleCell
+ */
 
 
-var _default = (0, _withAdaptivity.withAdaptivity)(SimpleCell, {
+var SimpleCell = (0, _withAdaptivity.withAdaptivity)(SimpleCellComponent, {
   sizeY: true
 });
-
-exports.default = _default;
+exports.SimpleCell = SimpleCell;
 //# sourceMappingURL=SimpleCell.js.map

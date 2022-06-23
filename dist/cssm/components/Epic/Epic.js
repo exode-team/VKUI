@@ -11,11 +11,8 @@ import { getNavId } from "../../lib/getNavId";
 import { warnOnce } from "../../lib/warnOnce";
 import "./Epic.css";
 var warn = warnOnce("Epic");
-/**
- * @see https://vkcom.github.io/VKUI/#/Epic
- */
 
-export var Epic = function Epic(props) {
+var EpicComponent = function EpicComponent(props) {
   var _ref;
 
   var platform = usePlatform();
@@ -43,9 +40,14 @@ export var Epic = function Epic(props) {
       return scroll[activeStory] = value;
     }
   }, story), tabbar);
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Epic
+ */
 
-export default withAdaptivity(Epic, {
+
+export var Epic = withAdaptivity(EpicComponent, {
   viewWidth: true
 });
+Epic.displayName = "Epic";
 //# sourceMappingURL=Epic.js.map

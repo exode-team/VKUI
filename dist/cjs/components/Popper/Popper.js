@@ -76,7 +76,10 @@ var Popper = function Popper(_ref) {
   var setExternalRef = (0, _useExternRef.useExternRef)(getRef, setPopperNode);
   var modifiers = React.useMemo(function () {
     var modifiers = [{
-      name: "preventOverflow"
+      name: "preventOverflow",
+      options: {
+        mainAxis: false
+      }
     }, {
       name: "offset",
       options: {

@@ -3,11 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = animate;
+exports.animate = animate;
 
 var _vkjs = require("@vkontakte/vkjs");
 
-// eslint-disable-next-line import/no-default-export
 function animate(_ref) {
   var duration = _ref.duration,
       timing = _ref.timing,

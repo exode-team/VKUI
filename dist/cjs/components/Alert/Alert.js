@@ -19,7 +19,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var React = _interopRequireWildcard(require("react"));
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _PopoutWrapper = require("../PopoutWrapper/PopoutWrapper");
 
@@ -35,13 +35,13 @@ var _Button = require("../Button/Button");
 
 var _utils = require("../../lib/utils");
 
-var _Headline = require("../Typography/Headline/Headline");
-
 var _Title = require("../Typography/Title/Title");
 
 var _Caption = require("../Typography/Caption/Caption");
 
-var _ModalDismissButton = _interopRequireDefault(require("../ModalDismissButton/ModalDismissButton"));
+var _Text = require("../Typography/Text/Text");
+
+var _ModalDismissButton = require("../ModalDismissButton/ModalDismissButton");
 
 var _FocusTrap = require("../FocusTrap/FocusTrap");
 
@@ -60,12 +60,6 @@ var AlertHeader = function AlertHeader(props) {
   var platform = (0, _usePlatform.usePlatform)();
 
   switch (platform) {
-    case _platform.VKCOM:
-      return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
-        vkuiClass: "Alert__header",
-        weight: "2"
-      }, props));
-
     case _platform.IOS:
       return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
         vkuiClass: "Alert__header",
@@ -98,7 +92,7 @@ var AlertText = function AlertText(props) {
       }, props));
 
     default:
-      return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+      return (0, _jsxRuntime.createScopedElement)(_Text.Text, (0, _extends2.default)({
         Component: "span",
         vkuiClass: "Alert__text",
         weight: "3"
@@ -122,7 +116,7 @@ var AlertAction = function AlertAction(_ref) {
   if (platform === _platform.IOS) {
     var _action$Component = action.Component,
         Component = _action$Component === void 0 ? "button" : _action$Component;
-    return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({
+    return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
       Component: action.href ? "a" : Component,
       vkuiClass: (0, _classNames.classNames)("Alert__action", "Alert__action--".concat(action.mode)),
       onClick: handleItemClick,
@@ -190,8 +184,10 @@ var Alert = function Alert(_ref2) {
   var timeout = platform === _platform.ANDROID || platform === _platform.VKCOM ? 200 : 300;
   var close = React.useCallback(function () {
     setClosing(true);
-    waitTransitionFinish(elementRef.current, function () {
-      onClose && onClose();
+    waitTransitionFinish(elementRef.current, function (e) {
+      if (!e || e.propertyName === "opacity") {
+        onClose && onClose();
+      }
     }, timeout);
   }, [elementRef, waitTransitionFinish, onClose, timeout]);
   var onItemClick = React.useCallback(function (item) {
@@ -240,7 +236,7 @@ var Alert = function Alert(_ref2) {
       action: action,
       onItemClick: onItemClick
     });
-  })), canShowCloseButton && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.default, {
+  })), canShowCloseButton && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.ModalDismissButton, {
     onClick: close,
     "aria-label": dismissLabel
   })));

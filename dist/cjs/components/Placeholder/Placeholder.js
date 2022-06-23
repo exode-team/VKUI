@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Placeholder = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -54,9 +54,7 @@ var Placeholder = function Placeholder(props) {
   }, children), (0, _utils.hasReactNode)(action) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Placeholder__action"
   }, action)));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = Placeholder;
-exports.default = _default;
+exports.Placeholder = Placeholder;
 //# sourceMappingURL=Placeholder.js.map

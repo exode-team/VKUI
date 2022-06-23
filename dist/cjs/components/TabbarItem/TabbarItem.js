@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.TabbarItem = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -15,7 +15,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Counter = _interopRequireDefault(require("../Counter/Counter"));
+var _Counter = require("../Counter/Counter");
 
 var _classNames = require("../../lib/classNames");
 
@@ -23,7 +23,7 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _utils = require("../../lib/utils");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _platform = require("../../lib/platform");
 
@@ -60,7 +60,7 @@ var TabbarItem = function TabbarItem(_ref) {
       "TabbarItem--selected": selected,
       "TabbarItem--text": !!text
     })
-  }), (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  }), (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     role: "presentation",
     Component: "div",
     disabled: disabled,
@@ -74,15 +74,13 @@ var TabbarItem = function TabbarItem(_ref) {
     vkuiClass: "TabbarItem__icon"
   }, children, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "TabbarItem__label"
-  }, (0, _utils.hasReactNode)(indicator) && indicator, !indicator && label && (0, _jsxRuntime.createScopedElement)(_Counter.default, {
+  }, (0, _utils.hasReactNode)(indicator) && indicator, !indicator && label && (0, _jsxRuntime.createScopedElement)(_Counter.Counter, {
     size: "s",
     mode: "prominent"
   }, label))), text && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "TabbarItem__text"
   }, text)));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = TabbarItem;
-exports.default = _default;
+exports.TabbarItem = TabbarItem;
 //# sourceMappingURL=TabbarItem.js.map

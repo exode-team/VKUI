@@ -4,7 +4,6 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["alignY", "alignX", "closing", "hasMask", "fixed", "children", "onClick"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { IOS } from "../../lib/platform";
 import { useTimeout } from "../../hooks/useTimeout";
@@ -58,15 +57,8 @@ export var PopoutWrapper = function PopoutWrapper(_ref) {
   }, {
     passive: false
   });
-  var baseClassNames = getClassName("PopoutWrapper", platform);
   return createScopedElement("div", _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(baseClassNames, "PopoutWrapper--v-".concat(alignY), "PopoutWrapper--h-".concat(alignX), {
-      "PopoutWrapper--closing": closing,
-      "PopoutWrapper--opened": opened,
-      "PopoutWrapper--fixed": fixed,
-      "PopoutWrapper--masked": hasMask
-    }),
+    vkuiClass: classNames("PopoutWrapper", "PopoutWrapper--v-".concat(alignY), "PopoutWrapper--h-".concat(alignX), closing && "PopoutWrapper--closing", opened && "PopoutWrapper--opened", fixed && "PopoutWrapper--fixed", hasMask && "PopoutWrapper--masked"),
     onAnimationEnd: opened ? undefined : onFadeInEnd,
     ref: elRef
   }), createScopedElement("div", {

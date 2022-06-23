@@ -64,5 +64,4 @@ export interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/Banner
  */
-declare const Banner: React.FC<BannerProps>;
-export default Banner;
+export declare const Banner: ({ mode, imageTheme, size, before, asideMode, header, subheader, text, children, background, actions, onDismiss, dismissLabel, ...restProps }: BannerProps) => JSX.Element;

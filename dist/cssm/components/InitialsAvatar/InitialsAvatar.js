@@ -4,7 +4,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["size", "children", "gradientColor", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
-import Avatar, { AVATAR_DEFAULT_SIZE } from "../Avatar/Avatar";
+import { AVATAR_DEFAULT_SIZE, Avatar } from "../Avatar/Avatar";
 import "./InitialsAvatar.css";
 /**
  * Градиенты, которые можно использовать в алгоритме поиска градиентов по числовому идентификатору пользователя.

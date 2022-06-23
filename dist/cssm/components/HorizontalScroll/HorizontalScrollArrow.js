@@ -1,7 +1,7 @@
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { Icon24Chevron } from "@vkontakte/icons";
 import { classNames } from "../../lib/classNames";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import "./HorizontalScrollArrow.css";
 
 var HorizontalScrollArrow = function HorizontalScrollArrow(_ref) {

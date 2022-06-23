@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.ContentCard = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -17,15 +17,11 @@ var _Card = require("../Card/Card");
 
 var _Caption = require("../Typography/Caption/Caption");
 
-var _Title = require("../Typography/Title/Title");
+var _Headline = require("../Typography/Headline/Headline");
 
 var _Text = require("../Typography/Text/Text");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
-
-var _getClassName = require("../../helpers/getClassName");
-
-var _usePlatform = require("../../hooks/usePlatform");
+var _Tappable = require("../Tappable/Tappable");
 
 var _utils = require("../../lib/utils");
 
@@ -39,31 +35,31 @@ var warn = (0, _warnOnce.warnOnce)("ContentCard");
  * @see https://vkcom.github.io/VKUI/#/ContentCard
  */
 
-var ContentCard = function ContentCard(props) {
-  var subtitle = props.subtitle,
-      header = props.header,
-      text = props.text,
-      caption = props.caption,
-      className = props.className,
-      mode = props.mode,
-      style = props.style,
-      getRootRef = props.getRootRef,
-      getRef = props.getRef,
-      maxHeight = props.maxHeight,
-      image = props.image,
-      src = props.src,
-      srcSet = props.srcSet,
-      alt = props.alt,
-      width = props.width,
-      height = props.height,
-      crossOrigin = props.crossOrigin,
-      decoding = props.decoding,
-      loading = props.loading,
-      referrerPolicy = props.referrerPolicy,
-      sizes = props.sizes,
-      useMap = props.useMap,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
+var ContentCard = function ContentCard(_ref) {
+  var subtitle = _ref.subtitle,
+      header = _ref.header,
+      text = _ref.text,
+      caption = _ref.caption,
+      className = _ref.className,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "shadow" : _ref$mode,
+      style = _ref.style,
+      getRootRef = _ref.getRootRef,
+      getRef = _ref.getRef,
+      maxHeight = _ref.maxHeight,
+      image = _ref.image,
+      src = _ref.src,
+      srcSet = _ref.srcSet,
+      alt = _ref.alt,
+      width = _ref.width,
+      height = _ref.height,
+      crossOrigin = _ref.crossOrigin,
+      decoding = _ref.decoding,
+      loading = _ref.loading,
+      referrerPolicy = _ref.referrerPolicy,
+      sizes = _ref.sizes,
+      useMap = _ref.useMap,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var source = image || src;
 
   if (image && process.env.NODE_ENV === "development") {
@@ -72,14 +68,11 @@ var ContentCard = function ContentCard(props) {
 
   return (0, _jsxRuntime.createScopedElement)(_Card.Card, {
     mode: mode,
-    getRootRef: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ContentCard", platform), {
-      "ContentCard--disabled": restProps.disabled
-    }),
+    getRootRef: getRootRef,
+    vkuiClass: (0, _classNames.classNames)("ContentCard", restProps.disabled && "ContentCard--disabled"),
     style: style,
     className: className
-  }, (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     disabled: restProps.disabled || !restProps.onClick && !restProps.href,
     hasHover: false,
     hasActive: false,
@@ -104,25 +97,20 @@ var ContentCard = function ContentCard(props) {
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "ContentCard__body"
   }, (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
-    caps: true,
-    vkuiClass: "ContentCard__text",
+    vkuiClass: "ContentCard__text ContentCard__subtitle",
     weight: "1",
-    level: "3"
-  }, subtitle), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Title.Title, {
+    level: "3",
+    caps: true
+  }, subtitle), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     vkuiClass: "ContentCard__text",
-    weight: "3",
+    weight: "2",
     level: "1"
   }, header), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Text.Text, {
     vkuiClass: "ContentCard__text"
   }, text), (0, _utils.hasReactNode)(caption) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
-    vkuiClass: "ContentCard__text"
+    vkuiClass: "ContentCard__text ContentCard__caption"
   }, caption))));
 };
 
-ContentCard.defaultProps = {
-  mode: "shadow"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = ContentCard;
-exports.default = _default;
+exports.ContentCard = ContentCard;
 //# sourceMappingURL=ContentCard.js.map

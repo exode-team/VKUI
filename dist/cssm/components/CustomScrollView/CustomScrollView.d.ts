@@ -1,10 +1,10 @@
-import * as React from "react";
 import { DOMProps } from "../../lib/dom";
+import * as React from "react";
 import "./CustomScrollView.css";
-interface Props extends DOMProps {
+export interface CustomScrollViewProps extends DOMProps {
     windowResize?: boolean;
     boxRef?: React.Ref<HTMLDivElement>;
     className?: HTMLDivElement["className"];
+    children: React.ReactNode;
 }
-declare const _default: React.ComponentType<Props>;
-export default _default;
+export declare const CustomScrollView: ({ className, children, boxRef: externalBoxRef, windowResize, }: CustomScrollViewProps) => JSX.Element;

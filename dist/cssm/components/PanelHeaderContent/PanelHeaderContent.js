@@ -4,7 +4,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["className", "style", "aside", "status", "before", "children", "onClick"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { getClassName } from "../../helpers/getClassName";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { Caption } from "../Typography/Caption/Caption";
@@ -38,7 +38,7 @@ var PanelHeaderChildren = function PanelHeaderChildren(_ref) {
  */
 
 
-var PanelHeaderContent = function PanelHeaderContent(_ref2) {
+export var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   var className = _ref2.className,
       style = _ref2.style,
       aside = _ref2.aside,
@@ -79,8 +79,5 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   }, aside)), hasReactNode(before) && createScopedElement("div", {
     vkuiClass: "PanelHeaderContent__width"
   })));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default PanelHeaderContent;
+};
 //# sourceMappingURL=PanelHeaderContent.js.map

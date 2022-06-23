@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.List = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -56,9 +56,7 @@ var List = function List(_ref) {
       };
     }, [])
   }, children));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = List;
-exports.default = _default;
+exports.List = List;
 //# sourceMappingURL=List.js.map

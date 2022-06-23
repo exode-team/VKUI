@@ -19,8 +19,6 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _platform = require("../../lib/platform");
@@ -80,15 +78,8 @@ var PopoutWrapper = function PopoutWrapper(_ref) {
   }, {
     passive: false
   });
-  var baseClassNames = (0, _getClassName.getClassName)("PopoutWrapper", platform);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)(baseClassNames, "PopoutWrapper--v-".concat(alignY), "PopoutWrapper--h-".concat(alignX), {
-      "PopoutWrapper--closing": closing,
-      "PopoutWrapper--opened": opened,
-      "PopoutWrapper--fixed": fixed,
-      "PopoutWrapper--masked": hasMask
-    }),
+    vkuiClass: (0, _classNames.classNames)("PopoutWrapper", "PopoutWrapper--v-".concat(alignY), "PopoutWrapper--h-".concat(alignX), closing && "PopoutWrapper--closing", opened && "PopoutWrapper--opened", fixed && "PopoutWrapper--fixed", hasMask && "PopoutWrapper--masked"),
     onAnimationEnd: opened ? undefined : onFadeInEnd,
     ref: elRef
   }), (0, _jsxRuntime.createScopedElement)("div", {

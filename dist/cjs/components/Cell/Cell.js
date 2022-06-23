@@ -27,7 +27,7 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _platform = require("../../lib/platform");
 
-var _SimpleCell = _interopRequireDefault(require("../SimpleCell/SimpleCell"));
+var _SimpleCell = require("../SimpleCell/SimpleCell");
 
 var _Removable = require("../Removable/Removable");
 
@@ -148,7 +148,7 @@ var Cell = function Cell(_ref) {
     "Cell--selectable": selectable,
     "Cell--disabled": disabled
   });
-  var simpleCell = (0, _jsxRuntime.createScopedElement)(_SimpleCell.default, (0, _extends2.default)({
+  var simpleCell = (0, _jsxRuntime.createScopedElement)(_SimpleCell.SimpleCell, (0, _extends2.default)({
     hasActive: hasActive,
     hasHover: hasActive
   }, restProps, {

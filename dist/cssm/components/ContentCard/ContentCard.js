@@ -4,11 +4,9 @@ var _excluded = ["subtitle", "header", "text", "caption", "className", "mode", "
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { Card } from "../Card/Card";
 import { Caption } from "../Typography/Caption/Caption";
-import { Title } from "../Typography/Title/Title";
+import { Headline } from "../Typography/Headline/Headline";
 import { Text } from "../Typography/Text/Text";
-import Tappable from "../Tappable/Tappable";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
+import { Tappable } from "../Tappable/Tappable";
 import { hasReactNode } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
 import { classNames } from "../../lib/classNames";
@@ -18,32 +16,32 @@ var warn = warnOnce("ContentCard");
  * @see https://vkcom.github.io/VKUI/#/ContentCard
  */
 
-var ContentCard = function ContentCard(props) {
-  var subtitle = props.subtitle,
-      header = props.header,
-      text = props.text,
-      caption = props.caption,
-      className = props.className,
-      mode = props.mode,
-      style = props.style,
-      getRootRef = props.getRootRef,
-      getRef = props.getRef,
-      maxHeight = props.maxHeight,
-      image = props.image,
-      src = props.src,
-      srcSet = props.srcSet,
-      alt = props.alt,
-      width = props.width,
-      height = props.height,
-      crossOrigin = props.crossOrigin,
-      decoding = props.decoding,
-      loading = props.loading,
-      referrerPolicy = props.referrerPolicy,
-      sizes = props.sizes,
-      useMap = props.useMap,
-      restProps = _objectWithoutProperties(props, _excluded);
+export var ContentCard = function ContentCard(_ref) {
+  var subtitle = _ref.subtitle,
+      header = _ref.header,
+      text = _ref.text,
+      caption = _ref.caption,
+      className = _ref.className,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "shadow" : _ref$mode,
+      style = _ref.style,
+      getRootRef = _ref.getRootRef,
+      getRef = _ref.getRef,
+      maxHeight = _ref.maxHeight,
+      image = _ref.image,
+      src = _ref.src,
+      srcSet = _ref.srcSet,
+      alt = _ref.alt,
+      width = _ref.width,
+      height = _ref.height,
+      crossOrigin = _ref.crossOrigin,
+      decoding = _ref.decoding,
+      loading = _ref.loading,
+      referrerPolicy = _ref.referrerPolicy,
+      sizes = _ref.sizes,
+      useMap = _ref.useMap,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var platform = usePlatform();
   var source = image || src;
 
   if (image && process.env.NODE_ENV === "development") {
@@ -52,11 +50,8 @@ var ContentCard = function ContentCard(props) {
 
   return createScopedElement(Card, {
     mode: mode,
-    getRootRef: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("ContentCard", platform), {
-      "ContentCard--disabled": restProps.disabled
-    }),
+    getRootRef: getRootRef,
+    vkuiClass: classNames("ContentCard", restProps.disabled && "ContentCard--disabled"),
     style: style,
     className: className
   }, createScopedElement(Tappable, _extends({}, restProps, {
@@ -84,24 +79,18 @@ var ContentCard = function ContentCard(props) {
   }), createScopedElement("div", {
     vkuiClass: "ContentCard__body"
   }, hasReactNode(subtitle) && createScopedElement(Caption, {
-    caps: true,
-    vkuiClass: "ContentCard__text",
+    vkuiClass: "ContentCard__text ContentCard__subtitle",
     weight: "1",
-    level: "3"
-  }, subtitle), hasReactNode(header) && createScopedElement(Title, {
+    level: "3",
+    caps: true
+  }, subtitle), hasReactNode(header) && createScopedElement(Headline, {
     vkuiClass: "ContentCard__text",
-    weight: "3",
+    weight: "2",
     level: "1"
   }, header), hasReactNode(text) && createScopedElement(Text, {
     vkuiClass: "ContentCard__text"
   }, text), hasReactNode(caption) && createScopedElement(Caption, {
-    vkuiClass: "ContentCard__text"
+    vkuiClass: "ContentCard__text ContentCard__caption"
   }, caption))));
 };
-
-ContentCard.defaultProps = {
-  mode: "shadow"
-}; // eslint-disable-next-line import/no-default-export
-
-export default ContentCard;
 //# sourceMappingURL=ContentCard.js.map

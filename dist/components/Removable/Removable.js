@@ -13,9 +13,9 @@ import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { useDOM } from "../../lib/dom";
 import { ANDROID, IOS, VKCOM } from "../../lib/platform";
 import { Icon24Cancel } from "@vkontakte/icons";
-import IconButton from "../IconButton/IconButton";
+import { IconButton } from "../IconButton/IconButton";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 
 /**
  * @see https://vkcom.github.io/VKUI/#/RemovableIos
@@ -85,7 +85,7 @@ var RemovableIos = function RemovableIos(_ref) {
     role: "presentation"
   })), children, createScopedElement("span", {
     vkuiClass: "Removable__offset",
-    "aria-hidden": "true"
+    "aria-hidden": true
   }), createScopedElement(Tappable, {
     Component: "button",
     hasActive: false,
@@ -139,7 +139,10 @@ export var Removable = function Removable(_ref2) {
     "aria-label": removePlaceholderString
   }, createScopedElement(Icon24Cancel, {
     role: "presentation"
-  }))), platform === IOS && createScopedElement(RemovableIos, {
+  })), createScopedElement("span", {
+    vkuiClass: "Removable__offset",
+    "aria-hidden": true
+  })), platform === IOS && createScopedElement(RemovableIos, {
     onRemove: onRemoveClick,
     removePlaceholder: removePlaceholder,
     removePlaceholderString: removePlaceholderString

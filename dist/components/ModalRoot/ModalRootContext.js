@@ -55,7 +55,5 @@ export function useModalRegistry(id, type) {
   return {
     refs: refs
   };
-} // eslint-disable-next-line import/no-default-export
-
-export default ModalRootContext;
+}
 //# sourceMappingURL=ModalRootContext.js.map

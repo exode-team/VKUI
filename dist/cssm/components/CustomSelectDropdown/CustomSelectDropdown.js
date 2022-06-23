@@ -4,7 +4,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import CustomScrollView from "../CustomScrollView/CustomScrollView";
+import { CustomScrollView } from "../CustomScrollView/CustomScrollView";
 import { classNames } from "../../lib/classNames";
 import { Popper } from "../Popper/Popper";
 import { Spinner } from "../Spinner/Spinner";

@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PanelHeaderBackComponent = exports.PanelHeaderBack = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -31,19 +31,22 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _classNames = require("../../lib/classNames");
 
-var _excluded = ["label", "sizeX"];
+var _excluded = ["label", "sizeX", "aria-label"];
 
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderBack
  */
-var PanelHeaderBack = function PanelHeaderBack(_ref) {
+var PanelHeaderBackComponent = function PanelHeaderBackComponent(_ref) {
   var label = _ref.label,
       sizeX = _ref.sizeX,
+      _ref$ariaLabel = _ref["aria-label"],
+      ariaLabel = _ref$ariaLabel === void 0 ? "Назад" : _ref$ariaLabel,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var showLabel = platform === _platform.VKCOM || platform === _platform.IOS && sizeX === _withAdaptivity.SizeType.REGULAR;
   return (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    "aria-label": ariaLabel // eslint-disable-next-line vkui/no-object-expression-in-arguments
+    ,
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderBack", platform), {
       "PanelHeaderBack--has-label": showLabel && !!label
     }),
@@ -51,13 +54,10 @@ var PanelHeaderBack = function PanelHeaderBack(_ref) {
   }), platform === _platform.ANDROID && (0, _jsxRuntime.createScopedElement)(_icons.Icon28ArrowLeftOutline, null), platform === _platform.VKCOM && (0, _jsxRuntime.createScopedElement)(_icons.Icon28ChevronLeftOutline, null), platform === _platform.IOS && (0, _jsxRuntime.createScopedElement)(_icons.Icon28ChevronBack, null));
 };
 
-PanelHeaderBack.defaultProps = {
-  "aria-label": "Назад"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = /*#__PURE__*/React.memo((0, _withAdaptivity.withAdaptivity)(PanelHeaderBack, {
+exports.PanelHeaderBackComponent = PanelHeaderBackComponent;
+var PanelHeaderBack = /*#__PURE__*/React.memo((0, _withAdaptivity.withAdaptivity)(PanelHeaderBackComponent, {
   sizeX: true
 }));
-
-exports.default = _default;
+exports.PanelHeaderBack = PanelHeaderBack;
+PanelHeaderBack.displayName = "PanelHeaderBack";
 //# sourceMappingURL=PanelHeaderBack.js.map

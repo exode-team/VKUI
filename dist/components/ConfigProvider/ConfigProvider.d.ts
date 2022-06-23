@@ -15,5 +15,4 @@ export interface ConfigProviderProps extends Partial<ConfigProviderContextInterf
 /**
  * @see https://vkcom.github.io/VKUI/#/ConfigProvider
  */
-declare const ConfigProvider: React.FC<ConfigProviderProps>;
-export default ConfigProvider;
+export declare const ConfigProvider: React.FC<ConfigProviderProps>;

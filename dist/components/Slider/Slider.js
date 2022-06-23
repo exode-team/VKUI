@@ -10,7 +10,7 @@ import { UniversalSlider } from "../RangeSlider/UniversalSlider";
 /**
  * @see https://vkcom.github.io/VKUI/#/Slider
  */
-var Slider = function Slider(_ref) {
+export var Slider = function Slider(_ref) {
   var onChange = _ref.onChange,
       defaultValue = _ref.defaultValue,
       _ref$min = _ref.min,
@@ -47,8 +47,5 @@ var Slider = function Slider(_ref) {
     min: min,
     max: max
   }));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default Slider;
+};
 //# sourceMappingURL=Slider.js.map

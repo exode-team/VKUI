@@ -32,4 +32,4 @@ export interface InitialsAvatarProps extends React.HTMLAttributes<HTMLDivElement
 /**
  * @see https://vkcom.github.io/VKUI/#/InitialsAvatar
  */
-export declare const InitialsAvatar: React.FC<InitialsAvatarProps>;
+export declare const InitialsAvatar: ({ size, children, gradientColor, style, ...restProps }: InitialsAvatarProps) => JSX.Element;

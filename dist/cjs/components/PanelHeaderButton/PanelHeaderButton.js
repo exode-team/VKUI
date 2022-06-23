@@ -13,7 +13,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _getClassName = require("../../helpers/getClassName");
 
@@ -92,7 +92,7 @@ var PanelHeaderButton = function PanelHeaderButton(_ref2) {
     }
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     hoverMode: hoverMode,
     Component: restProps.href ? "a" : "button",
     activeEffectDelay: 200,

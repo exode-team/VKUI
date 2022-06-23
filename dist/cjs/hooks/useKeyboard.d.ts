@@ -1,6 +1,5 @@
 interface SoftwareKeyboardState {
     isOpened: boolean;
-    isPrecise: boolean;
 }
 /**
  Проверяет, закрыла ли клавиатура часть экрана, 24% подошло к большинству устройств

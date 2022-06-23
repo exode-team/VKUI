@@ -1,10 +1,10 @@
 import * as React from "react";
 import { getClassName } from "../../helpers/getClassName";
-import Counter from "../Counter/Counter";
+import { Counter } from "../Counter/Counter";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { Platform } from "../../lib/platform";
 import { HasComponent, HasRootRef } from "../../types";
 import { warnOnce } from "../../lib/warnOnce";
@@ -34,7 +34,7 @@ const warn = warnOnce("TabbarItem");
 /**
  * @see https://vkcom.github.io/VKUI/#/TabbarItem
  */
-const TabbarItem: React.FunctionComponent<TabbarItemProps> = ({
+export const TabbarItem: React.FunctionComponent<TabbarItemProps> = ({
   children,
   selected,
   label,
@@ -94,6 +94,3 @@ const TabbarItem: React.FunctionComponent<TabbarItemProps> = ({
     </Component>
   );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default TabbarItem;

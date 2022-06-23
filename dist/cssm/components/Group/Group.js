@@ -10,17 +10,15 @@ import { Separator } from "../Separator/Separator";
 import { hasReactNode } from "../../lib/utils";
 import { Caption } from "../Typography/Caption/Caption";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
-import ModalRootContext from "../ModalRoot/ModalRootContext";
+import { ModalRootContext } from "../ModalRoot/ModalRootContext";
 import "./Group.css";
 
-/**
- * @see https://vkcom.github.io/VKUI/#/Group
- */
-var Group = function Group(props) {
+var GroupComponent = function GroupComponent(props) {
   var header = props.header,
       description = props.description,
       children = props.children,
-      separator = props.separator,
+      _props$separator = props.separator,
+      separator = _props$separator === void 0 ? "auto" : _props$separator,
       getRootRef = props.getRootRef,
       mode = props.mode,
       sizeX = props.sizeX,
@@ -51,12 +49,13 @@ var Group = function Group(props) {
     expanded: computedMode === "card"
   }));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Group
+ */
 
-Group.defaultProps = {
-  separator: "auto"
-}; // eslint-disable-next-line import/no-default-export
 
-export default withAdaptivity(Group, {
+export var Group = withAdaptivity(GroupComponent, {
   sizeX: true
 });
+Group.displayName = "Group";
 //# sourceMappingURL=Group.js.map

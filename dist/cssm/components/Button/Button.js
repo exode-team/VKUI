@@ -6,7 +6,7 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { Title } from "../Typography/Title/Title";
 import { Text } from "../Typography/Text/Text";
 import { Subhead } from "../Typography/Subhead/Subhead";
@@ -163,7 +163,7 @@ var ButtonComponent = function ButtonComponent(_ref) {
     onClick: loading ? undefined : onClick,
     focusVisibleMode: "outside",
     stopPropagation: stopPropagation,
-    vkuiClass: classNames("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), stretched && "Button--stretched", hasIcons && "Button--with-icon", hasIconOnly && "Button--singleIcon"),
+    vkuiClass: classNames("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), stretched && "Button--stretched", hasIcons && "Button--with-icon", hasIconOnly && "Button--singleIcon", loading && "Button--loading"),
     getRootRef: getRootRef,
     hoverMode: hasNewTokens ? "Button--hover" : "background",
     activeMode: hasNewTokens ? "Button--active" : "opacity"

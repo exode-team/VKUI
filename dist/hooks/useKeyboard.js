@@ -21,7 +21,6 @@ export function useKeyboard() {
   var _document$activeEleme3;
 
   var _useDOM = useDOM(),
-      window = _useDOM.window,
       document = _useDOM.document;
 
   var _React$useState = React.useState(false),
@@ -29,28 +28,12 @@ export function useKeyboard() {
       isOpened = _React$useState2[0],
       setIsOpened = _React$useState2[1];
 
-  var _React$useState3 = React.useState(false),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      isPrecise = _React$useState4[0],
-      setIsPrecise = _React$useState4[1];
-
-  var transitionalTimeout = React.useRef(null);
   var onFocus = React.useCallback(function (event) {
     var _document$activeEleme, _document$activeEleme2;
 
-    if (transitionalTimeout.current) {
-      clearTimeout(transitionalTimeout.current);
-    }
-
     var isOpened = (event === true || event.type === "focusin") && ((document === null || document === void 0 ? void 0 : (_document$activeEleme = document.activeElement) === null || _document$activeEleme === void 0 ? void 0 : _document$activeEleme.tagName) === "INPUT" || (document === null || document === void 0 ? void 0 : (_document$activeEleme2 = document.activeElement) === null || _document$activeEleme2 === void 0 ? void 0 : _document$activeEleme2.tagName) === "TEXTAREA");
     setIsOpened(isOpened);
-    setIsPrecise(false); // Ожидаем прохождение анимации раскрытия клавиатуры
-
-    transitionalTimeout.current = setTimeout(function () {
-      setIsOpened(isOpened);
-      setIsPrecise(getPreciseKeyboardState(window));
-    }, 300);
-  }, [document === null || document === void 0 ? void 0 : (_document$activeEleme3 = document.activeElement) === null || _document$activeEleme3 === void 0 ? void 0 : _document$activeEleme3.tagName, window]);
+  }, [document === null || document === void 0 ? void 0 : (_document$activeEleme3 = document.activeElement) === null || _document$activeEleme3 === void 0 ? void 0 : _document$activeEleme3.tagName]);
   /**
    У полей с autoFocus не отлавливаются события focus, для этого вызываем вручную,
    чтобы иметь хоть какое-то понимание происходящего.
@@ -62,8 +45,7 @@ export function useKeyboard() {
   useGlobalEventListener(document, "focusout", onFocus, eventOptions);
   useGlobalEventListener(document, "focusin", onFocus, eventOptions);
   return {
-    isOpened: isOpened,
-    isPrecise: isPrecise
+    isOpened: isOpened
   };
 }
 //# sourceMappingURL=useKeyboard.js.map

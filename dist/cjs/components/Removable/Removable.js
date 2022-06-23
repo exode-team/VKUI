@@ -37,11 +37,11 @@ var _platform = require("../../lib/platform");
 
 var _icons = require("@vkontakte/icons");
 
-var _IconButton = _interopRequireDefault(require("../IconButton/IconButton"));
+var _IconButton = require("../IconButton/IconButton");
 
 var _useGlobalEventListener = require("../../hooks/useGlobalEventListener");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _excluded = ["getRootRef", "children", "onRemove", "removePlaceholder", "align"];
 
@@ -101,7 +101,7 @@ var RemovableIos = function RemovableIos(_ref) {
       transform: "translateX(-".concat(removeOffset !== null && removeOffset !== void 0 ? removeOffset : 0, "px)")
     },
     onTransitionEnd: onRemoveTransitionEnd
-  }, (0, _jsxRuntime.createScopedElement)(_IconButton.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_IconButton.IconButton, {
     hasActive: false,
     hasHover: false,
     "aria-label": removePlaceholderString,
@@ -113,8 +113,8 @@ var RemovableIos = function RemovableIos(_ref) {
     role: "presentation"
   })), children, (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "Removable__offset",
-    "aria-hidden": "true"
-  }), (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+    "aria-hidden": true
+  }), (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     Component: "button",
     hasActive: false,
     hasHover: false,
@@ -158,7 +158,7 @@ var Removable = function Removable(_ref2) {
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Removable", platform), "Removable--".concat(align), "Removable--sizeY-".concat(sizeY))
   }), (platform === _platform.ANDROID || platform === _platform.VKCOM) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Removable__content"
-  }, children, (0, _jsxRuntime.createScopedElement)(_IconButton.default, {
+  }, children, (0, _jsxRuntime.createScopedElement)(_IconButton.IconButton, {
     activeMode: "opacity",
     hoverMode: "opacity",
     vkuiClass: "Removable__action",
@@ -166,7 +166,10 @@ var Removable = function Removable(_ref2) {
     "aria-label": removePlaceholderString
   }, (0, _jsxRuntime.createScopedElement)(_icons.Icon24Cancel, {
     role: "presentation"
-  }))), platform === _platform.IOS && (0, _jsxRuntime.createScopedElement)(RemovableIos, {
+  })), (0, _jsxRuntime.createScopedElement)("span", {
+    vkuiClass: "Removable__offset",
+    "aria-hidden": true
+  })), platform === _platform.IOS && (0, _jsxRuntime.createScopedElement)(RemovableIos, {
     onRemove: onRemoveClick,
     removePlaceholder: removePlaceholder,
     removePlaceholderString: removePlaceholderString

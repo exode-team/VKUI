@@ -7,7 +7,8 @@ import { Icon16Cancel } from "@vkontakte/icons";
 import { getTitleFromChildren, hasReactNode, noop } from "../../lib/utils";
 import { classNames } from "../../lib/classNames";
 import { Caption } from "../Typography/Caption/Caption";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
+import { useAdaptivity } from "../../hooks/useAdaptivity";
 import "./Chip.css";
 
 /**
@@ -29,15 +30,16 @@ export var Chip = function Chip(_ref) {
       children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
+  var _useAdaptivity = useAdaptivity(),
+      sizeY = _useAdaptivity.sizeY;
+
   var onRemoveWrapper = React.useCallback(function (event) {
     onRemove(event, value);
   }, [onRemove, value]);
   var title = getTitleFromChildren(children);
   return createScopedElement("div", _extends({
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames("Chip", {
-      "Chip--removable": removable
-    }),
+    vkuiClass: classNames("Chip", removable && "Chip--removable", "Chip--sizeY-".concat(sizeY) // TODO: v5 новая адаптивность
+    ),
     role: "option",
     "aria-label": title
   }, restProps), createScopedElement("div", {

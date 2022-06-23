@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Root = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -20,8 +20,6 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 var React = _interopRequireWildcard(require("react"));
 
 var _classNames = require("../../lib/classNames");
-
-var _getClassName = require("../../helpers/getClassName");
 
 var _platform = require("../../lib/platform");
 
@@ -160,10 +158,7 @@ var Root = function Root(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Root", platform), {
-      "Root--transition": transition
-    })
+    vkuiClass: (0, _classNames.classNames)("Root", platform === _platform.IOS && "Root--ios", transition && "Root--transition")
   }), views.map(function (view) {
     var _scrolls$viewId;
 
@@ -180,15 +175,8 @@ var Root = function Root(_ref) {
       ref: function ref(e) {
         return viewId && (viewNodes[viewId] = e);
       },
-      onAnimationEnd: isTransitionTarget ? onAnimationEnd : undefined // eslint-disable-next-line vkui/no-object-expression-in-arguments
-      ,
-      vkuiClass: (0, _classNames.classNames)("Root__view", {
-        "Root__view--hide-back": transition && viewId === prevView && isBack,
-        "Root__view--hide-forward": transition && viewId === prevView && !isBack,
-        "Root__view--show-back": transition && viewId === activeView && isBack,
-        "Root__view--show-forward": transition && viewId === activeView && !isBack,
-        "Root__view--active": !transition && viewId === activeView
-      })
+      onAnimationEnd: isTransitionTarget ? onAnimationEnd : undefined,
+      vkuiClass: (0, _classNames.classNames)("Root__view", transition && viewId === prevView && isBack && "Root__view--hide-back", transition && viewId === prevView && !isBack && "Root__view--hide-forward", transition && viewId === activeView && isBack && "Root__view--show-back", transition && viewId === activeView && !isBack && "Root__view--show-forward", !transition && viewId === activeView && "Root__view--active")
     }, (0, _jsxRuntime.createScopedElement)(_NavTransitionContext.NavTransitionProvider, {
       entering: transition && viewId === activeView
     }, (0, _jsxRuntime.createScopedElement)("div", {
@@ -202,9 +190,7 @@ var Root = function Root(_ref) {
   }, popout), !!modal && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Root__modal"
   }, modal)));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = Root;
-exports.default = _default;
+exports.Root = Root;
 //# sourceMappingURL=Root.js.map

@@ -25,7 +25,9 @@ var _classNames = require("../../lib/classNames");
 
 var _Caption = require("../Typography/Caption/Caption");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
+
+var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _excluded = ["value", "option", "removable", "onRemove", "removeAriaLabel", "before", "after", "children"];
 
@@ -47,15 +49,17 @@ var Chip = function Chip(_ref) {
       after = _ref.after,
       children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+
+  var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
+      sizeY = _useAdaptivity.sizeY;
+
   var onRemoveWrapper = React.useCallback(function (event) {
     onRemove(event, value);
   }, [onRemove, value]);
   var title = (0, _utils.getTitleFromChildren)(children);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)("Chip", {
-      "Chip--removable": removable
-    }),
+    vkuiClass: (0, _classNames.classNames)("Chip", removable && "Chip--removable", "Chip--sizeY-".concat(sizeY) // TODO: v5 новая адаптивность
+    ),
     role: "option",
     "aria-label": title
   }, restProps), (0, _jsxRuntime.createScopedElement)("div", {
@@ -69,7 +73,7 @@ var Chip = function Chip(_ref) {
     "aria-hidden": "true"
   }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Chip__after"
-  }, after), removable && (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  }, after), removable && (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     Component: "button",
     vkuiClass: "Chip__remove",
     onClick: onRemoveWrapper,

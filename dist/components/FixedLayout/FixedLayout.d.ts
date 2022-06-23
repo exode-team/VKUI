@@ -18,5 +18,4 @@ export interface FixedLayoutState {
 /**
  * @see https://vkcom.github.io/VKUI/#/FixedLayout
  */
-declare const FixedLayout: React.FC<FixedLayoutProps>;
-export default FixedLayout;
+export declare const FixedLayout: React.FC<FixedLayoutProps>;

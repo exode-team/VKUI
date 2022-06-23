@@ -30,5 +30,4 @@ export interface RootState {
 /**
  * @see https://vkcom.github.io/VKUI/#/Root
  */
-declare const Root: React.FC<RootProps>;
-export default Root;
+export declare const Root: React.FC<RootProps>;

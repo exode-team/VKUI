@@ -71,8 +71,9 @@ var HeaderContent = function HeaderContent(_ref) {
  */
 
 
-var Header = function Header(_ref2) {
-  var mode = _ref2.mode,
+export var Header = function Header(_ref2) {
+  var _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "primary" : _ref2$mode,
       children = _ref2.children,
       subtitle = _ref2.subtitle,
       indicator = _ref2.indicator,
@@ -113,10 +114,4 @@ var Header = function Header(_ref2) {
     Component: "span"
   }, aside));
 };
-
-Header.defaultProps = {
-  mode: "primary"
-}; // eslint-disable-next-line import/no-default-export
-
-export default Header;
 //# sourceMappingURL=Header.js.map

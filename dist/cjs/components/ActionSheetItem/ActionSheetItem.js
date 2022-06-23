@@ -21,7 +21,7 @@ var _classNames = require("../../lib/classNames");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
@@ -81,7 +81,7 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
   }
 
   var isCompact = (0, _utils.hasReactNode)(subtitle) || (0, _utils.hasReactNode)(meta) || selectable;
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     onClick: selectable ? onClick : onItemClick(onClick, onImmediateClick, Boolean(autoclose)),
     activeMode: "ActionSheetItem--active" // eslint-disable-next-line vkui/no-object-expression-in-arguments
     ,

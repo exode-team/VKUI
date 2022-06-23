@@ -13,7 +13,7 @@ var preventDefault = function preventDefault(e) {
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayout
  */
-var FormLayout = function FormLayout(props) {
+export var FormLayout = function FormLayout(props) {
   var children = props.children,
       _props$Component = props.Component,
       Component = _props$Component === void 0 ? "form" : _props$Component,
@@ -34,8 +34,5 @@ var FormLayout = function FormLayout(props) {
     vkuiClass: "FormLayout__submit",
     value: ""
   }));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default FormLayout;
+};
 //# sourceMappingURL=FormLayout.js.map

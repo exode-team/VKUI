@@ -10,5 +10,4 @@ export interface TabbarProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/Tabbar
  */
-declare const Tabbar: React.FunctionComponent<TabbarProps>;
-export default Tabbar;
+export declare const Tabbar: React.FunctionComponent<TabbarProps>;

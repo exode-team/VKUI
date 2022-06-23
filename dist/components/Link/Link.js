@@ -4,12 +4,12 @@ var _excluded = ["children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 
 /**
  * @see https://vkcom.github.io/VKUI/#/Link
  */
-var Link = function Link(_ref) {
+export var Link = function Link(_ref) {
   var children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
@@ -22,8 +22,5 @@ var Link = function Link(_ref) {
     hoverMode: "opacity",
     focusVisibleMode: "outside"
   }), children);
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default Link;
+};
 //# sourceMappingURL=Link.js.map

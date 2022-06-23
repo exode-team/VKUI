@@ -7,53 +7,47 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PullToRefresh = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
-
-var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/createSuper"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var React = _interopRequireWildcard(require("react"));
 
-var _Touch = require("../Touch/Touch");
-
-var _TouchContext = _interopRequireDefault(require("../Touch/TouchContext"));
-
-var _FixedLayout = _interopRequireDefault(require("../FixedLayout/FixedLayout"));
+var _dom = require("../../lib/dom");
 
 var _classNames = require("../../lib/classNames");
 
 var _platform = require("../../lib/platform");
 
-var _getClassName = require("../../helpers/getClassName");
-
-var _PullToRefreshSpinner = _interopRequireDefault(require("./PullToRefreshSpinner"));
-
-var _withPlatform = require("../../hoc/withPlatform");
-
-var _dom = require("../../lib/dom");
-
 var _taptic = require("../../lib/taptic");
 
-var _withContext = require("../../hoc/withContext");
+var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
+
+var _usePlatform = require("../../hooks/usePlatform");
+
+var _useGlobalEventListener = require("../../hooks/useGlobalEventListener");
 
 var _ScrollContext = require("../AppRoot/ScrollContext");
 
-var _excluded = ["children", "onRefresh", "isFetching", "platform", "window", "document", "scroll"];
+var _Touch = require("../Touch/Touch");
+
+var _FixedLayout = require("../FixedLayout/FixedLayout");
+
+var _PullToRefreshSpinner = require("./PullToRefreshSpinner");
+
+var _TouchContext = _interopRequireDefault(require("../Touch/TouchContext"));
+
+var _usePrevious = require("../../hooks/usePrevious");
+
+var _useTimeout2 = require("../../hooks/useTimeout");
+
+var _excluded = ["children", "isFetching", "onRefresh"];
 
 function cancelEvent(event) {
   if (!event) {
@@ -74,270 +68,218 @@ function cancelEvent(event) {
 
   return false;
 }
+
+var TOUCH_MOVE_EVENT_PARAMS = {
+  cancelable: true,
+  passive: false
+};
 /**
  * @see https://vkcom.github.io/VKUI/#/PullToRefresh
  */
 
+var PullToRefresh = function PullToRefresh(_ref) {
+  var children = _ref.children,
+      isFetching = _ref.isFetching,
+      onRefresh = _ref.onRefresh,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+  var platform = (0, _usePlatform.usePlatform)();
+  var scroll = (0, _ScrollContext.useScroll)();
 
-var PullToRefresh = /*#__PURE__*/function (_React$PureComponent) {
-  (0, _inherits2.default)(PullToRefresh, _React$PureComponent);
+  var _useDOM = (0, _dom.useDOM)(),
+      document = _useDOM.document;
 
-  var _super = (0, _createSuper2.default)(PullToRefresh);
-
-  function PullToRefresh(props) {
-    var _this;
-
-    (0, _classCallCheck2.default)(this, PullToRefresh);
-    _this = _super.call(this, props);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "params", void 0);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "contentRef", void 0);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "waitFetchingTimeout", undefined);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onTouchStart", function (e) {
-      if (_this.state.refreshing) {
-        cancelEvent(e);
-      }
-
-      _this.setState({
-        touchDown: true
-      });
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onWindowTouchMove", function (event) {
-      if (_this.state.refreshing) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onTouchMove", function (e) {
-      var _this$props$scroll;
-
-      var isY = e.isY,
-          shiftY = e.shiftY;
-      var _this$params = _this.params,
-          start = _this$params.start,
-          max = _this$params.max;
-      var pageYOffset = (_this$props$scroll = _this.props.scroll) === null || _this$props$scroll === void 0 ? void 0 : _this$props$scroll.getScroll().y;
-      var _this$state = _this.state,
-          refreshing = _this$state.refreshing,
-          watching = _this$state.watching,
-          touchDown = _this$state.touchDown;
-
-      if (watching && touchDown) {
-        cancelEvent(e);
-        var positionMultiplier = _this.params.positionMultiplier;
-        var shift = Math.max(0, shiftY - _this.state.touchY);
-        var currentY = Math.max(start, Math.min(_this.params.maxY, start + shift * positionMultiplier));
-        var progress = currentY > -10 ? Math.abs((currentY + 10) / max) * 80 : 0;
-
-        _this.setState({
-          spinnerY: currentY,
-          spinnerProgress: Math.min(80, Math.max(0, progress)),
-          canRefresh: progress > 80,
-          contentShift: (currentY + 10) * 2.3
-        });
-
-        if (progress > 85 && !refreshing && _this.props.platform === _platform.IOS) {
-          _this.runRefreshing();
-        }
-      } else if (isY && pageYOffset === 0 && shiftY > 0 && !refreshing && touchDown) {
-        cancelEvent(e);
-
-        _this.setState({
-          watching: true,
-          touchY: shiftY,
-          spinnerY: start,
-          spinnerProgress: 0
-        });
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onTouchEnd", function () {
-      _this.setState({
-        watching: false,
-        touchDown: false
-      });
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onRefreshingFinish", function () {
-      if (!_this.state.touchDown) {
-        _this.resetRefreshingState();
-      }
-    });
-    _this.params = {
-      start: props.platform === _platform.ANDROID || props.platform === _platform.VKCOM ? -45 : -10,
-      max: props.platform === _platform.ANDROID || props.platform === _platform.VKCOM ? 80 : 50,
-      maxY: props.platform === _platform.ANDROID || props.platform === _platform.VKCOM ? 80 : 400,
-      refreshing: props.platform === _platform.ANDROID || props.platform === _platform.VKCOM ? 50 : 36,
-      positionMultiplier: props.platform === _platform.ANDROID || props.platform === _platform.VKCOM ? 1 : 0.21
+  var prevIsFetching = (0, _usePrevious.usePrevious)(isFetching);
+  var initParams = React.useMemo(function () {
+    return {
+      start: platform === _platform.IOS ? -10 : -45,
+      max: platform === _platform.IOS ? 50 : 80,
+      maxY: platform === _platform.IOS ? 400 : 80,
+      refreshing: platform === _platform.IOS ? 36 : 50,
+      positionMultiplier: platform === _platform.IOS ? 0.21 : 1
     };
-    _this.state = {
-      watching: false,
-      refreshing: false,
-      canRefresh: false,
-      touchDown: false,
-      touchY: 0,
-      spinnerY: _this.params.start,
-      spinnerProgress: 0,
-      contentShift: 0
-    };
-    _this.contentRef = /*#__PURE__*/React.createRef();
-    return _this;
+  }, [platform]);
+
+  var _React$useState = React.useState(initParams.start),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      spinnerY = _React$useState2[0],
+      setSpinnerY = _React$useState2[1];
+
+  var _React$useState3 = React.useState(false),
+      _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
+      watching = _React$useState4[0],
+      setWatching = _React$useState4[1];
+
+  var _React$useState5 = React.useState(false),
+      _React$useState6 = (0, _slicedToArray2.default)(_React$useState5, 2),
+      refreshing = _React$useState6[0],
+      setRefreshing = _React$useState6[1];
+
+  var _React$useState7 = React.useState(false),
+      _React$useState8 = (0, _slicedToArray2.default)(_React$useState7, 2),
+      canRefresh = _React$useState8[0],
+      setCanRefresh = _React$useState8[1];
+
+  var _React$useState9 = React.useState(false),
+      _React$useState10 = (0, _slicedToArray2.default)(_React$useState9, 2),
+      touchDown = _React$useState10[0],
+      setTouchDown = _React$useState10[1];
+
+  var prevTouchDown = (0, _usePrevious.usePrevious)(touchDown);
+  var touchY = React.useRef(0);
+
+  var _React$useState11 = React.useState(0),
+      _React$useState12 = (0, _slicedToArray2.default)(_React$useState11, 2),
+      contentShift = _React$useState12[0],
+      setContentShift = _React$useState12[1];
+
+  var _React$useState13 = React.useState(0),
+      _React$useState14 = (0, _slicedToArray2.default)(_React$useState13, 2),
+      spinnerProgress = _React$useState14[0],
+      setSpinnerProgress = _React$useState14[1];
+
+  var onWindowTouchMove = function onWindowTouchMove(event) {
+    if (refreshing) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+
+  (0, _useGlobalEventListener.useGlobalEventListener)(document, "touchmove", onWindowTouchMove, TOUCH_MOVE_EVENT_PARAMS);
+  var resetRefreshingState = React.useCallback(function () {
+    setWatching(false);
+    setCanRefresh(false);
+    setRefreshing(false);
+    setSpinnerY(initParams.start);
+    setSpinnerProgress(0);
+    setContentShift(0);
+  }, [initParams]);
+  var onRefreshingFinish = React.useCallback(function () {
+    if (!touchDown) {
+      resetRefreshingState();
+    }
+  }, [touchDown, resetRefreshingState]);
+
+  var _useTimeout = (0, _useTimeout2.useTimeout)(onRefreshingFinish, 1000),
+      setWaitFetchingTimeout = _useTimeout.set,
+      clearWaitFetchingTimeout = _useTimeout.clear;
+
+  (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
+    if (prevIsFetching !== undefined && prevIsFetching && !isFetching) {
+      onRefreshingFinish();
+    }
+  }, [prevIsFetching, isFetching, onRefreshingFinish]);
+  (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
+    if (prevIsFetching !== undefined && !prevIsFetching && isFetching) {
+      clearWaitFetchingTimeout();
+    }
+  }, [isFetching, prevIsFetching, clearWaitFetchingTimeout]);
+  var runRefreshing = React.useCallback(function () {
+    if (!refreshing && onRefresh) {
+      // cleanup if the consumer does not start fetching in 1s
+      setWaitFetchingTimeout();
+      setRefreshing(true);
+      setSpinnerY(function (prevSpinnerY) {
+        return platform === _platform.IOS ? prevSpinnerY : initParams.refreshing;
+      });
+      onRefresh();
+      (0, _taptic.runTapticImpactOccurred)("light");
+    }
+  }, [refreshing, onRefresh, setWaitFetchingTimeout, platform, initParams.refreshing]);
+  (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
+    if (prevTouchDown !== undefined && prevTouchDown && !touchDown) {
+      if (!refreshing && canRefresh) {
+        runRefreshing();
+      } else if (refreshing && !isFetching) {
+        // only iOS can start refresh before gesture end
+        resetRefreshingState();
+      } else {
+        // refreshing && isFetching: refresh in progress
+        // OR !refreshing && !canRefresh: pull was not strong enough
+        setSpinnerY(refreshing ? initParams.refreshing : initParams.start);
+        setSpinnerProgress(0);
+        setContentShift(0);
+      }
+    }
+  }, [initParams, prevIsFetching, isFetching, onRefreshingFinish, prevTouchDown, touchDown, refreshing, canRefresh, runRefreshing]);
+
+  var onTouchStart = function onTouchStart(e) {
+    if (refreshing) {
+      cancelEvent(e);
+    }
+
+    setTouchDown(true);
+  };
+
+  var onTouchMove = function onTouchMove(e) {
+    var isY = e.isY,
+        shiftY = e.shiftY;
+    var start = initParams.start,
+        max = initParams.max;
+    var pageYOffset = scroll === null || scroll === void 0 ? void 0 : scroll.getScroll().y;
+
+    if (watching && touchDown) {
+      cancelEvent(e);
+      var positionMultiplier = initParams.positionMultiplier,
+          maxY = initParams.maxY;
+      var shift = Math.max(0, shiftY - touchY.current);
+      var currentY = Math.max(start, Math.min(maxY, start + shift * positionMultiplier));
+      var progress = currentY > -10 ? Math.abs((currentY + 10) / max) * 80 : 0;
+      setSpinnerY(currentY);
+      setSpinnerProgress(Math.min(80, Math.max(0, progress)));
+      setCanRefresh(progress > 80);
+      setContentShift((currentY + 10) * 2.3);
+
+      if (progress > 85 && !refreshing && platform === _platform.IOS) {
+        runRefreshing();
+      }
+    } else if (isY && pageYOffset === 0 && shiftY > 0 && !refreshing && touchDown) {
+      cancelEvent(e);
+      touchY.current = shiftY;
+      setWatching(true);
+      setSpinnerY(start);
+      setSpinnerProgress(0);
+    }
+  };
+
+  var onTouchEnd = function onTouchEnd() {
+    setWatching(false);
+    setTouchDown(false);
+  };
+
+  var spinnerTransform = "translate3d(0, ".concat(spinnerY, "px, 0)");
+  var contentTransform = "";
+
+  if (platform === _platform.IOS && refreshing && !touchDown) {
+    contentTransform = "translate3d(0, 100px, 0)";
+  } else if (platform === _platform.IOS && (contentShift || refreshing)) {
+    contentTransform = "translate3d(0, ".concat(contentShift, "px, 0)");
   }
 
-  (0, _createClass2.default)(PullToRefresh, [{
-    key: "document",
-    get: function get() {
-      return this.props.document;
+  return (0, _jsxRuntime.createScopedElement)(_TouchContext.default.Provider, {
+    value: true
+  }, (0, _jsxRuntime.createScopedElement)(_Touch.Touch, (0, _extends2.default)({}, restProps, {
+    onStart: onTouchStart,
+    onMove: onTouchMove,
+    onEnd: onTouchEnd,
+    vkuiClass: (0, _classNames.classNames)("PullToRefresh", platform === _platform.IOS && "PullToRefresh--ios", watching && "PullToRefresh--watching", refreshing && "PullToRefresh--refreshing")
+  }), (0, _jsxRuntime.createScopedElement)(_FixedLayout.FixedLayout, {
+    vkuiClass: "PullToRefresh__controls"
+  }, (0, _jsxRuntime.createScopedElement)(_PullToRefreshSpinner.PullToRefreshSpinner, {
+    style: {
+      transform: spinnerTransform,
+      WebkitTransform: spinnerTransform,
+      opacity: watching || refreshing || canRefresh ? 1 : 0
+    },
+    on: refreshing,
+    progress: refreshing ? undefined : spinnerProgress
+  })), (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "PullToRefresh__content",
+    style: {
+      transform: contentTransform,
+      WebkitTransform: contentTransform
     }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (_dom.canUseDOM) {
-        this.document.addEventListener("touchmove", this.onWindowTouchMove, {
-          // @ts-ignore
-          cancelable: true,
-          passive: false
-        });
-      }
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      // Здесь нужен последний аргумент с такими же параметрами, потому что
-      // некоторые браузеры на странных вендорах типа Meizu не удаляют обработчик.
-      // https://github.com/VKCOM/VKUI/issues/444
-      if (_dom.canUseDOM) {
-        this.document.removeEventListener("touchmove", this.onWindowTouchMove, {
-          // @ts-ignore
-          cancelable: true,
-          passive: false
-        });
-      }
+  }, children)));
+};
 
-      if (this.waitFetchingTimeout) {
-        clearTimeout(this.waitFetchingTimeout);
-      }
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      if (prevProps.isFetching && !this.props.isFetching) {
-        this.onRefreshingFinish();
-      }
-
-      if (!prevProps.isFetching && this.props.isFetching && this.waitFetchingTimeout) {
-        clearTimeout(this.waitFetchingTimeout);
-      }
-
-      if (prevState.touchDown && !this.state.touchDown) {
-        var _this$state2 = this.state,
-            refreshing = _this$state2.refreshing,
-            canRefresh = _this$state2.canRefresh;
-
-        if (!refreshing && canRefresh) {
-          this.runRefreshing();
-        } else if (refreshing && !this.props.isFetching) {
-          // only iOS can start refresh before gesture end
-          this.resetRefreshingState();
-        } else {
-          // refreshing && isFetching: refresh in progress
-          // OR !refreshing && !canRefresh: pull was not strong enough
-          this.setState({
-            spinnerY: refreshing ? this.params.refreshing : this.params.start,
-            spinnerProgress: 0,
-            contentShift: 0
-          });
-        }
-      }
-    }
-  }, {
-    key: "runRefreshing",
-    value: function runRefreshing() {
-      if (!this.state.refreshing && this.props.onRefresh) {
-        // cleanup if the consumer does not start fetching in 1s
-        this.waitFetchingTimeout = setTimeout(this.onRefreshingFinish, 1000);
-        this.setState({
-          refreshing: true,
-          spinnerY: this.props.platform === _platform.ANDROID || this.props.platform === _platform.VKCOM ? this.params.refreshing : this.state.spinnerY
-        });
-        this.props.onRefresh();
-        (0, _taptic.runTapticImpactOccurred)("light");
-      }
-    }
-  }, {
-    key: "resetRefreshingState",
-    value: function resetRefreshingState() {
-      this.setState({
-        watching: false,
-        canRefresh: false,
-        refreshing: false,
-        spinnerY: this.params.start,
-        spinnerProgress: 0,
-        contentShift: 0
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          children = _this$props.children,
-          onRefresh = _this$props.onRefresh,
-          isFetching = _this$props.isFetching,
-          platform = _this$props.platform,
-          window = _this$props.window,
-          document = _this$props.document,
-          scroll = _this$props.scroll,
-          restProps = (0, _objectWithoutProperties2.default)(_this$props, _excluded);
-      var _this$state3 = this.state,
-          watching = _this$state3.watching,
-          refreshing = _this$state3.refreshing,
-          spinnerY = _this$state3.spinnerY,
-          spinnerProgress = _this$state3.spinnerProgress,
-          canRefresh = _this$state3.canRefresh,
-          touchDown = _this$state3.touchDown,
-          contentShift = _this$state3.contentShift;
-      var spinnerTransform = "translate3d(0, ".concat(spinnerY, "px, 0)");
-      var contentTransform = "";
-
-      if (platform === _platform.IOS && refreshing && !touchDown) {
-        contentTransform = "translate3d(0, 100px, 0)";
-      } else if (platform === _platform.IOS && (contentShift || refreshing)) {
-        contentTransform = "translate3d(0, ".concat(contentShift, "px, 0)");
-      }
-
-      return (0, _jsxRuntime.createScopedElement)(_TouchContext.default.Provider, {
-        value: true
-      }, (0, _jsxRuntime.createScopedElement)(_Touch.Touch, (0, _extends2.default)({}, restProps, {
-        onStart: this.onTouchStart,
-        onMove: this.onTouchMove,
-        onEnd: this.onTouchEnd // eslint-disable-next-line vkui/no-object-expression-in-arguments
-        ,
-        vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PullToRefresh", platform), {
-          "PullToRefresh--watching": watching,
-          "PullToRefresh--refreshing": refreshing
-        })
-      }), (0, _jsxRuntime.createScopedElement)(_FixedLayout.default, {
-        vkuiClass: "PullToRefresh__controls"
-      }, (0, _jsxRuntime.createScopedElement)(_PullToRefreshSpinner.default, {
-        style: {
-          transform: spinnerTransform,
-          WebkitTransform: spinnerTransform,
-          opacity: watching || refreshing || canRefresh ? 1 : 0
-        },
-        on: refreshing,
-        progress: refreshing ? undefined : spinnerProgress
-      })), (0, _jsxRuntime.createScopedElement)("div", {
-        vkuiClass: "PullToRefresh__content",
-        ref: this.contentRef,
-        style: {
-          transform: contentTransform,
-          WebkitTransform: contentTransform
-        }
-      }, children)));
-    }
-  }]);
-  return PullToRefresh;
-}(React.PureComponent); // eslint-disable-next-line import/no-default-export
-
-
-var _default = (0, _withContext.withContext)((0, _withPlatform.withPlatform)((0, _dom.withDOM)(PullToRefresh)), _ScrollContext.ScrollContext, "scroll");
-
-exports.default = _default;
+exports.PullToRefresh = PullToRefresh;
 //# sourceMappingURL=PullToRefresh.js.map

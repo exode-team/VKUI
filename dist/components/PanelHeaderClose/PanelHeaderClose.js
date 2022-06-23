@@ -11,8 +11,9 @@ import { usePlatform } from "../../hooks/usePlatform";
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderClose
  */
 
-var PanelHeaderClose = function PanelHeaderClose(_ref) {
-  var children = _ref.children,
+export var PanelHeaderClose = function PanelHeaderClose(_ref) {
+  var _ref$children = _ref.children,
+      children = _ref$children === void 0 ? "Отмена" : _ref$children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -20,10 +21,4 @@ var PanelHeaderClose = function PanelHeaderClose(_ref) {
     "aria-label": getTitleFromChildren(children)
   }, restProps), platform === ANDROID || platform === VKCOM ? createScopedElement(Icon28CancelOutline, null) : children);
 };
-
-PanelHeaderClose.defaultProps = {
-  children: "Отмена"
-}; // eslint-disable-next-line import/no-default-export
-
-export default PanelHeaderClose;
 //# sourceMappingURL=PanelHeaderClose.js.map

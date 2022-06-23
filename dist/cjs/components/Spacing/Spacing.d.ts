@@ -15,8 +15,9 @@ export interface SpacingProps extends React.HTMLAttributes<HTMLDivElement> {
      * - separator='bottom'
      */
     separator?: boolean | "top" | "bottom" | "center";
+    children?: React.ReactNode;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/Spacing
  */
-export declare const Spacing: React.FC<SpacingProps>;
+export declare const Spacing: ({ size, separator, style, ...restProps }: SpacingProps) => JSX.Element;

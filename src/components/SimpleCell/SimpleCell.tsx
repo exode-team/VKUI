@@ -2,7 +2,7 @@ import * as React from "react";
 import { HasComponent } from "../../types";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import Tappable, { TappableProps } from "../Tappable/Tappable";
+import { TappableProps, Tappable } from "../Tappable/Tappable";
 import { Icon24Chevron } from "@vkontakte/icons";
 import { ANDROID, IOS } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -67,10 +67,7 @@ const SimpleCellTypography: React.FC<SimpleCellTypographyProps> = (
   }
 };
 
-/**
- * @see https://vkcom.github.io/VKUI/#/SimpleCell
- */
-const SimpleCell: React.FC<SimpleCellProps> = ({
+const SimpleCellComponent: React.FC<SimpleCellProps> = ({
   badge,
   before,
   indicator,
@@ -132,5 +129,7 @@ const SimpleCell: React.FC<SimpleCellProps> = ({
   );
 };
 
-// eslint-disable-next-line import/no-default-export
-export default withAdaptivity(SimpleCell, { sizeY: true });
+/**
+ * @see https://vkcom.github.io/VKUI/#/SimpleCell
+ */
+export const SimpleCell = withAdaptivity(SimpleCellComponent, { sizeY: true });

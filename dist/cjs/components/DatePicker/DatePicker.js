@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.DatePicker = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -221,7 +221,7 @@ var DatePickerNative = function DatePickerNative(_ref3) {
  */
 
 
-var DatePicker = function DatePicker(_ref4) {
+var DatePickerComponent = function DatePickerComponent(_ref4) {
   var hasMouse = _ref4.hasMouse,
       defaultValue = _ref4.defaultValue,
       props = (0, _objectWithoutProperties2.default)(_ref4, _excluded3);
@@ -245,12 +245,11 @@ var DatePicker = function DatePicker(_ref4) {
   return (0, _jsxRuntime.createScopedElement)(Cmp, (0, _extends2.default)({}, props, value, {
     onDateChange: onDateChange
   }));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = (0, _withAdaptivity.withAdaptivity)(DatePicker, {
+var DatePicker = (0, _withAdaptivity.withAdaptivity)(DatePickerComponent, {
   hasMouse: true
 });
-
-exports.default = _default;
+exports.DatePicker = DatePicker;
+DatePicker.displayName = "DatePicker";
 //# sourceMappingURL=DatePicker.js.map

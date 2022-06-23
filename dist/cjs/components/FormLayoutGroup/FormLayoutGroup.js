@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.FormLayoutGroup = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -52,11 +52,9 @@ var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var isRemovable = removable && mode === "horizontal";
   var rootEl = (0, _useExternRef.useExternRef)(getRootRef);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
-    ref: rootEl // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormLayoutGroup", platform), "FormLayoutGroup--sizeY-".concat(sizeY), "FormLayoutGroup--".concat(mode), {
-      "FormLayoutGroup--removable": isRemovable
-    })
+    ref: rootEl,
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormLayoutGroup", platform), // TODO: v5 remove
+    "FormLayoutGroup--sizeY-".concat(sizeY), "FormLayoutGroup--".concat(mode), isRemovable && "FormLayoutGroup--removable")
   }, restProps), isRemovable ? (0, _jsxRuntime.createScopedElement)(_Removable.Removable, {
     vkuiClass: "FormLayoutGroup__removable",
     align: "start",
@@ -67,9 +65,7 @@ var FormLayoutGroup = function FormLayoutGroup(_ref) {
       }
     }
   }, children) : children);
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = FormLayoutGroup;
-exports.default = _default;
+exports.FormLayoutGroup = FormLayoutGroup;
 //# sourceMappingURL=FormLayoutGroup.js.map

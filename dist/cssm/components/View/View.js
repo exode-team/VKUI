@@ -11,8 +11,7 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { transitionEvent, animationEvent } from "../../lib/supportEvents";
-import { getClassName } from "../../helpers/getClassName";
-import { IOS, ANDROID, VKCOM } from "../../lib/platform";
+import { IOS } from "../../lib/platform";
 import { Touch } from "../Touch/Touch";
 import { withPlatform } from "../../hoc/withPlatform";
 import { withContext } from "../../hoc/withContext";
@@ -35,19 +34,16 @@ var SwipeBackResults;
 
 export var scrollsCache = {};
 var warn = warnOnce("View");
-/**
- * @see https://vkcom.github.io/VKUI/#/View
- */
 
-var View = /*#__PURE__*/function (_React$Component) {
-  _inherits(View, _React$Component);
+var ViewComponent = /*#__PURE__*/function (_React$Component) {
+  _inherits(ViewComponent, _React$Component);
 
-  var _super = _createSuper(View);
+  var _super = _createSuper(ViewComponent);
 
-  function View(props) {
+  function ViewComponent(props) {
     var _this;
 
-    _classCallCheck(this, View);
+    _classCallCheck(this, ViewComponent);
 
     _this = _super.call(this, props);
 
@@ -112,7 +108,7 @@ var View = /*#__PURE__*/function (_React$Component) {
 
           _this.setState({
             swipingBack: true,
-            swipebackStartX: e.startX,
+            swipeBackStartX: e.startX,
             swipeBackPrevPanel: _this.state.activePanel,
             swipeBackNextPanel: _this.props.history.slice(-2)[0]
           });
@@ -123,7 +119,7 @@ var View = /*#__PURE__*/function (_React$Component) {
 
           if (e.shiftX < 0) {
             swipeBackShift = 0;
-          } else if (e.shiftX > _this.window.innerWidth - _this.state.swipebackStartX) {
+          } else if (e.shiftX > _this.window.innerWidth - _this.state.swipeBackStartX) {
             var _this$window;
 
             swipeBackShift = (_this$window = _this.window) === null || _this$window === void 0 ? void 0 : _this$window.innerWidth;
@@ -148,7 +144,7 @@ var View = /*#__PURE__*/function (_React$Component) {
           _this.onSwipeBackCancel();
         } else if (_this.state.swipeBackShift >= ((_this$window$innerWid = (_this$window2 = _this.window) === null || _this$window2 === void 0 ? void 0 : _this$window2.innerWidth) !== null && _this$window$innerWid !== void 0 ? _this$window$innerWid : 0)) {
           _this.onSwipeBackSuccess();
-        } else if (speed > 250 || _this.state.swipebackStartX + _this.state.swipeBackShift > _this.window.innerWidth / 2) {
+        } else if (speed > 250 || _this.state.swipeBackStartX + _this.state.swipeBackShift > _this.window.innerWidth / 2) {
           _this.setState({
             swipeBackResult: SwipeBackResults.success
           });
@@ -168,7 +164,7 @@ var View = /*#__PURE__*/function (_React$Component) {
       prevPanel: null,
       nextPanel: null,
       swipingBack: false,
-      swipebackStartX: 0,
+      swipeBackStartX: 0,
       swipeBackShift: 0,
       swipeBackNextPanel: null,
       swipeBackPrevPanel: null,
@@ -178,7 +174,7 @@ var View = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(View, [{
+  _createClass(ViewComponent, [{
     key: "document",
     get: function get() {
       return this.props.document;
@@ -254,7 +250,7 @@ var View = /*#__PURE__*/function (_React$Component) {
               clearTimeout(this.animationFinishTimeout);
             }
 
-            this.animationFinishTimeout = setTimeout(this.transitionEndHandler, this.props.platform === ANDROID || this.props.platform === VKCOM ? 300 : 600);
+            this.animationFinishTimeout = setTimeout(this.transitionEndHandler, this.props.platform === IOS ? 600 : 300);
           }
         }
       } // Закончилась анимация свайпа назад
@@ -273,7 +269,7 @@ var View = /*#__PURE__*/function (_React$Component) {
           swipeBackNextPanel: null,
           swipingBack: false,
           swipeBackResult: null,
-          swipebackStartX: 0,
+          swipeBackStartX: 0,
           swipeBackShift: 0,
           activePanel: nextPanel,
           visiblePanels: [nextPanel]
@@ -339,7 +335,7 @@ var View = /*#__PURE__*/function (_React$Component) {
           clearTimeout(this.transitionFinishTimeout);
         }
 
-        this.transitionFinishTimeout = setTimeout(eventHandler, this.props.platform === ANDROID || this.props.platform === VKCOM ? 300 : 600);
+        this.transitionFinishTimeout = setTimeout(eventHandler, this.props.platform === IOS ? 600 : 300);
       }
     }
   }, {
@@ -403,7 +399,7 @@ var View = /*#__PURE__*/function (_React$Component) {
         swipeBackNextPanel: null,
         swipingBack: false,
         swipeBackResult: null,
-        swipebackStartX: 0,
+        swipeBackStartX: 0,
         swipeBackShift: 0
       });
     }
@@ -487,15 +483,10 @@ var View = /*#__PURE__*/function (_React$Component) {
         return panelId !== undefined && _this4.state.visiblePanels.includes(panelId) || panelId === swipeBackPrevPanel || panelId === swipeBackNextPanel;
       });
       var disableAnimation = this.shouldDisableTransitionMotion();
-      var modifiers = {
-        "View--animated": !disableAnimation && animated,
-        "View--swiping-back": !disableAnimation && this.state.swipingBack,
-        "View--no-motion": disableAnimation
-      };
       return createScopedElement(Touch, _extends({
         Component: "section"
       }, restProps, {
-        vkuiClass: classNames(getClassName("View", platform), modifiers),
+        vkuiClass: classNames("View", platform === IOS && "View--ios", !disableAnimation && animated && "View--animated", !disableAnimation && this.state.swipingBack && "View--swiping-back", disableAnimation && "View--no-motion"),
         onMoveX: this.onMoveX,
         onEnd: this.onEnd
       }), createScopedElement("div", {
@@ -508,16 +499,7 @@ var View = /*#__PURE__*/function (_React$Component) {
         var isTransitionTarget = animated && panelId === (isBack ? prevPanel : nextPanel);
         var compensateScroll = isPrev || panelId === swipeBackNextPanel || panelId === nextPanel && isBack;
         return createScopedElement("div", {
-          // eslint-disable-next-line vkui/no-object-expression-in-arguments
-          vkuiClass: classNames("View__panel", {
-            "View__panel--active": panelId === activePanel,
-            "View__panel--prev": panelId === prevPanel,
-            "View__panel--next": panelId === nextPanel,
-            "View__panel--swipe-back-prev": panelId === swipeBackPrevPanel,
-            "View__panel--swipe-back-next": panelId === swipeBackNextPanel,
-            "View__panel--swipe-back-success": swipeBackResult === SwipeBackResults.success,
-            "View__panel--swipe-back-failed": swipeBackResult === SwipeBackResults.fail
-          }),
+          vkuiClass: classNames("View__panel", panelId === activePanel && "View__panel--active", panelId === prevPanel && "View__panel--prev", panelId === nextPanel && "View__panel--next", panelId === swipeBackPrevPanel && "View__panel--swipe-back-prev", panelId === swipeBackNextPanel && "View__panel--swipe-back-next", swipeBackResult === SwipeBackResults.success && "View__panel--swipe-back-success", swipeBackResult === SwipeBackResults.fail && "View__panel--swipe-back-failed"),
           onAnimationEnd: isTransitionTarget ? _this4.transitionEndHandler : undefined,
           ref: function ref(el) {
             return panelId !== undefined && (_this4.panelNodes[panelId] = el);
@@ -540,13 +522,17 @@ var View = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return View;
-}(React.Component); // eslint-disable-next-line import/no-default-export
+  return ViewComponent;
+}(React.Component);
+/**
+ * @see https://vkcom.github.io/VKUI/#/View
+ */
 
 
-_defineProperty(View, "defaultProps", {
+_defineProperty(ViewComponent, "defaultProps", {
   history: []
 });
 
-export default withContext(withContext(withContext(withPlatform(withDOM(View)), SplitColContext, "splitCol"), ConfigProviderContext, "configProvider"), ScrollContext, "scroll");
+export var View = withContext(withContext(withContext(withPlatform(withDOM(ViewComponent)), SplitColContext, "splitCol"), ConfigProviderContext, "configProvider"), ScrollContext, "scroll");
+View.displayName = "View";
 //# sourceMappingURL=View.js.map

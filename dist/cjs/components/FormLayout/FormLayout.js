@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.FormLayout = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -46,9 +46,7 @@ var FormLayout = function FormLayout(props) {
     vkuiClass: "FormLayout__submit",
     value: ""
   }));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = FormLayout;
-exports.default = _default;
+exports.FormLayout = FormLayout;
 //# sourceMappingURL=FormLayout.js.map

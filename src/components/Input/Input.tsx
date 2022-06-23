@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { FormField, FormFieldProps } from "../FormField/FormField";
@@ -13,7 +13,11 @@ export interface InputProps
     HasRootRef<HTMLDivElement>,
     HasAlign,
     AdaptivityProps,
-    FormFieldProps {}
+    FormFieldProps {
+  isFocus?: boolean;
+  alwaysInFocus?: boolean;
+  caretPosition?: number;
+}
 
 const InputComponent: React.FunctionComponent<InputProps> = ({
   type = "text",
@@ -26,24 +30,40 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
   before,
   after,
   onInput,
+  onBlur,
   value,
+  caretPosition,
+  alwaysInFocus,
+  isFocus = false,
   ...restProps
 }: InputProps) => {
 
-  const [cursor, setCursor] = useState<number>(0);
+  const platform = usePlatform();
   const ref = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const input = ref.current;
-    if (input) input.setSelectionRange(cursor, cursor);
-  }, [ref, cursor, value])
-
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    e.target.selectionStart && setCursor(e.target.selectionStart);
+      const caret = e.target.selectionStart
+      const element = e.target
+
+    window.requestAnimationFrame(() => {
+        element.selectionStart = caret
+        element.selectionEnd = caret
+      })
+
     onInput && onInput(e);
   };
 
-  const platform = usePlatform();
+  const handleBlur = () => {
+    if(alwaysInFocus) {
+      ref.current?.focus()
+    }
+  }
+
+  useEffect(() => {
+    isFocus && ref.current?.focus()
+    caretPosition && ref.current?.setSelectionRange(caretPosition, caretPosition)
+  }, [])
+
   return (
     <FormField
       vkuiClass={classNames(
@@ -58,7 +78,7 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
       after={after}
       disabled={restProps.disabled}
     >
-      <input {...restProps} type={type} onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
+      <input {...restProps} type={type} onBlur={handleBlur || onBlur}  onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
     </FormField>
   );
 };

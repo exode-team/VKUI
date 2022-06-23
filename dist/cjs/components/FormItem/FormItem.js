@@ -68,12 +68,9 @@ var FormItem = function FormItem(_ref) {
     vkuiClass: "FormItem__bottom"
   }, bottom));
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
-    ref: rootEl // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormItem", platform), "FormItem--".concat(status), "FormItem--sizeY-".concat(sizeY), {
-      "FormItem--withTop": (0, _utils.hasReactNode)(top),
-      "FormItem--removable": removable
-    })
+    ref: rootEl,
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormItem", platform), // TODO: v5 remove
+    "FormItem--".concat(status), "FormItem--sizeY-".concat(sizeY), (0, _utils.hasReactNode)(top) && "FormItem--withTop", removable && "FormItem--removable")
   }), removable ? (0, _jsxRuntime.createScopedElement)(_Removable.Removable, {
     align: "start",
     onRemove: function onRemove(e) {

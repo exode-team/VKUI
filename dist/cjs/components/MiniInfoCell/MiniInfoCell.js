@@ -23,7 +23,7 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _Text = require("../Typography/Text/Text");
 
-var _Tappable = _interopRequireDefault(require("../../components/Tappable/Tappable"));
+var _Tappable = require("../../components/Tappable/Tappable");
 
 var _utils = require("../../lib/utils");
 
@@ -44,7 +44,7 @@ var MiniInfoCell = function MiniInfoCell(props) {
       children = props.children,
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
   var isClickable = !!restProps.onClick;
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
     Component: "div",
     disabled: !isClickable,
     role: isClickable ? "button" : undefined

@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.scrollsCache = exports.default = void 0;
+exports.scrollsCache = exports.View = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -32,8 +32,6 @@ var React = _interopRequireWildcard(require("react"));
 var _classNames = require("../../lib/classNames");
 
 var _supportEvents = require("../../lib/supportEvents");
-
-var _getClassName = require("../../helpers/getClassName");
 
 var _platform = require("../../lib/platform");
 
@@ -72,19 +70,16 @@ var SwipeBackResults;
 var scrollsCache = {};
 exports.scrollsCache = scrollsCache;
 var warn = (0, _warnOnce.warnOnce)("View");
-/**
- * @see https://vkcom.github.io/VKUI/#/View
- */
 
-var View = /*#__PURE__*/function (_React$Component) {
-  (0, _inherits2.default)(View, _React$Component);
+var ViewComponent = /*#__PURE__*/function (_React$Component) {
+  (0, _inherits2.default)(ViewComponent, _React$Component);
 
-  var _super = (0, _createSuper2.default)(View);
+  var _super = (0, _createSuper2.default)(ViewComponent);
 
-  function View(props) {
+  function ViewComponent(props) {
     var _this;
 
-    (0, _classCallCheck2.default)(this, View);
+    (0, _classCallCheck2.default)(this, ViewComponent);
     _this = _super.call(this, props);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "scrolls", scrollsCache[(0, _getNavId.getNavId)(_this.props)] || {});
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "transitionFinishTimeout", undefined);
@@ -141,7 +136,7 @@ var View = /*#__PURE__*/function (_React$Component) {
 
           _this.setState({
             swipingBack: true,
-            swipebackStartX: e.startX,
+            swipeBackStartX: e.startX,
             swipeBackPrevPanel: _this.state.activePanel,
             swipeBackNextPanel: _this.props.history.slice(-2)[0]
           });
@@ -152,7 +147,7 @@ var View = /*#__PURE__*/function (_React$Component) {
 
           if (e.shiftX < 0) {
             swipeBackShift = 0;
-          } else if (e.shiftX > _this.window.innerWidth - _this.state.swipebackStartX) {
+          } else if (e.shiftX > _this.window.innerWidth - _this.state.swipeBackStartX) {
             var _this$window;
 
             swipeBackShift = (_this$window = _this.window) === null || _this$window === void 0 ? void 0 : _this$window.innerWidth;
@@ -176,7 +171,7 @@ var View = /*#__PURE__*/function (_React$Component) {
           _this.onSwipeBackCancel();
         } else if (_this.state.swipeBackShift >= ((_this$window$innerWid = (_this$window2 = _this.window) === null || _this$window2 === void 0 ? void 0 : _this$window2.innerWidth) !== null && _this$window$innerWid !== void 0 ? _this$window$innerWid : 0)) {
           _this.onSwipeBackSuccess();
-        } else if (speed > 250 || _this.state.swipebackStartX + _this.state.swipeBackShift > _this.window.innerWidth / 2) {
+        } else if (speed > 250 || _this.state.swipeBackStartX + _this.state.swipeBackShift > _this.window.innerWidth / 2) {
           _this.setState({
             swipeBackResult: SwipeBackResults.success
           });
@@ -195,7 +190,7 @@ var View = /*#__PURE__*/function (_React$Component) {
       prevPanel: null,
       nextPanel: null,
       swipingBack: false,
-      swipebackStartX: 0,
+      swipeBackStartX: 0,
       swipeBackShift: 0,
       swipeBackNextPanel: null,
       swipeBackPrevPanel: null,
@@ -205,7 +200,7 @@ var View = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  (0, _createClass2.default)(View, [{
+  (0, _createClass2.default)(ViewComponent, [{
     key: "document",
     get: function get() {
       return this.props.document;
@@ -281,7 +276,7 @@ var View = /*#__PURE__*/function (_React$Component) {
               clearTimeout(this.animationFinishTimeout);
             }
 
-            this.animationFinishTimeout = setTimeout(this.transitionEndHandler, this.props.platform === _platform.ANDROID || this.props.platform === _platform.VKCOM ? 300 : 600);
+            this.animationFinishTimeout = setTimeout(this.transitionEndHandler, this.props.platform === _platform.IOS ? 600 : 300);
           }
         }
       } // Закончилась анимация свайпа назад
@@ -300,7 +295,7 @@ var View = /*#__PURE__*/function (_React$Component) {
           swipeBackNextPanel: null,
           swipingBack: false,
           swipeBackResult: null,
-          swipebackStartX: 0,
+          swipeBackStartX: 0,
           swipeBackShift: 0,
           activePanel: nextPanel,
           visiblePanels: [nextPanel]
@@ -366,7 +361,7 @@ var View = /*#__PURE__*/function (_React$Component) {
           clearTimeout(this.transitionFinishTimeout);
         }
 
-        this.transitionFinishTimeout = setTimeout(eventHandler, this.props.platform === _platform.ANDROID || this.props.platform === _platform.VKCOM ? 300 : 600);
+        this.transitionFinishTimeout = setTimeout(eventHandler, this.props.platform === _platform.IOS ? 600 : 300);
       }
     }
   }, {
@@ -430,7 +425,7 @@ var View = /*#__PURE__*/function (_React$Component) {
         swipeBackNextPanel: null,
         swipingBack: false,
         swipeBackResult: null,
-        swipebackStartX: 0,
+        swipeBackStartX: 0,
         swipeBackShift: 0
       });
     }
@@ -513,15 +508,10 @@ var View = /*#__PURE__*/function (_React$Component) {
         return panelId !== undefined && _this4.state.visiblePanels.includes(panelId) || panelId === swipeBackPrevPanel || panelId === swipeBackNextPanel;
       });
       var disableAnimation = this.shouldDisableTransitionMotion();
-      var modifiers = {
-        "View--animated": !disableAnimation && animated,
-        "View--swiping-back": !disableAnimation && this.state.swipingBack,
-        "View--no-motion": disableAnimation
-      };
       return (0, _jsxRuntime.createScopedElement)(_Touch.Touch, (0, _extends2.default)({
         Component: "section"
       }, restProps, {
-        vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("View", platform), modifiers),
+        vkuiClass: (0, _classNames.classNames)("View", platform === _platform.IOS && "View--ios", !disableAnimation && animated && "View--animated", !disableAnimation && this.state.swipingBack && "View--swiping-back", disableAnimation && "View--no-motion"),
         onMoveX: this.onMoveX,
         onEnd: this.onEnd
       }), (0, _jsxRuntime.createScopedElement)("div", {
@@ -534,16 +524,7 @@ var View = /*#__PURE__*/function (_React$Component) {
         var isTransitionTarget = animated && panelId === (isBack ? prevPanel : nextPanel);
         var compensateScroll = isPrev || panelId === swipeBackNextPanel || panelId === nextPanel && isBack;
         return (0, _jsxRuntime.createScopedElement)("div", {
-          // eslint-disable-next-line vkui/no-object-expression-in-arguments
-          vkuiClass: (0, _classNames.classNames)("View__panel", {
-            "View__panel--active": panelId === activePanel,
-            "View__panel--prev": panelId === prevPanel,
-            "View__panel--next": panelId === nextPanel,
-            "View__panel--swipe-back-prev": panelId === swipeBackPrevPanel,
-            "View__panel--swipe-back-next": panelId === swipeBackNextPanel,
-            "View__panel--swipe-back-success": swipeBackResult === SwipeBackResults.success,
-            "View__panel--swipe-back-failed": swipeBackResult === SwipeBackResults.fail
-          }),
+          vkuiClass: (0, _classNames.classNames)("View__panel", panelId === activePanel && "View__panel--active", panelId === prevPanel && "View__panel--prev", panelId === nextPanel && "View__panel--next", panelId === swipeBackPrevPanel && "View__panel--swipe-back-prev", panelId === swipeBackNextPanel && "View__panel--swipe-back-next", swipeBackResult === SwipeBackResults.success && "View__panel--swipe-back-success", swipeBackResult === SwipeBackResults.fail && "View__panel--swipe-back-failed"),
           onAnimationEnd: isTransitionTarget ? _this4.transitionEndHandler : undefined,
           ref: function ref(el) {
             return panelId !== undefined && (_this4.panelNodes[panelId] = el);
@@ -565,15 +546,17 @@ var View = /*#__PURE__*/function (_React$Component) {
       }, modal)));
     }
   }]);
-  return View;
-}(React.Component); // eslint-disable-next-line import/no-default-export
+  return ViewComponent;
+}(React.Component);
+/**
+ * @see https://vkcom.github.io/VKUI/#/View
+ */
 
 
-(0, _defineProperty2.default)(View, "defaultProps", {
+(0, _defineProperty2.default)(ViewComponent, "defaultProps", {
   history: []
 });
-
-var _default = (0, _withContext.withContext)((0, _withContext.withContext)((0, _withContext.withContext)((0, _withPlatform.withPlatform)((0, _dom.withDOM)(View)), _SplitCol.SplitColContext, "splitCol"), _ConfigProviderContext.ConfigProviderContext, "configProvider"), _ScrollContext.ScrollContext, "scroll");
-
-exports.default = _default;
+var View = (0, _withContext.withContext)((0, _withContext.withContext)((0, _withContext.withContext)((0, _withPlatform.withPlatform)((0, _dom.withDOM)(ViewComponent)), _SplitCol.SplitColContext, "splitCol"), _ConfigProviderContext.ConfigProviderContext, "configProvider"), _ScrollContext.ScrollContext, "scroll");
+exports.View = View;
+View.displayName = "View";
 //# sourceMappingURL=View.js.map

@@ -17,7 +17,7 @@ var _utils = require("../../lib/utils");
 
 var _Title = require("../Typography/Title/Title");
 
-var _Headline = require("../Typography/Headline/Headline");
+var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _classNames = require("../../lib/classNames");
 
@@ -31,7 +31,7 @@ var _PanelHeaderButton = require("../PanelHeaderButton/PanelHeaderButton");
 
 var _platform = require("../../lib/platform");
 
-var _ModalDismissButton = _interopRequireDefault(require("../ModalDismissButton/ModalDismissButton"));
+var _ModalDismissButton = require("../ModalDismissButton/ModalDismissButton");
 
 var _icons = require("@vkontakte/icons");
 
@@ -81,15 +81,14 @@ var ModalCardBase = (0, _withAdaptivity.withAdaptivity)(function (_ref) {
     level: "2",
     weight: platform === _platform.ANDROID ? "2" : "1",
     vkuiClass: "ModalCardBase__header"
-  }, header), (0, _utils.hasReactNode)(subheader) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
-    weight: "3",
+  }, header), (0, _utils.hasReactNode)(subheader) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     vkuiClass: "ModalCardBase__subheader"
   }, subheader), children, (0, _utils.hasReactNode)(actions) && (0, _jsxRuntime.createScopedElement)("div", {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)("ModalCardBase__actions", {
       "ModalCardBase__actions--v": actionsLayout === "vertical"
     })
-  }, actions), canShowCloseBtn && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.default, {
+  }, actions), canShowCloseBtn && (0, _jsxRuntime.createScopedElement)(_ModalDismissButton.ModalDismissButton, {
     onClick: onClose
   }), canShowCloseBtnIos && (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, {
     "aria-label": dismissLabel,

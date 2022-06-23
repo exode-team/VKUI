@@ -4,8 +4,8 @@ import {
   Icon20WorkOutline,
 } from "@vkontakte/icons";
 import { describeScreenshotFuzz } from "../../testing/e2e/utils";
-import Avatar from "../Avatar/Avatar";
-import Link from "../Link/Link";
+import { Avatar } from "../Avatar/Avatar";
+import { Link } from "../Link/Link";
 import { MiniInfoCell } from "./MiniInfoCell";
 
 describe("MiniInfoCell", () => {

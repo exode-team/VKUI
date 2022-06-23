@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Counter = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -19,63 +19,38 @@ var React = _interopRequireWildcard(require("react"));
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
-var _usePlatform = require("../../hooks/usePlatform");
-
 var _Caption = require("../Typography/Caption/Caption");
 
-var _Text = require("../Typography/Text/Text");
-
-var _platform = require("../../lib/platform");
+var _Headline = require("../Typography/Headline/Headline");
 
 var _utils = require("../../lib/utils");
 
-var _excluded = ["size", "platform"],
-    _excluded2 = ["mode", "size", "children"];
+var _excluded = ["mode", "size", "children"];
 
-var CounterTypography = function CounterTypography(_ref) {
-  var size = _ref.size,
-      platform = _ref.platform,
-      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  return size === "s" ? (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
-    level: "2",
-    weight: platform === _platform.VKCOM ? "1" : undefined
-  }, restProps)) : (0, _jsxRuntime.createScopedElement)(_Text.Text, (0, _extends2.default)({
-    weight: "2"
-  }, restProps));
-};
 /**
  * @see https://vkcom.github.io/VKUI/#/Counter
  */
-
-
-var Counter = function Counter(props) {
-  var mode = props.mode,
-      size = props.size,
-      children = props.children,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
-  var platform = (0, _usePlatform.usePlatform)();
+var Counter = function Counter(_ref) {
+  var _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "secondary" : _ref$mode,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? "m" : _ref$size,
+      children = _ref.children,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   if (React.Children.count(children) === 0) {
     return null;
   }
 
+  var CounterTypography = size === "s" ? _Caption.Caption : _Headline.Headline;
   return (0, _jsxRuntime.createScopedElement)("span", (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Counter", platform), "Counter--".concat(mode), "Counter--s-".concat(size))
+    vkuiClass: (0, _classNames.classNames)("Counter", "Counter--".concat(mode), "Counter--s-".concat(size))
   }), (0, _utils.hasReactNode)(children) && (0, _jsxRuntime.createScopedElement)(CounterTypography, {
-    platform: platform,
-    size: size,
-    vkuiClass: "Counter__in"
+    Component: "span",
+    vkuiClass: "Counter__in",
+    level: "2"
   }, children));
 };
 
-Counter.defaultProps = {
-  mode: "secondary",
-  size: "m"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = /*#__PURE__*/React.memo(Counter);
-
-exports.default = _default;
+exports.Counter = Counter;
 //# sourceMappingURL=Counter.js.map

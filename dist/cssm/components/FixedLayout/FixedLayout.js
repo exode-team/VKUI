@@ -5,7 +5,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "style", "vertical", "getRootRef", "getRef", "filled"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
+import { IOS } from "../../lib/platform";
 import { classNames } from "../../lib/classNames";
 import { SplitColContext } from "../SplitCol/SplitCol";
 import { TooltipContainer } from "../Tooltip/TooltipContainer";
@@ -17,7 +17,7 @@ import "./FixedLayout.css";
 /**
  * @see https://vkcom.github.io/VKUI/#/FixedLayout
  */
-var FixedLayout = function FixedLayout(_ref) {
+export var FixedLayout = function FixedLayout(_ref) {
   var children = _ref.children,
       style = _ref.style,
       vertical = _ref.vertical,
@@ -47,11 +47,8 @@ var FixedLayout = function FixedLayout(_ref) {
   useGlobalEventListener(window, "resize", doResize);
   return createScopedElement(TooltipContainer, _extends({}, restProps, {
     fixed: true,
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("FixedLayout", platform), {
-      "FixedLayout--filled": filled
-    }, "FixedLayout--".concat(vertical)),
+    ref: getRootRef,
+    vkuiClass: classNames("FixedLayout", platform === IOS && "FixedLayout--ios", filled && "FixedLayout--filled", "FixedLayout--".concat(vertical)),
     style: _objectSpread(_objectSpread({}, style), {}, {
       width: width
     })
@@ -59,8 +56,5 @@ var FixedLayout = function FixedLayout(_ref) {
     vkuiClass: "FixedLayout__in",
     ref: getRef
   }, children));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default FixedLayout;
+};
 //# sourceMappingURL=FixedLayout.js.map

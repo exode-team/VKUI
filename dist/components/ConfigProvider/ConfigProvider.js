@@ -57,7 +57,7 @@ var deriveAppearance = function deriveAppearance(scheme) {
  */
 
 
-var ConfigProvider = function ConfigProvider(_ref) {
+export var ConfigProvider = function ConfigProvider(_ref) {
   var children = _ref.children,
       _ref$webviewType = _ref.webviewType,
       webviewType = _ref$webviewType === void 0 ? WebviewType.VKAPPS : _ref$webviewType,
@@ -122,8 +122,5 @@ var ConfigProvider = function ConfigProvider(_ref) {
   }, createScopedElement(AppearanceProvider, {
     appearance: configContext.appearance
   }, children)));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default ConfigProvider;
+};
 //# sourceMappingURL=ConfigProvider.js.map

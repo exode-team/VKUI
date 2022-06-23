@@ -19,7 +19,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _FixedLayout = _interopRequireDefault(require("../FixedLayout/FixedLayout"));
+var _FixedLayout = require("../FixedLayout/FixedLayout");
 
 var _classNames = require("../../lib/classNames");
 
@@ -89,7 +89,7 @@ var PanelHeaderContext = function PanelHeaderContext(_ref) {
   React.useEffect(function () {
     return closing ? animationFallback.set() : animationFallback.clear();
   }, [animationFallback, closing]);
-  return (0, _jsxRuntime.createScopedElement)(_FixedLayout.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_FixedLayout.FixedLayout, (0, _extends2.default)({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderContext", platform), {
       "PanelHeaderContext--opened": opened,

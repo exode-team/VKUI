@@ -14,7 +14,7 @@ import "./FormLayoutGroup.css";
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayoutGroup
  */
-var FormLayoutGroup = function FormLayoutGroup(_ref) {
+export var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var children = _ref.children,
       _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? "vertical" : _ref$mode,
@@ -34,11 +34,9 @@ var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var isRemovable = removable && mode === "horizontal";
   var rootEl = useExternRef(getRootRef);
   return createScopedElement("div", _extends({
-    ref: rootEl // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("FormLayoutGroup", platform), "FormLayoutGroup--sizeY-".concat(sizeY), "FormLayoutGroup--".concat(mode), {
-      "FormLayoutGroup--removable": isRemovable
-    })
+    ref: rootEl,
+    vkuiClass: classNames(getClassName("FormLayoutGroup", platform), // TODO: v5 remove
+    "FormLayoutGroup--sizeY-".concat(sizeY), "FormLayoutGroup--".concat(mode), isRemovable && "FormLayoutGroup--removable")
   }, restProps), isRemovable ? createScopedElement(Removable, {
     vkuiClass: "FormLayoutGroup__removable",
     align: "start",
@@ -49,8 +47,5 @@ var FormLayoutGroup = function FormLayoutGroup(_ref) {
       }
     }
   }, children) : children);
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default FormLayoutGroup;
+};
 //# sourceMappingURL=FormLayoutGroup.js.map

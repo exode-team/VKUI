@@ -2,7 +2,6 @@ import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["photos", "visibleCount", "size", "layout", "children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import * as React from "react";
 import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
@@ -17,15 +16,17 @@ import "./UsersStack.css";
 /**
  * @see https://vkcom.github.io/VKUI/#/UsersStack
  */
-var UsersStack = function UsersStack(props) {
+export var UsersStack = function UsersStack(props) {
   var platform = usePlatform();
 
   var _props$photos = props.photos,
       photos = _props$photos === void 0 ? [] : _props$photos,
       _props$visibleCount = props.visibleCount,
-      visibleCount = _props$visibleCount === void 0 ? 0 : _props$visibleCount,
-      size = props.size,
-      layout = props.layout,
+      visibleCount = _props$visibleCount === void 0 ? 3 : _props$visibleCount,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 's' : _props$size,
+      _props$layout = props.layout,
+      layout = _props$layout === void 0 ? 'horizontal' : _props$layout,
       children = props.children,
       restProps = _objectWithoutProperties(props, _excluded);
 
@@ -36,26 +37,33 @@ var UsersStack = function UsersStack(props) {
     createMasks(document);
   }, [document]);
   var othersCount = Math.max(0, photos.length - visibleCount);
-  var canShowOthers = othersCount > 0 && size === "m";
+  var canShowOthers = othersCount > 0 && size === 'm';
   var photosShown = photos.slice(0, visibleCount);
+  var parseSize = {
+    xs: 16,
+    s: 24,
+    m: 32
+  };
+
+  var getClipPath = function getClipPath(index) {
+    return index === 0 ? '' : "url(#users_stack_mask_".concat(parseSize[size], "_left)");
+  };
+
   return createScopedElement("div", _extends({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("UsersStack", platform), "UsersStack--size-".concat(size), "UsersStack--l-".concat(layout), {
-      "UsersStack--others": canShowOthers
+    vkuiClass: classNames(getClassName('UsersStack', platform), "UsersStack--size-".concat(size), "UsersStack--l-".concat(layout), {
+      'UsersStack--others': canShowOthers
     })
   }), createScopedElement("div", {
     vkuiClass: "UsersStack__photos",
     role: "presentation"
   }, photosShown.map(function (item, i) {
-    return typeof item === 'string' ? createScopedElement("div", {
+    return createScopedElement("div", {
       key: i,
       vkuiClass: "UsersStack__photo",
       style: {
-        backgroundImage: "url(".concat(item, ")")
+        clipPath: getClipPath(i)
       }
-    }) : createScopedElement("div", {
-      key: i,
-      vkuiClass: "UsersStack__photo"
     }, item);
   }), canShowOthers && createScopedElement(Caption, {
     weight: "1",
@@ -65,14 +73,5 @@ var UsersStack = function UsersStack(props) {
     Component: "span",
     vkuiClass: "UsersStack__text"
   }, children));
-};
-
-UsersStack.defaultProps = {
-  photos: [],
-  size: "s",
-  visibleCount: 3,
-  layout: "horizontal"
 }; // eslint-disable-next-line import/no-default-export
-
-export default /*#__PURE__*/React.memo(UsersStack);
 //# sourceMappingURL=UsersStack.js.map

@@ -200,7 +200,7 @@ var DatePickerNative = function DatePickerNative(_ref3) {
  */
 
 
-var DatePicker = function DatePicker(_ref4) {
+var DatePickerComponent = function DatePickerComponent(_ref4) {
   var hasMouse = _ref4.hasMouse,
       defaultValue = _ref4.defaultValue,
       props = _objectWithoutProperties(_ref4, _excluded3);
@@ -224,10 +224,10 @@ var DatePicker = function DatePicker(_ref4) {
   return createScopedElement(Cmp, _extends({}, props, value, {
     onDateChange: onDateChange
   }));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-export default withAdaptivity(DatePicker, {
+export var DatePicker = withAdaptivity(DatePickerComponent, {
   hasMouse: true
 });
+DatePicker.displayName = "DatePicker";
 //# sourceMappingURL=DatePicker.js.map

@@ -39,5 +39,5 @@ export interface PromoBannerProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/PromoBanner
  */
-declare const PromoBanner: (props: PromoBannerProps) => JSX.Element;
-export default PromoBanner;
+export declare const PromoBanner: (props: PromoBannerProps) => JSX.Element;
+export {};

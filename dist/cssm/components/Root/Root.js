@@ -5,7 +5,6 @@ var _excluded = ["popout", "modal", "children", "activeView", "onTransition", "n
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
 import { IOS } from "../../lib/platform";
 import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
 import { SplitColContext } from "../SplitCol/SplitCol";
@@ -24,7 +23,7 @@ var warn = warnOnce("Root");
  * @see https://vkcom.github.io/VKUI/#/Root
  */
 
-var Root = function Root(_ref) {
+export var Root = function Root(_ref) {
   var _ref$popout = _ref.popout,
       popout = _ref$popout === void 0 ? null : _ref$popout,
       modal = _ref.modal,
@@ -132,10 +131,7 @@ var Root = function Root(_ref) {
   }
 
   return createScopedElement("div", _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("Root", platform), {
-      "Root--transition": transition
-    })
+    vkuiClass: classNames("Root", platform === IOS && "Root--ios", transition && "Root--transition")
   }), views.map(function (view) {
     var _scrolls$viewId;
 
@@ -152,15 +148,8 @@ var Root = function Root(_ref) {
       ref: function ref(e) {
         return viewId && (viewNodes[viewId] = e);
       },
-      onAnimationEnd: isTransitionTarget ? onAnimationEnd : undefined // eslint-disable-next-line vkui/no-object-expression-in-arguments
-      ,
-      vkuiClass: classNames("Root__view", {
-        "Root__view--hide-back": transition && viewId === prevView && isBack,
-        "Root__view--hide-forward": transition && viewId === prevView && !isBack,
-        "Root__view--show-back": transition && viewId === activeView && isBack,
-        "Root__view--show-forward": transition && viewId === activeView && !isBack,
-        "Root__view--active": !transition && viewId === activeView
-      })
+      onAnimationEnd: isTransitionTarget ? onAnimationEnd : undefined,
+      vkuiClass: classNames("Root__view", transition && viewId === prevView && isBack && "Root__view--hide-back", transition && viewId === prevView && !isBack && "Root__view--hide-forward", transition && viewId === activeView && isBack && "Root__view--show-back", transition && viewId === activeView && !isBack && "Root__view--show-forward", !transition && viewId === activeView && "Root__view--active")
     }, createScopedElement(NavTransitionProvider, {
       entering: transition && viewId === activeView
     }, createScopedElement("div", {
@@ -174,8 +163,5 @@ var Root = function Root(_ref) {
   }, popout), !!modal && createScopedElement("div", {
     vkuiClass: "Root__modal"
   }, modal)));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default Root;
+};
 //# sourceMappingURL=Root.js.map

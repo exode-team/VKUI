@@ -1,9 +1,8 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value"];
+var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "onBlur", "value", "caretPosition", "alwaysInFocus", "isFocus"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { FormField } from "../FormField/FormField";
@@ -22,26 +21,41 @@ var InputComponent = function InputComponent(_ref) {
       before = _ref.before,
       after = _ref.after,
       onInput = _ref.onInput,
+      onBlur = _ref.onBlur,
       value = _ref.value,
+      caretPosition = _ref.caretPosition,
+      alwaysInFocus = _ref.alwaysInFocus,
+      _ref$isFocus = _ref.isFocus,
+      isFocus = _ref$isFocus === void 0 ? false : _ref$isFocus,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var _useState = useState(0),
-      _useState2 = _slicedToArray(_useState, 2),
-      cursor = _useState2[0],
-      setCursor = _useState2[1];
-
+  var platform = usePlatform();
   var ref = useRef(null);
-  useEffect(function () {
-    var input = ref.current;
-    if (input) input.setSelectionRange(cursor, cursor);
-  }, [ref, cursor, value]);
 
   var handleChange = function handleChange(e) {
-    e.target.selectionStart && setCursor(e.target.selectionStart);
+    var caret = e.target.selectionStart;
+    var element = e.target;
+    window.requestAnimationFrame(function () {
+      element.selectionStart = caret;
+      element.selectionEnd = caret;
+    });
     onInput && onInput(e);
   };
 
-  var platform = usePlatform();
+  var handleBlur = function handleBlur() {
+    if (alwaysInFocus) {
+      var _ref$current;
+
+      (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus();
+    }
+  };
+
+  useEffect(function () {
+    var _ref$current2, _ref$current3;
+
+    isFocus && ((_ref$current2 = ref.current) === null || _ref$current2 === void 0 ? void 0 : _ref$current2.focus());
+    caretPosition && ((_ref$current3 = ref.current) === null || _ref$current3 === void 0 ? void 0 : _ref$current3.setSelectionRange(caretPosition, caretPosition));
+  }, []);
   return createScopedElement(FormField, {
     vkuiClass: classNames(getClassName("Input", platform), !!align && "Input--".concat(align), "Input--sizeY-".concat(sizeY)),
     style: style,
@@ -52,6 +66,7 @@ var InputComponent = function InputComponent(_ref) {
     disabled: restProps.disabled
   }, createScopedElement("input", _extends({}, restProps, {
     type: type,
+    onBlur: handleBlur || onBlur,
     onInput: handleChange,
     value: value,
     vkuiClass: "Input__el",

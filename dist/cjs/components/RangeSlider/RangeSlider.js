@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.RangeSlider = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -68,9 +68,7 @@ var RangeSlider = function RangeSlider(_ref) {
     max: max,
     step: step
   }));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = RangeSlider;
-exports.default = _default;
+exports.RangeSlider = RangeSlider;
 //# sourceMappingURL=RangeSlider.js.map

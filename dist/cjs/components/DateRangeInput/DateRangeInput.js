@@ -25,7 +25,7 @@ var _CalendarRange = require("../CalendarRange/CalendarRange");
 
 var _Popper = require("../Popper/Popper");
 
-var _IconButton = _interopRequireDefault(require("../IconButton/IconButton"));
+var _IconButton = require("../IconButton/IconButton");
 
 var _useDateInput2 = require("../../hooks/useDateInput");
 
@@ -230,11 +230,11 @@ var DateRangeInput = function DateRangeInput(_ref) {
     style: style,
     className: className,
     getRootRef: (0, _utils.multiRef)(rootRef, getRootRef),
-    after: value ? (0, _jsxRuntime.createScopedElement)(_IconButton.default, {
+    after: value ? (0, _jsxRuntime.createScopedElement)(_IconButton.IconButton, {
       hoverMode: "opacity",
       "aria-label": clearFieldAriaLabel,
       onClick: clear
-    }, (0, _jsxRuntime.createScopedElement)(_icons.Icon16Clear, null)) : (0, _jsxRuntime.createScopedElement)(_IconButton.default, {
+    }, (0, _jsxRuntime.createScopedElement)(_icons.Icon16Clear, null)) : (0, _jsxRuntime.createScopedElement)(_IconButton.IconButton, {
       hoverMode: "opacity",
       "aria-label": showCalendarAriaLabel,
       onClick: openCalendar

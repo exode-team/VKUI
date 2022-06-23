@@ -3,7 +3,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["className", "style", "getRootRef", "getRef", "indeterminate", "defaultIndeterminate", "onChange"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import Tappable, { ACTIVE_EFFECT_DELAY } from "../Tappable/Tappable";
+import { ACTIVE_EFFECT_DELAY, Tappable } from "../Tappable/Tappable";
 import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { IOS, VKCOM } from "../../lib/platform";
@@ -17,6 +17,7 @@ var warn = warnOnce("SimpleCheckbox");
 var IS_DEV = process.env.NODE_ENV === "development";
 
 /**
+ * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`Checkbox`](#/Checkbox).
  * @see https://vkcom.github.io/VKUI/#/SimpleCheckbox
  */
 export var SimpleCheckbox = function SimpleCheckbox(props) {

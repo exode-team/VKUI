@@ -4,7 +4,7 @@ var _excluded = ["children", "selected", "after"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { getClassName } from "../../helpers/getClassName";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { classNames } from "../../lib/classNames";
 import { VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -18,9 +18,10 @@ import "./TabsItem.css";
 /**
  * @see https://vkcom.github.io/VKUI/#/TabsItem
  */
-var TabsItem = function TabsItem(_ref) {
+export var TabsItem = function TabsItem(_ref) {
   var children = _ref.children,
-      selected = _ref.selected,
+      _ref$selected = _ref.selected,
+      selected = _ref$selected === void 0 ? false : _ref$selected,
       after = _ref.after,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
@@ -48,10 +49,4 @@ var TabsItem = function TabsItem(_ref) {
     vkuiClass: "TabsItem__after"
   }, after));
 };
-
-TabsItem.defaultProps = {
-  selected: false
-}; // eslint-disable-next-line import/no-default-export
-
-export default TabsItem;
 //# sourceMappingURL=TabsItem.js.map

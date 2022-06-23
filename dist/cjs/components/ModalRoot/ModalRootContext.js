@@ -7,7 +7,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.ModalRootContext = void 0;
+exports.ModalRootContext = void 0;
 exports.useModalRegistry = useModalRegistry;
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
@@ -73,9 +73,5 @@ function useModalRegistry(id, type) {
   return {
     refs: refs
   };
-} // eslint-disable-next-line import/no-default-export
-
-
-var _default = ModalRootContext;
-exports.default = _default;
+}
 //# sourceMappingURL=ModalRootContext.js.map

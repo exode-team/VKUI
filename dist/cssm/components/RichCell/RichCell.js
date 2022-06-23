@@ -5,17 +5,14 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { hasReactNode } from "../../lib/utils";
 import { Paragraph } from "../Typography/Paragraph/Paragraph";
 import { Subhead } from "../Typography/Subhead/Subhead";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import "./RichCell.css";
 
-/**
- * @see https://vkcom.github.io/VKUI/#/RichCell
- */
-var RichCell = function RichCell(_ref) {
+var RichCellComponent = function RichCellComponent(_ref) {
   var children = _ref.children,
       text = _ref.text,
       caption = _ref.caption,
@@ -47,15 +44,19 @@ var RichCell = function RichCell(_ref) {
   }, text), hasReactNode(caption) && createScopedElement(Subhead, {
     Component: "span",
     vkuiClass: "RichCell__caption"
-  }, caption), (hasReactNode(bottom) || hasReactNode(actions)) && createScopedElement("div", {
+  }, caption), hasReactNode(bottom) && createScopedElement("div", {
     vkuiClass: "RichCell__bottom"
-  }, bottom, hasReactNode(actions) && createScopedElement("div", {
+  }, bottom), hasReactNode(actions) && createScopedElement("div", {
     vkuiClass: "RichCell__actions"
-  }, actions))));
-}; // eslint-disable-next-line import/no-default-export
+  }, actions)));
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichCell
+ */
 
 
-export default withAdaptivity(RichCell, {
+export var RichCell = withAdaptivity(RichCellComponent, {
   sizeY: true
 });
+RichCell.displayName = "RichCell";
 //# sourceMappingURL=RichCell.js.map

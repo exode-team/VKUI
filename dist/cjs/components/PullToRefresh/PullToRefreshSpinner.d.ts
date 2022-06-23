@@ -7,5 +7,4 @@ export interface PullToRefreshSpinnerProps extends React.HTMLAttributes<HTMLDivE
     progress?: number;
     "aria-label"?: string;
 }
-declare const _default: React.NamedExoticComponent<PullToRefreshSpinnerProps>;
-export default _default;
+export declare const PullToRefreshSpinner: ({ on, size, strokeWidth, style, progress, "aria-label": ariaLabel, }: PullToRefreshSpinnerProps) => JSX.Element;

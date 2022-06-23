@@ -19,7 +19,7 @@ import { ANDROID, IOS, VKCOM } from "../../lib/platform";
 import { transitionEvent } from "../../lib/supportEvents";
 import { withPlatform } from "../../hoc/withPlatform";
 import { withContext } from "../../hoc/withContext";
-import ModalRootContext from "./ModalRootContext";
+import { ModalRootContext } from "./ModalRootContext";
 import { ConfigProviderContext, WebviewType } from "../ConfigProvider/ConfigProviderContext";
 import { ModalType } from "./types";
 import { MODAL_PAGE_DEFAULT_PERCENT_HEIGHT } from "./constants";

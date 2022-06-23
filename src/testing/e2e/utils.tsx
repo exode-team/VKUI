@@ -2,7 +2,7 @@ import { ComponentType, FC, Fragment, isValidElement } from "react";
 import { MatchImageSnapshotOptions } from "jest-image-snapshot";
 import { screenshot } from "@react-playwright";
 // Импорты из отдельных модулей помогают jest отслеживать зависимости
-import ConfigProvider from "../../components/ConfigProvider/ConfigProvider";
+import { ConfigProvider } from "../../components/ConfigProvider/ConfigProvider";
 import { Panel } from "../../components/Panel/Panel";
 import { Platform } from "../../lib/platform";
 import { Scheme } from "../../helpers/scheme";
@@ -18,9 +18,9 @@ import {
   ViewWidth,
 } from "../../components/AdaptivityProvider/AdaptivityContext";
 import { AdaptivityProps, withAdaptivity } from "../../hoc/withAdaptivity";
-import View from "../../components/View/View";
+import { View } from "../../components/View/View";
 import { AppRoot } from "../../components/AppRoot/AppRoot";
-import Group from "../../components/Group/Group";
+import { Group } from "../../components/Group/Group";
 
 type AdaptivityFlag = boolean | "x" | "y";
 type PropDesc<Props> = { [K in keyof Props]?: Array<Props[K]> } & {
@@ -94,7 +94,7 @@ function prettyProps(props: any) {
       ) {
         return `${prop}=<jsx>`;
       }
-      if (prop === "style" || prop === "src") {
+      if (prop === "style" || prop === "src" || prop === "photos") {
         const _value = JSON.stringify(value);
 
         return `${prop}=${_value.replace(/"\\?data:.+?"+?/gi, "{base64}")}`;

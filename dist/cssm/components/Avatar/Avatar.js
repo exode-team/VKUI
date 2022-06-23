@@ -6,11 +6,9 @@ var _excluded = ["alt", "crossOrigin", "decoding", "height", "loading", "referre
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Icon12Circle, Icon12OnlineMobile } from "@vkontakte/icons";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
-import { usePlatform } from "../../hooks/usePlatform";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import "./Avatar.css";
 export var AVATAR_DEFAULT_SIZE = 48;
 export var AVATAR_DEFAULT_SHADOW = true;
@@ -18,7 +16,7 @@ export var AVATAR_DEFAULT_SHADOW = true;
  * @see https://vkcom.github.io/VKUI/#/Avatar
  */
 
-var Avatar = function Avatar(_ref) {
+export var Avatar = function Avatar(_ref) {
   var alt = _ref.alt,
       crossOrigin = _ref.crossOrigin,
       decoding = _ref.decoding,
@@ -49,8 +47,6 @@ var Avatar = function Avatar(_ref) {
       passedOverlayAction = _ref.overlayAction,
       onClick = _ref.onClick,
       restProps = _objectWithoutProperties(_ref, _excluded);
-
-  var platform = usePlatform();
 
   var _useAdaptivity = useAdaptivity(),
       hasMouse = _useAdaptivity.hasMouse;
@@ -94,7 +90,7 @@ var Avatar = function Avatar(_ref) {
   var hasSrc = src || srcSet;
   return createScopedElement("div", _extends({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("Avatar", platform), "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), {
+    vkuiClass: classNames("Avatar", "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), {
       "Avatar--shadow": shadow,
       "Avatar--failed": failedImage
     }),
@@ -155,8 +151,5 @@ var Avatar = function Avatar(_ref) {
     width: size >= 72 ? 9 : 8,
     height: size >= 72 ? 15 : 12
   })) : badge));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default Avatar;
+};
 //# sourceMappingURL=Avatar.js.map

@@ -17,7 +17,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _Tappable = _interopRequireWildcard(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _getClassName = require("../../helpers/getClassName");
 
@@ -42,6 +42,7 @@ var warn = (0, _warnOnce.warnOnce)("SimpleCheckbox");
 var IS_DEV = process.env.NODE_ENV === "development";
 
 /**
+ * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`Checkbox`](#/Checkbox).
  * @see https://vkcom.github.io/VKUI/#/SimpleCheckbox
  */
 var SimpleCheckbox = function SimpleCheckbox(props) {
@@ -92,7 +93,7 @@ var SimpleCheckbox = function SimpleCheckbox(props) {
     }
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     Component: "label",
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SimpleCheckbox", platform), "SimpleCheckbox--sizeY-".concat(sizeY)),
     className: className,

@@ -7,8 +7,7 @@ import { canUseDOM } from "@vkontakte/vkjs";
  * @returns {void}
  */
 
-// eslint-disable-next-line import/no-default-export
-export default function animate(_ref) {
+export function animate(_ref) {
   var duration = _ref.duration,
       timing = _ref.timing,
       draw = _ref.draw;

@@ -1,5 +1,4 @@
 import { createScopedElement } from "../../lib/jsxRuntime";
-import * as React from "react";
 import { classNames } from "../../lib/classNames";
 
 function calcStrokeDashOffset(value, radius) {
@@ -7,7 +6,7 @@ function calcStrokeDashOffset(value, radius) {
   return 2 * Math.PI * radius * (1 - progress);
 }
 
-var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
+export var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
   var _ref$on = _ref.on,
       on = _ref$on === void 0 ? true : _ref$on,
       _ref$size = _ref.size,
@@ -24,10 +23,7 @@ var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
   var circleCenter = 0.5 * size;
   var dashoffset = calcStrokeDashOffset(on ? 80 : progress, radius);
   return createScopedElement("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames("PullToRefresh__spinner", {
-      "PullToRefresh__spinner--on": on
-    }),
+    vkuiClass: classNames("PullToRefresh__spinner", on && "PullToRefresh__spinner--on"),
     style: style,
     "aria-label": on ? ariaLabel : undefined
   }, createScopedElement("svg", {
@@ -56,8 +52,5 @@ var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
     cy: circleCenter,
     r: radius
   }))));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default /*#__PURE__*/React.memo(PullToRefreshSpinner);
+};
 //# sourceMappingURL=PullToRefreshSpinner.js.map

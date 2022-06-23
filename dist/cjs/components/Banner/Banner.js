@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Banner = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -16,8 +16,6 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var React = _interopRequireWildcard(require("react"));
-
-var _getClassName = require("../../helpers/getClassName");
 
 var _classNames = require("../../lib/classNames");
 
@@ -29,9 +27,9 @@ var _utils = require("../../lib/utils");
 
 var _icons = require("@vkontakte/icons");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
-var _IconButton = _interopRequireDefault(require("../IconButton/IconButton"));
+var _IconButton = require("../IconButton/IconButton");
 
 var _Headline = require("../Typography/Headline/Headline");
 
@@ -59,29 +57,30 @@ var BannerHeader = function BannerHeader(_ref) {
  */
 
 
-var Banner = function Banner(props) {
+var Banner = function Banner(_ref2) {
+  var _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "tint" : _ref2$mode,
+      _ref2$imageTheme = _ref2.imageTheme,
+      imageTheme = _ref2$imageTheme === void 0 ? "dark" : _ref2$imageTheme,
+      _ref2$size = _ref2.size,
+      size = _ref2$size === void 0 ? "s" : _ref2$size,
+      before = _ref2.before,
+      asideMode = _ref2.asideMode,
+      header = _ref2.header,
+      subheader = _ref2.subheader,
+      text = _ref2.text,
+      children = _ref2.children,
+      background = _ref2.background,
+      actions = _ref2.actions,
+      onDismiss = _ref2.onDismiss,
+      _ref2$dismissLabel = _ref2.dismissLabel,
+      dismissLabel = _ref2$dismissLabel === void 0 ? "Скрыть" : _ref2$dismissLabel,
+      restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
   var platform = (0, _usePlatform.usePlatform)();
-  var mode = props.mode,
-      imageTheme = props.imageTheme,
-      size = props.size,
-      before = props.before,
-      asideMode = props.asideMode,
-      header = props.header,
-      subheader = props.subheader,
-      text = props.text,
-      children = props.children,
-      background = props.background,
-      actions = props.actions,
-      onDismiss = props.onDismiss,
-      dismissLabel = props.dismissLabel,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
   var SubheaderTypography = size === "m" ? _Text.Text : _Subhead.Subhead;
   return (0, _jsxRuntime.createScopedElement)("section", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Banner", platform), "Banner--md-".concat(mode), "Banner--sz-".concat(size), {
-      "Banner--inverted": mode === "image" && imageTheme === "dark"
-    })
-  }), (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+    vkuiClass: (0, _classNames.classNames)("Banner", platform === _platform.IOS && "Banner--ios", "Banner--md-".concat(mode), "Banner--sz-".concat(size), mode === "image" && imageTheme === "dark" && "Banner--inverted")
+  }), (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     vkuiClass: "Banner__in",
     activeMode: platform === _platform.IOS ? "opacity" : "background",
     disabled: asideMode !== "expand",
@@ -106,22 +105,14 @@ var Banner = function Banner(props) {
     vkuiClass: "Banner__actions"
   }, actions)), !!asideMode && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Banner__aside"
-  }, asideMode === "expand" && (0, _jsxRuntime.createScopedElement)(_icons.Icon24Chevron, null), asideMode === "dismiss" && (0, _jsxRuntime.createScopedElement)(_IconButton.default, {
+  }, asideMode === "expand" && (0, _jsxRuntime.createScopedElement)(_icons.Icon24Chevron, null), asideMode === "dismiss" && (0, _jsxRuntime.createScopedElement)(_IconButton.IconButton, {
     "aria-label": dismissLabel,
     vkuiClass: "Banner__dismiss",
     onClick: onDismiss,
     hoverMode: "opacity",
     hasActive: false
-  }, (platform === _platform.ANDROID || platform === _platform.VKCOM) && (0, _jsxRuntime.createScopedElement)(_icons.Icon24Cancel, null), platform === _platform.IOS && (mode === "image" ? (0, _jsxRuntime.createScopedElement)(_icons.Icon24DismissDark, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24DismissSubstract, null))))));
+  }, platform === _platform.IOS ? mode === "image" ? (0, _jsxRuntime.createScopedElement)(_icons.Icon24DismissDark, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24DismissSubstract, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24Cancel, null)))));
 };
 
-Banner.defaultProps = {
-  dismissLabel: "Скрыть",
-  mode: "tint",
-  size: "s",
-  imageTheme: "dark"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = Banner;
-exports.default = _default;
+exports.Banner = Banner;
 //# sourceMappingURL=Banner.js.map

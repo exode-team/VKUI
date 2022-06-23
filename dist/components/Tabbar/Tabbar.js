@@ -10,11 +10,12 @@ import { usePlatform } from "../../hooks/usePlatform";
 /**
  * @see https://vkcom.github.io/VKUI/#/Tabbar
  */
-var Tabbar = function Tabbar(props) {
-  var children = props.children,
-      shadow = props.shadow,
-      itemsLayout = props.itemsLayout,
-      restProps = _objectWithoutProperties(props, _excluded);
+export var Tabbar = function Tabbar(_ref) {
+  var children = _ref.children,
+      _ref$shadow = _ref.shadow,
+      shadow = _ref$shadow === void 0 ? true : _ref$shadow,
+      itemsLayout = _ref.itemsLayout,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
 
@@ -38,10 +39,4 @@ var Tabbar = function Tabbar(props) {
     vkuiClass: "Tabbar__in"
   }, children));
 };
-
-Tabbar.defaultProps = {
-  shadow: true
-}; // eslint-disable-next-line import/no-default-export
-
-export default Tabbar;
 //# sourceMappingURL=Tabbar.js.map

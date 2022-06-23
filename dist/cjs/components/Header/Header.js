@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Header = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -93,7 +93,8 @@ var HeaderContent = function HeaderContent(_ref) {
 
 
 var Header = function Header(_ref2) {
-  var mode = _ref2.mode,
+  var _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "primary" : _ref2$mode,
       children = _ref2.children,
       subtitle = _ref2.subtitle,
       indicator = _ref2.indicator,
@@ -134,10 +135,5 @@ var Header = function Header(_ref2) {
   }, aside));
 };
 
-Header.defaultProps = {
-  mode: "primary"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = Header;
-exports.default = _default;
+exports.Header = Header;
 //# sourceMappingURL=Header.js.map

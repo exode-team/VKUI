@@ -1,60 +1,36 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["size", "platform"],
-    _excluded2 = ["mode", "size", "children"];
+var _excluded = ["mode", "size", "children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
 import { Caption } from "../Typography/Caption/Caption";
-import { Text } from "../Typography/Text/Text";
-import { VKCOM } from "../../lib/platform";
+import { Headline } from "../Typography/Headline/Headline";
 import { hasReactNode } from "../../lib/utils";
 import "./Counter.css";
 
-var CounterTypography = function CounterTypography(_ref) {
-  var size = _ref.size,
-      platform = _ref.platform,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
-  return size === "s" ? createScopedElement(Caption, _extends({
-    level: "2",
-    weight: platform === VKCOM ? "1" : undefined
-  }, restProps)) : createScopedElement(Text, _extends({
-    weight: "2"
-  }, restProps));
-};
 /**
  * @see https://vkcom.github.io/VKUI/#/Counter
  */
-
-
-var Counter = function Counter(props) {
-  var mode = props.mode,
-      size = props.size,
-      children = props.children,
-      restProps = _objectWithoutProperties(props, _excluded2);
-
-  var platform = usePlatform();
+export var Counter = function Counter(_ref) {
+  var _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "secondary" : _ref$mode,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? "m" : _ref$size,
+      children = _ref.children,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   if (React.Children.count(children) === 0) {
     return null;
   }
 
+  var CounterTypography = size === "s" ? Caption : Headline;
   return createScopedElement("span", _extends({}, restProps, {
-    vkuiClass: classNames(getClassName("Counter", platform), "Counter--".concat(mode), "Counter--s-".concat(size))
+    vkuiClass: classNames("Counter", "Counter--".concat(mode), "Counter--s-".concat(size))
   }), hasReactNode(children) && createScopedElement(CounterTypography, {
-    platform: platform,
-    size: size,
-    vkuiClass: "Counter__in"
+    Component: "span",
+    vkuiClass: "Counter__in",
+    level: "2"
   }, children));
 };
-
-Counter.defaultProps = {
-  mode: "secondary",
-  size: "m"
-}; // eslint-disable-next-line import/no-default-export
-
-export default /*#__PURE__*/React.memo(Counter);
 //# sourceMappingURL=Counter.js.map

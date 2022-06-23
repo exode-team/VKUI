@@ -25,7 +25,7 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _usePagination = require("../../hooks/usePagination");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _Button = require("../Button/Button");
 
@@ -99,7 +99,7 @@ var Pagination = function Pagination(_ref) {
 
           return (0, _jsxRuntime.createScopedElement)("li", {
             key: page
-          }, (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+          }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
             vkuiClass: (0, _classNames.classNames)("Pagination__page", "Pagination__page--sizeY-".concat(sizeY), _isCurrent && "Pagination__page--current", disabled && "Pagination__page--disabled"),
             activeMode: "Pagination__page--state-active",
             hoverMode: "Pagination__page--state-hover",

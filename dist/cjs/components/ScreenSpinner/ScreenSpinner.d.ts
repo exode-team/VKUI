@@ -5,5 +5,4 @@ export declare type ScreenSpinnerProps = React.HTMLAttributes<HTMLDivElement> & 
 /**
  * @see https://vkcom.github.io/VKUI/#/ScreenSpinner
  */
-declare const ScreenSpinner: React.FC<ScreenSpinnerProps>;
-export default ScreenSpinner;
+export declare const ScreenSpinner: React.FC<ScreenSpinnerProps>;

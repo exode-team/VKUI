@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.AVATAR_DEFAULT_SIZE = exports.AVATAR_DEFAULT_SHADOW = void 0;
+exports.Avatar = exports.AVATAR_DEFAULT_SIZE = exports.AVATAR_DEFAULT_SHADOW = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -23,15 +23,11 @@ var React = _interopRequireWildcard(require("react"));
 
 var _icons = require("@vkontakte/icons");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
-
-var _usePlatform = require("../../hooks/usePlatform");
 
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _excluded = ["alt", "crossOrigin", "decoding", "height", "loading", "referrerPolicy", "sizes", "src", "srcSet", "useMap", "width", "getRef", "size", "shadow", "mode", "className", "children", "getRootRef", "style", "aria-label", "badge", "overlayIcon", "overlayMode", "overlayAction", "onClick"];
 var AVATAR_DEFAULT_SIZE = 48;
@@ -74,7 +70,6 @@ var Avatar = function Avatar(_ref) {
       passedOverlayAction = _ref.overlayAction,
       onClick = _ref.onClick,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
 
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
       hasMouse = _useAdaptivity.hasMouse;
@@ -118,7 +113,7 @@ var Avatar = function Avatar(_ref) {
   var hasSrc = src || srcSet;
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Avatar", platform), "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), {
+    vkuiClass: (0, _classNames.classNames)("Avatar", "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), {
       "Avatar--shadow": shadow,
       "Avatar--failed": failedImage
     }),
@@ -150,7 +145,7 @@ var Avatar = function Avatar(_ref) {
     alt: ""
   }), children && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Avatar__children"
-  }, children), overlayIcon && (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  }, children), overlayIcon && (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     Component: "button" // eslint-disable-next-line vkui/no-object-expression-in-arguments
     ,
     vkuiClass: (0, _classNames.classNames)("Avatar__overlay", {
@@ -179,9 +174,7 @@ var Avatar = function Avatar(_ref) {
     width: size >= 72 ? 9 : 8,
     height: size >= 72 ? 15 : 12
   })) : badge));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = Avatar;
-exports.default = _default;
+exports.Avatar = Avatar;
 //# sourceMappingURL=Avatar.js.map

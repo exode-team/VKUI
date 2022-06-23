@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.ACTIVE_EFFECT_DELAY = exports.ACTIVE_DELAY = void 0;
+exports.Tappable = exports.ACTIVE_EFFECT_DELAY = exports.ACTIVE_DELAY = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -32,8 +32,6 @@ var _Touch = require("../Touch/Touch");
 var _TouchContext = _interopRequireDefault(require("../Touch/TouchContext"));
 
 var _classNames2 = require("../../lib/classNames");
-
-var _getClassName = require("../../helpers/getClassName");
 
 var _platform = require("../../lib/platform");
 
@@ -62,6 +60,7 @@ var _callMultiple = require("../../lib/callMultiple");
 var _useBooleanState2 = require("../../hooks/useBooleanState");
 
 var _excluded = ["children", "Component", "onClick", "onKeyDown", "activeEffectDelay", "stopPropagation", "getRootRef", "sizeX", "hasMouse", "deviceHasHover", "hasHover", "hoverMode", "hasActive", "activeMode", "focusVisibleMode", "onEnter", "onLeave"];
+var WAVE_LIVE = 225;
 var ACTIVE_DELAY = 70;
 exports.ACTIVE_DELAY = ACTIVE_DELAY;
 var ACTIVE_EFFECT_DELAY = 600;
@@ -151,7 +150,7 @@ function useActivity(hasActive, stopDelay) {
   }];
 }
 
-var Tappable = function Tappable(_ref) {
+var TappableComponent = function TappableComponent(_ref) {
   var _classNames;
 
   var children = _ref.children,
@@ -257,6 +256,24 @@ var Tappable = function Tappable(_ref) {
     }
   }
 
+  var needWaves = platform === _platform.ANDROID && !hasMouse && hasActive && activeMode === "background";
+  var clearClicks = (0, _useTimeout.useTimeout)(function () {
+    return setClicks([]);
+  }, WAVE_LIVE);
+
+  function addClick(x, y) {
+    var dateNow = Date.now();
+    var filteredClicks = clicks.filter(function (click) {
+      return click.id + WAVE_LIVE > dateNow;
+    });
+    setClicks([].concat((0, _toConsumableArray2.default)(filteredClicks), [{
+      x: x,
+      y: y,
+      id: dateNow
+    }]));
+    clearClicks.set();
+  }
+
   function onStart(_ref2) {
     var originalEvent = _ref2.originalEvent;
 
@@ -266,18 +283,14 @@ var Tappable = function Tappable(_ref) {
         return stop();
       }
 
-      if (platform === _platform.ANDROID) {
+      if (needWaves) {
         var _getOffsetRect = (0, _offset.getOffsetRect)(containerRef.current),
             top = _getOffsetRect.top,
             left = _getOffsetRect.left;
 
         var x = (0, _touch.coordX)(originalEvent) - (left !== null && left !== void 0 ? left : 0);
         var y = (0, _touch.coordY)(originalEvent) - (top !== null && top !== void 0 ? top : 0);
-        setClicks([].concat((0, _toConsumableArray2.default)(clicks), [{
-          x: x,
-          y: y,
-          id: Date.now().toString()
-        }]));
+        addClick(x, y);
       }
 
       delayStart();
@@ -310,7 +323,7 @@ var Tappable = function Tappable(_ref) {
   } // eslint-disable-next-line vkui/no-object-expression-in-arguments
 
 
-  var classes = (0, _classNames2.classNames)((0, _getClassName.getClassName)("Tappable", platform), "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
+  var classes = (0, _classNames2.classNames)("Tappable", platform === _platform.IOS && "Tappable--ios", "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
     "Tappable--active": hasActive && active,
     "Tappable--mouse": hasMouse
   }, (0, _defineProperty2.default)(_classNames, "Tappable--hover-".concat(hoverMode), hasHover && hovered && isPresetHoverMode), (0, _defineProperty2.default)(_classNames, "Tappable--active-".concat(activeMode), hasActive && active && isPresetActiveMode), (0, _defineProperty2.default)(_classNames, "Tappable--focus-visible", focusVisible), _classNames));
@@ -340,49 +353,35 @@ var Tappable = function Tappable(_ref) {
     onFocus: (0, _callMultiple.callMultiple)(onFocus, props.onFocus)
   }, props.disabled ? {} : handlers), (0, _jsxRuntime.createScopedElement)(TappableContext.Provider, {
     value: childContext
-  }, children), platform === _platform.ANDROID && !hasMouse && hasActive && activeMode === "background" && (0, _jsxRuntime.createScopedElement)("span", {
+  }, children), needWaves && (0, _jsxRuntime.createScopedElement)("span", {
     "aria-hidden": "true",
     vkuiClass: "Tappable__waves"
   }, clicks.map(function (wave) {
-    return (0, _jsxRuntime.createScopedElement)(Wave, (0, _extends2.default)({}, wave, {
+    return (0, _jsxRuntime.createScopedElement)("span", {
       key: wave.id,
-      onClear: function onClear() {
-        return setClicks(clicks.filter(function (c) {
-          return c.id !== wave.id;
-        }));
+      vkuiClass: "Tappable__wave",
+      style: {
+        top: wave.y,
+        left: wave.x
       }
-    }));
+    });
   })), hasHover && hoverMode === "background" && (0, _jsxRuntime.createScopedElement)("span", {
     "aria-hidden": "true",
     vkuiClass: "Tappable__hoverShadow"
   }), !props.disabled && isPresetFocusVisibleMode && (0, _jsxRuntime.createScopedElement)(_FocusVisible.FocusVisible, {
     mode: focusVisibleMode
   }));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tappable
+ */
 
 
-var _default = (0, _withAdaptivity.withAdaptivity)(Tappable, {
+var Tappable = (0, _withAdaptivity.withAdaptivity)(TappableComponent, {
   sizeX: true,
   hasMouse: true,
   deviceHasHover: true
 });
-
-exports.default = _default;
-
-function Wave(_ref5) {
-  var x = _ref5.x,
-      y = _ref5.y,
-      onClear = _ref5.onClear;
-  var timeout = (0, _useTimeout.useTimeout)(onClear, 225);
-  React.useEffect(function () {
-    return timeout.set();
-  }, [timeout]);
-  return (0, _jsxRuntime.createScopedElement)("span", {
-    vkuiClass: "Tappable__wave",
-    style: {
-      top: y,
-      left: x
-    }
-  });
-}
+exports.Tappable = Tappable;
+Tappable.displayName = "Tappable";
 //# sourceMappingURL=Tappable.js.map

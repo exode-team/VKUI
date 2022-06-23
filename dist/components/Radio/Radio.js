@@ -2,7 +2,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 import _extends from "@babel/runtime/helpers/extends";
 var _excluded = ["children", "description", "style", "className", "getRootRef", "sizeY"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import Tappable, { ACTIVE_EFFECT_DELAY } from "../Tappable/Tappable";
+import { ACTIVE_EFFECT_DELAY, Tappable } from "../Tappable/Tappable";
 import { classNames } from "../../lib/classNames";
 import { IOS, VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";

@@ -11,8 +11,7 @@ import { noop } from "@vkontakte/vkjs";
 import { Touch } from "../Touch/Touch";
 import TouchRootContext from "../Touch/TouchContext";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { ANDROID } from "../../lib/platform";
+import { IOS, ANDROID } from "../../lib/platform";
 import { getOffsetRect } from "../../lib/offset";
 import { coordX, coordY } from "../../lib/touch";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
@@ -26,6 +25,7 @@ import { useFocusVisible } from "../../hooks/useFocusVisible";
 import { callMultiple } from "../../lib/callMultiple";
 import { useBooleanState } from "../../hooks/useBooleanState";
 import "./Tappable.css";
+var WAVE_LIVE = 225;
 export var ACTIVE_DELAY = 70;
 export var ACTIVE_EFFECT_DELAY = 600;
 var activeBus = mitt();
@@ -113,7 +113,7 @@ function useActivity(hasActive, stopDelay) {
   }];
 }
 
-var Tappable = function Tappable(_ref) {
+var TappableComponent = function TappableComponent(_ref) {
   var _classNames;
 
   var children = _ref.children,
@@ -219,6 +219,24 @@ var Tappable = function Tappable(_ref) {
     }
   }
 
+  var needWaves = platform === ANDROID && !hasMouse && hasActive && activeMode === "background";
+  var clearClicks = useTimeout(function () {
+    return setClicks([]);
+  }, WAVE_LIVE);
+
+  function addClick(x, y) {
+    var dateNow = Date.now();
+    var filteredClicks = clicks.filter(function (click) {
+      return click.id + WAVE_LIVE > dateNow;
+    });
+    setClicks([].concat(_toConsumableArray(filteredClicks), [{
+      x: x,
+      y: y,
+      id: dateNow
+    }]));
+    clearClicks.set();
+  }
+
   function onStart(_ref2) {
     var originalEvent = _ref2.originalEvent;
 
@@ -228,18 +246,14 @@ var Tappable = function Tappable(_ref) {
         return stop();
       }
 
-      if (platform === ANDROID) {
+      if (needWaves) {
         var _getOffsetRect = getOffsetRect(containerRef.current),
             top = _getOffsetRect.top,
             left = _getOffsetRect.left;
 
         var x = coordX(originalEvent) - (left !== null && left !== void 0 ? left : 0);
         var y = coordY(originalEvent) - (top !== null && top !== void 0 ? top : 0);
-        setClicks([].concat(_toConsumableArray(clicks), [{
-          x: x,
-          y: y,
-          id: Date.now().toString()
-        }]));
+        addClick(x, y);
       }
 
       delayStart();
@@ -272,7 +286,7 @@ var Tappable = function Tappable(_ref) {
   } // eslint-disable-next-line vkui/no-object-expression-in-arguments
 
 
-  var classes = classNames(getClassName("Tappable", platform), "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
+  var classes = classNames("Tappable", platform === IOS && "Tappable--ios", "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
     "Tappable--active": hasActive && active,
     "Tappable--mouse": hasMouse
   }, _defineProperty(_classNames, "Tappable--hover-".concat(hoverMode), hasHover && hovered && isPresetHoverMode), _defineProperty(_classNames, "Tappable--active-".concat(activeMode), hasActive && active && isPresetActiveMode), _defineProperty(_classNames, "Tappable--focus-visible", focusVisible), _classNames));
@@ -302,47 +316,34 @@ var Tappable = function Tappable(_ref) {
     onFocus: callMultiple(onFocus, props.onFocus)
   }, props.disabled ? {} : handlers), createScopedElement(TappableContext.Provider, {
     value: childContext
-  }, children), platform === ANDROID && !hasMouse && hasActive && activeMode === "background" && createScopedElement("span", {
+  }, children), needWaves && createScopedElement("span", {
     "aria-hidden": "true",
     vkuiClass: "Tappable__waves"
   }, clicks.map(function (wave) {
-    return createScopedElement(Wave, _extends({}, wave, {
+    return createScopedElement("span", {
       key: wave.id,
-      onClear: function onClear() {
-        return setClicks(clicks.filter(function (c) {
-          return c.id !== wave.id;
-        }));
+      vkuiClass: "Tappable__wave",
+      style: {
+        top: wave.y,
+        left: wave.x
       }
-    }));
+    });
   })), hasHover && hoverMode === "background" && createScopedElement("span", {
     "aria-hidden": "true",
     vkuiClass: "Tappable__hoverShadow"
   }), !props.disabled && isPresetFocusVisibleMode && createScopedElement(FocusVisible, {
     mode: focusVisibleMode
   }));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tappable
+ */
 
 
-export default withAdaptivity(Tappable, {
+export var Tappable = withAdaptivity(TappableComponent, {
   sizeX: true,
   hasMouse: true,
   deviceHasHover: true
 });
-
-function Wave(_ref5) {
-  var x = _ref5.x,
-      y = _ref5.y,
-      onClear = _ref5.onClear;
-  var timeout = useTimeout(onClear, 225);
-  React.useEffect(function () {
-    return timeout.set();
-  }, [timeout]);
-  return createScopedElement("span", {
-    vkuiClass: "Tappable__wave",
-    style: {
-      top: y,
-      left: x
-    }
-  });
-}
+Tappable.displayName = "Tappable";
 //# sourceMappingURL=Tappable.js.map

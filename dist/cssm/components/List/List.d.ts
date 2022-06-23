@@ -3,5 +3,4 @@ import "./List.css";
 /**
  * @see https://vkcom.github.io/VKUI/#/List
  */
-declare const List: React.FunctionComponent<React.HTMLAttributes<HTMLDivElement>>;
-export default List;
+export declare const List: React.FunctionComponent<React.HTMLAttributes<HTMLDivElement>>;

@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PromoBanner = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -27,9 +27,9 @@ var _icons = require("@vkontakte/icons");
 
 var _Button = require("../Button/Button");
 
-var _SimpleCell = _interopRequireDefault(require("../SimpleCell/SimpleCell"));
+var _SimpleCell = require("../SimpleCell/SimpleCell");
 
-var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
+var _Avatar = require("../Avatar/Avatar");
 
 var _Caption = require("../Typography/Caption/Caption");
 
@@ -86,12 +86,12 @@ var PromoBanner = function PromoBanner(props) {
   }, ageRestrictions, "+"), !props.isCloseButtonHidden && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PromoBanner__close",
     onClick: props.onClose
-  }, (0, _jsxRuntime.createScopedElement)(_icons.Icon24Dismiss, null))), (0, _jsxRuntime.createScopedElement)(_SimpleCell.default, {
+  }, (0, _jsxRuntime.createScopedElement)(_icons.Icon24Dismiss, null))), (0, _jsxRuntime.createScopedElement)(_SimpleCell.SimpleCell, {
     href: bannerData.trackingLink,
     onClick: onClick,
     rel: "nofollow noopener noreferrer",
     target: "_blank",
-    before: (0, _jsxRuntime.createScopedElement)(_Avatar.default, {
+    before: (0, _jsxRuntime.createScopedElement)(_Avatar.Avatar, {
       mode: "image",
       size: 48,
       src: bannerData.iconLink,
@@ -107,9 +107,7 @@ var PromoBanner = function PromoBanner(props) {
     src: currentPixel,
     alt: ""
   })));
-}; // eslint-disable-next-line import/no-default-export
+};
 
-
-var _default = PromoBanner;
-exports.default = _default;
+exports.PromoBanner = PromoBanner;
 //# sourceMappingURL=PromoBanner.js.map

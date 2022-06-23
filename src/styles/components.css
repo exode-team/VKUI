@@ -10,10 +10,11 @@
 /* Typography */
 @import "../components/Typography/Title/Title.css";
 @import "../components/Typography/Headline/Headline.css";
-@import "../components/Typography/Subhead/Subhead.css";
-@import "../components/Typography/Caption/Caption.css";
 @import "../components/Typography/Text/Text.css";
 @import "../components/Typography/Paragraph/Paragraph.css";
+@import "../components/Typography/Subhead/Subhead.css";
+@import "../components/Typography/Footnote/Footnote.css";
+@import "../components/Typography/Caption/Caption.css";
 
 /* Service */
 @import "../components/Tappable/Tappable.css";
@@ -86,7 +87,7 @@
 @import "../components/Avatar/Avatar.css";
 @import "../components/InitialsAvatar/InitialsAvatar.css";
 @import "../components/GridAvatar/GridAvatar.css";
-@import "../components/Gallery/Gallery.css";
+@import "../components/BaseGallery/BaseGallery.css";
 @import "../components/Progress/Progress.css";
 @import "../components/Search/Search.css";
 @import "../components/Tabs/Tabs.css";

@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.RichCell = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -19,7 +19,7 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _utils = require("../../lib/utils");
 
@@ -31,10 +31,7 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _excluded = ["children", "text", "caption", "before", "after", "bottom", "actions", "multiline", "sizeY"];
 
-/**
- * @see https://vkcom.github.io/VKUI/#/RichCell
- */
-var RichCell = function RichCell(_ref) {
+var RichCellComponent = function RichCellComponent(_ref) {
   var children = _ref.children,
       text = _ref.text,
       caption = _ref.caption,
@@ -46,7 +43,7 @@ var RichCell = function RichCell(_ref) {
       sizeY = _ref.sizeY,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("RichCell", platform), {
       "RichCell--mult": multiline
@@ -65,17 +62,20 @@ var RichCell = function RichCell(_ref) {
   }, text), (0, _utils.hasReactNode)(caption) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     Component: "span",
     vkuiClass: "RichCell__caption"
-  }, caption), ((0, _utils.hasReactNode)(bottom) || (0, _utils.hasReactNode)(actions)) && (0, _jsxRuntime.createScopedElement)("div", {
+  }, caption), (0, _utils.hasReactNode)(bottom) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__bottom"
-  }, bottom, (0, _utils.hasReactNode)(actions) && (0, _jsxRuntime.createScopedElement)("div", {
+  }, bottom), (0, _utils.hasReactNode)(actions) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__actions"
-  }, actions))));
-}; // eslint-disable-next-line import/no-default-export
+  }, actions)));
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/RichCell
+ */
 
 
-var _default = (0, _withAdaptivity.withAdaptivity)(RichCell, {
+var RichCell = (0, _withAdaptivity.withAdaptivity)(RichCellComponent, {
   sizeY: true
 });
-
-exports.default = _default;
+exports.RichCell = RichCell;
+RichCell.displayName = "RichCell";
 //# sourceMappingURL=RichCell.js.map

@@ -8,9 +8,9 @@ import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { Caption } from "../Typography/Caption/Caption";
-import Tappable from "../Tappable/Tappable";
+import { Tappable } from "../Tappable/Tappable";
 import { Subhead } from "../Typography/Subhead/Subhead";
-import Avatar from "../Avatar/Avatar";
+import { Avatar } from "../Avatar/Avatar";
 import "./HorizontalCell.css";
 
 var CellTypography = function CellTypography(_ref) {

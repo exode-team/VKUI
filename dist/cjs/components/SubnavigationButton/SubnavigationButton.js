@@ -19,7 +19,7 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _utils = require("../../lib/utils");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _icons = require("@vkontakte/icons");
 
@@ -59,7 +59,7 @@ var SubnavigationButton = function SubnavigationButton(props) {
       expandable = props.expandable,
       children = props.children,
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     hasActive: false,
     focusVisibleMode: "outside" // eslint-disable-next-line vkui/no-object-expression-in-arguments
     ,

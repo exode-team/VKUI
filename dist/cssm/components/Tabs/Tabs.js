@@ -10,13 +10,11 @@ import { IOS } from "../../lib/platform";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import "./Tabs.css";
 export var TabsModeContext = /*#__PURE__*/React.createContext("default");
-/**
- * @see https://vkcom.github.io/VKUI/#/Tabs
- */
 
-var Tabs = function Tabs(_ref) {
+var TabsComponent = function TabsComponent(_ref) {
   var children = _ref.children,
-      mode = _ref.mode,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "default" : _ref$mode,
       getRootRef = _ref.getRootRef,
       sizeX = _ref.sizeX,
       restProps = _objectWithoutProperties(_ref, _excluded);
@@ -36,12 +34,13 @@ var Tabs = function Tabs(_ref) {
     value: mode
   }, children)));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Tabs
+ */
 
-Tabs.defaultProps = {
-  mode: "default"
-}; // eslint-disable-next-line import/no-default-export
 
-export default withAdaptivity(Tabs, {
+export var Tabs = withAdaptivity(TabsComponent, {
   sizeX: true
 });
+Tabs.displayName = "Tabs";
 //# sourceMappingURL=Tabs.js.map

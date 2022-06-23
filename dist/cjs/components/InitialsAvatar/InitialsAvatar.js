@@ -2,8 +2,6 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -19,7 +17,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _classNames = require("../../lib/classNames");
 
-var _Avatar = _interopRequireWildcard(require("../Avatar/Avatar"));
+var _Avatar = require("../Avatar/Avatar");
 
 var _excluded = ["size", "children", "gradientColor", "style"];
 var COLORS_NUMBER_TO_TEXT_MAP = {
@@ -49,7 +47,7 @@ var InitialsAvatar = function InitialsAvatar(_ref) {
       style = _ref.style,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var gradientName = typeof gradientColor === "string" ? gradientColor : gradientColor && COLORS_NUMBER_TO_TEXT_MAP[gradientColor];
-  return (0, _jsxRuntime.createScopedElement)(_Avatar.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Avatar.Avatar, (0, _extends2.default)({}, restProps, {
     style: (0, _objectSpread2.default)((0, _objectSpread2.default)({}, style), {}, {
       fontSize: getInitialsFontSize(size)
     }),

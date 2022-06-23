@@ -196,6 +196,7 @@ const baseConfig = {
         {
           name: "Blocks",
           components: () => [
+            "../src/components/Tappable/Tappable.tsx",
             "../src/components/Badge/Badge.tsx",
             "../src/components/ButtonGroup/ButtonGroup.tsx",
             "../src/components/Button/Button.tsx",
@@ -286,6 +287,7 @@ const baseConfig = {
             "../src/components/Typography/Text/Text.tsx",
             "../src/components/Typography/Paragraph/Paragraph.tsx",
             "../src/components/Typography/Subhead/Subhead.tsx",
+            "../src/components/Typography/Footnote/Footnote.tsx",
             "../src/components/Typography/Caption/Caption.tsx",
           ],
         },

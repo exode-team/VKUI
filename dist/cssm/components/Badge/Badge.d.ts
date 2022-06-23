@@ -6,4 +6,4 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/Badge
  */
-export declare const Badge: React.FunctionComponent<BadgeProps>;
+export declare const Badge: React.FC<BadgeProps>;

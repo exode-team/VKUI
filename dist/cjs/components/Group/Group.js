@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Group = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -31,24 +31,22 @@ var _Caption = require("../Typography/Caption/Caption");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _ModalRootContext = _interopRequireDefault(require("../ModalRoot/ModalRootContext"));
+var _ModalRootContext = require("../ModalRoot/ModalRootContext");
 
 var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "sizeX"];
 
-/**
- * @see https://vkcom.github.io/VKUI/#/Group
- */
-var Group = function Group(props) {
+var GroupComponent = function GroupComponent(props) {
   var header = props.header,
       description = props.description,
       children = props.children,
-      separator = props.separator,
+      _props$separator = props.separator,
+      separator = _props$separator === void 0 ? "auto" : _props$separator,
       getRootRef = props.getRootRef,
       mode = props.mode,
       sizeX = props.sizeX,
       restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
 
-  var _React$useContext = React.useContext(_ModalRootContext.default),
+  var _React$useContext = React.useContext(_ModalRootContext.ModalRootContext),
       isInsideModal = _React$useContext.isInsideModal;
 
   var platform = (0, _usePlatform.usePlatform)();
@@ -73,14 +71,14 @@ var Group = function Group(props) {
     expanded: computedMode === "card"
   }));
 };
+/**
+ * @see https://vkcom.github.io/VKUI/#/Group
+ */
 
-Group.defaultProps = {
-  separator: "auto"
-}; // eslint-disable-next-line import/no-default-export
 
-var _default = (0, _withAdaptivity.withAdaptivity)(Group, {
+var Group = (0, _withAdaptivity.withAdaptivity)(GroupComponent, {
   sizeX: true
 });
-
-exports.default = _default;
+exports.Group = Group;
+Group.displayName = "Group";
 //# sourceMappingURL=Group.js.map

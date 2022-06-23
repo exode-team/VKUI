@@ -10,10 +10,13 @@ import { usePlatform } from "../../hooks/usePlatform";
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderEdit
  */
-var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
-  var isActive = _ref.isActive,
-      editLabel = _ref.editLabel,
-      doneLabel = _ref.doneLabel,
+export var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
+  var _ref$isActive = _ref.isActive,
+      isActive = _ref$isActive === void 0 ? false : _ref$isActive,
+      _ref$editLabel = _ref.editLabel,
+      editLabel = _ref$editLabel === void 0 ? "Редактировать" : _ref$editLabel,
+      _ref$doneLabel = _ref.doneLabel,
+      doneLabel = _ref$doneLabel === void 0 ? "Готово" : _ref$doneLabel,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var iOSText = isActive ? doneLabel : editLabel;
@@ -23,12 +26,4 @@ var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
     "aria-label": iOSText
   }, restProps), platform === ANDROID || platform === VKCOM ? createScopedElement(AndroidIcon, null) : iOSText);
 };
-
-PanelHeaderEdit.defaultProps = {
-  isActive: false,
-  editLabel: "Редактировать",
-  doneLabel: "Готово"
-}; // eslint-disable-next-line import/no-default-export
-
-export default PanelHeaderEdit;
 //# sourceMappingURL=PanelHeaderEdit.js.map

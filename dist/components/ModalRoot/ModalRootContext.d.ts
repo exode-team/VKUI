@@ -17,4 +17,4 @@ export declare const ModalRootContext: React.Context<ModalRootContextInterface>;
 export declare function useModalRegistry(id: string | undefined, type: ModalType): {
     refs: Required<ModalRefs>;
 };
-export default ModalRootContext;
+export {};

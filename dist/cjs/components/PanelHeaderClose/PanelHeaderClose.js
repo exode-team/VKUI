@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.PanelHeaderClose = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -29,7 +29,8 @@ var _excluded = ["children"];
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderClose
  */
 var PanelHeaderClose = function PanelHeaderClose(_ref) {
-  var children = _ref.children,
+  var _ref$children = _ref.children,
+      children = _ref$children === void 0 ? "Отмена" : _ref$children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, (0, _extends2.default)({
@@ -37,10 +38,5 @@ var PanelHeaderClose = function PanelHeaderClose(_ref) {
   }, restProps), platform === _platform.ANDROID || platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_icons.Icon28CancelOutline, null) : children);
 };
 
-PanelHeaderClose.defaultProps = {
-  children: "Отмена"
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = PanelHeaderClose;
-exports.default = _default;
+exports.PanelHeaderClose = PanelHeaderClose;
 //# sourceMappingURL=PanelHeaderClose.js.map

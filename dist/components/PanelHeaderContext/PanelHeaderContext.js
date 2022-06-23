@@ -4,7 +4,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "onClose", "opened"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import FixedLayout from "../FixedLayout/FixedLayout";
+import { FixedLayout } from "../FixedLayout/FixedLayout";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { ViewWidth } from "../AdaptivityProvider/AdaptivityContext";

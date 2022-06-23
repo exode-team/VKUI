@@ -13,9 +13,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
-
-var _classNames = require("../../lib/classNames");
+var _Avatar = require("../Avatar/Avatar");
 
 var _warnOnce = require("../../lib/warnOnce");
 
@@ -33,22 +31,22 @@ var GridAvatar = function GridAvatar(_ref) {
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   if (process.env.NODE_ENV === "development" && src.length > MAX_GRID_LENGTH) {
-    warn("\u0414\u043B\u0438\u043D\u0430 \u043C\u0430\u0441\u0441\u0438\u0432\u0430 src (".concat(src.length, ") \u0431\u043E\u043B\u044C\u0448\u0435 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0439 (").concat(MAX_GRID_LENGTH, ")"));
+    warn("\u0414\u043B\u0438\u043D\u0430 \u043C\u0430\u0441\u0441\u0438\u0432\u0430 src (".concat(src.length, ") \u0431\u043E\u043B\u044C\u0448\u0435 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0439 (").concat(MAX_GRID_LENGTH, ")"), "error");
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Avatar.default, (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames.classNames)("GridAvatar")
+  return (0, _jsxRuntime.createScopedElement)(_Avatar.Avatar, (0, _extends2.default)({}, restProps, {
+    vkuiClass: "GridAvatar"
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "GridAvatar__in",
     "aria-hidden": "true"
-  }, src.slice(0, MAX_GRID_LENGTH).map(function (src, i) {
-    return (0, _jsxRuntime.createScopedElement)("div", {
-      key: i,
+  }, src.map(function (url, index) {
+    return index < MAX_GRID_LENGTH ? (0, _jsxRuntime.createScopedElement)("div", {
+      key: url,
       vkuiClass: "GridAvatar__item",
       style: {
-        backgroundImage: "url(".concat(src, ")")
+        backgroundImage: "url(".concat(url, ")")
       }
-    });
+    }) : null;
   })));
 };
 

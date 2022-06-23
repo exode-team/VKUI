@@ -17,5 +17,4 @@ export interface PanelHeaderEditProps extends PanelHeaderButtonProps {
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderEdit
  */
-declare const PanelHeaderEdit: React.FunctionComponent<PanelHeaderEditProps>;
-export default PanelHeaderEdit;
+export declare const PanelHeaderEdit: React.FunctionComponent<PanelHeaderEditProps>;

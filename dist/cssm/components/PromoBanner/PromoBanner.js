@@ -8,8 +8,8 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Icon24Dismiss } from "@vkontakte/icons";
 import { Button } from "../Button/Button";
-import SimpleCell from "../SimpleCell/SimpleCell";
-import Avatar from "../Avatar/Avatar";
+import { SimpleCell } from "../SimpleCell/SimpleCell";
+import { Avatar } from "../Avatar/Avatar";
 import { Caption } from "../Typography/Caption/Caption";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
@@ -20,7 +20,7 @@ var warn = warnOnce("PromoBanner");
  * @see https://vkcom.github.io/VKUI/#/PromoBanner
  */
 
-var PromoBanner = function PromoBanner(props) {
+export var PromoBanner = function PromoBanner(props) {
   var platform = usePlatform();
 
   var _props$bannerData = props.bannerData,
@@ -84,8 +84,5 @@ var PromoBanner = function PromoBanner(props) {
     src: currentPixel,
     alt: ""
   })));
-}; // eslint-disable-next-line import/no-default-export
-
-
-export default PromoBanner;
+};
 //# sourceMappingURL=PromoBanner.js.map

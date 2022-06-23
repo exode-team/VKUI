@@ -19,7 +19,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _CustomScrollView = _interopRequireDefault(require("../CustomScrollView/CustomScrollView"));
+var _CustomScrollView = require("../CustomScrollView/CustomScrollView");
 
 var _classNames = require("../../lib/classNames");
 
@@ -68,7 +68,7 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref) {
     placement: placement,
     vkuiClass: (0, _classNames.classNames)("CustomSelectDropdown", offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide"),
     forcePortal: forcePortal
-  }, restProps), (0, _jsxRuntime.createScopedElement)(_CustomScrollView.default, {
+  }, restProps), (0, _jsxRuntime.createScopedElement)(_CustomScrollView.CustomScrollView, {
     boxRef: scrollBoxRef,
     vkuiClass: "CustomSelectDropdown__in"
   }, fetching ? (0, _jsxRuntime.createScopedElement)("div", {

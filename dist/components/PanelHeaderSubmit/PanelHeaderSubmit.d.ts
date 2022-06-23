@@ -3,5 +3,4 @@ import { PanelHeaderButtonProps } from "../PanelHeaderButton/PanelHeaderButton";
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderSubmit
  */
-declare const PanelHeaderSubmit: React.FunctionComponent<PanelHeaderButtonProps>;
-export default PanelHeaderSubmit;
+export declare const PanelHeaderSubmit: React.FunctionComponent<PanelHeaderButtonProps>;

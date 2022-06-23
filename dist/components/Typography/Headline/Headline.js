@@ -3,6 +3,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "weight", "level", "Component"];
 import { createScopedElement } from "../../../lib/jsxRuntime";
 import { usePlatform } from "../../../hooks/usePlatform";
+import { useAdaptivity } from "../../../hooks/useAdaptivity";
 import { classNames } from "../../../lib/classNames";
 import { getClassName } from "../../../helpers/getClassName";
 
@@ -20,8 +21,13 @@ export var Headline = function Headline(_ref) {
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
+
+  var _useAdaptivity = useAdaptivity(),
+      sizeY = _useAdaptivity.sizeY;
+
   return createScopedElement(Component, _extends({}, restProps, {
     vkuiClass: classNames(getClassName("Headline", platform), // TODO: v5 remove
+    "Headline--sizeY-".concat(sizeY), // TODO: новая адаптивность
     "Headline--l-".concat(level), "Headline--w-".concat(weight))
   }), children);
 };

@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.Epic = void 0;
+exports.Epic = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -31,11 +31,8 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _excluded = ["activeStory", "tabbar", "children", "viewWidth"];
 var warn = (0, _warnOnce.warnOnce)("Epic");
-/**
- * @see https://vkcom.github.io/VKUI/#/Epic
- */
 
-var Epic = function Epic(props) {
+var EpicComponent = function EpicComponent(props) {
   var _ref;
 
   var platform = (0, _usePlatform.usePlatform)();
@@ -62,14 +59,15 @@ var Epic = function Epic(props) {
       return scroll[activeStory] = value;
     }
   }, story), tabbar);
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Epic
+ */
 
 
-exports.Epic = Epic;
-
-var _default = (0, _withAdaptivity.withAdaptivity)(Epic, {
+var Epic = (0, _withAdaptivity.withAdaptivity)(EpicComponent, {
   viewWidth: true
 });
-
-exports.default = _default;
+exports.Epic = Epic;
+Epic.displayName = "Epic";
 //# sourceMappingURL=Epic.js.map

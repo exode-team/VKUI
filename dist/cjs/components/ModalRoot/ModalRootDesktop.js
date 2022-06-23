@@ -35,7 +35,7 @@ var _withPlatform = require("../../hoc/withPlatform");
 
 var _withContext = require("../../hoc/withContext");
 
-var _ModalRootContext = _interopRequireDefault(require("./ModalRootContext"));
+var _ModalRootContext = require("./ModalRootContext");
 
 var _ConfigProviderContext = require("../ConfigProvider/ConfigProviderContext");
 
@@ -237,7 +237,7 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
         return null;
       }
 
-      return (0, _jsxRuntime.createScopedElement)(_ModalRootContext.default.Provider, {
+      return (0, _jsxRuntime.createScopedElement)(_ModalRootContext.ModalRootContext.Provider, {
         value: this.modalRootContext
       }, (0, _jsxRuntime.createScopedElement)("div", {
         // eslint-disable-next-line vkui/no-object-expression-in-arguments

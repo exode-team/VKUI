@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -13,12 +11,12 @@ var _icons = require("@vkontakte/icons");
 
 var _classNames = require("../../lib/classNames");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var HorizontalScrollArrow = function HorizontalScrollArrow(_ref) {
   var onClick = _ref.onClick,
       direction = _ref.direction;
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     Component: "button",
     hasHover: false,
     hasActive: false,

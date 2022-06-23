@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.TabsItem = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -19,7 +19,7 @@ var React = _interopRequireWildcard(require("react"));
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _Tappable = _interopRequireDefault(require("../Tappable/Tappable"));
+var _Tappable = require("../Tappable/Tappable");
 
 var _classNames = require("../../lib/classNames");
 
@@ -44,7 +44,8 @@ var _excluded = ["children", "selected", "after"];
  */
 var TabsItem = function TabsItem(_ref) {
   var children = _ref.children,
-      selected = _ref.selected,
+      _ref$selected = _ref.selected,
+      selected = _ref$selected === void 0 ? false : _ref$selected,
       after = _ref.after,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
@@ -55,7 +56,7 @@ var TabsItem = function TabsItem(_ref) {
     ItemTypography = _Text.Text;
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.default, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("TabsItem", platform), {
       "TabsItem--selected": selected
@@ -72,10 +73,5 @@ var TabsItem = function TabsItem(_ref) {
   }, after));
 };
 
-TabsItem.defaultProps = {
-  selected: false
-}; // eslint-disable-next-line import/no-default-export
-
-var _default = TabsItem;
-exports.default = _default;
+exports.TabsItem = TabsItem;
 //# sourceMappingURL=TabsItem.js.map
