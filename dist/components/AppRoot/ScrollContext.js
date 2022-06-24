@@ -5,6 +5,7 @@ import { noop } from "../../lib/utils";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { clamp } from "../../helpers/math";
 import { useDOM } from "../../lib/dom";
+import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 
 var clearDisableScrollStyle = function clearDisableScrollStyle(node) {
   Object.assign(node.style, {
@@ -211,24 +212,18 @@ export var useScrollLockEffect = function useScrollLockEffect(effect, deps) {
   }, [isScrollLock]);
 };
 export var useScrollLock = function useScrollLock() {
-  var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
   var _useScroll2 = useScroll(),
       enableScrollLock = _useScroll2.enableScrollLock,
-      disableScrollLock = _useScroll2.disableScrollLock; // Todo: test in mobile app
-  // const isDesktop = useAdaptivityIsDesktop();
-  //
-  // enabled = !isDesktop ? enabled : false;
+      disableScrollLock = _useScroll2.disableScrollLock;
 
-
+  var isDesktop = useAdaptivityIsDesktop();
+  enabled = !isDesktop ? enabled : false;
   useIsomorphicLayoutEffect(function () {
     if (enabled) {
       enableScrollLock();
-      document.body.style.overflow = 'hidden';
-      return function () {
-        document.body.style.removeProperty('overflow');
-        disableScrollLock();
-      };
+      return disableScrollLock;
     }
 
     return noop;
