@@ -254,7 +254,12 @@ var useScrollLock = function useScrollLock() {
 
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (enabled) {
-      enableScrollLock(); // return disableScrollLock;
+      enableScrollLock();
+      document.body.style.overflow = 'hidden';
+      return function () {
+        document.body.style.removeProperty('overflow');
+        disableScrollLock();
+      };
     }
 
     return _utils.noop;
