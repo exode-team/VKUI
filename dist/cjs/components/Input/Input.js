@@ -60,11 +60,9 @@ var InputComponent = function InputComponent(_ref) {
   };
 
   var handleBlur = function handleBlur() {
-    if (alwaysInFocus) {
-      var _ref$current;
+    var _ref$current;
 
-      (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus();
-    }
+    return (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus();
   };
 
   (0, _react.useEffect)(function () {
@@ -83,7 +81,7 @@ var InputComponent = function InputComponent(_ref) {
     disabled: restProps.disabled
   }, (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({}, restProps, {
     type: type,
-    onBlur: handleBlur || onBlur,
+    onBlur: alwaysInFocus ? handleBlur : onBlur,
     onInput: handleChange,
     value: value,
     vkuiClass: "Input__el",

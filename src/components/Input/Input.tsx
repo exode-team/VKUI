@@ -53,11 +53,7 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
     onInput && onInput(e);
   };
 
-  const handleBlur = () => {
-    if(alwaysInFocus) {
-      ref.current?.focus()
-    }
-  }
+  const handleBlur = () => ref.current?.focus();
 
   useEffect(() => {
     isFocus && ref.current?.focus()
@@ -78,7 +74,7 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
       after={after}
       disabled={restProps.disabled}
     >
-      <input {...restProps} type={type} onBlur={handleBlur || onBlur}  onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
+      <input {...restProps} type={type} onBlur={alwaysInFocus ? handleBlur : onBlur}  onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
     </FormField>
   );
 };
