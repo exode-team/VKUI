@@ -30,7 +30,6 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
   before,
   after,
   onInput,
-  onBlur,
   value,
   caretPosition,
   alwaysInFocus,
@@ -52,8 +51,8 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
 
     onInput && onInput(e);
   };
-
-  const handleBlur = () => ref.current?.focus();
+   //to enable always in focus uncomment
+  // const handleBlur = () => ref.current?.focus();
 
   useEffect(() => {
     isFocus && ref.current?.focus()
@@ -74,7 +73,7 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
       after={after}
       disabled={restProps.disabled}
     >
-      <input {...restProps} type={type} onBlur={alwaysInFocus ? handleBlur : onBlur}  onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
+      <input {...restProps} type={type} onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
     </FormField>
   );
 };

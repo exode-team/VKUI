@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "onBlur", "value", "caretPosition", "alwaysInFocus", "isFocus"];
+var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value", "caretPosition", "alwaysInFocus", "isFocus"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { useRef, useEffect } from 'react';
 import { getClassName } from "../../helpers/getClassName";
@@ -22,7 +22,6 @@ var InputComponent = function InputComponent(_ref) {
       before = _ref.before,
       after = _ref.after,
       onInput = _ref.onInput,
-      onBlur = _ref.onBlur,
       value = _ref.value,
       caretPosition = _ref.caretPosition,
       alwaysInFocus = _ref.alwaysInFocus,
@@ -41,19 +40,15 @@ var InputComponent = function InputComponent(_ref) {
       element.selectionEnd = caret;
     });
     onInput && onInput(e);
-  };
+  }; //to enable always in focus uncomment
+  // const handleBlur = () => ref.current?.focus();
 
-  var handleBlur = function handleBlur() {
-    var _ref$current;
-
-    return (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus();
-  };
 
   useEffect(function () {
-    var _ref$current2, _ref$current3;
+    var _ref$current, _ref$current2;
 
-    isFocus && ((_ref$current2 = ref.current) === null || _ref$current2 === void 0 ? void 0 : _ref$current2.focus());
-    caretPosition && ((_ref$current3 = ref.current) === null || _ref$current3 === void 0 ? void 0 : _ref$current3.setSelectionRange(caretPosition, caretPosition));
+    isFocus && ((_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus());
+    caretPosition && ((_ref$current2 = ref.current) === null || _ref$current2 === void 0 ? void 0 : _ref$current2.setSelectionRange(caretPosition, caretPosition));
   }, []);
   return createScopedElement(FormField, {
     vkuiClass: classNames(getClassName("Input", platform), !!align && "Input--".concat(align), "Input--sizeY-".concat(sizeY)),
@@ -65,7 +60,6 @@ var InputComponent = function InputComponent(_ref) {
     disabled: restProps.disabled
   }, createScopedElement("input", _extends({}, restProps, {
     type: type,
-    onBlur: alwaysInFocus ? handleBlur : onBlur,
     onInput: handleChange,
     value: value,
     vkuiClass: "Input__el",
