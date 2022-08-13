@@ -10,4 +10,4 @@ export interface FileProps extends Omit<VKUIButtonProps, "type">, Omit<React.Inp
 /**
  * @see https://vkcom.github.io/VKUI/#/File
  */
-export declare const File: React.FC<FileProps>;
+export declare const File: ({ children, align, controlSize, size, mode, stretched, before, after, loading, className, style, getRef, getRootRef, appearance, ...restProps }: FileProps) => JSX.Element;

@@ -17,41 +17,39 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _excluded = ["children", "shadow", "itemsLayout"];
+var _platform = require("../../lib/platform");
 
+var _excluded = ["children", "shadow", "itemsLayout", "mode"];
+
+var getItemsLayout = function getItemsLayout(itemsLayout, children) {
+  switch (itemsLayout) {
+    case "horizontal":
+    case "vertical":
+      return itemsLayout;
+
+    default:
+      return React.Children.count(children) > 2 ? "vertical" : "horizontal";
+  }
+};
 /**
  * @see https://vkcom.github.io/VKUI/#/Tabbar
  */
+
+
 var Tabbar = function Tabbar(_ref) {
   var children = _ref.children,
       _ref$shadow = _ref.shadow,
       shadow = _ref$shadow === void 0 ? true : _ref$shadow,
       itemsLayout = _ref.itemsLayout,
+      mode = _ref.mode,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-
-  var getItemsLayout = function getItemsLayout() {
-    switch (itemsLayout) {
-      case "horizontal":
-      case "vertical":
-        return itemsLayout;
-
-      default:
-        return React.Children.count(children) > 2 ? "vertical" : "horizontal";
-    }
-  };
-
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Tabbar", platform), "Tabbar--l-".concat(getItemsLayout()), {
-      "Tabbar--shadow": shadow
-    })
+    vkuiClass: (0, _classNames.classNames)("Tabbar", platform === _platform.Platform.IOS && "Tabbar--ios", "Tabbar--l-".concat(getItemsLayout(itemsLayout !== null && itemsLayout !== void 0 ? itemsLayout : mode, children)), shadow && "Tabbar--shadow")
   }, restProps), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Tabbar__in"
   }, children));

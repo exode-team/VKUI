@@ -13,11 +13,12 @@ export var AppRootPortal = function AppRootPortal(_ref) {
 
   var _React$useContext = React.useContext(AppRootContext),
       portalRoot = _React$useContext.portalRoot,
-      mode = _React$useContext.mode;
+      mode = _React$useContext.mode,
+      disablePortal = _React$useContext.disablePortal;
 
   var appearance = useAppearance();
   forcePortal = (_forcePortal = forcePortal) !== null && _forcePortal !== void 0 ? _forcePortal : mode !== "full";
-  return portalRoot && forcePortal ? /*#__PURE__*/createPortal(createScopedElement(AppearanceProvider, {
+  return !disablePortal && portalRoot && forcePortal ? /*#__PURE__*/createPortal(createScopedElement(AppearanceProvider, {
     appearance: appearance
   }, createScopedElement("div", {
     className: className

@@ -13,19 +13,9 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-
-var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
-
-var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/createSuper"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -36,10 +26,6 @@ var _supportEvents = require("../../lib/supportEvents");
 var _platform = require("../../lib/platform");
 
 var _Touch = require("../Touch/Touch");
-
-var _withPlatform = require("../../hoc/withPlatform");
-
-var _withContext = require("../../hoc/withContext");
 
 var _ConfigProviderContext = require("../ConfigProvider/ConfigProviderContext");
 
@@ -57,9 +43,21 @@ var _getNavId = require("../../lib/getNavId");
 
 var _warnOnce = require("../../lib/warnOnce");
 
+var _usePlatform = require("../../hooks/usePlatform");
+
 var _utils = require("./utils");
 
-var _excluded = ["popout", "modal", "platform", "activePanel", "splitCol", "configProvider", "history", "nav", "onTransition", "onSwipeBack", "onSwipeBackStart", "onSwipeBackCancel", "window", "document", "scroll"];
+var _useWaitTransitionFinish = require("../../hooks/useWaitTransitionFinish");
+
+var _useTimeout = require("../../hooks/useTimeout");
+
+var _usePrevious = require("../../hooks/usePrevious");
+
+var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
+
+var _utils2 = require("../../lib/utils");
+
+var _excluded = ["popout", "modal", "activePanel", "history", "nav", "onTransition", "onSwipeBack", "onSwipeBackStart", "onSwipeBackCancel", "children"];
 var SwipeBackResults;
 
 (function (SwipeBackResults) {
@@ -70,493 +68,430 @@ var SwipeBackResults;
 var scrollsCache = {};
 exports.scrollsCache = scrollsCache;
 var warn = (0, _warnOnce.warnOnce)("View");
-
-var ViewComponent = /*#__PURE__*/function (_React$Component) {
-  (0, _inherits2.default)(ViewComponent, _React$Component);
-
-  var _super = (0, _createSuper2.default)(ViewComponent);
-
-  function ViewComponent(props) {
-    var _this;
-
-    (0, _classCallCheck2.default)(this, ViewComponent);
-    _this = _super.call(this, props);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "scrolls", scrollsCache[(0, _getNavId.getNavId)(_this.props)] || {});
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "transitionFinishTimeout", undefined);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "animationFinishTimeout", undefined);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "panelNodes", {});
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "transitionEndHandler", function (e) {
-      if ((!e || ["vkui-animation-ios-next-forward", "vkui-animation-ios-prev-back", "vkui-animation-view-next-forward", "vkui-animation-view-prev-back"].includes(e.animationName)) && _this.state.prevPanel !== null) {
-        _this.flushTransition(_this.state.prevPanel, Boolean(_this.state.isBack));
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "swipingBackTransitionEndHandler", function (e) {
-      // indexOf because of vendor prefixes in old browsers
-      if (!e || e !== null && e !== void 0 && e.propertyName.includes("transform") && (e === null || e === void 0 ? void 0 : e.target) === _this.pickPanel(_this.state.swipeBackNextPanel)) {
-        switch (_this.state.swipeBackResult) {
-          case SwipeBackResults.fail:
-            _this.onSwipeBackCancel();
-
-            break;
-
-          case SwipeBackResults.success:
-            _this.onSwipeBackSuccess();
-
-        }
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onMoveX", function (e) {
-      if ((0, _utils.swipeBackExcluded)(e)) {
-        return;
-      }
-
-      var _this$props = _this.props,
-          platform = _this$props.platform,
-          configProvider = _this$props.configProvider;
-
-      if (platform === _platform.IOS && !(configProvider !== null && configProvider !== void 0 && configProvider.isWebView) && (e.startX <= 70 || e.startX >= _this.window.innerWidth - 70) && !_this.state.browserSwipe) {
-        _this.setState({
-          browserSwipe: true
-        });
-      }
-
-      if (platform === _platform.IOS && configProvider !== null && configProvider !== void 0 && configProvider.isWebView && _this.props.onSwipeBack) {
-        var _this$props$history$l, _this$props$history;
-
-        if (_this.state.animated && e.startX <= 70 || !_this.window) {
-          return;
-        }
-
-        if (e.startX <= 70 && !_this.state.swipingBack && ((_this$props$history$l = (_this$props$history = _this.props.history) === null || _this$props$history === void 0 ? void 0 : _this$props$history.length) !== null && _this$props$history$l !== void 0 ? _this$props$history$l : 0) > 1) {
-          if (_this.state.activePanel !== null) {
-            var _this$props$scroll;
-
-            _this.scrolls[_this.state.activePanel] = (_this$props$scroll = _this.props.scroll) === null || _this$props$scroll === void 0 ? void 0 : _this$props$scroll.getScroll().y;
-          }
-
-          _this.setState({
-            swipingBack: true,
-            swipeBackStartX: e.startX,
-            swipeBackPrevPanel: _this.state.activePanel,
-            swipeBackNextPanel: _this.props.history.slice(-2)[0]
-          });
-        }
-
-        if (_this.state.swipingBack) {
-          var swipeBackShift = 0;
-
-          if (e.shiftX < 0) {
-            swipeBackShift = 0;
-          } else if (e.shiftX > _this.window.innerWidth - _this.state.swipeBackStartX) {
-            var _this$window;
-
-            swipeBackShift = (_this$window = _this.window) === null || _this$window === void 0 ? void 0 : _this$window.innerWidth;
-          } else {
-            swipeBackShift = e.shiftX;
-          }
-
-          _this.setState({
-            swipeBackShift: swipeBackShift
-          });
-        }
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onEnd", function (e) {
-      if (_this.state.swipingBack && _this.window) {
-        var _this$window$innerWid, _this$window2;
-
-        var speed = _this.state.swipeBackShift / e.duration * 1000;
-
-        if (_this.state.swipeBackShift === 0) {
-          _this.onSwipeBackCancel();
-        } else if (_this.state.swipeBackShift >= ((_this$window$innerWid = (_this$window2 = _this.window) === null || _this$window2 === void 0 ? void 0 : _this$window2.innerWidth) !== null && _this$window$innerWid !== void 0 ? _this$window$innerWid : 0)) {
-          _this.onSwipeBackSuccess();
-        } else if (speed > 250 || _this.state.swipeBackStartX + _this.state.swipeBackShift > _this.window.innerWidth / 2) {
-          _this.setState({
-            swipeBackResult: SwipeBackResults.success
-          });
-        } else {
-          _this.setState({
-            swipeBackResult: SwipeBackResults.fail
-          });
-        }
-      }
-    });
-    _this.state = {
-      animated: false,
-      visiblePanels: [props.activePanel],
-      activePanel: props.activePanel,
-      isBack: undefined,
-      prevPanel: null,
-      nextPanel: null,
-      swipingBack: false,
-      swipeBackStartX: 0,
-      swipeBackShift: 0,
-      swipeBackNextPanel: null,
-      swipeBackPrevPanel: null,
-      swipeBackResult: null,
-      browserSwipe: false
-    };
-    return _this;
-  }
-
-  (0, _createClass2.default)(ViewComponent, [{
-    key: "document",
-    get: function get() {
-      return this.props.document;
-    }
-  }, {
-    key: "window",
-    get: function get() {
-      return this.props.window;
-    }
-  }, {
-    key: "panels",
-    get: function get() {
-      return React.Children.toArray(this.props.children);
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (process.env.NODE_ENV === "development") {
-        var _this$props2 = this.props,
-            popout = _this$props2.popout,
-            modal = _this$props2.modal;
-        popout && warn("Свойство popout устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
-        modal && warn("Свойство modal устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
-      }
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      var id = (0, _getNavId.getNavId)(this.props);
-
-      if (id) {
-        scrollsCache[id] = this.scrolls;
-      }
-
-      if (this.animationFinishTimeout) {
-        clearTimeout(this.animationFinishTimeout);
-      }
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      var _this2 = this;
-
-      this.props.popout && !prevProps.popout && this.blurActiveElement();
-      this.props.modal && !prevProps.modal && this.blurActiveElement(); // Нужен переход
-
-      if (prevProps.activePanel !== this.props.activePanel && !prevState.swipingBack && !prevState.browserSwipe) {
-        var _this$props$scroll2;
-
-        var firstLayerId = this.panels.map(function (panel) {
-          return (0, _getNavId.getNavId)(panel.props, warn);
-        }).find(function (id) {
-          return id === prevProps.activePanel || id === _this2.props.activePanel;
-        });
-        var isBack = firstLayerId === this.props.activePanel;
-        this.scrolls[prevProps.activePanel] = (_this$props$scroll2 = this.props.scroll) === null || _this$props$scroll2 === void 0 ? void 0 : _this$props$scroll2.getScroll().y;
-
-        if (this.shouldDisableTransitionMotion()) {
-          this.flushTransition(prevProps.activePanel, isBack);
-        } else {
-          this.blurActiveElement();
-          this.setState({
-            visiblePanels: [prevProps.activePanel, this.props.activePanel],
-            prevPanel: prevProps.activePanel,
-            nextPanel: this.props.activePanel,
-            activePanel: null,
-            animated: true,
-            isBack: isBack
-          }); // Фолбек анимации перехода
-
-          if (!_supportEvents.animationEvent.supported) {
-            if (this.animationFinishTimeout) {
-              clearTimeout(this.animationFinishTimeout);
-            }
-
-            this.animationFinishTimeout = setTimeout(this.transitionEndHandler, this.props.platform === _platform.IOS ? 600 : 300);
-          }
-        }
-      } // Закончилась анимация свайпа назад
-
-
-      if (prevProps.activePanel !== this.props.activePanel && prevState.swipingBack) {
-        var nextPanel = this.props.activePanel;
-        var prevPanel = prevProps.activePanel;
-
-        if (prevState.swipeBackPrevPanel !== null) {
-          this.scrolls[prevState.swipeBackPrevPanel] = 0;
-        }
-
-        this.setState({
-          swipeBackPrevPanel: null,
-          swipeBackNextPanel: null,
-          swipingBack: false,
-          swipeBackResult: null,
-          swipeBackStartX: 0,
-          swipeBackShift: 0,
-          activePanel: nextPanel,
-          visiblePanels: [nextPanel]
-        }, function () {
-          if (_this2.state.activePanel !== null) {
-            var _this2$props$scroll;
-
-            (_this2$props$scroll = _this2.props.scroll) === null || _this2$props$scroll === void 0 ? void 0 : _this2$props$scroll.scrollTo(0, _this2.scrolls[_this2.state.activePanel]);
-          }
-
-          prevProps.onTransition && prevProps.onTransition({
-            isBack: true,
-            from: prevPanel,
-            to: nextPanel
-          });
-        });
-      } // Начался свайп назад
-
-
-      if (!prevState.swipingBack && this.state.swipingBack) {
-        this.props.onSwipeBackStart && this.props.onSwipeBackStart();
-      } // Началась анимация завершения свайпа назад.
-
-
-      if (!prevState.swipeBackResult && this.state.swipeBackResult) {
-        this.waitTransitionFinish(this.pickPanel(this.state.swipeBackNextPanel), this.swipingBackTransitionEndHandler);
-      } // Если свайп назад отменился (когда пользователь недостаточно сильно свайпнул)
-
-
-      if (prevState.swipeBackResult === SwipeBackResults.fail && !this.state.swipeBackResult && this.state.activePanel !== null) {
-        var _this$props$scroll3;
-
-        (_this$props$scroll3 = this.props.scroll) === null || _this$props$scroll3 === void 0 ? void 0 : _this$props$scroll3.scrollTo(0, this.scrolls[this.state.activePanel]);
-      } // Закончился Safari свайп
-
-
-      if (prevProps.activePanel !== this.props.activePanel && this.state.browserSwipe) {
-        this.setState({
-          browserSwipe: false,
-          nextPanel: null,
-          prevPanel: null,
-          animated: false,
-          visiblePanels: [this.props.activePanel],
-          activePanel: this.props.activePanel
-        });
-      }
-    }
-  }, {
-    key: "shouldDisableTransitionMotion",
-    value: function shouldDisableTransitionMotion() {
-      var _this$props$configPro, _this$props$splitCol;
-
-      return ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.transitionMotionEnabled) === false || !((_this$props$splitCol = this.props.splitCol) !== null && _this$props$splitCol !== void 0 && _this$props$splitCol.animate);
-    }
-  }, {
-    key: "waitTransitionFinish",
-    value: function waitTransitionFinish(elem, eventHandler) {
-      if (_supportEvents.transitionEvent.supported && _supportEvents.transitionEvent.name && elem) {
-        elem.removeEventListener(_supportEvents.transitionEvent.name, eventHandler);
-        elem.addEventListener(_supportEvents.transitionEvent.name, eventHandler);
-      } else {
-        if (this.transitionFinishTimeout) {
-          clearTimeout(this.transitionFinishTimeout);
-        }
-
-        this.transitionFinishTimeout = setTimeout(eventHandler, this.props.platform === _platform.IOS ? 600 : 300);
-      }
-    }
-  }, {
-    key: "blurActiveElement",
-    value: function blurActiveElement() {
-      var _this$document;
-
-      if (typeof this.window !== "undefined" && (_this$document = this.document) !== null && _this$document !== void 0 && _this$document.activeElement) {
-        this.document.activeElement.blur();
-      }
-    }
-  }, {
-    key: "pickPanel",
-    value: function pickPanel(id) {
-      if (id === null) {
-        return undefined;
-      }
-
-      return this.panelNodes[id];
-    }
-  }, {
-    key: "flushTransition",
-    value: function flushTransition(prevPanel, isBack) {
-      var _this3 = this;
-
-      var activePanel = this.props.activePanel;
-
-      if (isBack) {
-        this.scrolls[prevPanel] = 0;
-      }
-
-      this.setState({
-        prevPanel: null,
-        nextPanel: null,
-        visiblePanels: [activePanel],
-        activePanel: activePanel,
-        animated: false,
-        isBack: undefined
-      }, function () {
-        var _this3$props$scroll;
-
-        (_this3$props$scroll = _this3.props.scroll) === null || _this3$props$scroll === void 0 ? void 0 : _this3$props$scroll.scrollTo(0, isBack ? _this3.scrolls[activePanel] : 0);
-        _this3.props.onTransition && _this3.props.onTransition({
-          isBack: isBack,
-          from: prevPanel,
-          to: activePanel
-        });
-      });
-    }
-  }, {
-    key: "onSwipeBackSuccess",
-    value: function onSwipeBackSuccess() {
-      this.props.onSwipeBack && this.props.onSwipeBack();
-    }
-  }, {
-    key: "onSwipeBackCancel",
-    value: function onSwipeBackCancel() {
-      this.props.onSwipeBackCancel && this.props.onSwipeBackCancel();
-      this.setState({
-        swipeBackPrevPanel: null,
-        swipeBackNextPanel: null,
-        swipingBack: false,
-        swipeBackResult: null,
-        swipeBackStartX: 0,
-        swipeBackShift: 0
-      });
-    }
-  }, {
-    key: "calcPanelSwipeStyles",
-    value: function calcPanelSwipeStyles(panelId) {
-      if (!_dom.canUseDOM || !this.window) {
-        return {};
-      }
-
-      var isPrev = panelId === this.state.swipeBackPrevPanel;
-      var isNext = panelId === this.state.swipeBackNextPanel;
-
-      if (!isPrev && !isNext || this.state.swipeBackResult) {
-        return {};
-      }
-
-      var prevPanelTranslate = "".concat(this.state.swipeBackShift, "px");
-      var nextPanelTranslate = "".concat(-50 + this.state.swipeBackShift * 100 / this.window.innerWidth / 2, "%");
-      var prevPanelShadow = 0.3 * (this.window.innerWidth - this.state.swipeBackShift) / this.window.innerWidth;
-
-      if (this.state.swipeBackResult) {
-        return isPrev ? {
-          boxShadow: "-2px 0 12px rgba(0, 0, 0, ".concat(prevPanelShadow, ")")
-        } : {};
-      }
-
-      if (isNext) {
-        return {
-          transform: "translate3d(".concat(nextPanelTranslate, ", 0, 0)"),
-          WebkitTransform: "translate3d(".concat(nextPanelTranslate, ", 0, 0)")
-        };
-      }
-
-      if (isPrev) {
-        return {
-          transform: "translate3d(".concat(prevPanelTranslate, ", 0, 0)"),
-          WebkitTransform: "translate3d(".concat(prevPanelTranslate, ", 0, 0)"),
-          boxShadow: "-2px 0 12px rgba(0, 0, 0, ".concat(prevPanelShadow, ")")
-        };
-      }
-
-      return {};
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this4 = this;
-
-      var _this$props3 = this.props,
-          popout = _this$props3.popout,
-          modal = _this$props3.modal,
-          platform = _this$props3.platform,
-          _1 = _this$props3.activePanel,
-          splitCol = _this$props3.splitCol,
-          configProvider = _this$props3.configProvider,
-          history = _this$props3.history,
-          nav = _this$props3.nav,
-          onTransition = _this$props3.onTransition,
-          onSwipeBack = _this$props3.onSwipeBack,
-          onSwipeBackStart = _this$props3.onSwipeBackStart,
-          onSwipeBackCancel = _this$props3.onSwipeBackCancel,
-          window = _this$props3.window,
-          document = _this$props3.document,
-          scroll = _this$props3.scroll,
-          restProps = (0, _objectWithoutProperties2.default)(_this$props3, _excluded);
-      var _this$state = this.state,
-          prevPanel = _this$state.prevPanel,
-          nextPanel = _this$state.nextPanel,
-          activePanel = _this$state.activePanel,
-          swipeBackPrevPanel = _this$state.swipeBackPrevPanel,
-          swipeBackNextPanel = _this$state.swipeBackNextPanel,
-          swipeBackResult = _this$state.swipeBackResult,
-          isBack = _this$state.isBack,
-          animated = _this$state.animated;
-      var hasPopout = !!popout;
-      var hasModal = !!modal;
-      var panels = this.panels.filter(function (panel) {
-        var panelId = (0, _getNavId.getNavId)(panel.props, warn);
-        return panelId !== undefined && _this4.state.visiblePanels.includes(panelId) || panelId === swipeBackPrevPanel || panelId === swipeBackNextPanel;
-      });
-      var disableAnimation = this.shouldDisableTransitionMotion();
-      return (0, _jsxRuntime.createScopedElement)(_Touch.Touch, (0, _extends2.default)({
-        Component: "section"
-      }, restProps, {
-        vkuiClass: (0, _classNames.classNames)("View", platform === _platform.IOS && "View--ios", !disableAnimation && animated && "View--animated", !disableAnimation && this.state.swipingBack && "View--swiping-back", disableAnimation && "View--no-motion"),
-        onMoveX: this.onMoveX,
-        onEnd: this.onEnd
-      }), (0, _jsxRuntime.createScopedElement)("div", {
-        vkuiClass: "View__panels"
-      }, panels.map(function (panel) {
-        var _this4$scrolls;
-
-        var panelId = (0, _getNavId.getNavId)(panel.props, warn);
-        var isPrev = panelId === prevPanel || panelId === swipeBackPrevPanel;
-        var isTransitionTarget = animated && panelId === (isBack ? prevPanel : nextPanel);
-        var compensateScroll = isPrev || panelId === swipeBackNextPanel || panelId === nextPanel && isBack;
-        return (0, _jsxRuntime.createScopedElement)("div", {
-          vkuiClass: (0, _classNames.classNames)("View__panel", panelId === activePanel && "View__panel--active", panelId === prevPanel && "View__panel--prev", panelId === nextPanel && "View__panel--next", panelId === swipeBackPrevPanel && "View__panel--swipe-back-prev", panelId === swipeBackNextPanel && "View__panel--swipe-back-next", swipeBackResult === SwipeBackResults.success && "View__panel--swipe-back-success", swipeBackResult === SwipeBackResults.fail && "View__panel--swipe-back-failed"),
-          onAnimationEnd: isTransitionTarget ? _this4.transitionEndHandler : undefined,
-          ref: function ref(el) {
-            return panelId !== undefined && (_this4.panelNodes[panelId] = el);
-          },
-          style: _this4.calcPanelSwipeStyles(panelId),
-          key: panelId
-        }, (0, _jsxRuntime.createScopedElement)("div", {
-          vkuiClass: "View__panel-in",
-          style: {
-            marginTop: compensateScroll ? -((_this4$scrolls = _this4.scrolls[panelId]) !== null && _this4$scrolls !== void 0 ? _this4$scrolls : 0) : undefined
-          }
-        }, (0, _jsxRuntime.createScopedElement)(_NavTransitionContext.NavTransitionProvider, {
-          entering: panelId === nextPanel || panelId === swipeBackNextPanel
-        }, panel)));
-      })), (0, _jsxRuntime.createScopedElement)(_AppRootPortal.AppRootPortal, null, hasPopout && (0, _jsxRuntime.createScopedElement)("div", {
-        vkuiClass: "View__popout"
-      }, popout), hasModal && (0, _jsxRuntime.createScopedElement)("div", {
-        vkuiClass: "View__modal"
-      }, modal)));
-    }
-  }]);
-  return ViewComponent;
-}(React.Component);
 /**
  * @see https://vkcom.github.io/VKUI/#/View
  */
 
+var View = function View(_ref) {
+  var popout = _ref.popout,
+      modal = _ref.modal,
+      activePanelProp = _ref.activePanel,
+      history = _ref.history,
+      nav = _ref.nav,
+      onTransition = _ref.onTransition,
+      onSwipeBack = _ref.onSwipeBack,
+      onSwipeBackStart = _ref.onSwipeBackStart,
+      onSwipeBackCancelProp = _ref.onSwipeBackCancel,
+      children = _ref.children,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
-(0, _defineProperty2.default)(ViewComponent, "defaultProps", {
-  history: []
-});
-var View = (0, _withContext.withContext)((0, _withContext.withContext)((0, _withContext.withContext)((0, _withPlatform.withPlatform)((0, _dom.withDOM)(ViewComponent)), _SplitCol.SplitColContext, "splitCol"), _ConfigProviderContext.ConfigProviderContext, "configProvider"), _ScrollContext.ScrollContext, "scroll");
+  if (process.env.NODE_ENV === "development") {
+    popout && warn("Свойство popout устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
+    modal && warn("Свойство modal устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
+  }
+
+  var scrolls = React.useRef(scrollsCache[(0, _getNavId.getNavId)({
+    nav: nav,
+    id: restProps.id
+  })] || {});
+  var afterTransition = React.useRef(_utils2.noop);
+  React.useEffect(function () {
+    return function () {
+      var id = (0, _getNavId.getNavId)({
+        nav: nav,
+        id: restProps.id
+      });
+
+      if (id) {
+        scrollsCache[id] = scrolls.current;
+      }
+    };
+  });
+  var panelNodes = React.useRef({});
+
+  var _useDOM = (0, _dom.useDOM)(),
+      window = _useDOM.window,
+      document = _useDOM.document;
+
+  var scroll = (0, _ScrollContext.useScroll)();
+  var configProvider = (0, _ConfigProviderContext.useConfigProvider)();
+  var splitCol = (0, _SplitCol.useSplitCol)();
+  var platform = (0, _usePlatform.usePlatform)();
+
+  var _React$useState = React.useState(false),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      animated = _React$useState2[0],
+      setAnimated = _React$useState2[1];
+
+  var _React$useState3 = React.useState([activePanelProp]),
+      _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
+      visiblePanels = _React$useState4[0],
+      setVisiblePanels = _React$useState4[1];
+
+  var _React$useState5 = React.useState(activePanelProp),
+      _React$useState6 = (0, _slicedToArray2.default)(_React$useState5, 2),
+      activePanel = _React$useState6[0],
+      setActivePanel = _React$useState6[1];
+
+  var _React$useState7 = React.useState(undefined),
+      _React$useState8 = (0, _slicedToArray2.default)(_React$useState7, 2),
+      isBack = _React$useState8[0],
+      setIsBack = _React$useState8[1];
+
+  var _React$useState9 = React.useState(null),
+      _React$useState10 = (0, _slicedToArray2.default)(_React$useState9, 2),
+      prevPanel = _React$useState10[0],
+      setPrevPanel = _React$useState10[1];
+
+  var _React$useState11 = React.useState(null),
+      _React$useState12 = (0, _slicedToArray2.default)(_React$useState11, 2),
+      nextPanel = _React$useState12[0],
+      setNextPanel = _React$useState12[1];
+
+  var _React$useState13 = React.useState(false),
+      _React$useState14 = (0, _slicedToArray2.default)(_React$useState13, 2),
+      swipingBack = _React$useState14[0],
+      setSwipingBack = _React$useState14[1];
+
+  var _React$useState15 = React.useState(0),
+      _React$useState16 = (0, _slicedToArray2.default)(_React$useState15, 2),
+      swipeBackStartX = _React$useState16[0],
+      setSwipeBackStartX = _React$useState16[1];
+
+  var _React$useState17 = React.useState(0),
+      _React$useState18 = (0, _slicedToArray2.default)(_React$useState17, 2),
+      swipeBackShift = _React$useState18[0],
+      setSwipeBackShift = _React$useState18[1];
+
+  var _React$useState19 = React.useState(null),
+      _React$useState20 = (0, _slicedToArray2.default)(_React$useState19, 2),
+      swipeBackNextPanel = _React$useState20[0],
+      setSwipeBackNextPanel = _React$useState20[1];
+
+  var _React$useState21 = React.useState(null),
+      _React$useState22 = (0, _slicedToArray2.default)(_React$useState21, 2),
+      swipeBackPrevPanel = _React$useState22[0],
+      setSwipeBackPrevPanel = _React$useState22[1];
+
+  var _React$useState23 = React.useState(null),
+      _React$useState24 = (0, _slicedToArray2.default)(_React$useState23, 2),
+      swipeBackResult = _React$useState24[0],
+      setSwipeBackResult = _React$useState24[1];
+
+  var _React$useState25 = React.useState(false),
+      _React$useState26 = (0, _slicedToArray2.default)(_React$useState25, 2),
+      browserSwipe = _React$useState26[0],
+      setBrowserSwipe = _React$useState26[1];
+
+  var prevActivePanel = (0, _usePrevious.usePrevious)(activePanelProp);
+  var prevSwipingBack = (0, _usePrevious.usePrevious)(swipingBack);
+  var prevBrowserSwipe = (0, _usePrevious.usePrevious)(browserSwipe);
+  var prevSwipeBackResult = (0, _usePrevious.usePrevious)(swipeBackResult);
+  var prevSwipeBackPrevPanel = (0, _usePrevious.usePrevious)(swipeBackPrevPanel);
+  var prevOnTransition = (0, _usePrevious.usePrevious)(onTransition);
+  var hasPopout = !!popout;
+  var hasModal = !!modal;
+  var panels = React.Children.toArray(children).filter(function (panel) {
+    var panelId = (0, _getNavId.getNavId)(panel.props, warn);
+    return panelId !== undefined && visiblePanels.includes(panelId) || panelId === swipeBackPrevPanel || panelId === swipeBackNextPanel;
+  });
+  var disableAnimation = (configProvider === null || configProvider === void 0 ? void 0 : configProvider.transitionMotionEnabled) === false || !(splitCol !== null && splitCol !== void 0 && splitCol.animate);
+
+  var pickPanel = function pickPanel(id) {
+    if (id === null) {
+      return null;
+    }
+
+    return panelNodes.current[id];
+  };
+
+  var flushTransition = React.useCallback(function (prevPanel, isBackTransition) {
+    if (isBackTransition) {
+      scrolls.current[prevPanel] = 0;
+    }
+
+    setPrevPanel(null);
+    setNextPanel(null);
+    setVisiblePanels([activePanelProp]);
+    setActivePanel(activePanelProp);
+    setAnimated(false);
+    setIsBack(undefined);
+
+    afterTransition.current = function () {
+      scroll === null || scroll === void 0 ? void 0 : scroll.scrollTo(0, isBackTransition ? scrolls.current[activePanelProp] : 0);
+      onTransition && onTransition({
+        isBack: isBackTransition,
+        from: prevPanel,
+        to: activePanelProp
+      });
+    };
+  }, [activePanelProp, onTransition, scroll]);
+  (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
+    afterTransition.current();
+    afterTransition.current = _utils2.noop;
+  }, [afterTransition.current]);
+  var transitionEndHandler = React.useCallback(function (e) {
+    if ((!e || ["vkui-animation-ios-next-forward", "vkui-animation-ios-prev-back", "vkui-animation-view-next-forward", "vkui-animation-view-prev-back"].includes(e.animationName)) && prevPanel !== null) {
+      flushTransition(prevPanel, Boolean(isBack));
+    }
+  }, [flushTransition, isBack, prevPanel]);
+
+  var _useWaitTransitionFin = (0, _useWaitTransitionFinish.useWaitTransitionFinish)(),
+      waitTransitionFinish = _useWaitTransitionFin.waitTransitionFinish;
+
+  var animationFinishTimeout = (0, _useTimeout.useTimeout)(transitionEndHandler, platform === _platform.IOS ? 600 : 300);
+  var onSwipeBackSuccess = React.useCallback(function () {
+    onSwipeBack && onSwipeBack();
+  }, [onSwipeBack]);
+  var onSwipeBackCancel = React.useCallback(function () {
+    onSwipeBackCancelProp && onSwipeBackCancelProp();
+    setSwipeBackPrevPanel(null);
+    setSwipeBackNextPanel(null);
+    setSwipingBack(false);
+    setSwipeBackResult(null);
+    setSwipeBackStartX(0);
+    setSwipeBackShift(0);
+  }, [onSwipeBackCancelProp]);
+  var swipingBackTransitionEndHandler = React.useCallback(function (e) {
+    // indexOf because of vendor prefixes in old browsers
+    if (!e || e !== null && e !== void 0 && e.propertyName.includes("transform") && (e === null || e === void 0 ? void 0 : e.target) === pickPanel(swipeBackNextPanel)) {
+      switch (swipeBackResult) {
+        case SwipeBackResults.fail:
+          onSwipeBackCancel();
+          break;
+
+        case SwipeBackResults.success:
+          onSwipeBackSuccess();
+      }
+    }
+  }, [onSwipeBackCancel, onSwipeBackSuccess, swipeBackNextPanel, swipeBackResult]);
+
+  var onMoveX = function onMoveX(e) {
+    if ((0, _utils.swipeBackExcluded)(e)) {
+      return;
+    }
+
+    if (platform === _platform.IOS && !(configProvider !== null && configProvider !== void 0 && configProvider.isWebView) && (e.startX <= 70 || e.startX >= window.innerWidth - 70) && !browserSwipe) {
+      setBrowserSwipe(true);
+    }
+
+    if (platform === _platform.IOS && configProvider !== null && configProvider !== void 0 && configProvider.isWebView && onSwipeBack) {
+      if (animated && e.startX <= 70 || !window) {
+        return;
+      }
+
+      if (e.startX <= 70 && !swipingBack && history && history.length > 1) {
+        if (activePanel !== null) {
+          scrolls.current[activePanel] = scroll === null || scroll === void 0 ? void 0 : scroll.getScroll().y;
+        }
+
+        setSwipingBack(true);
+        setSwipeBackStartX(e.startX);
+        setSwipeBackPrevPanel(activePanel);
+        setSwipeBackNextPanel(history.slice(-2)[0]);
+      }
+
+      if (swipingBack) {
+        var _swipeBackShift = 0;
+
+        if (e.shiftX < 0) {
+          _swipeBackShift = 0;
+        } else if (e.shiftX > window.innerWidth - swipeBackStartX) {
+          _swipeBackShift = window === null || window === void 0 ? void 0 : window.innerWidth;
+        } else {
+          _swipeBackShift = e.shiftX;
+        }
+
+        setSwipeBackShift(_swipeBackShift);
+      }
+    }
+  };
+
+  var onEnd = React.useCallback(function (e) {
+    if (swipingBack && window) {
+      var _window$innerWidth;
+
+      var speed = swipeBackShift / e.duration * 1000;
+
+      if (swipeBackShift === 0) {
+        onSwipeBackCancel();
+      } else if (swipeBackShift >= ((_window$innerWidth = window === null || window === void 0 ? void 0 : window.innerWidth) !== null && _window$innerWidth !== void 0 ? _window$innerWidth : 0)) {
+        onSwipeBackSuccess();
+      } else if (speed > 250 || swipeBackStartX + swipeBackShift > window.innerWidth / 2) {
+        setSwipeBackResult(SwipeBackResults.success);
+      } else {
+        setSwipeBackResult(SwipeBackResults.fail);
+      }
+    }
+  }, [onSwipeBackCancel, onSwipeBackSuccess, swipeBackShift, swipeBackStartX, swipingBack, window]);
+
+  var calcPanelSwipeStyles = function calcPanelSwipeStyles(panelId) {
+    if (!_dom.canUseDOM || !window) {
+      return {};
+    }
+
+    var isPrev = panelId === swipeBackPrevPanel;
+    var isNext = panelId === swipeBackNextPanel;
+
+    if (!isPrev && !isNext || swipeBackResult) {
+      return {};
+    }
+
+    var prevPanelTranslate = "".concat(swipeBackShift, "px");
+    var nextPanelTranslate = "".concat(-50 + swipeBackShift * 100 / window.innerWidth / 2, "%");
+    var prevPanelShadow = 0.3 * (window.innerWidth - swipeBackShift) / window.innerWidth;
+
+    if (swipeBackResult) {
+      return isPrev ? {
+        boxShadow: "-2px 0 12px rgba(0, 0, 0, ".concat(prevPanelShadow, ")")
+      } : {};
+    }
+
+    if (isNext) {
+      return {
+        transform: "translate3d(".concat(nextPanelTranslate, ", 0, 0)"),
+        WebkitTransform: "translate3d(".concat(nextPanelTranslate, ", 0, 0)")
+      };
+    }
+
+    if (isPrev) {
+      return {
+        transform: "translate3d(".concat(prevPanelTranslate, ", 0, 0)"),
+        WebkitTransform: "translate3d(".concat(prevPanelTranslate, ", 0, 0)"),
+        boxShadow: "-2px 0 12px rgba(0, 0, 0, ".concat(prevPanelShadow, ")")
+      };
+    }
+
+    return {};
+  };
+
+  React.useEffect(function () {
+    popout && (0, _dom.blurActiveElement)(document);
+  }, [document, popout]);
+  React.useEffect(function () {
+    modal && (0, _dom.blurActiveElement)(document);
+  }, [document, modal]);
+  React.useEffect(function () {
+    // Нужен переход
+    if (prevActivePanel && prevActivePanel !== activePanelProp && !prevSwipingBack && !prevBrowserSwipe) {
+      var firstLayerId = React.Children.toArray(children).map(function (panel) {
+        return (0, _getNavId.getNavId)(panel.props, warn);
+      }).find(function (id) {
+        return id === prevActivePanel || id === activePanelProp;
+      });
+      var isBackTransition = firstLayerId === activePanelProp;
+      scrolls.current[prevActivePanel] = scroll === null || scroll === void 0 ? void 0 : scroll.getScroll().y;
+
+      if (disableAnimation) {
+        flushTransition(prevActivePanel, isBackTransition);
+      } else {
+        (0, _dom.blurActiveElement)(document);
+        setVisiblePanels([prevActivePanel, activePanelProp]);
+        setPrevPanel(prevActivePanel);
+        setNextPanel(activePanelProp);
+        setActivePanel(null);
+        setAnimated(true);
+        setIsBack(isBackTransition); // Фолбек анимации перехода
+
+        if (!_supportEvents.animationEvent.supported) {
+          animationFinishTimeout.set();
+        }
+      }
+    } // Закончилась анимация свайпа назад
+
+
+    if (prevActivePanel && prevActivePanel !== activePanelProp && prevSwipingBack) {
+      var _nextPanel = activePanelProp;
+      var _prevPanel = prevActivePanel;
+
+      if (prevSwipeBackPrevPanel) {
+        scrolls.current[prevSwipeBackPrevPanel] = 0;
+      }
+
+      setSwipeBackPrevPanel(null);
+      setSwipeBackNextPanel(null);
+      setSwipingBack(false);
+      setSwipeBackResult(null);
+      setSwipeBackStartX(0);
+      setSwipeBackShift(0);
+      setActivePanel(_nextPanel);
+      setVisiblePanels([_nextPanel]);
+
+      afterTransition.current = function () {
+        if (_nextPanel !== null) {
+          scroll === null || scroll === void 0 ? void 0 : scroll.scrollTo(0, scrolls.current[_nextPanel]);
+        }
+
+        prevOnTransition && prevOnTransition({
+          isBack: true,
+          from: _prevPanel,
+          to: _nextPanel
+        });
+      };
+    } // Начался свайп назад
+
+
+    if (!prevSwipingBack && swipingBack) {
+      onSwipeBackStart && onSwipeBackStart();
+    } // Началась анимация завершения свайпа назад.
+
+
+    if (!prevSwipeBackResult && swipeBackResult) {
+      waitTransitionFinish(pickPanel(swipeBackNextPanel), swipingBackTransitionEndHandler, platform === _platform.IOS ? 600 : 300);
+    } // Если свайп назад отменился (когда пользователь недостаточно сильно свайпнул)
+
+
+    if (prevSwipeBackResult === SwipeBackResults.fail && !swipeBackResult && activePanel !== null) {
+      scroll === null || scroll === void 0 ? void 0 : scroll.scrollTo(0, scrolls.current[activePanel]);
+    } // Закончился Safari свайп
+
+
+    if (prevActivePanel !== activePanelProp && browserSwipe) {
+      setBrowserSwipe(false);
+      setNextPanel(null);
+      setPrevPanel(null);
+      setAnimated(false);
+      setVisiblePanels([activePanelProp]);
+      setActivePanel(activePanelProp);
+    }
+  }, [activePanelProp, activePanel, animationFinishTimeout, browserSwipe, children, disableAnimation, document, flushTransition, onSwipeBackStart, panels, platform, prevActivePanel, prevBrowserSwipe, prevOnTransition, prevSwipeBackPrevPanel, prevSwipeBackResult, prevSwipingBack, scroll, swipeBackNextPanel, swipeBackResult, swipingBack, swipingBackTransitionEndHandler, waitTransitionFinish]);
+  return (0, _jsxRuntime.createScopedElement)(_Touch.Touch, (0, _extends2.default)({
+    Component: "section"
+  }, restProps, {
+    vkuiClass: (0, _classNames.classNames)("View", platform === _platform.IOS && "View--ios", !disableAnimation && animated && "View--animated", !disableAnimation && swipingBack && "View--swiping-back", disableAnimation && "View--no-motion"),
+    onMoveX: onMoveX,
+    onEnd: onEnd
+  }), (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "View__panels"
+  }, panels.map(function (panel) {
+    var _scrolls$current;
+
+    var panelId = (0, _getNavId.getNavId)(panel.props, warn);
+    var isPrev = panelId === prevPanel || panelId === swipeBackPrevPanel;
+    var isTransitionTarget = animated && panelId === (isBack ? prevPanel : nextPanel);
+    var compensateScroll = isPrev || panelId === swipeBackNextPanel || panelId === nextPanel && isBack;
+    return (0, _jsxRuntime.createScopedElement)("div", {
+      vkuiClass: (0, _classNames.classNames)("View__panel", panelId === activePanel && "View__panel--active", panelId === prevPanel && "View__panel--prev", panelId === nextPanel && "View__panel--next", panelId === swipeBackPrevPanel && "View__panel--swipe-back-prev", panelId === swipeBackNextPanel && "View__panel--swipe-back-next", swipeBackResult === SwipeBackResults.success && "View__panel--swipe-back-success", swipeBackResult === SwipeBackResults.fail && "View__panel--swipe-back-failed"),
+      onAnimationEnd: isTransitionTarget ? transitionEndHandler : undefined,
+      ref: function ref(el) {
+        return panelId !== undefined && (panelNodes.current[panelId] = el);
+      },
+      style: calcPanelSwipeStyles(panelId),
+      key: panelId
+    }, (0, _jsxRuntime.createScopedElement)("div", {
+      vkuiClass: "View__panel-in",
+      style: {
+        marginTop: compensateScroll ? -((_scrolls$current = scrolls.current[panelId]) !== null && _scrolls$current !== void 0 ? _scrolls$current : 0) : undefined
+      }
+    }, (0, _jsxRuntime.createScopedElement)(_NavTransitionContext.NavTransitionProvider, {
+      entering: panelId === nextPanel || panelId === swipeBackNextPanel
+    }, panel)));
+  })), (0, _jsxRuntime.createScopedElement)(_AppRootPortal.AppRootPortal, null, hasPopout && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "View__popout"
+  }, popout), hasModal && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "View__modal"
+  }, modal)));
+};
+
 exports.View = View;
-View.displayName = "View";
 //# sourceMappingURL=View.js.map

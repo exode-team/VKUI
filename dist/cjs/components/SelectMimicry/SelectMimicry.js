@@ -53,7 +53,9 @@ var SelectMimicryComponent = function SelectMimicryComponent(_ref) {
   var title = children || placeholder;
   return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, (0, _extends2.default)({}, restProps, {
     tabIndex: disabled ? undefined : tabIndex,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Select", platform), "Select--".concat(selectType), !children && "Select--empty", multiline && "Select--multiline", align && "Select--align-".concat(align), "Select--sizeX-".concat(sizeX), "Select--sizeY-".concat(sizeY)),
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Select", platform), "Select--".concat(selectType), !children && "Select--empty", multiline && "Select--multiline", align && "Select--align-".concat(align), "Select--sizeX-".concat(sizeX), // TODO v5.0.0 поправить под новую адаптивность
+    "Select--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
+    before && "Select--hasBefore", after && "Select--hasAfter"),
     getRootRef: getRootRef,
     onClick: disabled ? undefined : onClick,
     disabled: disabled,
@@ -77,4 +79,5 @@ var SelectMimicry = (0, _withAdaptivity.withAdaptivity)(SelectMimicryComponent, 
   sizeY: true
 });
 exports.SelectMimicry = SelectMimicry;
+SelectMimicry.displayName = "SelectMimicry";
 //# sourceMappingURL=SelectMimicry.js.map

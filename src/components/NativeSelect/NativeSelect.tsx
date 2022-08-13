@@ -33,9 +33,7 @@ export interface SelectState {
   notSelected?: boolean;
 }
 
-const NativeSelectComponent: React.FC<
-  NativeSelectProps & AdaptivityContextInterface
-> = ({
+const NativeSelectComponent = ({
   style,
   defaultValue = "",
   align,
@@ -50,7 +48,7 @@ const NativeSelectComponent: React.FC<
   multiline,
   selectType = SelectType.default,
   ...restProps
-}) => {
+}: NativeSelectProps & AdaptivityContextInterface) => {
   const platform = usePlatform();
   const [title, setTitle] = React.useState("");
   const [empty, setEmpty] = React.useState(false);
@@ -109,3 +107,5 @@ export const NativeSelect = withAdaptivity(NativeSelectComponent, {
   sizeX: true,
   sizeY: true,
 });
+
+NativeSelect.displayName = "NativeSelect";

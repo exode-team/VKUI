@@ -50,12 +50,12 @@ export interface PanelHeaderProps
   fixed?: boolean;
 }
 
-const PanelHeaderIn: React.FC<PanelHeaderProps> = ({
+const PanelHeaderIn = ({
   before,
   after,
   separator,
   children,
-}) => {
+}: PanelHeaderProps) => {
   const { webviewType } = React.useContext(ConfigProviderContext);
   const { isInsideModal } = React.useContext(ModalRootContext);
   const platform = usePlatform();
@@ -171,3 +171,5 @@ export const PanelHeader = withAdaptivity(PanelHeaderComponent, {
   sizeX: true,
   sizeY: true,
 });
+
+PanelHeader.displayName = "PanelHeader";

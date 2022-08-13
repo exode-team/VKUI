@@ -12,7 +12,7 @@ export interface FormFieldProps {
      * Рекомендации:
      *
      * - Используйте следующие размеры иконок `12` | `16` | `20` | `24` | `28`.
-     * - Используйте [IconButton](#/IconButton), если вам нужна кликабельная иконка.
+     * - Используйте [IconButton](https://vkcom.github.io/VKUI/#/IconButton), если вам нужна кликабельная иконка.
      */
     before?: React.ReactNode;
     /**
@@ -21,7 +21,7 @@ export interface FormFieldProps {
      * Рекомендации:
      *
      * - Используйте следующие размеры иконок `12` | `16` | `20` | `24` | `28`.
-     * - Используйте [IconButton](#/IconButton), если вам нужна кликабельная иконка.
+     * - Используйте [IconButton](https://vkcom.github.io/VKUI/#/IconButton), если вам нужна кликабельная иконка.
      */
     after?: React.ReactNode;
     mode?: keyof typeof FormFieldMode;
@@ -32,5 +32,5 @@ interface FormFieldOwnProps extends React.AllHTMLAttributes<HTMLElement>, HasRoo
 /**
  * @see https://vkcom.github.io/VKUI/#/FormField
  */
-export declare const FormField: React.FC<FormFieldOwnProps>;
+export declare const FormField: ({ Component, children, getRootRef, before, after, disabled, mode, ...restProps }: FormFieldOwnProps) => JSX.Element;
 export {};

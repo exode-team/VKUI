@@ -10,7 +10,7 @@ import { getClassName } from "../../helpers/getClassName";
 import { usePlatform } from "../../hooks/usePlatform";
 import { ViewWidth, withAdaptivity } from "../../hoc/withAdaptivity";
 import { PanelHeaderButton } from "../PanelHeaderButton/PanelHeaderButton";
-import { ANDROID, IOS, Platform } from "../../lib/platform";
+import { IOS, Platform } from "../../lib/platform";
 import { ModalDismissButton } from "../ModalDismissButton/ModalDismissButton";
 import { Icon24Dismiss } from "@vkontakte/icons";
 import { useKeyboard } from "../../hooks/useKeyboard";
@@ -42,29 +42,20 @@ export var ModalCardBase = withAdaptivity(function (_ref) {
   var canShowCloseBtn = viewWidth >= ViewWidth.SMALL_TABLET || platform === Platform.VKCOM;
   var canShowCloseBtnIos = platform === IOS && !canShowCloseBtn;
   return createScopedElement("div", _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("ModalCardBase", platform), {
-      "ModalCardBase--desktop": isDesktop
-    }),
+    vkuiClass: classNames(getClassName("ModalCardBase", platform), isDesktop && "ModalCardBase--desktop"),
     ref: getRootRef
   }), createScopedElement("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames("ModalCardBase__container", {
-      "ModalCardBase__container--softwareKeyboardOpened": isSoftwareKeyboardOpened
-    })
+    vkuiClass: classNames("ModalCardBase__container", isSoftwareKeyboardOpened && "ModalCardBase__container--softwareKeyboardOpened")
   }, hasReactNode(icon) && createScopedElement("div", {
     vkuiClass: "ModalCardBase__icon"
   }, icon), hasReactNode(header) && createScopedElement(Title, {
     level: "2",
-    weight: platform === ANDROID ? "2" : "1",
+    weight: "2",
     vkuiClass: "ModalCardBase__header"
   }, header), hasReactNode(subheader) && createScopedElement(Subhead, {
     vkuiClass: "ModalCardBase__subheader"
   }, subheader), children, hasReactNode(actions) && createScopedElement("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames("ModalCardBase__actions", {
-      "ModalCardBase__actions--v": actionsLayout === "vertical"
-    })
+    vkuiClass: classNames("ModalCardBase__actions", actionsLayout === "vertical" && "ModalCardBase__actions--v")
   }, actions), canShowCloseBtn && createScopedElement(ModalDismissButton, {
     onClick: onClose
   }), canShowCloseBtnIos && createScopedElement(PanelHeaderButton, {
@@ -77,4 +68,5 @@ export var ModalCardBase = withAdaptivity(function (_ref) {
   viewHeight: true,
   hasMouse: true
 });
+ModalCardBase.displayName = "ModalCardBase";
 //# sourceMappingURL=ModalCardBase.js.map

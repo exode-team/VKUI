@@ -27,15 +27,15 @@ var _useAdaptivity = require("../../hooks/useAdaptivity");
 
 var _excluded = ["popout", "modal", "viewWidth", "viewHeight", "hasMouse", "children", "getRootRef"];
 
-var PopoutRootComponent = function PopoutRootComponent(props) {
-  var popout = props.popout,
-      modal = props.modal,
-      viewWidth = props.viewWidth,
-      viewHeight = props.viewHeight,
-      hasMouse = props.hasMouse,
-      children = props.children,
-      getRootRef = props.getRootRef,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var PopoutRootComponent = function PopoutRootComponent(_ref) {
+  var popout = _ref.popout,
+      modal = _ref.modal,
+      viewWidth = _ref.viewWidth,
+      viewHeight = _ref.viewHeight,
+      hasMouse = _ref.hasMouse,
+      children = _ref.children,
+      getRootRef = _ref.getRootRef,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useDOM = (0, _dom.useDOM)(),
       document = _useDOM.document;

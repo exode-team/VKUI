@@ -30,9 +30,7 @@ export interface ModalCardProps
 
 const warn = warnOnce("ModalCard");
 
-const ModalCardComponent: React.FC<
-  ModalCardProps & AdaptivityContextInterface
-> = ({
+const ModalCardComponent = ({
   icon,
   header,
   subheader,
@@ -47,7 +45,7 @@ const ModalCardComponent: React.FC<
   nav,
   id,
   ...restProps
-}) => {
+}: ModalCardProps & AdaptivityContextInterface) => {
   const isDesktop = useAdaptivityIsDesktop();
 
   const modalContext = React.useContext(ModalRootContext);
@@ -60,10 +58,10 @@ const ModalCardComponent: React.FC<
     <div
       {...restProps}
       id={id}
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
-      vkuiClass={classNames(getClassName("ModalCard", platform), {
-        "ModalCard--desktop": isDesktop,
-      })}
+      vkuiClass={classNames(
+        getClassName("ModalCard", platform),
+        isDesktop && "ModalCard--desktop"
+      )}
     >
       <ModalCardBase
         vkuiClass="ModalCard__in"

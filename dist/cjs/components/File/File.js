@@ -21,7 +21,7 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _VisuallyHiddenInput = require("../VisuallyHiddenInput/VisuallyHiddenInput");
 
-var _excluded = ["children", "align", "controlSize", "size", "mode", "stretched", "before", "className", "style", "getRef", "getRootRef", "appearance"];
+var _excluded = ["children", "align", "controlSize", "size", "mode", "stretched", "before", "after", "loading", "className", "style", "getRef", "getRootRef", "appearance"];
 
 /**
  * @see https://vkcom.github.io/VKUI/#/File
@@ -36,6 +36,8 @@ var File = function File(_ref) {
       mode = _ref.mode,
       stretched = _ref.stretched,
       before = _ref.before,
+      after = _ref.after,
+      loading = _ref.loading,
       className = _ref.className,
       style = _ref.style,
       getRef = _ref.getRef,
@@ -54,6 +56,8 @@ var File = function File(_ref) {
     ,
     size: size !== null && size !== void 0 ? size : controlSize,
     before: before,
+    after: after,
+    loading: loading,
     style: style,
     getRootRef: getRootRef,
     disabled: restProps.disabled

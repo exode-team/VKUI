@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.WebviewType = exports.ConfigProviderContext = void 0;
+exports.useConfigProvider = exports.WebviewType = exports.ConfigProviderContext = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -33,4 +33,10 @@ var ConfigProviderContext = /*#__PURE__*/React.createContext({
 
 });
 exports.ConfigProviderContext = ConfigProviderContext;
+
+var useConfigProvider = function useConfigProvider() {
+  return React.useContext(ConfigProviderContext);
+};
+
+exports.useConfigProvider = useConfigProvider;
 //# sourceMappingURL=ConfigProviderContext.js.map

@@ -5,4 +5,4 @@ export declare type FormLayoutProps = React.AllHTMLAttributes<HTMLElement> & Has
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayout
  */
-export declare const FormLayout: React.FC<FormLayoutProps>;
+export declare const FormLayout: ({ children, Component, getRef, onSubmit, ...restProps }: FormLayoutProps) => JSX.Element;

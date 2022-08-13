@@ -12,10 +12,10 @@ export var SSRContext = /*#__PURE__*/React.createContext({
 /**
  * @see https://vkcom.github.io/VKUI/#/SSR
  */
-export var SSRWrapper = function SSRWrapper(props) {
-  var userAgent = props.userAgent,
-      browserInfo = props.browserInfo,
-      children = props.children;
+export var SSRWrapper = function SSRWrapper(_ref) {
+  var userAgent = _ref.userAgent,
+      browserInfo = _ref.browserInfo,
+      children = _ref.children;
 
   if (!browserInfo && userAgent) {
     browserInfo = computeBrowserInfo(userAgent);

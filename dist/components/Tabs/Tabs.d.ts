@@ -3,9 +3,20 @@ import { HasRootRef } from "../../types";
 import { AdaptivityProps } from "../../hoc/withAdaptivity";
 import "./Tabs.css";
 export interface TabsProps extends React.HTMLAttributes<HTMLDivElement>, HasRootRef<HTMLDivElement>, AdaptivityProps {
-    mode?: "default" | "buttons" | "segmented";
+    /**
+     * Задаёт вид кнопок.
+     *
+     * > ⚠️ Значения `"buttons"`, `"segmented"` устарели и будут удалены в 5.0.0. Вместо `"buttons"` используйте `"secondary"`.
+     * > Режим `"segmented"` переехал в отдельный компонент [`SegmentedControl`](https://vkcom.github.io/VKUI#/SegmentedControl),
+     * > поэтому используйте его вместо `Tabs`.
+     */
+    mode?: "buttons" | "segmented" | "default" | "accent" | "secondary";
 }
-export declare const TabsModeContext: React.Context<"default" | "buttons" | "segmented" | undefined>;
+export interface TabsContextProps {
+    mode: TabsProps["mode"];
+    withGaps: boolean;
+}
+export declare const TabsModeContext: React.Context<TabsContextProps>;
 /**
  * @see https://vkcom.github.io/VKUI/#/Tabs
  */

@@ -20,7 +20,7 @@ function getEl(
   return ref && "current" in ref ? ref.current : ref;
 }
 
-export const ActionSheetDropdownDesktop: React.FC<SharedDropdownProps> = ({
+export const ActionSheetDropdownDesktop = ({
   children,
   toggleRef,
   closing,
@@ -29,7 +29,7 @@ export const ActionSheetDropdownDesktop: React.FC<SharedDropdownProps> = ({
   className,
   style,
   ...restProps
-}) => {
+}: SharedDropdownProps) => {
   const { document } = useDOM();
   const platform = usePlatform();
   const { sizeY } = useAdaptivity();
@@ -63,7 +63,10 @@ export const ActionSheetDropdownDesktop: React.FC<SharedDropdownProps> = ({
     });
   }, [bodyClickListener, document]);
 
-  const onClick = React.useCallback((e) => e.stopPropagation(), []);
+  const onClick = React.useCallback(
+    (e: React.MouseEvent<HTMLElement, MouseEvent>) => e.stopPropagation(),
+    []
+  );
 
   const targetRef = React.useMemo(() => {
     if (isRefObject<SharedDropdownProps["toggleRef"], HTMLElement>(toggleRef)) {

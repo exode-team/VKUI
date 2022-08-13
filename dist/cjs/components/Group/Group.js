@@ -17,11 +17,13 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
+var _platform = require("../../lib/platform");
 
 var _classNames = require("../../lib/classNames");
 
 var _usePlatform = require("../../hooks/usePlatform");
+
+var _Spacing = require("../Spacing/Spacing");
 
 var _Separator = require("../Separator/Separator");
 
@@ -35,16 +37,16 @@ var _ModalRootContext = require("../ModalRoot/ModalRootContext");
 
 var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "sizeX"];
 
-var GroupComponent = function GroupComponent(props) {
-  var header = props.header,
-      description = props.description,
-      children = props.children,
-      _props$separator = props.separator,
-      separator = _props$separator === void 0 ? "auto" : _props$separator,
-      getRootRef = props.getRootRef,
-      mode = props.mode,
-      sizeX = props.sizeX,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var GroupComponent = function GroupComponent(_ref) {
+  var header = _ref.header,
+      description = _ref.description,
+      children = _ref.children,
+      _ref$separator = _ref.separator,
+      separator = _ref$separator === void 0 ? "auto" : _ref$separator,
+      getRootRef = _ref.getRootRef,
+      mode = _ref.mode,
+      sizeX = _ref.sizeX,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _React$useContext = React.useContext(_ModalRootContext.ModalRootContext),
       isInsideModal = _React$useContext.isInsideModal;
@@ -56,20 +58,27 @@ var GroupComponent = function GroupComponent(props) {
     computedMode = sizeX === _withAdaptivity.SizeType.COMPACT || isInsideModal ? "plain" : "card";
   }
 
+  var separatorElement = null;
+
+  if (separator !== "hide") {
+    var separatorClassName = (0, _classNames.classNames)("Group__separator", separator === "show" && "Group__separator--force");
+    separatorElement = computedMode === "card" ? (0, _jsxRuntime.createScopedElement)(_Spacing.Spacing, {
+      vkuiClass: separatorClassName,
+      size: 16
+    }) : (0, _jsxRuntime.createScopedElement)(_Separator.Separator, {
+      vkuiClass: separatorClassName
+    });
+  }
+
   return (0, _jsxRuntime.createScopedElement)("section", (0, _extends2.default)({}, restProps, {
     ref: getRootRef,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Group", platform), "Group--sizeX-".concat(sizeX), "Group--".concat(computedMode))
+    vkuiClass: (0, _classNames.classNames)("Group", platform === _platform.IOS && "Group--ios", // TODO v5.0.0 Новая адаптивность
+    "Group--sizeX-".concat(sizeX), "Group--".concat(computedMode))
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Group__inner"
   }, header, children, (0, _utils.hasReactNode)(description) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "Group__description"
-  }, description)), separator !== "hide" && (0, _jsxRuntime.createScopedElement)(_Separator.Separator // eslint-disable-next-line vkui/no-object-expression-in-arguments
-  , {
-    vkuiClass: (0, _classNames.classNames)("Group__separator", {
-      "Group__separator--force": separator === "show"
-    }),
-    expanded: computedMode === "card"
-  }));
+  }, description)), separatorElement);
 };
 /**
  * @see https://vkcom.github.io/VKUI/#/Group

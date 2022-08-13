@@ -51,10 +51,12 @@ interface ButtonTypographyProps extends HasComponent {
   children?: ButtonProps["children"];
 }
 
-const ButtonTypography: React.FC<ButtonTypographyProps> = (
-  props: ButtonTypographyProps
-) => {
-  const { size, sizeY, platform, ...restProps } = props;
+const ButtonTypography = ({
+  size,
+  sizeY,
+  platform,
+  ...restProps
+}: ButtonTypographyProps) => {
   const isCompact = sizeY === SizeType.COMPACT;
 
   switch (size) {
@@ -141,7 +143,7 @@ function resolveButtonAppearance(
   };
 }
 
-const ButtonComponent: React.FC<ButtonProps> = ({
+const ButtonComponent = ({
   size = "s",
   mode = "primary",
   appearance,
@@ -157,7 +159,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
   onClick,
   stopPropagation = true,
   ...restProps
-}) => {
+}: ButtonProps) => {
   const platform = usePlatform();
   const hasIcons = Boolean(before || after);
   const hasIconOnly = !children && Boolean(after) !== Boolean(before);
@@ -169,6 +171,8 @@ const ButtonComponent: React.FC<ButtonProps> = ({
 
   return (
     <Tappable
+      hoverMode={hasNewTokens ? "Button--hover" : "background"}
+      activeMode={hasNewTokens ? "Button--active" : "opacity"}
       {...restProps}
       Component={restProps.href ? "a" : Component}
       onClick={loading ? undefined : onClick}
@@ -187,8 +191,6 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         loading && "Button--loading"
       )}
       getRootRef={getRootRef}
-      hoverMode={hasNewTokens ? "Button--hover" : "background"}
-      activeMode={hasNewTokens ? "Button--active" : "opacity"}
     >
       {loading && <Spinner size="small" vkuiClass="Button__spinner" />}
       <span vkuiClass="Button__in">
@@ -224,3 +226,5 @@ const ButtonComponent: React.FC<ButtonProps> = ({
 export const Button = withAdaptivity(ButtonComponent, {
   sizeY: true,
 });
+
+Button.displayName = "Button";

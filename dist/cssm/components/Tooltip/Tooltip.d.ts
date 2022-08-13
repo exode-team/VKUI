@@ -1,4 +1,6 @@
 import * as React from "react";
+import { Placement } from "@popperjs/core";
+import { HasRootRef } from "../../types";
 import "./Tooltip.css";
 export interface TooltipProps {
     /**
@@ -6,8 +8,16 @@ export interface TooltipProps {
      * свойство `getRootRef`, которое должно возвращаться ссылку на корневой DOM-элемент компонента,
      * иначе тултип показан не будет. Если передан React-element, то такой проблемы нет.
      */
-    children: React.ReactElement;
+    children: React.ReactElement<HasRootRef<any>> | React.ReactElement<React.PropsWithRef<any>>;
+    /**
+     * @deprecated будет удалено в 5.0.0, устанавливать стиль следует через appearance
+     * Стиль отображения подсказки
+     */
     mode?: "accent" | "light";
+    /**
+     * Стиль отображения подсказки
+     */
+    appearance?: "accent" | "neutral" | "white" | "black" | "inversion";
     /**
      * Если передан `false`, то рисуется просто `children`.
      */
@@ -39,6 +49,10 @@ export interface TooltipProps {
      */
     offsetY?: number;
     /**
+     * Отображать ли стрелку, указывающую на якорный элемент
+     */
+    arrow?: boolean;
+    /**
      * Сдвиг стрелочки относительно центра дочернего элемента.
      */
     cornerOffset?: number;
@@ -50,8 +64,12 @@ export interface TooltipProps {
      * Callback, который вызывается при клике по любому месту в пределах экрана.
      */
     onClose?: () => void;
+    /**
+     * По умолчанию компонент выберет наилучшее расположение сам. Но его можно задать извне с помощью этого свойства
+     */
+    placement?: Placement;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/Tooltip
  */
-export declare const Tooltip: React.FC<TooltipProps>;
+export declare const Tooltip: ({ children, isShown: _isShown, offsetX, offsetY, alignX, alignY, onClose, cornerOffset, cornerAbsoluteOffset, mode, appearance, arrow, placement, ...restProps }: TooltipProps) => JSX.Element;

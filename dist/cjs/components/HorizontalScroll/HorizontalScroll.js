@@ -13,8 +13,6 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
@@ -23,7 +21,7 @@ var React = _interopRequireWildcard(require("react"));
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _HorizontalScrollArrow = _interopRequireDefault(require("./HorizontalScrollArrow"));
+var _HorizontalScrollArrow = require("./HorizontalScrollArrow");
 
 var _fx = require("../../lib/fx");
 
@@ -31,9 +29,9 @@ var _useEventListener = require("../../hooks/useEventListener");
 
 var _useExternRef = require("../../hooks/useExternRef");
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
-var _excluded = ["children", "getScrollToLeft", "getScrollToRight", "showArrows", "scrollAnimationDuration", "hasMouse", "getRef"];
+var _excluded = ["children", "getScrollToLeft", "getScrollToRight", "showArrows", "arrowSize", "scrollAnimationDuration", "hasMouse", "getRef"];
 
 /**
  * timing method
@@ -122,6 +120,8 @@ var HorizontalScrollComponent = function HorizontalScrollComponent(_ref2) {
       getScrollToRight = _ref2.getScrollToRight,
       _ref2$showArrows = _ref2.showArrows,
       showArrows = _ref2$showArrows === void 0 ? true : _ref2$showArrows,
+      _ref2$arrowSize = _ref2.arrowSize,
+      arrowSize = _ref2$arrowSize === void 0 ? "l" : _ref2$arrowSize,
       _ref2$scrollAnimation = _ref2.scrollAnimationDuration,
       scrollAnimationDuration = _ref2$scrollAnimation === void 0 ? SCROLL_ONE_FRAME_TIME : _ref2$scrollAnimation,
       hasMouse = _ref2.hasMouse,
@@ -195,13 +195,16 @@ var HorizontalScrollComponent = function HorizontalScrollComponent(_ref2) {
   }, [scrollEvent, scrollerRef]);
   React.useEffect(onscroll, [scrollerRef, children, onscroll]);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames2.classNames)("HorizontalScroll", (0, _defineProperty2.default)({}, "HorizontalScroll--withConstArrows", showArrows === "always"))
-  }), showArrows && hasMouse && canScrollLeft && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.default, {
+    vkuiClass: (0, _classNames.classNames)("HorizontalScroll", showArrows === "always" && "HorizontalScroll--withConstArrows")
+  }), showArrows && hasMouse && canScrollLeft && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.HorizontalScrollArrow, {
+    size: arrowSize,
     direction: "left",
+    vkuiClass: "HorizontalScroll__arrowLeft",
     onClick: scrollToLeft
-  }), showArrows && hasMouse && canScrollRight && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.default, {
+  }), showArrows && hasMouse && canScrollRight && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.HorizontalScrollArrow, {
+    size: arrowSize,
     direction: "right",
+    vkuiClass: "HorizontalScroll__arrowRight",
     onClick: scrollToRight
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "HorizontalScroll__in",
@@ -219,4 +222,5 @@ var HorizontalScroll = (0, _withAdaptivity.withAdaptivity)(HorizontalScrollCompo
   hasMouse: true
 });
 exports.HorizontalScroll = HorizontalScroll;
+HorizontalScroll.displayName = "HorizontalScroll";
 //# sourceMappingURL=HorizontalScroll.js.map

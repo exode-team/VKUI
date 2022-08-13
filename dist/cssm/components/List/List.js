@@ -5,8 +5,6 @@ var _excluded = ["children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
 import { ListContext } from "./ListContext";
 import "./List.css";
 /**
@@ -17,8 +15,6 @@ export var List = function List(_ref) {
   var children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var platform = usePlatform();
-
   var _React$useState = React.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       isDragging = _React$useState2[0],
@@ -27,10 +23,7 @@ export var List = function List(_ref) {
   return createScopedElement("div", _extends({
     role: "list"
   }, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("List", platform), {
-      "List--dragging": isDragging
-    })
+    vkuiClass: classNames("List", isDragging && "List--dragging")
   }), createScopedElement(ListContext.Provider, {
     value: React.useMemo(function () {
       return {

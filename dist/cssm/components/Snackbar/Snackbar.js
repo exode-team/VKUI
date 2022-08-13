@@ -1,16 +1,15 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose"];
+var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "mode"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Touch } from "../Touch/Touch";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { ANDROID, VKCOM } from "../../lib/platform";
+import { ANDROID, IOS, VKCOM } from "../../lib/platform";
 import { rubber } from "../../lib/touch";
 import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
-import { Text } from "../Typography/Text/Text";
+import { Paragraph } from "../Typography/Paragraph/Paragraph";
 import { Button } from "../Button/Button";
 import { AppRootPortal } from "../AppRoot/AppRootPortal";
 import { useWaitTransitionFinish } from "../../hooks/useWaitTransitionFinish";
@@ -18,18 +17,21 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { useTimeout } from "../../hooks/useTimeout";
 import "./Snackbar.css";
 
-var SnackbarComponent = function SnackbarComponent(props) {
-  var children = props.children,
-      layout = props.layout,
-      action = props.action,
-      before = props.before,
-      after = props.after,
-      viewWidth = props.viewWidth,
-      _props$duration = props.duration,
-      duration = _props$duration === void 0 ? 0 : _props$duration,
-      onActionClick = props.onActionClick,
-      onClose = props.onClose,
-      restProps = _objectWithoutProperties(props, _excluded);
+var SnackbarComponent = function SnackbarComponent(_ref) {
+  var children = _ref.children,
+      _ref$layout = _ref.layout,
+      layout = _ref$layout === void 0 ? "horizontal" : _ref$layout,
+      action = _ref.action,
+      before = _ref.before,
+      after = _ref.after,
+      viewWidth = _ref.viewWidth,
+      _ref$duration = _ref.duration,
+      duration = _ref$duration === void 0 ? 4000 : _ref$duration,
+      onActionClick = _ref.onActionClick,
+      onClose = _ref.onClose,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "default" : _ref$mode,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
 
@@ -140,12 +142,7 @@ var SnackbarComponent = function SnackbarComponent(props) {
   }, [closeTimeout]);
   var resolvedLayout = after || isDesktop ? "vertical" : layout;
   return createScopedElement(AppRootPortal, null, createScopedElement("div", _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("Snackbar", platform), "Snackbar--l-".concat(resolvedLayout), {
-      "Snackbar--closing": closing,
-      "Snackbar--touched": touched,
-      "Snackbar--desktop": isDesktop
-    })
+    vkuiClass: classNames("Snackbar", platform === IOS && "Snackbar--ios", "Snackbar--l-".concat(resolvedLayout), "Snackbar--".concat(mode), closing && "Snackbar--closing", touched && "Snackbar--touched", isDesktop && "Snackbar--desktop")
   }), createScopedElement(Touch, {
     vkuiClass: "Snackbar__in",
     getRootRef: innerElRef,
@@ -159,12 +156,13 @@ var SnackbarComponent = function SnackbarComponent(props) {
     vkuiClass: "Snackbar__before"
   }, before), createScopedElement("div", {
     vkuiClass: "Snackbar__content"
-  }, createScopedElement(Text, {
+  }, createScopedElement(Paragraph, {
     vkuiClass: "Snackbar__content-text"
   }, children), action && createScopedElement(Button, {
     align: "left",
     hasHover: false,
     mode: "tertiary",
+    appearance: mode === "dark" ? "overlay" : "accent",
     size: "s",
     vkuiClass: "Snackbar__action",
     onClick: handleActionClick
@@ -174,10 +172,6 @@ var SnackbarComponent = function SnackbarComponent(props) {
 };
 
 SnackbarComponent.displayName = "Snackbar";
-SnackbarComponent.defaultProps = {
-  duration: 4000,
-  layout: "horizontal"
-};
 /**
  * @see https://vkcom.github.io/VKUI/#/Snackbar
  */

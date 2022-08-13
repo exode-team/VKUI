@@ -5,7 +5,7 @@ const restructureVariable = require("./tasks/postcss-restructure-variable.js");
 const cssImport = require("postcss-import");
 const autoprefixer = require("autoprefixer");
 const cssModules = require("postcss-modules");
-const csso = require("postcss-csso");
+const cssnano = require("cssnano");
 const checkKeyframes = require("./tasks/postcss-check-keyframes");
 const { defaultSchemeId } = require("./package.json");
 // TODO: включить после добавления поддержки VK-Sans-Text
@@ -88,15 +88,22 @@ let plugins = [
       "node_modules/@vkontakte/vkui-tokens/themes/vkBase/cssVars/declarations/onlyVariables.css"
     ),
     // match only vkui tokens
-    shouldTransformableDecl: (decl) =>
-      /(^|[^\w-])var\([\W\w]+\)/.test(decl.value) &&
-      decl.value.match(/var\(/g).length ===
-        (decl.value.match(/var\(--vkui--/g) || []).length,
+    shouldTransformableDecl: (decl) => {
+      // 1. Исключаем `var(--<appearance_name>, var(--vkui--<name>))`
+      if (
+        /var\(\s*--.+\s*,\s*var\(\s*(--vkui--.[^,]+)\s*\)\s*\)/.test(decl.value)
+      ) {
+        return false;
+      }
+
+      // 2. Ищем только `var(--vkui--<value>)`, но не `var(--vkui--<name>, <fallback_value>)`
+      return /var\(\s*(--vkui--.[^,]+)\s*\)/.test(decl.value);
+    },
   }),
 ];
 
 if (process.env.NODE_ENV === "production") {
-  plugins.push(csso({ restructure: false }));
+  plugins.push(cssnano());
 }
 
 module.exports = { plugins, cssPropSources };

@@ -108,4 +108,5 @@ var Select = (0, _withAdaptivity.withAdaptivity)(SelectComponent, {
   hasMouse: true
 });
 exports.Select = Select;
+Select.displayName = "Select";
 //# sourceMappingURL=Select.js.map

@@ -1,12 +1,14 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectSpread from "@babel/runtime/helpers/objectSpread2";
+import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["targetRef", "children", "getRef", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style"];
+var _excluded = ["targetRef", "children", "getRef", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style", "customModifiers", "renderContent"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { usePopper } from "react-popper";
 import { AppRootPortal } from "../AppRoot/AppRootPortal";
+import { PopperArrow } from "../PopperArrow/PopperArrow";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getClassName } from "../../helpers/getClassName";
 import { useExternRef } from "../../hooks/useExternRef";
@@ -38,6 +40,8 @@ export var Popper = function Popper(_ref) {
       _ref$forcePortal = _ref.forcePortal,
       forcePortal = _ref$forcePortal === void 0 ? true : _ref$forcePortal,
       compStyles = _ref.style,
+      customModifiers = _ref.customModifiers,
+      renderContent = _ref.renderContent,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _React$useState = React.useState(null),
@@ -94,8 +98,12 @@ export var Popper = function Popper(_ref) {
       modifiers.push(_sameWidth);
     }
 
+    if (customModifiers) {
+      modifiers.push.apply(modifiers, _toConsumableArray(customModifiers));
+    }
+
     return modifiers;
-  }, [arrow, sameWidth, smallTargetOffsetSkidding, offsetSkidding, offsetDistance]);
+  }, [arrow, sameWidth, smallTargetOffsetSkidding, offsetSkidding, offsetDistance, customModifiers]);
 
   var _usePopper = usePopper(targetRef.current, popperNode, {
     placement: placement,
@@ -138,24 +146,13 @@ export var Popper = function Popper(_ref) {
     style: _objectSpread(_objectSpread(_objectSpread({}, compStyles), styles.popper), {}, {
       minWidth: sameWidth ? (_targetRef$current3 = targetRef.current) === null || _targetRef$current3 === void 0 ? void 0 : _targetRef$current3.scrollWidth : undefined
     })
-  }), arrow && createScopedElement("div", _extends({}, attributes.arrow, {
-    vkuiClass: "Popper__arrow",
-    "data-popper-arrow": true,
-    style: styles.arrow
-  }), createScopedElement("svg", {
-    vkuiClass: "Popper__arrow-in",
-    className: arrowClassName,
-    width: "20",
-    height: "8",
-    viewBox: "0 0 20 8",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, createScopedElement("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M10 0C13 0 15.9999 8 20 8H0C3.9749 8 7 0 10 0Z",
-    fill: "currentColor"
-  }))), createScopedElement("div", {
+  }), arrow && createScopedElement(PopperArrow, {
+    attributes: attributes.arrow,
+    style: styles.arrow,
+    arrowClassName: arrowClassName
+  }), renderContent ? renderContent({
+    className: "Popper__content"
+  }) : createScopedElement("div", {
     vkuiClass: "Popper__content"
   }, children));
   return createScopedElement(AppRootPortal, {

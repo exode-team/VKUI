@@ -15,6 +15,8 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var React = _interopRequireWildcard(require("react"));
@@ -62,7 +64,7 @@ var CardScroll = function CardScroll(_ref) {
     }
 
     var containerWidth = refContainer.current.offsetWidth;
-    var slideIndex = Array.from(refContainer.current.children).findIndex(function (el) {
+    var slideIndex = (0, _toConsumableArray2.default)(refContainer.current.children).findIndex(function (el) {
       return el.offsetLeft + el.offsetWidth + parseInt(window.getComputedStyle(el).marginRight) - offset >= 0;
     });
 

@@ -10,21 +10,18 @@ import { Headline } from "../Typography/Headline/Headline";
 /**
  * @see https://vkcom.github.io/VKUI/#/Placeholder
  */
-export var Placeholder = function Placeholder(props) {
-  var icon = props.icon,
-      header = props.header,
-      action = props.action,
-      children = props.children,
-      stretched = props.stretched,
-      getRootRef = props.getRootRef,
-      restProps = _objectWithoutProperties(props, _excluded);
+export var Placeholder = function Placeholder(_ref) {
+  var icon = _ref.icon,
+      header = _ref.header,
+      action = _ref.action,
+      children = _ref.children,
+      stretched = _ref.stretched,
+      getRootRef = _ref.getRootRef,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   return createScopedElement("div", _extends({}, restProps, {
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames("Placeholder", {
-      "Placeholder--stretched": stretched
-    })
+    ref: getRootRef,
+    vkuiClass: classNames("Placeholder", stretched && "Placeholder--stretched")
   }), createScopedElement("div", {
     vkuiClass: "Placeholder__in"
   }, hasReactNode(icon) && createScopedElement("div", {

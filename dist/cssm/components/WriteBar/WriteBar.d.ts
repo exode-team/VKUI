@@ -18,9 +18,13 @@ export interface WriteBarProps extends React.TextareaHTMLAttributes<HTMLTextArea
      * Вызывается при смене высоты поля ввода
      */
     onHeightChange?: VoidFunction;
+    /**
+     * Добавляет тень вокруг поля ввода
+     */
+    shadow?: boolean;
     children?: never;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/WriteBar
  */
-export declare const WriteBar: React.FC<WriteBarProps>;
+export declare const WriteBar: ({ className, style, before, inlineAfter, after, value, onChange, getRootRef, getRef, onHeightChange, shadow, ...restProps }: WriteBarProps) => JSX.Element;

@@ -9,8 +9,7 @@ import {
 } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { IOS } from "../../lib/platform";
+import { IOS, Platform } from "../../lib/platform";
 import { Counter } from "../Counter/Counter";
 import { Tappable } from "../Tappable/Tappable";
 import { warnOnce } from "../../lib/warnOnce";
@@ -40,7 +39,7 @@ const IS_DEV = process.env.NODE_ENV === "development";
 /**
  * @see https://vkcom.github.io/VKUI/#/WriteBarIcon
  */
-export const WriteBarIcon: React.FC<WriteBarIconProps> = ({
+export const WriteBarIcon = ({
   mode,
   children,
   count,
@@ -91,10 +90,11 @@ export const WriteBarIcon: React.FC<WriteBarIconProps> = ({
       Component="button"
       hasHover={false}
       activeMode="WriteBarIcon__active"
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
-      vkuiClass={classNames(getClassName("WriteBarIcon", platform), {
-        [`WriteBarIcon--${mode}`]: !!mode,
-      })}
+      vkuiClass={classNames(
+        "WriteBarIcon",
+        platform === Platform.IOS && "WriteBarIcon--ios",
+        !!mode && `WriteBarIcon--${mode}`
+      )}
     >
       <span vkuiClass="WriteBarIcon__in">
         {icon || children}

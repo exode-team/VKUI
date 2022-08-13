@@ -17,11 +17,11 @@ const clearDisableScrollStyle = (node: HTMLElement) => {
 };
 
 export interface ScrollContextInterface {
-  getScroll(): { x: number; y: number };
-  scrollTo(x?: number, y?: number): void;
+  getScroll(this: void): { x: number; y: number };
+  scrollTo(this: void, x?: number, y?: number): void;
   isScrollLock: boolean;
-  enableScrollLock(): void;
-  disableScrollLock(): void;
+  enableScrollLock(this: void): void;
+  disableScrollLock(this: void): void;
   beforeScrollLockFnSetRef?: React.RefObject<Set<() => void>>;
 }
 
@@ -37,11 +37,10 @@ export const useScroll = () => React.useContext(ScrollContext);
 
 export interface ScrollControllerProps {
   elRef: React.RefObject<HTMLElement>;
+  children?: React.ReactNode;
 }
 
-export const GlobalScrollController: React.FC<ScrollControllerProps> = ({
-  children,
-}) => {
+export const GlobalScrollController = ({ children }: ScrollControllerProps) => {
   const { window, document } = useDOM();
   const [isScrollLock, setScrollLock] = React.useState(false);
   const beforeScrollLockFnSetRef = React.useRef<Set<() => void>>(new Set());
@@ -121,10 +120,10 @@ export const GlobalScrollController: React.FC<ScrollControllerProps> = ({
   );
 };
 
-export const ElementScrollController: React.FC<ScrollControllerProps> = ({
+export const ElementScrollController = ({
   elRef,
   children,
-}) => {
+}: ScrollControllerProps) => {
   const [isScrollLock, setScrollLock] = React.useState(false);
   const beforeScrollLockFnSetRef = React.useRef<Set<() => void>>(new Set());
 

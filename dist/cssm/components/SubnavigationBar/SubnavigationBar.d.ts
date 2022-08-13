@@ -7,4 +7,4 @@ export interface SubnavigationBarProps extends React.HTMLAttributes<HTMLDivEleme
 /**
  * @see https://vkcom.github.io/VKUI/#/SubnavigationBar
  */
-export declare const SubnavigationBar: React.FC<SubnavigationBarProps>;
+export declare const SubnavigationBar: ({ mode, children, showArrows, getScrollToLeft, getScrollToRight, scrollAnimationDuration, ...restProps }: SubnavigationBarProps) => JSX.Element;

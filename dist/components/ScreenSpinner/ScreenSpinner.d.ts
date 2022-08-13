@@ -1,8 +1,10 @@
-import * as React from "react";
+/// <reference types="react" />
 import { SpinnerProps } from "../Spinner/Spinner";
 import "./ScreenSpinner.css";
-export declare type ScreenSpinnerProps = React.HTMLAttributes<HTMLDivElement> & SpinnerProps;
+export interface ScreenSpinnerProps extends SpinnerProps {
+    state?: "loading" | "cancelable" | "done" | "error";
+}
 /**
  * @see https://vkcom.github.io/VKUI/#/ScreenSpinner
  */
-export declare const ScreenSpinner: React.FC<ScreenSpinnerProps>;
+export declare const ScreenSpinner: ({ style, className, state, size, "aria-label": ariaLabel, onClick, ...restProps }: ScreenSpinnerProps) => JSX.Element;

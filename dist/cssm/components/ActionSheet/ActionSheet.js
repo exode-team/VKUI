@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem"];
+var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem", "popupDirection"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { PopoutWrapper } from "../PopoutWrapper/PopoutWrapper";
@@ -30,6 +30,8 @@ export var ActionSheet = function ActionSheet(_ref) {
       text = _ref.text,
       style = _ref.style,
       iosCloseItem = _ref.iosCloseItem,
+      _ref$popupDirection = _ref.popupDirection,
+      popupDirection = _ref$popupDirection === void 0 ? "bottom" : _ref$popupDirection,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -102,6 +104,7 @@ export var ActionSheet = function ActionSheet(_ref) {
     closing: closing,
     timeout: timeout
   }, restProps, {
+    popupDirection: popupDirection,
     onClose: onClose,
     className: isDesktop ? className : undefined,
     style: isDesktop ? style : undefined
@@ -127,8 +130,5 @@ export var ActionSheet = function ActionSheet(_ref) {
     hasMask: true,
     fixed: true
   }, actionSheet);
-};
-ActionSheet.defaultProps = {
-  popupDirection: "bottom"
 };
 //# sourceMappingURL=ActionSheet.js.map

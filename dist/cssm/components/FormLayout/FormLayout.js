@@ -13,14 +13,14 @@ var preventDefault = function preventDefault(e) {
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayout
  */
-export var FormLayout = function FormLayout(props) {
-  var children = props.children,
-      _props$Component = props.Component,
-      Component = _props$Component === void 0 ? "form" : _props$Component,
-      getRef = props.getRef,
-      _props$onSubmit = props.onSubmit,
-      onSubmit = _props$onSubmit === void 0 ? preventDefault : _props$onSubmit,
-      restProps = _objectWithoutProperties(props, _excluded);
+export var FormLayout = function FormLayout(_ref) {
+  var children = _ref.children,
+      _ref$Component = _ref.Component,
+      Component = _ref$Component === void 0 ? "form" : _ref$Component,
+      getRef = _ref.getRef,
+      _ref$onSubmit = _ref.onSubmit,
+      onSubmit = _ref$onSubmit === void 0 ? preventDefault : _ref$onSubmit,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
   return createScopedElement(Component, _extends({}, restProps, {

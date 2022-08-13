@@ -19,4 +19,4 @@ export interface CalendarDaysProps extends Omit<React.HTMLAttributes<HTMLDivElem
     onDayEnter?(value: Date): void;
     onDayLeave?(value: Date): void;
 }
-export declare const CalendarDays: React.FC<CalendarDaysProps>;
+export declare const CalendarDays: ({ viewDate, value, weekStartsOn, onDayChange, isDaySelected, isDayActive, isDaySelectionEnd, isDaySelectionStart, onDayEnter, onDayLeave, isDayHinted, isHintedDaySelectionStart, isHintedDaySelectionEnd, isDayFocused, isDayDisabled, size, showNeighboringMonth, ...props }: CalendarDaysProps) => JSX.Element;

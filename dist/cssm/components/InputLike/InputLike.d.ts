@@ -7,4 +7,7 @@ export interface InputLikeProps extends React.HTMLAttributes<HTMLSpanElement>, H
     value?: string;
     onElementSelect?(index: number): void;
 }
-export declare const InputLike: React.FC<InputLikeProps>;
+export declare const InputLike: {
+    ({ value, length, index, onElementSelect, onClick, onFocus, getRootRef, ...props }: InputLikeProps): JSX.Element;
+    displayName: string;
+};

@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.classScopingMode = exports.__controller = void 0;
 // exported for tests =(
+// eslint-disable-next-line @typescript-eslint/naming-convention
 var __controller = {
   _noConflict: false,
   _isSet: false,

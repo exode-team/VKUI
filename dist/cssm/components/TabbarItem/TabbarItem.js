@@ -2,12 +2,12 @@ import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["children", "selected", "label", "indicator", "text", "href", "Component", "disabled"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { getClassName } from "../../helpers/getClassName";
 import { Counter } from "../Counter/Counter";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { Tappable } from "../Tappable/Tappable";
+import { Footnote } from "../Typography/Footnote/Footnote";
 import { Platform } from "../../lib/platform";
 import { warnOnce } from "../../lib/warnOnce";
 import "./TabbarItem.css";
@@ -36,12 +36,8 @@ export var TabbarItem = function TabbarItem(_ref) {
 
   return createScopedElement(Component, _extends({}, restProps, {
     disabled: disabled,
-    href: href // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("TabbarItem", platform), {
-      "TabbarItem--selected": selected,
-      "TabbarItem--text": !!text
-    })
+    href: href,
+    vkuiClass: classNames("TabbarItem", platform === Platform.IOS && "TabbarItem--ios", platform === Platform.ANDROID && "TabbarItem--android", selected && "TabbarItem--selected", !!text && "TabbarItem--text")
   }), createScopedElement(Tappable, {
     role: "presentation",
     Component: "div",
@@ -59,8 +55,10 @@ export var TabbarItem = function TabbarItem(_ref) {
   }, hasReactNode(indicator) && indicator, !indicator && label && createScopedElement(Counter, {
     size: "s",
     mode: "prominent"
-  }, label))), text && createScopedElement("div", {
-    vkuiClass: "TabbarItem__text"
+  }, label))), text && createScopedElement(Footnote, {
+    Component: "div",
+    vkuiClass: "TabbarItem__text",
+    weight: "2"
   }, text)));
 };
 //# sourceMappingURL=TabbarItem.js.map

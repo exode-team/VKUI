@@ -1,9 +1,6 @@
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
-import { usePlatform } from "../../hooks/usePlatform";
 import { HasComponent, HasRootRef } from "../../types";
-import { hasReactNode } from "../../lib/utils";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import "./FormField.css";
 
@@ -19,7 +16,7 @@ export interface FormFieldProps {
    * Рекомендации:
    *
    * - Используйте следующие размеры иконок `12` | `16` | `20` | `24` | `28`.
-   * - Используйте [IconButton](#/IconButton), если вам нужна кликабельная иконка.
+   * - Используйте [IconButton](https://vkcom.github.io/VKUI/#/IconButton), если вам нужна кликабельная иконка.
    */
   before?: React.ReactNode;
   /**
@@ -28,7 +25,7 @@ export interface FormFieldProps {
    * Рекомендации:
    *
    * - Используйте следующие размеры иконок `12` | `16` | `20` | `24` | `28`.
-   * - Используйте [IconButton](#/IconButton), если вам нужна кликабельная иконка.
+   * - Используйте [IconButton](https://vkcom.github.io/VKUI/#/IconButton), если вам нужна кликабельная иконка.
    */
   after?: React.ReactNode;
   mode?: keyof typeof FormFieldMode;
@@ -45,7 +42,7 @@ interface FormFieldOwnProps
 /**
  * @see https://vkcom.github.io/VKUI/#/FormField
  */
-export const FormField: React.FC<FormFieldOwnProps> = ({
+export const FormField = ({
   Component = "div",
   children,
   getRootRef,
@@ -55,7 +52,6 @@ export const FormField: React.FC<FormFieldOwnProps> = ({
   mode = FormFieldMode.default,
   ...restProps
 }: FormFieldOwnProps) => {
-  const platform = usePlatform();
   const { sizeY } = useAdaptivity();
   const [hover, setHover] = React.useState(false);
 
@@ -77,20 +73,20 @@ export const FormField: React.FC<FormFieldOwnProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       vkuiClass={classNames(
-        getClassName("FormField", platform),
+        "FormField",
         `FormField--${mode}`,
-        `FormField--sizeY-${sizeY}`,
+        `FormField--sizeY-${sizeY}`, // TODO v5.0.0 поправить под новую адаптивность
         disabled && "FormField--disabled",
         !disabled && hover && "FormField--hover"
       )}
     >
-      {hasReactNode(before) && (
+      {before && (
         <div role="presentation" vkuiClass="FormField__before">
           {before}
         </div>
       )}
       {children}
-      {hasReactNode(after) && (
+      {after && (
         <div role="presentation" vkuiClass="FormField__after">
           {after}
         </div>

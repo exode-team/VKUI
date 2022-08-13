@@ -18,4 +18,4 @@ export interface DateRangeInputProps extends Omit<React.InputHTMLAttributes<HTML
 /**
  * @see https://vkcom.github.io/VKUI/#/DateRangeInput
  */
-export declare const DateRangeInput: React.FC<DateRangeInputProps>;
+export declare const DateRangeInput: ({ shouldDisableDate, disableFuture, disablePast, value, onChange, calendarPlacement, style, className, closeOnChange, disablePickers, getRootRef, name, autoFocus, disabled, onClick, onFocus, prevMonthAriaLabel, nextMonthAriaLabel, changeDayAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, changeStartDayAriaLabel, changeStartMonthAriaLabel, changeStartYearAriaLabel, changeEndDayAriaLabel, changeEndMonthAriaLabel, changeEndYearAriaLabel, clearFieldAriaLabel, showCalendarAriaLabel, prevMonthIcon, nextMonthIcon, ...props }: DateRangeInputProps) => JSX.Element;

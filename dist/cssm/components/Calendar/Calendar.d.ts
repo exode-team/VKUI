@@ -30,4 +30,4 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 /**
  * @see https://vkcom.github.io/VKUI/#/Calendar
  */
-export declare const Calendar: React.FC<CalendarProps>;
+export declare const Calendar: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, enableTime, doneButtonText, weekStartsOn, getRootRef, disablePickers, changeHoursAriaLabel, changeMinutesAriaLabel, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, showNeighboringMonth, changeDayAriaLabel, size, viewDate: externalViewDate, onHeaderChange, onNextMonth, onPrevMonth, prevMonthIcon, nextMonthIcon, ...props }: CalendarProps) => JSX.Element;

@@ -10,9 +10,6 @@ import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { useEnsuredControl } from "../../hooks/useEnsuredControl";
 import { useExternRef } from "../../hooks/useExternRef";
 
-/**
- * @see https://vkcom.github.io/VKUI/#/Textarea
- */
 var TextareaComponent = function TextareaComponent(_ref) {
   var _ref$defaultValue = _ref.defaultValue,
       defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,
@@ -69,10 +66,14 @@ var TextareaComponent = function TextareaComponent(_ref) {
     onChange: onChange,
     ref: elementRef
   })));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Textarea
+ */
 
 
 export var Textarea = withAdaptivity(TextareaComponent, {
   sizeY: true
 });
+Textarea.displayName = "Textarea";
 //# sourceMappingURL=Textarea.js.map

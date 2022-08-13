@@ -9,5 +9,7 @@ export declare const MEDIUM_HEIGHT = 720;
 /**
  * @see https://vkcom.github.io/VKUI/#/AdaptivityProvider
  */
-declare const AdaptivityProvider: React.FC<AdaptivityProps>;
+declare const AdaptivityProvider: (props: AdaptivityProps & {
+    children?: React.ReactNode;
+}) => JSX.Element;
 export { AdaptivityProvider };

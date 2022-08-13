@@ -44,4 +44,4 @@ export interface CustomSelectOptionProps extends React.HTMLAttributes<HTMLDivEle
 /**
  * @see https://vkcom.github.io/VKUI/#/CustomSelectOption
  */
-export declare const CustomSelectOption: React.FC<CustomSelectOptionProps>;
+export declare const CustomSelectOption: ({ children, hierarchy, hovered, selected, before, after, option, description, disabled, style: styleProp, ...restProps }: CustomSelectOptionProps) => JSX.Element;

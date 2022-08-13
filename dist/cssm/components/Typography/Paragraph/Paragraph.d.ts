@@ -10,4 +10,4 @@ export interface ParagraphProps extends React.AllHTMLAttributes<HTMLElement>, Ha
 /**
  * @see https://vkcom.github.io/VKUI/#/Paragraph
  */
-export declare const Paragraph: React.FC<ParagraphProps>;
+export declare const Paragraph: ({ Component, getRootRef, weight, children, ...restProps }: ParagraphProps) => JSX.Element;

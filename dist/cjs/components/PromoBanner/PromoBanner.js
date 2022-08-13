@@ -39,18 +39,19 @@ var _getClassName = require("../../helpers/getClassName");
 
 var _warnOnce = require("../../lib/warnOnce");
 
-var _excluded = ["bannerData", "onClose"];
+var _excluded = ["bannerData", "onClose", "isCloseButtonHidden"];
 var warn = (0, _warnOnce.warnOnce)("PromoBanner");
 /**
  * @see https://vkcom.github.io/VKUI/#/PromoBanner
  */
 
-var PromoBanner = function PromoBanner(props) {
+var PromoBanner = function PromoBanner(_ref) {
+  var _ref$bannerData = _ref.bannerData,
+      bannerData = _ref$bannerData === void 0 ? {} : _ref$bannerData,
+      onClose = _ref.onClose,
+      isCloseButtonHidden = _ref.isCloseButtonHidden,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-  var _props$bannerData = props.bannerData,
-      bannerData = _props$bannerData === void 0 ? {} : _props$bannerData,
-      onClose = props.onClose,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
   var ageRestrictions = bannerData.ageRestrictions != null ? parseInt(bannerData.ageRestrictions) : bannerData.ageRestriction;
 
   if (bannerData.ageRestriction && process.env.NODE_ENV === "development") {
@@ -83,9 +84,9 @@ var PromoBanner = function PromoBanner(props) {
     vkuiClass: "PromoBanner__label"
   }, bannerData.advertisingLabel || "Advertisement"), ageRestrictions != null && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "PromoBanner__age"
-  }, ageRestrictions, "+"), !props.isCloseButtonHidden && (0, _jsxRuntime.createScopedElement)("div", {
+  }, ageRestrictions, "+"), !isCloseButtonHidden && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PromoBanner__close",
-    onClick: props.onClose
+    onClick: onClose
   }, (0, _jsxRuntime.createScopedElement)(_icons.Icon24Dismiss, null))), (0, _jsxRuntime.createScopedElement)(_SimpleCell.SimpleCell, {
     href: bannerData.trackingLink,
     onClick: onClick,

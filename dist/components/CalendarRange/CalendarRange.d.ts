@@ -16,4 +16,4 @@ export interface CalendarRangeProps extends Omit<React.HTMLAttributes<HTMLDivEle
 /**
  * @see https://vkcom.github.io/VKUI/#/CalendarRange
  */
-export declare const CalendarRange: React.FC<CalendarRangeProps>;
+export declare const CalendarRange: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, weekStartsOn, getRootRef, disablePickers, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, changeDayAriaLabel, prevMonthIcon, nextMonthIcon, ...props }: CalendarRangeProps) => JSX.Element;

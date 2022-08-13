@@ -14,6 +14,8 @@ export const SplitColContext = React.createContext<SplitColContextProps>({
   animate: true,
 });
 
+export const useSplitCol = () => React.useContext(SplitColContext);
+
 export interface SplitColProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: number | string;
   maxWidth?: number | string;
@@ -32,18 +34,17 @@ export interface SplitColProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/SplitCol
  */
-export const SplitCol: React.FC<SplitColProps> = (props: SplitColProps) => {
-  const {
-    children,
-    width,
-    maxWidth,
-    minWidth,
-    spaced,
-    animate = false,
-    fixed,
-    style,
-    ...restProps
-  } = props;
+export const SplitCol = ({
+  children,
+  width,
+  maxWidth,
+  minWidth,
+  spaced,
+  animate = false,
+  fixed,
+  style,
+  ...restProps
+}: SplitColProps) => {
   const baseRef = React.useRef<HTMLDivElement>(null);
 
   const fixedInnerRef = React.useRef<HTMLDivElement>(null);

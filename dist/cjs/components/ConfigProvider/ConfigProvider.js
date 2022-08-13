@@ -15,8 +15,6 @@ var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/sli
 
 var React = _interopRequireWildcard(require("react"));
 
-var _vkBridge = _interopRequireDefault(require("@vkontakte/vk-bridge"));
-
 var _dom = require("../../lib/dom");
 
 var _ConfigProviderContext = require("./ConfigProviderContext");
@@ -34,8 +32,6 @@ var _scheme2 = require("../../helpers/scheme");
 var _AppearanceProvider = require("../AppearanceProvider/AppearanceProvider");
 
 var _LocaleProviderContext = require("../LocaleProviderContext/LocaleProviderContext");
-
-var _platform = require("../../lib/platform");
 
 var warn = (0, _warnOnce.warnOnce)("ConfigProvider");
 
@@ -82,22 +78,25 @@ var deriveAppearance = function deriveAppearance(scheme) {
  */
 
 
-var ConfigProvider = function ConfigProvider(_ref) {
-  var children = _ref.children,
-      _ref$webviewType = _ref.webviewType,
-      webviewType = _ref$webviewType === void 0 ? _ConfigProviderContext.WebviewType.VKAPPS : _ref$webviewType,
-      _ref$isWebView = _ref.isWebView,
-      isWebView = _ref$isWebView === void 0 ? _vkBridge.default.isWebView() : _ref$isWebView,
-      _ref$transitionMotion = _ref.transitionMotionEnabled,
-      transitionMotionEnabled = _ref$transitionMotion === void 0 ? true : _ref$transitionMotion,
-      _ref$platform = _ref.platform,
-      platform = _ref$platform === void 0 ? (0, _platform.platform)() : _ref$platform,
-      _ref$hasNewTokens = _ref.hasNewTokens,
-      hasNewTokens = _ref$hasNewTokens === void 0 ? false : _ref$hasNewTokens,
-      appearance = _ref.appearance,
-      scheme = _ref.scheme,
-      _ref$locale = _ref.locale,
-      locale = _ref$locale === void 0 ? "ru" : _ref$locale;
+var ConfigProvider = function ConfigProvider(props) {
+  var parentLocale = React.useContext(_LocaleProviderContext.LocaleProviderContext);
+  var parentConfig = React.useContext(_ConfigProviderContext.ConfigProviderContext);
+  var children = props.children,
+      _props$webviewType = props.webviewType,
+      webviewType = _props$webviewType === void 0 ? parentConfig.webviewType : _props$webviewType,
+      _props$isWebView = props.isWebView,
+      isWebView = _props$isWebView === void 0 ? parentConfig.isWebView : _props$isWebView,
+      _props$transitionMoti = props.transitionMotionEnabled,
+      transitionMotionEnabled = _props$transitionMoti === void 0 ? parentConfig.transitionMotionEnabled : _props$transitionMoti,
+      _props$platform = props.platform,
+      platform = _props$platform === void 0 ? parentConfig.platform : _props$platform,
+      _props$hasNewTokens = props.hasNewTokens,
+      hasNewTokens = _props$hasNewTokens === void 0 ? parentConfig.hasNewTokens : _props$hasNewTokens,
+      _props$appearance = props.appearance,
+      appearance = _props$appearance === void 0 ? parentConfig.appearance : _props$appearance,
+      scheme = props.scheme,
+      _props$locale = props.locale,
+      locale = _props$locale === void 0 ? parentLocale !== null && parentLocale !== void 0 ? parentLocale : "ru" : _props$locale;
   var normalizedScheme = (0, _scheme2.normalizeScheme)({
     scheme: scheme,
     platform: platform,
@@ -113,7 +112,8 @@ var ConfigProvider = function ConfigProvider(_ref) {
       return _utils.noop;
     }
 
-    if (process.env.NODE_ENV === "development" && target !== null && target !== void 0 && target.hasAttribute("scheme")) {
+    if (process.env.NODE_ENV === "development" && target !== null && target !== void 0 && target.hasAttribute("scheme") && parentConfig.appearance === undefined // appearance не была вычислена в родительском конфиге, @deprecated будет удалено в 5.0.0
+    ) {
       warn('<body scheme> был установлен перед монтированием VKUI - вы не забыли scheme="inherit"?');
     }
 
@@ -125,9 +125,11 @@ var ConfigProvider = function ConfigProvider(_ref) {
   var realScheme = useSchemeDetector(target, normalizedScheme);
   var derivedAppearance = deriveAppearance(realScheme);
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
-    var VKUITokensClassName = (0, _AppearanceProvider.generateVKUITokensClassName)(platform, derivedAppearance);
+    var VKUITokensClassName = (0, _AppearanceProvider.generateVKUITokensClassName)(platform, derivedAppearance); // eslint-disable-next-line no-restricted-properties
+
     target === null || target === void 0 ? void 0 : target.classList.add(VKUITokensClassName);
     return function () {
+      // eslint-disable-next-line no-restricted-properties
       target === null || target === void 0 ? void 0 : target.classList.remove(VKUITokensClassName);
     };
   }, [platform, derivedAppearance]);

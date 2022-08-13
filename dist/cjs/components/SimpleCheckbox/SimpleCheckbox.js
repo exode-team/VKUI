@@ -42,18 +42,18 @@ var warn = (0, _warnOnce.warnOnce)("SimpleCheckbox");
 var IS_DEV = process.env.NODE_ENV === "development";
 
 /**
- * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`Checkbox`](#/Checkbox).
+ * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`Checkbox`](https://vkcom.github.io/VKUI/#/Checkbox).
  * @see https://vkcom.github.io/VKUI/#/SimpleCheckbox
  */
-var SimpleCheckbox = function SimpleCheckbox(props) {
-  var className = props.className,
-      style = props.style,
-      getRootRef = props.getRootRef,
-      getRef = props.getRef,
-      indeterminate = props.indeterminate,
-      defaultIndeterminate = props.defaultIndeterminate,
-      onChange = props.onChange,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var SimpleCheckbox = function SimpleCheckbox(_ref) {
+  var className = _ref.className,
+      style = _ref.style,
+      getRootRef = _ref.getRootRef,
+      getRef = _ref.getRef,
+      indeterminate = _ref.indeterminate,
+      defaultIndeterminate = _ref.defaultIndeterminate,
+      onChange = _ref.onChange,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
       sizeY = _useAdaptivity.sizeY;

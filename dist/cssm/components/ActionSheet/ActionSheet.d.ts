@@ -26,4 +26,4 @@ export interface ActionSheetProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheet
  */
-export declare const ActionSheet: React.FC<ActionSheetProps>;
+export declare const ActionSheet: ({ children, className, header, text, style, iosCloseItem, popupDirection, ...restProps }: ActionSheetProps) => JSX.Element;

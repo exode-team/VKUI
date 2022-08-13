@@ -7,4 +7,4 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement>, Has
 /**
  * @see https://vkcom.github.io/VKUI/#/Progress
  */
-export declare const Progress: React.FC<ProgressProps>;
+export declare const Progress: ({ value, getRootRef, ...restProps }: ProgressProps) => JSX.Element;

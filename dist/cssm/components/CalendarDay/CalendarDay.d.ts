@@ -19,4 +19,4 @@ export interface CalendarDayProps {
     onEnter?(value: Date): void;
     onLeave?(value: Date): void;
 }
-export declare const CalendarDay: React.FC<CalendarDayProps>;
+export declare const CalendarDay: React.MemoExoticComponent<({ day, today, selected, onChange, hidden, disabled, active, selectionStart, selectionEnd, focused, onEnter, onLeave, hinted, hintedSelectionStart, hintedSelectionEnd, sameMonth, size, }: CalendarDayProps) => JSX.Element>;

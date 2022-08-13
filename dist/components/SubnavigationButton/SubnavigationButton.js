@@ -29,18 +29,19 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
  */
 
 
-export var SubnavigationButton = function SubnavigationButton(props) {
+export var SubnavigationButton = function SubnavigationButton(_ref2) {
+  var _ref2$size = _ref2.size,
+      size = _ref2$size === void 0 ? "m" : _ref2$size,
+      selected = _ref2.selected,
+      _ref2$textLevel = _ref2.textLevel,
+      textLevel = _ref2$textLevel === void 0 ? 1 : _ref2$textLevel,
+      before = _ref2.before,
+      after = _ref2.after,
+      expandable = _ref2.expandable,
+      children = _ref2.children,
+      restProps = _objectWithoutProperties(_ref2, _excluded2);
+
   var platform = usePlatform();
-
-  var size = props.size,
-      selected = props.selected,
-      textLevel = props.textLevel,
-      before = props.before,
-      after = props.after,
-      expandable = props.expandable,
-      children = props.children,
-      restProps = _objectWithoutProperties(props, _excluded2);
-
   return createScopedElement(Tappable, _extends({}, restProps, {
     hasActive: false,
     focusVisibleMode: "outside" // eslint-disable-next-line vkui/no-object-expression-in-arguments
@@ -62,9 +63,5 @@ export var SubnavigationButton = function SubnavigationButton(props) {
   }, after), expandable && createScopedElement(Icon16Dropdown, {
     vkuiClass: "SubnavigationButton__expandableIcon"
   })));
-};
-SubnavigationButton.defaultProps = {
-  size: "m",
-  textLevel: 1
 };
 //# sourceMappingURL=SubnavigationButton.js.map

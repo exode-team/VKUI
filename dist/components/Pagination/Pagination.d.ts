@@ -42,4 +42,4 @@ export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>,
 /**
  * @see https://vkcom.github.io/VKUI/#/Pagination
  */
-export declare const Pagination: React.FC<PaginationProps>;
+export declare const Pagination: ({ currentPage, siblingCount, boundaryCount, totalPages, disabled, getPageAriaLabel, prevButtonAriaLabel, nextButtonAriaLabel, getRootRef, onChange, ...resetProps }: PaginationProps) => JSX.Element;

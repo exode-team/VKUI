@@ -49,16 +49,18 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
  */
 
 
-var SubnavigationButton = function SubnavigationButton(props) {
+var SubnavigationButton = function SubnavigationButton(_ref2) {
+  var _ref2$size = _ref2.size,
+      size = _ref2$size === void 0 ? "m" : _ref2$size,
+      selected = _ref2.selected,
+      _ref2$textLevel = _ref2.textLevel,
+      textLevel = _ref2$textLevel === void 0 ? 1 : _ref2$textLevel,
+      before = _ref2.before,
+      after = _ref2.after,
+      expandable = _ref2.expandable,
+      children = _ref2.children,
+      restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
   var platform = (0, _usePlatform.usePlatform)();
-  var size = props.size,
-      selected = props.selected,
-      textLevel = props.textLevel,
-      before = props.before,
-      after = props.after,
-      expandable = props.expandable,
-      children = props.children,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     hasActive: false,
     focusVisibleMode: "outside" // eslint-disable-next-line vkui/no-object-expression-in-arguments
@@ -83,8 +85,4 @@ var SubnavigationButton = function SubnavigationButton(props) {
 };
 
 exports.SubnavigationButton = SubnavigationButton;
-SubnavigationButton.defaultProps = {
-  size: "m",
-  textLevel: 1
-};
 //# sourceMappingURL=SubnavigationButton.js.map

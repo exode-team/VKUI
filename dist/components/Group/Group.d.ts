@@ -18,6 +18,7 @@ export interface GroupProps extends HasRootRef<HTMLElement>, React.HTMLAttribute
      * по умолчанию 'plain'.
      */
     mode?: "plain" | "card";
+    children?: React.ReactNode;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/Group

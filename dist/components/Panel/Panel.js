@@ -45,4 +45,5 @@ export var Panel = withAdaptivity(function (_ref) {
 }, {
   sizeX: true
 });
+Panel.displayName = "Panel";
 //# sourceMappingURL=Panel.js.map

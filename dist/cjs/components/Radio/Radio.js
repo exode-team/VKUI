@@ -56,14 +56,14 @@ var RadioIcon = function RadioIcon(props) {
   }));
 };
 
-var RadioComponent = function RadioComponent(props) {
-  var children = props.children,
-      description = props.description,
-      style = props.style,
-      className = props.className,
-      getRootRef = props.getRootRef,
-      sizeY = props.sizeY,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var RadioComponent = function RadioComponent(_ref) {
+  var children = _ref.children,
+      description = _ref.description,
+      style = _ref.style,
+      className = _ref.className,
+      getRootRef = _ref.getRootRef,
+      sizeY = _ref.sizeY,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var RadioTypography = platform === _platform.VKCOM || sizeY === _withAdaptivity.SizeType.COMPACT ? _Text.Text : _Headline.Headline;
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
@@ -99,4 +99,5 @@ var Radio = (0, _withAdaptivity.withAdaptivity)(RadioComponent, {
   sizeY: true
 });
 exports.Radio = Radio;
+Radio.displayName = "Radio";
 //# sourceMappingURL=Radio.js.map

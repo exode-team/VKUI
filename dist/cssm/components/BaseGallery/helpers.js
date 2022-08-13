@@ -5,8 +5,8 @@ export var calcMin = function calcMin(_ref) {
       layerWidth = _ref$layerWidth === void 0 ? 0 : _ref$layerWidth,
       _ref$slides = _ref.slides,
       slides = _ref$slides === void 0 ? [] : _ref$slides,
-      _ref$viewporOffsettWi = _ref.viewporOffsettWidth,
-      viewporOffsettWidth = _ref$viewporOffsettWi === void 0 ? 0 : _ref$viewporOffsettWi,
+      _ref$viewportOffsetWi = _ref.viewportOffsetWidth,
+      viewportOffsetWidth = _ref$viewportOffsetWi === void 0 ? 0 : _ref$viewportOffsetWi,
       align = _ref.align,
       isCenterWithCustomWidth = _ref.isCenterWithCustomWidth;
 
@@ -15,16 +15,16 @@ export var calcMin = function calcMin(_ref) {
       return containerWidth - layerWidth;
 
     case "right":
-      return viewporOffsettWidth - layerWidth;
+      return viewportOffsetWidth - layerWidth;
 
     case "center":
       if (isCenterWithCustomWidth && slides.length) {
         var _slides = slides[slides.length - 1],
             coordX = _slides.coordX,
             width = _slides.width;
-        return viewporOffsettWidth / 2 - coordX - width / 2;
+        return viewportOffsetWidth / 2 - coordX - width / 2;
       } else {
-        return viewporOffsettWidth - (containerWidth - viewporOffsettWidth) / 2 - layerWidth;
+        return viewportOffsetWidth - (containerWidth - viewportOffsetWidth) / 2 - layerWidth;
       }
 
   }
@@ -34,15 +34,15 @@ export var calcMin = function calcMin(_ref) {
 export var calcMax = function calcMax(_ref2) {
   var _ref2$slides = _ref2.slides,
       slides = _ref2$slides === void 0 ? [] : _ref2$slides,
-      _ref2$viewporOffsettW = _ref2.viewporOffsettWidth,
-      viewporOffsettWidth = _ref2$viewporOffsettW === void 0 ? 0 : _ref2$viewporOffsettW,
+      _ref2$viewportOffsetW = _ref2.viewportOffsetWidth,
+      viewportOffsetWidth = _ref2$viewportOffsetW === void 0 ? 0 : _ref2$viewportOffsetW,
       isCenterWithCustomWidth = _ref2.isCenterWithCustomWidth;
 
   if (isCenterWithCustomWidth && slides.length) {
     var _slides$ = slides[0],
         width = _slides$.width,
         coordX = _slides$.coordX;
-    return viewporOffsettWidth / 2 - coordX - width / 2;
+    return viewportOffsetWidth / 2 - coordX - width / 2;
   }
 
   return 0;

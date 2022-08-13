@@ -17,41 +17,41 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
+var _Headline = require("../Typography/Headline/Headline");
+
 var _usePlatform = require("../../hooks/usePlatform");
 
 var _useExternRef = require("../../hooks/useExternRef");
 
 var _utils = require("../../lib/utils");
 
-var _dom = require("../../lib/dom");
+var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
+var _platform = require("../../lib/platform");
 
-var _excluded = ["className", "style", "before", "inlineAfter", "after", "value", "onChange", "getRootRef", "getRef", "onHeightChange"];
+var _excluded = ["className", "style", "before", "inlineAfter", "after", "value", "onChange", "getRootRef", "getRef", "onHeightChange", "shadow"];
 
 /**
  * @see https://vkcom.github.io/VKUI/#/WriteBar
  */
-var WriteBar = function WriteBar(props) {
+var WriteBar = function WriteBar(_ref) {
+  var className = _ref.className,
+      style = _ref.style,
+      before = _ref.before,
+      inlineAfter = _ref.inlineAfter,
+      after = _ref.after,
+      value = _ref.value,
+      onChange = _ref.onChange,
+      getRootRef = _ref.getRootRef,
+      getRef = _ref.getRef,
+      onHeightChange = _ref.onHeightChange,
+      _ref$shadow = _ref.shadow,
+      shadow = _ref$shadow === void 0 ? false : _ref$shadow,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-  var className = props.className,
-      style = props.style,
-      before = props.before,
-      inlineAfter = props.inlineAfter,
-      after = props.after,
-      value = props.value,
-      onChange = props.onChange,
-      getRootRef = props.getRootRef,
-      getRef = props.getRef,
-      onHeightChange = props.onHeightChange,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
   var isControlledOutside = value != null;
-
-  var _useDOM = (0, _dom.useDOM)(),
-      window = _useDOM.window;
-
   var textareaRef = (0, _useExternRef.useExternRef)(getRef);
-  var textareaMinHeightRef = React.useRef(null);
+  var currentScrollHeight = React.useRef();
   var resize = React.useCallback(function () {
     var textareaEl = textareaRef.current;
 
@@ -59,30 +59,16 @@ var WriteBar = function WriteBar(props) {
       return;
     }
 
-    var offsetHeight = textareaEl.offsetHeight,
-        scrollHeight = textareaEl.scrollHeight;
-    var style = window.getComputedStyle(textareaEl);
-    var paddingTop = parseInt(style.paddingTop);
-    var paddingBottom = parseInt(style.paddingBottom);
+    if (textareaEl.offsetParent) {
+      textareaEl.style.height = "";
+      textareaEl.style.height = "".concat(textareaEl.scrollHeight, "px");
 
-    if (textareaMinHeightRef.current === null) {
-      textareaMinHeightRef.current = offsetHeight;
+      if (textareaEl.scrollHeight !== currentScrollHeight.current && onHeightChange) {
+        onHeightChange();
+        currentScrollHeight.current = textareaEl.scrollHeight;
+      }
     }
-
-    var diff = paddingTop + paddingBottom + 10;
-
-    if (scrollHeight + diff <= offsetHeight) {
-      diff = 0;
-    }
-
-    textareaEl.style.height = "0px";
-    var height = textareaEl.scrollHeight - diff / 4;
-    textareaEl.style.height = String(Math.max(height, textareaMinHeightRef.current)) + "px";
-
-    if ((0, _utils.isFunction)(onHeightChange)) {
-      onHeightChange();
-    }
-  }, [onHeightChange, textareaRef, window]);
+  }, [onHeightChange, textareaRef]);
 
   var onTextareaChange = function onTextareaChange(event) {
     if ((0, _utils.isFunction)(onChange)) {
@@ -99,7 +85,7 @@ var WriteBar = function WriteBar(props) {
   }, [resize, value]);
   return (0, _jsxRuntime.createScopedElement)("div", {
     ref: getRootRef,
-    vkuiClass: (0, _getClassName.getClassName)("WriteBar", platform),
+    vkuiClass: (0, _classNames.classNames)("WriteBar", platform === _platform.IOS && "WriteBar--ios", shadow && "WriteBar--shadow"),
     className: className,
     style: style
   }, (0, _jsxRuntime.createScopedElement)("form", {
@@ -111,10 +97,11 @@ var WriteBar = function WriteBar(props) {
     vkuiClass: "WriteBar__before"
   }, before), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "WriteBar__formIn"
-  }, (0, _jsxRuntime.createScopedElement)("textarea", (0, _extends2.default)({}, restProps, {
+  }, (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({}, restProps, {
+    Component: "textarea",
     vkuiClass: "WriteBar__textarea",
     onChange: onTextareaChange,
-    ref: textareaRef,
+    getRootRef: textareaRef,
     value: value
   })), (0, _utils.hasReactNode)(inlineAfter) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "WriteBar__inlineAfter"

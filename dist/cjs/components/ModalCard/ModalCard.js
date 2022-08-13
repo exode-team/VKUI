@@ -66,11 +66,8 @@ var ModalCardComponent = function ModalCardComponent(_ref) {
       refs = _useModalRegistry.refs;
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    id: id // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalCard", platform), {
-      "ModalCard--desktop": isDesktop
-    })
+    id: id,
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalCard", platform), isDesktop && "ModalCard--desktop")
   }), (0, _jsxRuntime.createScopedElement)(_ModalCardBase.ModalCardBase, {
     vkuiClass: "ModalCard__in",
     getRootRef: refs.innerElement,

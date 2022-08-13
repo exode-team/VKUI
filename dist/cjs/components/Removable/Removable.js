@@ -27,8 +27,6 @@ var _useExternRef = require("../../hooks/useExternRef");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _dom = require("../../lib/dom");
@@ -155,8 +153,8 @@ var Removable = function Removable(_ref2) {
   var removePlaceholderString = (0, _utils.getTitleFromChildren)(removePlaceholder);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     ref: ref,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Removable", platform), "Removable--".concat(align), "Removable--sizeY-".concat(sizeY))
-  }), (platform === _platform.ANDROID || platform === _platform.VKCOM) && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: (0, _classNames.classNames)("Removable", platform === _platform.IOS && "Removable--ios", "Removable--".concat(align), "Removable--sizeY-".concat(sizeY))
+  }), platform !== _platform.IOS && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Removable__content"
   }, children, (0, _jsxRuntime.createScopedElement)(_IconButton.IconButton, {
     activeMode: "opacity",

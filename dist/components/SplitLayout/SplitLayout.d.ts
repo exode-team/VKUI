@@ -15,4 +15,4 @@ export interface SplitLayoutProps extends React.HTMLAttributes<HTMLDivElement>, 
 /**
  * @see https://vkcom.github.io/VKUI/#/SplitLayout
  */
-export declare const SplitLayout: React.FC<SplitLayoutProps>;
+export declare const SplitLayout: ({ popout, modal, header, children, getRootRef, getRef, ...restProps }: SplitLayoutProps) => JSX.Element;

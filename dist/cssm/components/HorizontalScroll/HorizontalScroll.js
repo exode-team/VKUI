@@ -1,12 +1,11 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "getScrollToLeft", "getScrollToRight", "showArrows", "scrollAnimationDuration", "hasMouse", "getRef"];
+var _excluded = ["children", "getScrollToLeft", "getScrollToRight", "showArrows", "arrowSize", "scrollAnimationDuration", "hasMouse", "getRef"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
-import HorizontalScrollArrow from "./HorizontalScrollArrow";
+import { HorizontalScrollArrow } from "./HorizontalScrollArrow";
 import { easeInOutSine } from "../../lib/fx";
 import { useEventListener } from "../../hooks/useEventListener";
 import { useExternRef } from "../../hooks/useExternRef";
@@ -100,6 +99,8 @@ var HorizontalScrollComponent = function HorizontalScrollComponent(_ref2) {
       getScrollToRight = _ref2.getScrollToRight,
       _ref2$showArrows = _ref2.showArrows,
       showArrows = _ref2$showArrows === void 0 ? true : _ref2$showArrows,
+      _ref2$arrowSize = _ref2.arrowSize,
+      arrowSize = _ref2$arrowSize === void 0 ? "l" : _ref2$arrowSize,
       _ref2$scrollAnimation = _ref2.scrollAnimationDuration,
       scrollAnimationDuration = _ref2$scrollAnimation === void 0 ? SCROLL_ONE_FRAME_TIME : _ref2$scrollAnimation,
       hasMouse = _ref2.hasMouse,
@@ -173,13 +174,16 @@ var HorizontalScrollComponent = function HorizontalScrollComponent(_ref2) {
   }, [scrollEvent, scrollerRef]);
   React.useEffect(onscroll, [scrollerRef, children, onscroll]);
   return createScopedElement("div", _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames("HorizontalScroll", _defineProperty({}, "HorizontalScroll--withConstArrows", showArrows === "always"))
+    vkuiClass: classNames("HorizontalScroll", showArrows === "always" && "HorizontalScroll--withConstArrows")
   }), showArrows && hasMouse && canScrollLeft && createScopedElement(HorizontalScrollArrow, {
+    size: arrowSize,
     direction: "left",
+    vkuiClass: "HorizontalScroll__arrowLeft",
     onClick: scrollToLeft
   }), showArrows && hasMouse && canScrollRight && createScopedElement(HorizontalScrollArrow, {
+    size: arrowSize,
     direction: "right",
+    vkuiClass: "HorizontalScroll__arrowRight",
     onClick: scrollToRight
   }), createScopedElement("div", {
     vkuiClass: "HorizontalScroll__in",
@@ -196,4 +200,5 @@ var HorizontalScrollComponent = function HorizontalScrollComponent(_ref2) {
 export var HorizontalScroll = withAdaptivity(HorizontalScrollComponent, {
   hasMouse: true
 });
+HorizontalScroll.displayName = "HorizontalScroll";
 //# sourceMappingURL=HorizontalScroll.js.map

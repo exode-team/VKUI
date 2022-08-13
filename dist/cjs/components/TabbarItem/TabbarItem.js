@@ -13,8 +13,6 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _Counter = require("../Counter/Counter");
 
 var _classNames = require("../../lib/classNames");
@@ -24,6 +22,8 @@ var _usePlatform = require("../../hooks/usePlatform");
 var _utils = require("../../lib/utils");
 
 var _Tappable = require("../Tappable/Tappable");
+
+var _Footnote = require("../Typography/Footnote/Footnote");
 
 var _platform = require("../../lib/platform");
 
@@ -54,12 +54,8 @@ var TabbarItem = function TabbarItem(_ref) {
 
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
     disabled: disabled,
-    href: href // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("TabbarItem", platform), {
-      "TabbarItem--selected": selected,
-      "TabbarItem--text": !!text
-    })
+    href: href,
+    vkuiClass: (0, _classNames.classNames)("TabbarItem", platform === _platform.Platform.IOS && "TabbarItem--ios", platform === _platform.Platform.ANDROID && "TabbarItem--android", selected && "TabbarItem--selected", !!text && "TabbarItem--text")
   }), (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
     role: "presentation",
     Component: "div",
@@ -77,8 +73,10 @@ var TabbarItem = function TabbarItem(_ref) {
   }, (0, _utils.hasReactNode)(indicator) && indicator, !indicator && label && (0, _jsxRuntime.createScopedElement)(_Counter.Counter, {
     size: "s",
     mode: "prominent"
-  }, label))), text && (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "TabbarItem__text"
+  }, label))), text && (0, _jsxRuntime.createScopedElement)(_Footnote.Footnote, {
+    Component: "div",
+    vkuiClass: "TabbarItem__text",
+    weight: "2"
   }, text)));
 };
 

@@ -1,10 +1,8 @@
 import React, { useRef, useEffect } from 'react';
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { FormField, FormFieldProps } from "../FormField/FormField";
 import { HasAlign, HasRef, HasRootRef } from "../../types";
 import { withAdaptivity, AdaptivityProps } from "../../hoc/withAdaptivity";
-import { usePlatform } from "../../hooks/usePlatform";
 import "./Input.css";
 
 export interface InputProps
@@ -19,7 +17,7 @@ export interface InputProps
   caretPosition?: number;
 }
 
-const InputComponent: React.FunctionComponent<InputProps> = ({
+const InputComponent = ({
   type = "text",
   align,
   getRef,
@@ -37,7 +35,6 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
   ...restProps
 }: InputProps) => {
 
-  const platform = usePlatform();
   const ref = useRef<HTMLInputElement>(null);
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -62,9 +59,11 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
   return (
     <FormField
       vkuiClass={classNames(
-        getClassName("Input", platform),
+        "Input",
         !!align && `Input--${align}`,
-        `Input--sizeY-${sizeY}`
+        `Input--sizeY-${sizeY}`, // TODO v5.0.0 поправить под новую адаптивность
+        before && "Input--hasBefore",
+        after && "Input--hasAfter"
       )}
       style={style}
       className={className}
@@ -84,3 +83,5 @@ const InputComponent: React.FunctionComponent<InputProps> = ({
 export const Input = withAdaptivity(InputComponent, {
   sizeY: true,
 });
+
+Input.displayName = "Input";

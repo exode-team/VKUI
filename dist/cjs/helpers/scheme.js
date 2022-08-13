@@ -40,15 +40,15 @@ function normalizeScheme(_ref) {
       scheme = _ref.scheme,
       appearance = _ref.appearance;
 
-  if (appearance) {
+  if (scheme === "inherit") {
+    return scheme;
+  }
+
+  if (appearance || scheme === undefined) {
     return (0, _getScheme.getScheme)({
       platform: platform,
       appearance: appearance
     });
-  }
-
-  if (scheme === "inherit") {
-    return scheme;
   }
 
   if (scheme === Scheme.VKCOM) {

@@ -12,21 +12,24 @@ export var SplitColContext = /*#__PURE__*/React.createContext({
   colRef: null,
   animate: true
 });
+export var useSplitCol = function useSplitCol() {
+  return React.useContext(SplitColContext);
+};
 
 /**
  * @see https://vkcom.github.io/VKUI/#/SplitCol
  */
-export var SplitCol = function SplitCol(props) {
-  var children = props.children,
-      width = props.width,
-      maxWidth = props.maxWidth,
-      minWidth = props.minWidth,
-      spaced = props.spaced,
-      _props$animate = props.animate,
-      animate = _props$animate === void 0 ? false : _props$animate,
-      fixed = props.fixed,
-      style = props.style,
-      restProps = _objectWithoutProperties(props, _excluded);
+export var SplitCol = function SplitCol(_ref) {
+  var children = _ref.children,
+      width = _ref.width,
+      maxWidth = _ref.maxWidth,
+      minWidth = _ref.minWidth,
+      spaced = _ref.spaced,
+      _ref$animate = _ref.animate,
+      animate = _ref$animate === void 0 ? false : _ref$animate,
+      fixed = _ref.fixed,
+      style = _ref.style,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var baseRef = React.useRef(null);
   var fixedInnerRef = React.useRef(null);

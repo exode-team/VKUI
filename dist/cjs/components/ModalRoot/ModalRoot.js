@@ -412,9 +412,9 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
           expanded = modalState.expanded;
 
       if (!this.state.touchDown) {
-        var _modalState$contentEl2;
+        var _modalState$contentEl2, _modalState$contentEl3;
 
-        modalState.touchStartContentScrollTop = (_modalState$contentEl2 = modalState.contentElement) === null || _modalState$contentEl2 === void 0 ? void 0 : _modalState$contentEl2.scrollTop;
+        modalState.touchStartContentScrollTop = (_modalState$contentEl2 = (_modalState$contentEl3 = modalState.contentElement) === null || _modalState$contentEl3 === void 0 ? void 0 : _modalState$contentEl3.scrollTop) !== null && _modalState$contentEl2 !== void 0 ? _modalState$contentEl2 : 0;
         this.setState({
           touchDown: true
         });
@@ -794,6 +794,12 @@ function initPageModal(modalState) {
 
   if (modalState.expandable && translateY > (prevTranslateY !== null && prevTranslateY !== void 0 ? prevTranslateY : 0) || modalState.settlingHeight === 100) {
     translateY = 0;
+  } // Если модалка уже раскрыта обновляем состояния
+
+
+  if (translateY === 0) {
+    expanded = true;
+    collapsed = false;
   }
 
   modalState.expandedRange = expandedRange;

@@ -9,21 +9,28 @@ exports.CustomScrollView = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
-var _dom = require("../../lib/dom");
-
 var React = _interopRequireWildcard(require("react"));
 
-var _useExternRef = require("../../hooks/useExternRef");
+var _dom = require("../../lib/dom");
+
+var _classNames = require("../../lib/classNames");
 
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
+var _useExternRef = require("../../hooks/useExternRef");
+
 var _useEventListener = require("../../hooks/useEventListener");
+
+var _useTrackerVisibility2 = require("./useTrackerVisibility");
 
 var CustomScrollView = function CustomScrollView(_ref) {
   var className = _ref.className,
       children = _ref.children,
       externalBoxRef = _ref.boxRef,
-      windowResize = _ref.windowResize;
+      windowResize = _ref.windowResize,
+      _ref$autoHideScrollba = _ref.autoHideScrollbar,
+      autoHideScrollbar = _ref$autoHideScrollba === void 0 ? false : _ref$autoHideScrollba,
+      autoHideScrollbarDelay = _ref.autoHideScrollbarDelay;
 
   var _useDOM = (0, _dom.useDOM)(),
       document = _useDOM.document,
@@ -116,14 +123,31 @@ var CustomScrollView = function CustomScrollView(_ref) {
     setScrollPositionFromTracker(position);
   };
 
+  var _useTrackerVisibility = (0, _useTrackerVisibility2.useTrackerVisibility)(autoHideScrollbar, autoHideScrollbarDelay),
+      trackerVisible = _useTrackerVisibility.trackerVisible,
+      onTargetScroll = _useTrackerVisibility.onTargetScroll,
+      onTrackerDragStart = _useTrackerVisibility.onTrackerDragStart,
+      onTrackerDragStop = _useTrackerVisibility.onTrackerDragStop,
+      onTrackerMouseEnter = _useTrackerVisibility.onTrackerMouseEnter,
+      onTrackerMouseLeave = _useTrackerVisibility.onTrackerMouseLeave;
+
   var onUp = function onUp(e) {
     e.preventDefault();
+
+    if (autoHideScrollbar) {
+      onTrackerDragStop();
+    }
+
     unsubscribe();
   };
 
   var scroll = function scroll() {
     if (ratio.current >= 1 || !boxRef.current) {
       return;
+    }
+
+    if (autoHideScrollbar) {
+      onTargetScroll();
     }
 
     setTrackerPositionFromScroll(boxRef.current.scrollTop);
@@ -149,6 +173,11 @@ var CustomScrollView = function CustomScrollView(_ref) {
     e.preventDefault();
     startY.current = e.clientY;
     trackerTop.current = lastTrackerTop.current;
+
+    if (autoHideScrollbar) {
+      onTrackerDragStart();
+    }
+
     subscribe(document);
   };
 
@@ -159,7 +188,9 @@ var CustomScrollView = function CustomScrollView(_ref) {
     vkuiClass: "CustomScrollView__barY",
     ref: barY
   }, (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "CustomScrollView__trackerY",
+    vkuiClass: (0, _classNames.classNames)("CustomScrollView__trackerY", !trackerVisible && "CustomScrollView__trackerY--hidden"),
+    onMouseEnter: autoHideScrollbar ? onTrackerMouseEnter : undefined,
+    onMouseLeave: autoHideScrollbar ? onTrackerMouseLeave : undefined,
     ref: trackerY,
     onMouseDown: onDragStart
   })), (0, _jsxRuntime.createScopedElement)("div", {

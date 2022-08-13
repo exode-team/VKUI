@@ -15,6 +15,8 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread2"));
 
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
@@ -25,6 +27,8 @@ var _reactPopper = require("react-popper");
 
 var _AppRootPortal = require("../AppRoot/AppRootPortal");
 
+var _PopperArrow = require("../PopperArrow/PopperArrow");
+
 var _usePlatform = require("../../hooks/usePlatform");
 
 var _getClassName = require("../../helpers/getClassName");
@@ -33,7 +37,7 @@ var _useExternRef = require("../../hooks/useExternRef");
 
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
-var _excluded = ["targetRef", "children", "getRef", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style"];
+var _excluded = ["targetRef", "children", "getRef", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style", "customModifiers", "renderContent"];
 var ARROW_PADDING = 8;
 var ARROW_WIDTH = 20;
 var ARROW_HEIGHT = 8;
@@ -60,6 +64,8 @@ var Popper = function Popper(_ref) {
       _ref$forcePortal = _ref.forcePortal,
       forcePortal = _ref$forcePortal === void 0 ? true : _ref$forcePortal,
       compStyles = _ref.style,
+      customModifiers = _ref.customModifiers,
+      renderContent = _ref.renderContent,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _React$useState = React.useState(null),
@@ -116,8 +122,12 @@ var Popper = function Popper(_ref) {
       modifiers.push(_sameWidth);
     }
 
+    if (customModifiers) {
+      modifiers.push.apply(modifiers, (0, _toConsumableArray2.default)(customModifiers));
+    }
+
     return modifiers;
-  }, [arrow, sameWidth, smallTargetOffsetSkidding, offsetSkidding, offsetDistance]);
+  }, [arrow, sameWidth, smallTargetOffsetSkidding, offsetSkidding, offsetDistance, customModifiers]);
 
   var _usePopper = (0, _reactPopper.usePopper)(targetRef.current, popperNode, {
     placement: placement,
@@ -160,24 +170,13 @@ var Popper = function Popper(_ref) {
     style: (0, _objectSpread2.default)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, compStyles), styles.popper), {}, {
       minWidth: sameWidth ? (_targetRef$current3 = targetRef.current) === null || _targetRef$current3 === void 0 ? void 0 : _targetRef$current3.scrollWidth : undefined
     })
-  }), arrow && (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, attributes.arrow, {
-    vkuiClass: "Popper__arrow",
-    "data-popper-arrow": true,
-    style: styles.arrow
-  }), (0, _jsxRuntime.createScopedElement)("svg", {
-    vkuiClass: "Popper__arrow-in",
-    className: arrowClassName,
-    width: "20",
-    height: "8",
-    viewBox: "0 0 20 8",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, (0, _jsxRuntime.createScopedElement)("path", {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M10 0C13 0 15.9999 8 20 8H0C3.9749 8 7 0 10 0Z",
-    fill: "currentColor"
-  }))), (0, _jsxRuntime.createScopedElement)("div", {
+  }), arrow && (0, _jsxRuntime.createScopedElement)(_PopperArrow.PopperArrow, {
+    attributes: attributes.arrow,
+    style: styles.arrow,
+    arrowClassName: arrowClassName
+  }), renderContent ? renderContent({
+    className: "Popper__content"
+  }) : (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Popper__content"
   }, children));
   return (0, _jsxRuntime.createScopedElement)(_AppRootPortal.AppRootPortal, {

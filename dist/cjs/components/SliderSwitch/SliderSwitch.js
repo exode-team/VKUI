@@ -40,7 +40,7 @@ var _warnOnce = require("../../lib/warnOnce");
 var _excluded = ["name", "options", "activeValue", "onSwitch"];
 var warn = (0, _warnOnce.warnOnce)("SliderSwitch");
 /**
- * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](#/SegmentedControl).
+ * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](https://vkcom.github.io/VKUI/#/SegmentedControl).
  * @see https://vkcom.github.io/VKUI/#/SliderSwitch
  */
 

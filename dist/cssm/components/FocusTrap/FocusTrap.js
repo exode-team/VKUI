@@ -10,7 +10,6 @@ import { useTimeout } from "../../hooks/useTimeout";
 import { FOCUSABLE_ELEMENTS_LIST, Keys, pressedKey } from "../../lib/accessibility";
 import { useDOM } from "../../lib/dom";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
-import { noop } from "../../lib/utils";
 import { AppRootContext } from "../AppRoot/AppRootContext";
 var FOCUSABLE_ELEMENTS = FOCUSABLE_ELEMENTS_LIST.join();
 
@@ -20,8 +19,7 @@ var FOCUSABLE_ELEMENTS = FOCUSABLE_ELEMENTS_LIST.join();
 export var FocusTrap = function FocusTrap(_ref) {
   var _ref$Component = _ref.Component,
       Component = _ref$Component === void 0 ? "div" : _ref$Component,
-      _ref$onClose = _ref.onClose,
-      onClose = _ref$onClose === void 0 ? noop : _ref$onClose,
+      onClose = _ref.onClose,
       _ref$restoreFocus = _ref.restoreFocus,
       restoreFocus = _ref$restoreFocus === void 0 ? true : _ref$restoreFocus,
       _ref$timeout = _ref.timeout,
@@ -63,7 +61,7 @@ export var FocusTrap = function FocusTrap(_ref) {
 
   useIsomorphicLayoutEffect(function () {
     if (!ref.current) {
-      return noop();
+      return;
     }
 
     var nodes = [];
@@ -78,11 +76,12 @@ export var FocusTrap = function FocusTrap(_ref) {
       }
     });
 
-    if (nodes !== null && nodes !== void 0 && nodes.length) {
-      setFocusableNodes(nodes);
+    if (nodes.length === 0) {
+      // Чтобы фокус был хотя бы на родителе
+      nodes.push(ref.current);
     }
 
-    return noop();
+    setFocusableNodes(nodes);
   }, [children]); // HANDLE TRAP UNMOUNT
 
   var focusOnTrapUnmount = useTimeout(function () {
@@ -98,7 +97,7 @@ export var FocusTrap = function FocusTrap(_ref) {
       };
     }
 
-    return noop();
+    return;
   }, [restoreFocus]);
 
   var onDocumentKeydown = function onDocumentKeydown(e) {
@@ -121,7 +120,7 @@ export var FocusTrap = function FocusTrap(_ref) {
       }
     }
 
-    if (pressedKey(e) === Keys.ESCAPE) {
+    if (onClose && pressedKey(e) === Keys.ESCAPE) {
       onClose();
     }
 
@@ -132,6 +131,7 @@ export var FocusTrap = function FocusTrap(_ref) {
     capture: true
   });
   return createScopedElement(Component, _extends({
+    tabIndex: -1,
     ref: ref
   }, restProps), children);
 };

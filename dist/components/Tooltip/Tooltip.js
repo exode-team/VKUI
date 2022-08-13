@@ -3,7 +3,7 @@ import _typeof from "@babel/runtime/helpers/typeof";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _extends from "@babel/runtime/helpers/extends";
-var _excluded = ["children", "isShown", "offsetX", "offsetY", "alignX", "alignY", "onClose", "cornerOffset", "cornerAbsoluteOffset", "mode"];
+var _excluded = ["children", "isShown", "offsetX", "offsetY", "alignX", "alignY", "onClose", "cornerOffset", "cornerAbsoluteOffset", "mode", "appearance", "arrow", "placement"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -11,12 +11,14 @@ import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { Subhead } from "../Typography/Subhead/Subhead";
 import { useNavTransition } from "../NavTransitionContext/NavTransitionContext";
+import { PopperArrow } from "../PopperArrow/PopperArrow";
 import { usePopper } from "react-popper";
 import { tooltipContainerAttr } from "./TooltipContainer";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useDOM } from "../../lib/dom";
 import { warnOnce } from "../../lib/warnOnce";
 import { hasReactNode } from "../../lib/utils";
+import { prefixClass } from "../../lib/prefixClass";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
 
 var isDOMTypeElement = function isDOMTypeElement(element) {
@@ -27,29 +29,28 @@ var baseClassName = getClassName("Tooltip");
 var warn = warnOnce("Tooltip");
 var IS_DEV = process.env.NODE_ENV === "development";
 var SimpleTooltip = /*#__PURE__*/React.forwardRef(function SimpleTooltip(_ref, ref) {
-  var _ref$mode = _ref.mode,
-      mode = _ref$mode === void 0 ? "accent" : _ref$mode,
+  var _ref$appearance = _ref.appearance,
+      appearance = _ref$appearance === void 0 ? "accent" : _ref$appearance,
       header = _ref.header,
       text = _ref.text,
-      arrowRef = _ref.arrowRef,
+      arrow = _ref.arrow,
       _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style,
       attributes = _ref.attributes;
   return createScopedElement("div", {
-    vkuiClass: classNames(baseClassName, "Tooltip--".concat(mode))
+    vkuiClass: classNames(baseClassName, "Tooltip--".concat(appearance))
   }, createScopedElement("div", _extends({
     vkuiClass: "Tooltip__container",
     ref: ref,
     style: style.container
-  }, attributes === null || attributes === void 0 ? void 0 : attributes.container), createScopedElement("div", _extends({
-    vkuiClass: "Tooltip__corner",
-    style: style.arrow
-  }, attributes === null || attributes === void 0 ? void 0 : attributes.arrow, {
-    ref: arrowRef
-  })), createScopedElement("div", {
+  }, attributes === null || attributes === void 0 ? void 0 : attributes.container), arrow && createScopedElement(PopperArrow, {
+    style: style.arrow,
+    attributes: attributes === null || attributes === void 0 ? void 0 : attributes.arrow,
+    arrowClassName: prefixClass("Tooltip__arrow")
+  }), createScopedElement("div", {
     vkuiClass: "Tooltip__content"
   }, header && createScopedElement(Subhead, {
-    weight: "1",
+    weight: "2",
     vkuiClass: "Tooltip__title"
   }, header), text && createScopedElement(Subhead, {
     vkuiClass: "Tooltip__text"
@@ -79,6 +80,19 @@ function isVerticalPlacement(placement) {
   return placement.startsWith("top") || placement.startsWith("bottom");
 }
 /**
+ * Вычисляем стиль подсказки: параметр appearance имеет приоритет, иначе мапим mode на подходящее значение из appearance
+ * TODO: v5 избавиться от пропа mode и этого метода, для appearance по умолчанию сделать "accent"
+ */
+
+
+function calculateAppearance(mode, appearance) {
+  if (appearance) {
+    return appearance;
+  }
+
+  return mode === "light" ? "white" : "accent";
+}
+/**
  * @see https://vkcom.github.io/VKUI/#/Tooltip
  */
 
@@ -101,6 +115,10 @@ export var Tooltip = function Tooltip(_ref2) {
       cornerAbsoluteOffset = _ref2.cornerAbsoluteOffset,
       _ref2$mode = _ref2.mode,
       mode = _ref2$mode === void 0 ? "accent" : _ref2$mode,
+      appearance = _ref2.appearance,
+      _ref2$arrow = _ref2.arrow,
+      arrow = _ref2$arrow === void 0 ? true : _ref2$arrow,
+      placement = _ref2.placement,
       restProps = _objectWithoutProperties(_ref2, _excluded);
 
   var _useNavTransition = useNavTransition(),
@@ -113,15 +131,10 @@ export var Tooltip = function Tooltip(_ref2) {
       tooltipRef = _React$useState2[0],
       setTooltipRef = _React$useState2[1];
 
-  var _React$useState3 = React.useState(null),
+  var _React$useState3 = React.useState(),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
-      tooltipArrowRef = _React$useState4[0],
-      setTooltipArrowRef = _React$useState4[1];
-
-  var _React$useState5 = React.useState(),
-      _React$useState6 = _slicedToArray(_React$useState5, 2),
-      target = _React$useState6[0],
-      setTarget = _React$useState6[1];
+      target = _React$useState4[0],
+      setTarget = _React$useState4[1];
 
   if (IS_DEV) {
     var multiChildren = React.Children.count(children) > 1; // Empty children is a noop
@@ -148,63 +161,70 @@ export var Tooltip = function Tooltip(_ref2) {
     throw new Error("Use TooltipContainer for Tooltip outside Panel (see docs)");
   }
 
-  var arrowOffsetModifier = React.useMemo(function () {
-    return {
-      name: "arrowOffset",
-      enabled: true,
-      phase: "main",
-      fn: function fn(_ref3) {
-        var state = _ref3.state;
-
-        if (!state.modifiersData.arrow) {
-          return;
-        }
-
-        if (isVerticalPlacement(state.placement)) {
-          if (cornerAbsoluteOffset !== undefined) {
-            state.modifiersData.arrow.x = cornerAbsoluteOffset;
-          } else {
-            var _state$modifiersData$;
-
-            if (((_state$modifiersData$ = state.modifiersData.arrow) === null || _state$modifiersData$ === void 0 ? void 0 : _state$modifiersData$.x) !== undefined) {
-              state.modifiersData.arrow.x += cornerOffset;
-            }
-          }
-        } else {
-          if (cornerAbsoluteOffset !== undefined) {
-            state.modifiersData.arrow.y = cornerAbsoluteOffset;
-          } else {
-            var _state$modifiersData$2;
-
-            if (((_state$modifiersData$2 = state.modifiersData.arrow) === null || _state$modifiersData$2 === void 0 ? void 0 : _state$modifiersData$2.y) !== undefined) {
-              state.modifiersData.arrow.y += cornerOffset;
-            }
-          }
-        }
-      }
-    };
-  }, [cornerOffset, cornerAbsoluteOffset]);
-  var placement = getPlacement(alignX, alignY);
-
-  var _usePopper = usePopper(target, tooltipRef, {
-    strategy: strategy,
-    placement: placement,
-    modifiers: [{
+  var modifiers = React.useMemo(function () {
+    var modifiers = [{
       name: "offset",
       options: {
         offset: [offsetX, offsetY]
       }
     }, {
-      name: "arrow",
-      options: {
-        element: tooltipArrowRef,
-        padding: 14
-      }
-    }, {
       name: "preventOverflow"
     }, {
       name: "flip"
-    }, arrowOffsetModifier]
+    }];
+
+    if (arrow) {
+      modifiers.push({
+        name: "arrow",
+        options: {
+          padding: 14
+        }
+      });
+      modifiers.push({
+        name: "arrowOffset",
+        enabled: true,
+        phase: "main",
+        fn: function fn(_ref3) {
+          var state = _ref3.state;
+
+          if (!state.modifiersData.arrow) {
+            return;
+          }
+
+          if (isVerticalPlacement(state.placement)) {
+            if (cornerAbsoluteOffset !== undefined) {
+              state.modifiersData.arrow.x = cornerAbsoluteOffset;
+            } else {
+              var _state$modifiersData$;
+
+              if (((_state$modifiersData$ = state.modifiersData.arrow) === null || _state$modifiersData$ === void 0 ? void 0 : _state$modifiersData$.x) !== undefined) {
+                state.modifiersData.arrow.x += cornerOffset;
+              }
+            }
+          } else {
+            if (cornerAbsoluteOffset !== undefined) {
+              state.modifiersData.arrow.y = cornerAbsoluteOffset;
+            } else {
+              var _state$modifiersData$2;
+
+              if (((_state$modifiersData$2 = state.modifiersData.arrow) === null || _state$modifiersData$2 === void 0 ? void 0 : _state$modifiersData$2.y) !== undefined) {
+                state.modifiersData.arrow.y += cornerOffset;
+              }
+            }
+          }
+        }
+      });
+    }
+
+    return modifiers;
+  }, [arrow, cornerAbsoluteOffset, cornerOffset, offsetX, offsetY]);
+
+  var _placement = placement !== null && placement !== void 0 ? placement : getPlacement(alignX, alignY);
+
+  var _usePopper = usePopper(target, tooltipRef, {
+    strategy: strategy,
+    placement: _placement,
+    modifiers: modifiers
   }),
       styles = _usePopper.styles,
       attributes = _usePopper.attributes;
@@ -219,13 +239,14 @@ export var Tooltip = function Tooltip(_ref2) {
   var childRef = /*#__PURE__*/React.isValidElement(children) && (isDOMTypeElement(children) ? children.ref : children.props.getRootRef);
   var patchedRef = useExternRef(setTarget, childRef);
   var child = /*#__PURE__*/React.isValidElement(children) ? /*#__PURE__*/React.cloneElement(children, _defineProperty({}, isDOMTypeElement(children) ? "ref" : "getRootRef", patchedRef)) : children;
+
+  var _appearance = calculateAppearance(mode, appearance);
+
   return createScopedElement(React.Fragment, null, child, isShown && target != null && /*#__PURE__*/ReactDOM.createPortal(createScopedElement(SimpleTooltip, _extends({}, restProps, {
-    mode: mode,
+    appearance: _appearance,
+    arrow: arrow,
     ref: function ref(el) {
       return setTooltipRef(el);
-    },
-    arrowRef: function arrowRef(el) {
-      return setTooltipArrowRef(el);
     },
     style: {
       arrow: styles.arrow,

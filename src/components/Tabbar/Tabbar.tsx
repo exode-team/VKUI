@@ -1,7 +1,7 @@
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
+import { Platform } from "../../lib/platform";
 import "./Tabbar.css";
 
 export interface TabbarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -9,39 +9,48 @@ export interface TabbarProps extends React.HTMLAttributes<HTMLDivElement> {
    * Флаг для показа/скрытия верхней тени (Android) или границы (iOS)
    */
   shadow?: boolean;
-  itemsLayout?: "vertical" | "horizontal" | "auto";
+  /**
+   * @deprecated будет удалено в 5.0.0. Используйте `mode`
+   */
+  itemsLayout?: "vertical" | "horizontal" | "auto"; // TODO v5.0.0 удалить, будет использоваться mode
+  /**
+   * Задает расположение элементов (вертикальное/горизонтальное)
+   */
+  mode?: "vertical" | "horizontal" | "auto";
 }
+
+const getItemsLayout = (
+  itemsLayout: TabbarProps["mode"],
+  children: TabbarProps["children"]
+) => {
+  switch (itemsLayout) {
+    case "horizontal":
+    case "vertical":
+      return itemsLayout;
+    default:
+      return React.Children.count(children) > 2 ? "vertical" : "horizontal";
+  }
+};
 
 /**
  * @see https://vkcom.github.io/VKUI/#/Tabbar
  */
-export const Tabbar: React.FunctionComponent<TabbarProps> = ({
+export const Tabbar = ({
   children,
   shadow = true,
   itemsLayout,
+  mode,
   ...restProps
 }: TabbarProps) => {
   const platform = usePlatform();
 
-  const getItemsLayout = () => {
-    switch (itemsLayout) {
-      case "horizontal":
-      case "vertical":
-        return itemsLayout;
-      default:
-        return React.Children.count(children) > 2 ? "vertical" : "horizontal";
-    }
-  };
-
   return (
     <div
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
-        getClassName("Tabbar", platform),
-        `Tabbar--l-${getItemsLayout()}`,
-        {
-          "Tabbar--shadow": shadow,
-        }
+        "Tabbar",
+        platform === Platform.IOS && "Tabbar--ios",
+        `Tabbar--l-${getItemsLayout(itemsLayout ?? mode, children)}`,
+        shadow && "Tabbar--shadow"
       )}
       {...restProps}
     >

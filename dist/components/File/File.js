@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "align", "controlSize", "size", "mode", "stretched", "before", "className", "style", "getRef", "getRootRef", "appearance"];
+var _excluded = ["children", "align", "controlSize", "size", "mode", "stretched", "before", "after", "loading", "className", "style", "getRef", "getRootRef", "appearance"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { getClassName } from "../../helpers/getClassName";
 import { Button } from "../Button/Button";
@@ -20,6 +20,8 @@ export var File = function File(_ref) {
       mode = _ref.mode,
       stretched = _ref.stretched,
       before = _ref.before,
+      after = _ref.after,
+      loading = _ref.loading,
       className = _ref.className,
       style = _ref.style,
       getRef = _ref.getRef,
@@ -39,6 +41,8 @@ export var File = function File(_ref) {
     ,
     size: size !== null && size !== void 0 ? size : controlSize,
     before: before,
+    after: after,
+    loading: loading,
     style: style,
     getRootRef: getRootRef,
     disabled: restProps.disabled

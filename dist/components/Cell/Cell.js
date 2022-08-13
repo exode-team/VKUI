@@ -7,8 +7,7 @@ import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { noop } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
-import { getClassName } from "../../helpers/getClassName";
-import { ANDROID, IOS, VKCOM } from "../../lib/platform";
+import { IOS } from "../../lib/platform";
 import { SimpleCell } from "../SimpleCell/SimpleCell";
 import { Removable } from "../Removable/Removable";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -112,14 +111,8 @@ export var Cell = function Cell(_ref) {
   }
 
   var simpleCellDisabled = draggable && !selectable || removable || disabled;
-  var hasActive = !simpleCellDisabled && !dragging; // eslint-disable-next-line vkui/no-object-expression-in-arguments
-
-  var cellClasses = classNames(getClassName("Cell", platform), {
-    "Cell--dragging": dragging,
-    "Cell--removable": removable,
-    "Cell--selectable": selectable,
-    "Cell--disabled": disabled
-  });
+  var hasActive = !simpleCellDisabled && !dragging;
+  var cellClasses = classNames("Cell", platform === IOS && "Cell--ios", dragging && "Cell--dragging", removable && "Cell--removable", selectable && "Cell--selectable", disabled && "Cell--disabled");
   var simpleCell = createScopedElement(SimpleCell, _extends({
     hasActive: hasActive,
     hasHover: hasActive
@@ -127,7 +120,7 @@ export var Cell = function Cell(_ref) {
     vkuiClass: "Cell__content",
     disabled: simpleCellDisabled,
     Component: selectable ? "label" : Component,
-    before: createScopedElement(React.Fragment, null, draggable && (platform === ANDROID || platform === VKCOM) && dragger, selectable && checkbox, before),
+    before: createScopedElement(React.Fragment, null, draggable && platform !== IOS && dragger, selectable && checkbox, before),
     after: createScopedElement(React.Fragment, null, draggable && platform === IOS && dragger, after)
   }));
 

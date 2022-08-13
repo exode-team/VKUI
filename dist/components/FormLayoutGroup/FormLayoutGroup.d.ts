@@ -12,4 +12,4 @@ export interface FormLayoutGroupProps extends React.HTMLAttributes<HTMLDivElemen
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayoutGroup
  */
-export declare const FormLayoutGroup: React.FC<FormLayoutGroupProps>;
+export declare const FormLayoutGroup: ({ children, mode, removable, removePlaceholder, onRemove, getRootRef, ...restProps }: FormLayoutGroupProps) => JSX.Element;

@@ -4,12 +4,11 @@ var _excluded = ["size", "children"],
     _excluded2 = ["className", "header", "style", "subtitle", "size", "children", "getRootRef", "getRef"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { Caption } from "../Typography/Caption/Caption";
 import { Tappable } from "../Tappable/Tappable";
 import { Subhead } from "../Typography/Subhead/Subhead";
+import { Footnote } from "../Typography/Footnote/Footnote";
 import { Avatar } from "../Avatar/Avatar";
 
 var CellTypography = function CellTypography(_ref) {
@@ -40,9 +39,8 @@ export var HorizontalCell = function HorizontalCell(_ref2) {
       getRef = _ref2.getRef,
       restProps = _objectWithoutProperties(_ref2, _excluded2);
 
-  var platform = usePlatform();
   return createScopedElement("div", {
-    vkuiClass: classNames(getClassName("HorizontalCell", platform), "HorizontalCell--".concat(size)),
+    vkuiClass: classNames("HorizontalCell", "HorizontalCell--".concat(size)),
     ref: getRootRef,
     style: style,
     className: className
@@ -56,7 +54,7 @@ export var HorizontalCell = function HorizontalCell(_ref2) {
   }, hasReactNode(header) && createScopedElement(CellTypography, {
     size: size,
     vkuiClass: "HorizontalCell__title"
-  }, header), hasReactNode(subtitle) && createScopedElement(Caption, {
+  }, header), hasReactNode(subtitle) && createScopedElement(Footnote, {
     vkuiClass: "HorizontalCell__subtitle"
   }, subtitle))));
 };

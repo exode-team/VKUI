@@ -10,4 +10,4 @@ export interface PopoutWrapperProps extends React.HTMLAttributes<HTMLDivElement>
 /**
  * @see https://vkcom.github.io/VKUI/#/PopoutWrapper
  */
-export declare const PopoutWrapper: React.FC<PopoutWrapperProps>;
+export declare const PopoutWrapper: ({ alignY, alignX, closing, hasMask, fixed, children, onClick, ...restProps }: PopoutWrapperProps) => JSX.Element;

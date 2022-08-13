@@ -1,7 +1,7 @@
 import * as React from "react";
-import { HasComponent } from "../../../types";
+import { HasComponent, HasRootRef } from "../../../types";
 import "./Headline.css";
-export interface HeadlineProps extends React.AllHTMLAttributes<HTMLElement>, HasComponent {
+export interface HeadlineProps extends React.AllHTMLAttributes<HTMLElement>, HasRootRef<HTMLElement>, HasComponent {
     /**
      * Задаёт начертание шрифта отличное от стандартного.
      *
@@ -13,4 +13,4 @@ export interface HeadlineProps extends React.AllHTMLAttributes<HTMLElement>, Has
 /**
  * @see https://vkcom.github.io/VKUI/#/Headline
  */
-export declare const Headline: React.FC<HeadlineProps>;
+export declare const Headline: ({ children, weight, level, Component, getRootRef, ...restProps }: HeadlineProps) => JSX.Element;

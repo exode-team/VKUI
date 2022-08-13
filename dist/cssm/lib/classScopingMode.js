@@ -1,4 +1,5 @@
 // exported for tests =(
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export var __controller = {
   _noConflict: false,
   _isSet: false,

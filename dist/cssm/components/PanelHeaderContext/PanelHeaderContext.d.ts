@@ -7,4 +7,4 @@ export interface PanelHeaderContextProps extends React.HTMLAttributes<HTMLDivEle
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderContext
  */
-export declare const PanelHeaderContext: React.FC<PanelHeaderContextProps>;
+export declare const PanelHeaderContext: ({ children, onClose, opened, ...restProps }: PanelHeaderContextProps) => JSX.Element;

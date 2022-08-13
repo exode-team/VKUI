@@ -11,17 +11,13 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var _icons = require("@vkontakte/icons");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _classNames2 = require("../../lib/classNames");
-
-var _getClassName = require("../../helpers/getClassName");
+var _classNames = require("../../lib/classNames");
 
 var _platform = require("../../lib/platform");
 
@@ -78,9 +74,8 @@ var WriteBarIcon = function WriteBarIcon(_ref) {
   }, restProps, {
     Component: "button",
     hasHover: false,
-    activeMode: "WriteBarIcon__active" // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("WriteBarIcon", platform), (0, _defineProperty2.default)({}, "WriteBarIcon--".concat(mode), !!mode))
+    activeMode: "WriteBarIcon__active",
+    vkuiClass: (0, _classNames.classNames)("WriteBarIcon", platform === _platform.Platform.IOS && "WriteBarIcon--ios", !!mode && "WriteBarIcon--".concat(mode))
   }), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "WriteBarIcon__in"
   }, icon || children, (0, _utils.hasReactNode)(count) && (0, _jsxRuntime.createScopedElement)(_Counter.Counter, {

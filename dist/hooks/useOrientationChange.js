@@ -14,7 +14,8 @@ function getOrientation(window) {
     return "portrait";
   }
 
-  var angle = Math.abs((_window$screen$orient = (_window$screen = window.screen) === null || _window$screen === void 0 ? void 0 : (_window$screen$orient2 = _window$screen.orientation) === null || _window$screen$orient2 === void 0 ? void 0 : _window$screen$orient2.angle) !== null && _window$screen$orient !== void 0 ? _window$screen$orient : Number(window.orientation));
+  var angle = Math.abs( // eslint-disable-next-line compat/compat
+  (_window$screen$orient = (_window$screen = window.screen) === null || _window$screen === void 0 ? void 0 : (_window$screen$orient2 = _window$screen.orientation) === null || _window$screen$orient2 === void 0 ? void 0 : _window$screen$orient2.angle) !== null && _window$screen$orient !== void 0 ? _window$screen$orient : Number(window.orientation));
   return angle === 90 ? "landscape" : "portrait";
 }
 /**

@@ -4,10 +4,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["Component", "children", "getRootRef", "before", "after", "disabled", "mode"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
-import { usePlatform } from "../../hooks/usePlatform";
-import { hasReactNode } from "../../lib/utils";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 export var FormFieldMode = {
   default: "default",
@@ -28,8 +25,6 @@ export var FormField = function FormField(_ref) {
       _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? FormFieldMode.default : _ref$mode,
       restProps = _objectWithoutProperties(_ref, _excluded);
-
-  var platform = usePlatform();
 
   var _useAdaptivity = useAdaptivity(),
       sizeY = _useAdaptivity.sizeY;
@@ -55,11 +50,12 @@ export var FormField = function FormField(_ref) {
     ref: getRootRef,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    vkuiClass: classNames(getClassName("FormField", platform), "FormField--".concat(mode), "FormField--sizeY-".concat(sizeY), disabled && "FormField--disabled", !disabled && hover && "FormField--hover")
-  }), hasReactNode(before) && createScopedElement("div", {
+    vkuiClass: classNames("FormField", "FormField--".concat(mode), "FormField--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
+    disabled && "FormField--disabled", !disabled && hover && "FormField--hover")
+  }), before && createScopedElement("div", {
     role: "presentation",
     vkuiClass: "FormField__before"
-  }, before), children, hasReactNode(after) && createScopedElement("div", {
+  }, before), children, after && createScopedElement("div", {
     role: "presentation",
     vkuiClass: "FormField__after"
   }, after), createScopedElement("div", {

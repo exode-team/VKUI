@@ -3,7 +3,7 @@ import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["bannerData", "onClose"];
+var _excluded = ["bannerData", "onClose", "isCloseButtonHidden"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Icon24Dismiss } from "@vkontakte/icons";
@@ -19,14 +19,14 @@ var warn = warnOnce("PromoBanner");
  * @see https://vkcom.github.io/VKUI/#/PromoBanner
  */
 
-export var PromoBanner = function PromoBanner(props) {
+export var PromoBanner = function PromoBanner(_ref) {
+  var _ref$bannerData = _ref.bannerData,
+      bannerData = _ref$bannerData === void 0 ? {} : _ref$bannerData,
+      onClose = _ref.onClose,
+      isCloseButtonHidden = _ref.isCloseButtonHidden,
+      restProps = _objectWithoutProperties(_ref, _excluded);
+
   var platform = usePlatform();
-
-  var _props$bannerData = props.bannerData,
-      bannerData = _props$bannerData === void 0 ? {} : _props$bannerData,
-      onClose = props.onClose,
-      restProps = _objectWithoutProperties(props, _excluded);
-
   var ageRestrictions = bannerData.ageRestrictions != null ? parseInt(bannerData.ageRestrictions) : bannerData.ageRestriction;
 
   if (bannerData.ageRestriction && process.env.NODE_ENV === "development") {
@@ -59,9 +59,9 @@ export var PromoBanner = function PromoBanner(props) {
     vkuiClass: "PromoBanner__label"
   }, bannerData.advertisingLabel || "Advertisement"), ageRestrictions != null && createScopedElement(Caption, {
     vkuiClass: "PromoBanner__age"
-  }, ageRestrictions, "+"), !props.isCloseButtonHidden && createScopedElement("div", {
+  }, ageRestrictions, "+"), !isCloseButtonHidden && createScopedElement("div", {
     vkuiClass: "PromoBanner__close",
-    onClick: props.onClose
+    onClick: onClose
   }, createScopedElement(Icon24Dismiss, null))), createScopedElement(SimpleCell, {
     href: bannerData.trackingLink,
     onClick: onClick,

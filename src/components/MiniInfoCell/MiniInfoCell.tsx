@@ -1,9 +1,7 @@
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
-import { usePlatform } from "../../hooks/usePlatform";
-import { getClassName } from "../../helpers/getClassName";
-import { Text } from "../Typography/Text/Text";
-import { Tappable } from "../../components/Tappable/Tappable";
+import { Paragraph } from "../Typography/Paragraph/Paragraph";
+import { Tappable } from "../Tappable/Tappable";
 import { hasReactNode } from "../../lib/utils";
 import "./MiniInfoCell.css";
 
@@ -52,13 +50,15 @@ export interface MiniInfoCellProps
 /**
  * @see https://vkcom.github.io/VKUI/#/MiniInfoCell
  */
-export const MiniInfoCell: React.FC<MiniInfoCellProps> = (
-  props: MiniInfoCellProps
-) => {
-  const platform = usePlatform();
-  const { before, after, mode, textWrap, textLevel, children, ...restProps } =
-    props;
-
+export const MiniInfoCell = ({
+  before,
+  after,
+  mode = "base",
+  textWrap = "nowrap",
+  textLevel = "secondary",
+  children,
+  ...restProps
+}: MiniInfoCellProps) => {
   const isClickable = !!restProps.onClick;
 
   return (
@@ -67,32 +67,23 @@ export const MiniInfoCell: React.FC<MiniInfoCellProps> = (
       disabled={!isClickable}
       role={isClickable ? "button" : undefined}
       {...restProps}
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
-        getClassName("MiniInfoCell", platform),
-        {
-          [`MiniInfoCell--md-${mode}`]: mode !== "base",
-          [`MiniInfoCell--wr-${textWrap}`]: textWrap !== "nowrap",
-        },
+        "MiniInfoCell",
+        mode !== "base" && `MiniInfoCell--md-${mode}`,
+        textWrap !== "nowrap" && `MiniInfoCell--wr-${textWrap}`,
         `MiniInfoCell--lvl-${textLevel}`
       )}
     >
       <span vkuiClass="MiniInfoCell__icon">{before}</span>
-      <Text
+      <Paragraph
         vkuiClass="MiniInfoCell__content"
         weight={mode === "more" ? "2" : undefined}
       >
         {children}
-      </Text>
+      </Paragraph>
       {hasReactNode(after) && (
         <span vkuiClass="MiniInfoCell__after">{after}</span>
       )}
     </Tappable>
   );
-};
-
-MiniInfoCell.defaultProps = {
-  mode: "base",
-  textWrap: "nowrap",
-  textLevel: "secondary",
 };

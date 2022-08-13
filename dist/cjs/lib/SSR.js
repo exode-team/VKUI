@@ -27,10 +27,10 @@ exports.SSRContext = SSRContext;
 /**
  * @see https://vkcom.github.io/VKUI/#/SSR
  */
-var SSRWrapper = function SSRWrapper(props) {
-  var userAgent = props.userAgent,
-      browserInfo = props.browserInfo,
-      children = props.children;
+var SSRWrapper = function SSRWrapper(_ref) {
+  var userAgent = _ref.userAgent,
+      browserInfo = _ref.browserInfo,
+      children = _ref.children;
 
   if (!browserInfo && userAgent) {
     browserInfo = (0, _browser.computeBrowserInfo)(userAgent);

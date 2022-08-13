@@ -266,6 +266,9 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
   var onDropdownMouseLeave = React.useCallback(function () {
     setFocusedOptionIndex(null);
   }, [setFocusedOptionIndex]);
+  var observableRefs = React.useMemo(function () {
+    return [scrollBoxRef, rootRef];
+  }, [rootRef, scrollBoxRef]);
   return createScopedElement("div", {
     vkuiClass: classNames("ChipsSelect", "ChipsSelect--sizeY-".concat(sizeY)),
     ref: rootRef,
@@ -291,6 +294,7 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     targetRef: rootRef,
     placement: popupDirection,
     scrollBoxRef: scrollBoxRef,
+    observableRefs: observableRefs,
     onPlacementChange: onPlacementChange,
     onMouseLeave: onDropdownMouseLeave,
     fetching: fetching,
@@ -348,4 +352,5 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
 export var ChipsSelect = withAdaptivity(ChipsSelectComponent, {
   sizeY: true
 });
+ChipsSelect.displayName = "ChipsSelect";
 //# sourceMappingURL=ChipsSelect.js.map

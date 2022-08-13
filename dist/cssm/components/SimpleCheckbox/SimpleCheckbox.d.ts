@@ -6,7 +6,7 @@ export interface SimpleCheckboxProps extends React.InputHTMLAttributes<HTMLInput
     defaultIndeterminate?: boolean;
 }
 /**
- * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`Checkbox`](#/Checkbox).
+ * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`Checkbox`](https://vkcom.github.io/VKUI/#/Checkbox).
  * @see https://vkcom.github.io/VKUI/#/SimpleCheckbox
  */
-export declare const SimpleCheckbox: React.FC<SimpleCheckboxProps>;
+export declare const SimpleCheckbox: ({ className, style, getRootRef, getRef, indeterminate, defaultIndeterminate, onChange, ...restProps }: SimpleCheckboxProps) => JSX.Element;

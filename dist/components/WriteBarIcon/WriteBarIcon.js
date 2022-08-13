@@ -1,13 +1,11 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["mode", "children", "count"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { Icon24Send, Icon28AddCircleOutline, Icon28AttachOutline, Icon28CheckCircleOutline, Icon48WritebarDone, Icon48WritebarSend } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { IOS } from "../../lib/platform";
+import { IOS, Platform } from "../../lib/platform";
 import { Counter } from "../Counter/Counter";
 import { Tappable } from "../Tappable/Tappable";
 import { warnOnce } from "../../lib/warnOnce";
@@ -57,9 +55,8 @@ export var WriteBarIcon = function WriteBarIcon(_ref) {
   }, restProps, {
     Component: "button",
     hasHover: false,
-    activeMode: "WriteBarIcon__active" // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("WriteBarIcon", platform), _defineProperty({}, "WriteBarIcon--".concat(mode), !!mode))
+    activeMode: "WriteBarIcon__active",
+    vkuiClass: classNames("WriteBarIcon", platform === Platform.IOS && "WriteBarIcon--ios", !!mode && "WriteBarIcon--".concat(mode))
   }), createScopedElement("span", {
     vkuiClass: "WriteBarIcon__in"
   }, icon || children, hasReactNode(count) && createScopedElement(Counter, {

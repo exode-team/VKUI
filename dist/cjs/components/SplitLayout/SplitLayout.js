@@ -13,9 +13,9 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
+
+var _platform = require("../../lib/platform");
 
 var _PopoutRoot = require("../PopoutRoot/PopoutRoot");
 
@@ -36,16 +36,13 @@ var SplitLayout = function SplitLayout(_ref) {
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_PopoutRoot.PopoutRoot, {
-    vkuiClass: (0, _getClassName.getClassName)("SplitLayout", platform),
+    vkuiClass: (0, _classNames.classNames)("SplitLayout", platform === _platform.IOS && "SplitLayout--ios"),
     popout: popout,
     modal: modal,
     getRootRef: getRootRef
   }, header, (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    ref: getRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)("SplitLayout__inner", {
-      "SplitLayout__inner--header": !!header
-    })
+    ref: getRef,
+    vkuiClass: (0, _classNames.classNames)("SplitLayout__inner", !!header && "SplitLayout__inner--header")
   }), children));
 };
 

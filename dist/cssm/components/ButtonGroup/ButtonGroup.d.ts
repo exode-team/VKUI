@@ -1,7 +1,7 @@
 import * as React from "react";
-import type { HasRootRef } from "../../types";
+import type { HasRootRef, HasAlign } from "../../types";
 import "./ButtonGroup.css";
-export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement>, HasRootRef<HTMLDivElement> {
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement>, HasRootRef<HTMLDivElement>, HasAlign {
     /**
      * Задает расположение элементов внутри группы, вертикальное или горизонтальное.
      */
@@ -20,4 +20,4 @@ export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement>, 
 /**
  * @see https://vkcom.github.io/VKUI/#/ButtonGroup
  */
-export declare const ButtonGroup: React.FC<ButtonGroupProps>;
+export declare const ButtonGroup: ({ mode, gap, stretched, align, getRootRef, children, ...restProps }: ButtonGroupProps) => JSX.Element;

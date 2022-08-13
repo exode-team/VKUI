@@ -6,4 +6,4 @@ export interface InfoRowProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/InfoRow
  */
-export declare const InfoRow: React.FunctionComponent<InfoRowProps>;
+export declare const InfoRow: ({ header, children, ...restProps }: InfoRowProps) => JSX.Element;

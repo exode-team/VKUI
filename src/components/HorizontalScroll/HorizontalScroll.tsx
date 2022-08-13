@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withAdaptivity, AdaptivityProps } from "../../hoc/withAdaptivity";
-import HorizontalScrollArrow from "./HorizontalScrollArrow";
+import { HorizontalScrollArrow } from "./HorizontalScrollArrow";
 import { easeInOutSine } from "../../lib/fx";
 import { useEventListener } from "../../hooks/useEventListener";
 import { useExternRef } from "../../hooks/useExternRef";
@@ -37,6 +37,7 @@ export interface HorizontalScrollProps
    * Функция для расчета величины прокрутки при клике на правую стрелку.
    */
   getScrollToRight?: ScrollPositionHandler;
+  arrowSize?: "m" | "l";
   showArrows?: boolean | "always";
   scrollAnimationDuration?: number;
 }
@@ -122,16 +123,17 @@ function doScroll({
   })();
 }
 
-const HorizontalScrollComponent: React.FC<HorizontalScrollProps> = ({
+const HorizontalScrollComponent = ({
   children,
   getScrollToLeft,
   getScrollToRight,
   showArrows = true,
+  arrowSize = "l",
   scrollAnimationDuration = SCROLL_ONE_FRAME_TIME,
   hasMouse,
   getRef,
   ...restProps
-}) => {
+}: HorizontalScrollProps) => {
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(false);
 
@@ -205,16 +207,26 @@ const HorizontalScrollComponent: React.FC<HorizontalScrollProps> = ({
   return (
     <div
       {...restProps}
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
-      vkuiClass={classNames("HorizontalScroll", {
-        ["HorizontalScroll--withConstArrows"]: showArrows === "always",
-      })}
+      vkuiClass={classNames(
+        "HorizontalScroll",
+        showArrows === "always" && "HorizontalScroll--withConstArrows"
+      )}
     >
       {showArrows && hasMouse && canScrollLeft && (
-        <HorizontalScrollArrow direction="left" onClick={scrollToLeft} />
+        <HorizontalScrollArrow
+          size={arrowSize}
+          direction="left"
+          vkuiClass="HorizontalScroll__arrowLeft"
+          onClick={scrollToLeft}
+        />
       )}
       {showArrows && hasMouse && canScrollRight && (
-        <HorizontalScrollArrow direction="right" onClick={scrollToRight} />
+        <HorizontalScrollArrow
+          size={arrowSize}
+          direction="right"
+          vkuiClass="HorizontalScroll__arrowRight"
+          onClick={scrollToRight}
+        />
       )}
       <div vkuiClass="HorizontalScroll__in" ref={scrollerRef}>
         <div vkuiClass="HorizontalScroll__in-wrapper">{children}</div>
@@ -229,3 +241,5 @@ const HorizontalScrollComponent: React.FC<HorizontalScrollProps> = ({
 export const HorizontalScroll = withAdaptivity(HorizontalScrollComponent, {
   hasMouse: true,
 });
+
+HorizontalScroll.displayName = "HorizontalScroll";

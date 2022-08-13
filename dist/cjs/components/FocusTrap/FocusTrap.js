@@ -31,8 +31,6 @@ var _dom = require("../../lib/dom");
 
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
-var _utils = require("../../lib/utils");
-
 var _AppRootContext = require("../AppRoot/AppRootContext");
 
 var _excluded = ["Component", "onClose", "restoreFocus", "timeout", "getRootRef", "children"];
@@ -45,8 +43,7 @@ var FOCUSABLE_ELEMENTS = _accessibility.FOCUSABLE_ELEMENTS_LIST.join();
 var FocusTrap = function FocusTrap(_ref) {
   var _ref$Component = _ref.Component,
       Component = _ref$Component === void 0 ? "div" : _ref$Component,
-      _ref$onClose = _ref.onClose,
-      onClose = _ref$onClose === void 0 ? _utils.noop : _ref$onClose,
+      onClose = _ref.onClose,
       _ref$restoreFocus = _ref.restoreFocus,
       restoreFocus = _ref$restoreFocus === void 0 ? true : _ref$restoreFocus,
       _ref$timeout = _ref.timeout,
@@ -87,7 +84,7 @@ var FocusTrap = function FocusTrap(_ref) {
 
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (!ref.current) {
-      return (0, _utils.noop)();
+      return;
     }
 
     var nodes = [];
@@ -102,11 +99,12 @@ var FocusTrap = function FocusTrap(_ref) {
       }
     });
 
-    if (nodes !== null && nodes !== void 0 && nodes.length) {
-      setFocusableNodes(nodes);
+    if (nodes.length === 0) {
+      // Чтобы фокус был хотя бы на родителе
+      nodes.push(ref.current);
     }
 
-    return (0, _utils.noop)();
+    setFocusableNodes(nodes);
   }, [children]); // HANDLE TRAP UNMOUNT
 
   var focusOnTrapUnmount = (0, _useTimeout.useTimeout)(function () {
@@ -122,7 +120,7 @@ var FocusTrap = function FocusTrap(_ref) {
       };
     }
 
-    return (0, _utils.noop)();
+    return;
   }, [restoreFocus]);
 
   var onDocumentKeydown = function onDocumentKeydown(e) {
@@ -145,7 +143,7 @@ var FocusTrap = function FocusTrap(_ref) {
       }
     }
 
-    if ((0, _accessibility.pressedKey)(e) === _accessibility.Keys.ESCAPE) {
+    if (onClose && (0, _accessibility.pressedKey)(e) === _accessibility.Keys.ESCAPE) {
       onClose();
     }
 
@@ -156,6 +154,7 @@ var FocusTrap = function FocusTrap(_ref) {
     capture: true
   });
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({
+    tabIndex: -1,
     ref: ref
   }, restProps), children);
 };

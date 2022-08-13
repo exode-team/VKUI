@@ -127,4 +127,5 @@ export var PanelHeader = withAdaptivity(PanelHeaderComponent, {
   sizeX: true,
   sizeY: true
 });
+PanelHeader.displayName = "PanelHeader";
 //# sourceMappingURL=PanelHeader.js.map

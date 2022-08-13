@@ -83,4 +83,5 @@ var SelectComponent = function SelectComponent(_ref2) {
 export var Select = withAdaptivity(SelectComponent, {
   hasMouse: true
 });
+Select.displayName = "Select";
 //# sourceMappingURL=Select.js.map

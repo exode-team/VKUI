@@ -2,11 +2,10 @@ import * as React from "react";
 import { Touch, TouchEvent } from "../Touch/Touch";
 import { classNames } from "../../lib/classNames";
 import { HasPlatform } from "../../types";
-import { getClassName } from "../../helpers/getClassName";
-import { ANDROID, VKCOM } from "../../lib/platform";
+import { ANDROID, IOS, VKCOM } from "../../lib/platform";
 import { rubber } from "../../lib/touch";
 import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
-import { Text } from "../Typography/Text/Text";
+import { Paragraph } from "../Typography/Paragraph/Paragraph";
 import { Button } from "../Button/Button";
 import { AppRootPortal } from "../AppRoot/AppRootPortal";
 import { useWaitTransitionFinish } from "../../hooks/useWaitTransitionFinish";
@@ -25,7 +24,7 @@ export interface SnackbarProps
   /**
    * Название кнопки действия в уведомлении
    */
-  action?: string | React.ComponentType;
+  action?: React.ReactNode;
 
   /**
    * Будет вызвано при клике на кнопку действия
@@ -52,24 +51,25 @@ export interface SnackbarProps
    * Обработчик закрытия уведомления
    */
   onClose: () => void;
+  /**
+   * Задает стиль снекбара
+   */
+  mode?: "default" | "dark";
 }
 
-const SnackbarComponent: React.FC<
-  SnackbarProps & AdaptivityContextInterface
-> = (props) => {
-  const {
-    children,
-    layout,
-    action,
-    before,
-    after,
-    viewWidth,
-    duration = 0,
-    onActionClick,
-    onClose,
-    ...restProps
-  } = props;
-
+const SnackbarComponent = ({
+  children,
+  layout = "horizontal",
+  action,
+  before,
+  after,
+  viewWidth,
+  duration = 4000,
+  onActionClick,
+  onClose,
+  mode = "default",
+  ...restProps
+}: SnackbarProps & AdaptivityContextInterface) => {
   const platform = usePlatform();
 
   const { waitTransitionFinish } = useWaitTransitionFinish();
@@ -195,15 +195,14 @@ const SnackbarComponent: React.FC<
     <AppRootPortal>
       <div
         {...restProps}
-        // eslint-disable-next-line vkui/no-object-expression-in-arguments
         vkuiClass={classNames(
-          getClassName("Snackbar", platform),
+          "Snackbar",
+          platform === IOS && "Snackbar--ios",
           `Snackbar--l-${resolvedLayout}`,
-          {
-            "Snackbar--closing": closing,
-            "Snackbar--touched": touched,
-            "Snackbar--desktop": isDesktop,
-          }
+          `Snackbar--${mode}`,
+          closing && "Snackbar--closing",
+          touched && "Snackbar--touched",
+          isDesktop && "Snackbar--desktop"
         )}
       >
         <Touch
@@ -217,13 +216,16 @@ const SnackbarComponent: React.FC<
             {before && <div vkuiClass="Snackbar__before">{before}</div>}
 
             <div vkuiClass="Snackbar__content">
-              <Text vkuiClass="Snackbar__content-text">{children}</Text>
+              <Paragraph vkuiClass="Snackbar__content-text">
+                {children}
+              </Paragraph>
 
               {action && (
                 <Button
                   align="left"
                   hasHover={false}
                   mode="tertiary"
+                  appearance={mode === "dark" ? "overlay" : "accent"}
                   size="s"
                   vkuiClass="Snackbar__action"
                   onClick={handleActionClick}
@@ -242,11 +244,6 @@ const SnackbarComponent: React.FC<
 };
 
 SnackbarComponent.displayName = "Snackbar";
-
-SnackbarComponent.defaultProps = {
-  duration: 4000,
-  layout: "horizontal",
-};
 
 /**
  * @see https://vkcom.github.io/VKUI/#/Snackbar

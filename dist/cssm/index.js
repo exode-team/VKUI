@@ -50,7 +50,7 @@ export { ButtonGroup } from "./components/ButtonGroup/ButtonGroup";
 export { Button } from "./components/Button/Button";
 export { IconButton } from "./components/IconButton/IconButton";
 export { Card } from "./components/Card/Card";
-export { default as CardGrid } from "./components/CardGrid/CardGrid";
+export { CardGrid } from "./components/CardGrid/CardGrid";
 export { CardScroll } from "./components/CardScroll/CardScroll";
 export { ContentCard } from "./components/ContentCard/ContentCard";
 export { CellButton } from "./components/CellButton/CellButton";

@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -110,7 +108,7 @@ Object.defineProperty(exports, "Card", {
 Object.defineProperty(exports, "CardGrid", {
   enumerable: true,
   get: function get() {
-    return _CardGrid.default;
+    return _CardGrid.CardGrid;
   }
 });
 Object.defineProperty(exports, "CardScroll", {
@@ -984,7 +982,7 @@ var _IconButton = require("./components/IconButton/IconButton");
 
 var _Card = require("./components/Card/Card");
 
-var _CardGrid = _interopRequireDefault(require("./components/CardGrid/CardGrid"));
+var _CardGrid = require("./components/CardGrid/CardGrid");
 
 var _CardScroll = require("./components/CardScroll/CardScroll");
 

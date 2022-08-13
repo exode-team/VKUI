@@ -3,6 +3,9 @@ import { PlatformType } from "./lib/platform";
 import { Insets } from "@vkontakte/vk-bridge";
 export declare type AnyFunction = (...args: any[]) => any;
 export declare type AlignType = "left" | "center" | "right";
+export interface HasChildren {
+    children?: React.ReactNode;
+}
 export interface HasRootRef<T> {
     getRootRef?: React.Ref<T>;
 }

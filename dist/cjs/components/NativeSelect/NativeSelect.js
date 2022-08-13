@@ -120,4 +120,5 @@ var NativeSelect = (0, _withAdaptivity.withAdaptivity)(NativeSelectComponent, {
   sizeY: true
 });
 exports.NativeSelect = NativeSelect;
+NativeSelect.displayName = "NativeSelect";
 //# sourceMappingURL=NativeSelect.js.map

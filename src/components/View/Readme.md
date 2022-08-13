@@ -41,7 +41,7 @@ const [activePanel, setActivePanel] = useState("panel1");
 </View>;
 ```
 
-### <a id="/View?id=iosswipeback"></a>[iOS Swipe Back](#/View?id=iosswipeback)
+### <a id="/View?id=iosswipeback"></a>[iOS Swipe Back](https://vkcom.github.io/VKUI/#/View?id=iosswipeback)
 
 В iOS есть возможность свайпнуть от левого края назад, чтобы перейти на предыдущую панель. Для того, чтобы
 повторить такое поведение в VKUI нужно:
@@ -76,7 +76,9 @@ const go = (panel) => setHistory([...history, panel]);
     <Panel id="main">
       <PanelHeader>Main</PanelHeader>
       <Group>
+        <div style={{ height: 200 }} />
         <CellButton onClick={() => go("profile")}>profile</CellButton>
+        <div style={{ height: 600 }} />
       </Group>
     </Panel>
     <Panel id="profile">

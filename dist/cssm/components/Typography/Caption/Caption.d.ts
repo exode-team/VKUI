@@ -14,4 +14,4 @@ export interface CaptionProps extends React.AllHTMLAttributes<HTMLElement>, HasC
 /**
  * @see https://vkcom.github.io/VKUI/#/Caption
  */
-export declare const Caption: React.FC<CaptionProps>;
+export declare const Caption: ({ children, weight, level, caps, Component, ...restProps }: CaptionProps) => JSX.Element;

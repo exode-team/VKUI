@@ -6,4 +6,4 @@ export interface RadioGroupProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/RadioGroup
  */
-export declare const RadioGroup: React.FC<RadioGroupProps>;
+export declare const RadioGroup: ({ mode, children, ...restProps }: RadioGroupProps) => JSX.Element;

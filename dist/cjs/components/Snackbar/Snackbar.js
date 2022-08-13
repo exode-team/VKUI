@@ -23,15 +23,13 @@ var _Touch = require("../Touch/Touch");
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _platform = require("../../lib/platform");
 
 var _touch = require("../../lib/touch");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _Text = require("../Typography/Text/Text");
+var _Paragraph = require("../Typography/Paragraph/Paragraph");
 
 var _Button = require("../Button/Button");
 
@@ -43,20 +41,23 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _useTimeout = require("../../hooks/useTimeout");
 
-var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose"];
+var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "mode"];
 
-var SnackbarComponent = function SnackbarComponent(props) {
-  var children = props.children,
-      layout = props.layout,
-      action = props.action,
-      before = props.before,
-      after = props.after,
-      viewWidth = props.viewWidth,
-      _props$duration = props.duration,
-      duration = _props$duration === void 0 ? 0 : _props$duration,
-      onActionClick = props.onActionClick,
-      onClose = props.onClose,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var SnackbarComponent = function SnackbarComponent(_ref) {
+  var children = _ref.children,
+      _ref$layout = _ref.layout,
+      layout = _ref$layout === void 0 ? "horizontal" : _ref$layout,
+      action = _ref.action,
+      before = _ref.before,
+      after = _ref.after,
+      viewWidth = _ref.viewWidth,
+      _ref$duration = _ref.duration,
+      duration = _ref$duration === void 0 ? 4000 : _ref$duration,
+      onActionClick = _ref.onActionClick,
+      onClose = _ref.onClose,
+      _ref$mode = _ref.mode,
+      mode = _ref$mode === void 0 ? "default" : _ref$mode,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
   var _useWaitTransitionFin = (0, _useWaitTransitionFinish.useWaitTransitionFinish)(),
@@ -166,12 +167,7 @@ var SnackbarComponent = function SnackbarComponent(props) {
   }, [closeTimeout]);
   var resolvedLayout = after || isDesktop ? "vertical" : layout;
   return (0, _jsxRuntime.createScopedElement)(_AppRootPortal.AppRootPortal, null, (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Snackbar", platform), "Snackbar--l-".concat(resolvedLayout), {
-      "Snackbar--closing": closing,
-      "Snackbar--touched": touched,
-      "Snackbar--desktop": isDesktop
-    })
+    vkuiClass: (0, _classNames.classNames)("Snackbar", platform === _platform.IOS && "Snackbar--ios", "Snackbar--l-".concat(resolvedLayout), "Snackbar--".concat(mode), closing && "Snackbar--closing", touched && "Snackbar--touched", isDesktop && "Snackbar--desktop")
   }), (0, _jsxRuntime.createScopedElement)(_Touch.Touch, {
     vkuiClass: "Snackbar__in",
     getRootRef: innerElRef,
@@ -185,12 +181,13 @@ var SnackbarComponent = function SnackbarComponent(props) {
     vkuiClass: "Snackbar__before"
   }, before), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Snackbar__content"
-  }, (0, _jsxRuntime.createScopedElement)(_Text.Text, {
+  }, (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
     vkuiClass: "Snackbar__content-text"
   }, children), action && (0, _jsxRuntime.createScopedElement)(_Button.Button, {
     align: "left",
     hasHover: false,
     mode: "tertiary",
+    appearance: mode === "dark" ? "overlay" : "accent",
     size: "s",
     vkuiClass: "Snackbar__action",
     onClick: handleActionClick
@@ -200,10 +197,6 @@ var SnackbarComponent = function SnackbarComponent(props) {
 };
 
 SnackbarComponent.displayName = "Snackbar";
-SnackbarComponent.defaultProps = {
-  duration: 4000,
-  layout: "horizontal"
-};
 /**
  * @see https://vkcom.github.io/VKUI/#/Snackbar
  */

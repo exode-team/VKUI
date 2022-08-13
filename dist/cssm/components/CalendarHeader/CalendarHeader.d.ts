@@ -21,4 +21,4 @@ export interface CalendarHeaderProps extends Pick<React.HTMLAttributes<HTMLDivEl
      */
     onPrevMonth?(): void;
 }
-export declare const CalendarHeader: React.FC<CalendarHeaderProps>;
+export declare const CalendarHeader: ({ viewDate, onChange, prevMonth, nextMonth, disablePickers, onNextMonth, onPrevMonth, className, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, prevMonthIcon, nextMonthIcon, }: CalendarHeaderProps) => JSX.Element;

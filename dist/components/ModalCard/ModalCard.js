@@ -42,11 +42,8 @@ var ModalCardComponent = function ModalCardComponent(_ref) {
       refs = _useModalRegistry.refs;
 
   return createScopedElement("div", _extends({}, restProps, {
-    id: id // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("ModalCard", platform), {
-      "ModalCard--desktop": isDesktop
-    })
+    id: id,
+    vkuiClass: classNames(getClassName("ModalCard", platform), isDesktop && "ModalCard--desktop")
   }), createScopedElement(ModalCardBase, {
     vkuiClass: "ModalCard__in",
     getRootRef: refs.innerElement,

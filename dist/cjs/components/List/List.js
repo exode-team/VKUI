@@ -21,10 +21,6 @@ var React = _interopRequireWildcard(require("react"));
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
-var _usePlatform = require("../../hooks/usePlatform");
-
 var _ListContext = require("./ListContext");
 
 var _excluded = ["children"];
@@ -35,7 +31,6 @@ var _excluded = ["children"];
 var List = function List(_ref) {
   var children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
 
   var _React$useState = React.useState(false),
       _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
@@ -45,10 +40,7 @@ var List = function List(_ref) {
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
     role: "list"
   }, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("List", platform), {
-      "List--dragging": isDragging
-    })
+    vkuiClass: (0, _classNames.classNames)("List", isDragging && "List--dragging")
   }), (0, _jsxRuntime.createScopedElement)(_ListContext.ListContext.Provider, {
     value: React.useMemo(function () {
       return {

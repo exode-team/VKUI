@@ -12,4 +12,4 @@ export interface DateInputProps extends Omit<React.InputHTMLAttributes<HTMLDivEl
 /**
  * @see https://vkcom.github.io/VKUI/#/DateInput
  */
-export declare const DateInput: React.FC<DateInputProps>;
+export declare const DateInput: ({ enableTime, shouldDisableDate, disableFuture, disablePast, value, onChange, calendarPlacement, style, className, doneButtonText, closeOnChange, disablePickers, getRootRef, name, autoFocus, disabled, onClick, onFocus, prevMonthAriaLabel, nextMonthAriaLabel, showNeighboringMonth, size, changeMonthAriaLabel, changeYearAriaLabel, changeDayAriaLabel, changeHoursAriaLabel, changeMinutesAriaLabel, clearFieldAriaLabel, showCalendarAriaLabel, viewDate, onHeaderChange, onNextMonth, onPrevMonth, prevMonthIcon, nextMonthIcon, ...props }: DateInputProps) => JSX.Element;

@@ -9,7 +9,6 @@ import {
 } from "../../lib/accessibility";
 import { useDOM } from "../../lib/dom";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
-import { noop } from "../../lib/utils";
 import { HasComponent, HasRootRef } from "../../types";
 import { AppRootContext } from "../AppRoot/AppRootContext";
 
@@ -19,23 +18,23 @@ export interface FocusTrapProps
   extends React.AllHTMLAttributes<HTMLElement>,
     HasRootRef<HTMLElement>,
     HasComponent {
-  onClose?: (props?: any) => void;
   restoreFocus?: boolean;
   timeout?: number;
+  onClose?(): void;
 }
 
 /**
  * @see https://vkcom.github.io/VKUI/#/FocusTrap
  */
-export const FocusTrap: React.FC<FocusTrapProps> = ({
+export const FocusTrap = ({
   Component = "div",
-  onClose = noop,
+  onClose,
   restoreFocus = true,
   timeout = 0,
   getRootRef,
   children,
   ...restProps
-}) => {
+}: FocusTrapProps) => {
   const ref = useExternRef<HTMLElement>(getRootRef);
 
   const { document, window } = useDOM();
@@ -66,7 +65,7 @@ export const FocusTrap: React.FC<FocusTrapProps> = ({
 
   useIsomorphicLayoutEffect(() => {
     if (!ref.current) {
-      return noop();
+      return;
     }
 
     const nodes: HTMLElement[] = [];
@@ -82,11 +81,12 @@ export const FocusTrap: React.FC<FocusTrapProps> = ({
       }
     );
 
-    if (nodes?.length) {
-      setFocusableNodes(nodes);
+    if (nodes.length === 0) {
+      // Чтобы фокус был хотя бы на родителе
+      nodes.push(ref.current);
     }
 
-    return noop();
+    setFocusableNodes(nodes);
   }, [children]);
 
   // HANDLE TRAP UNMOUNT
@@ -105,7 +105,7 @@ export const FocusTrap: React.FC<FocusTrapProps> = ({
       };
     }
 
-    return noop();
+    return;
   }, [restoreFocus]);
 
   const onDocumentKeydown = (e: KeyboardEvent) => {
@@ -129,7 +129,7 @@ export const FocusTrap: React.FC<FocusTrapProps> = ({
       }
     }
 
-    if (pressedKey(e) === Keys.ESCAPE) {
+    if (onClose && pressedKey(e) === Keys.ESCAPE) {
       onClose();
     }
 
@@ -140,7 +140,7 @@ export const FocusTrap: React.FC<FocusTrapProps> = ({
   });
 
   return (
-    <Component ref={ref} {...restProps}>
+    <Component tabIndex={-1} ref={ref} {...restProps}>
       {children}
     </Component>
   );

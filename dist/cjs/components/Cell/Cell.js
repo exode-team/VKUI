@@ -23,8 +23,6 @@ var _utils = require("../../lib/utils");
 
 var _warnOnce = require("../../lib/warnOnce");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _platform = require("../../lib/platform");
 
 var _SimpleCell = require("../SimpleCell/SimpleCell");
@@ -140,14 +138,8 @@ var Cell = function Cell(_ref) {
   }
 
   var simpleCellDisabled = draggable && !selectable || removable || disabled;
-  var hasActive = !simpleCellDisabled && !dragging; // eslint-disable-next-line vkui/no-object-expression-in-arguments
-
-  var cellClasses = (0, _classNames.classNames)((0, _getClassName.getClassName)("Cell", platform), {
-    "Cell--dragging": dragging,
-    "Cell--removable": removable,
-    "Cell--selectable": selectable,
-    "Cell--disabled": disabled
-  });
+  var hasActive = !simpleCellDisabled && !dragging;
+  var cellClasses = (0, _classNames.classNames)("Cell", platform === _platform.IOS && "Cell--ios", dragging && "Cell--dragging", removable && "Cell--removable", selectable && "Cell--selectable", disabled && "Cell--disabled");
   var simpleCell = (0, _jsxRuntime.createScopedElement)(_SimpleCell.SimpleCell, (0, _extends2.default)({
     hasActive: hasActive,
     hasHover: hasActive
@@ -155,7 +147,7 @@ var Cell = function Cell(_ref) {
     vkuiClass: "Cell__content",
     disabled: simpleCellDisabled,
     Component: selectable ? "label" : Component,
-    before: (0, _jsxRuntime.createScopedElement)(React.Fragment, null, draggable && (platform === _platform.ANDROID || platform === _platform.VKCOM) && dragger, selectable && checkbox, before),
+    before: (0, _jsxRuntime.createScopedElement)(React.Fragment, null, draggable && platform !== _platform.IOS && dragger, selectable && checkbox, before),
     after: (0, _jsxRuntime.createScopedElement)(React.Fragment, null, draggable && platform === _platform.IOS && dragger, after)
   }));
 

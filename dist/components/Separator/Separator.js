@@ -15,7 +15,8 @@ export var Separator = function Separator(_ref) {
   return createScopedElement("div", _extends({}, restProps, {
     "aria-hidden": "true",
     vkuiClass: classNames("Separator", wide && "Separator--wide", // TODO: v5 remove
-    !wide && "Separator--padded")
+    !wide && "Separator--padded"),
+    role: "separator"
   }), createScopedElement("div", {
     vkuiClass: classNames("Separator__in", expanded && "Separator__in--expanded")
   }));

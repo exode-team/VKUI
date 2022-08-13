@@ -14,7 +14,7 @@ export function getScheme(_ref) {
           return Scheme.SPACE_GRAY;
       }
 
-    case "light":
+    default:
       switch (platform) {
         case VKCOM:
           return Scheme.VKCOM_LIGHT;

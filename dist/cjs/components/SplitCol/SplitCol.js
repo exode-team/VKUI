@@ -7,7 +7,7 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SplitColContext = exports.SplitCol = void 0;
+exports.useSplitCol = exports.SplitColContext = exports.SplitCol = void 0;
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -32,20 +32,26 @@ var SplitColContext = /*#__PURE__*/React.createContext({
 });
 exports.SplitColContext = SplitColContext;
 
+var useSplitCol = function useSplitCol() {
+  return React.useContext(SplitColContext);
+};
+
+exports.useSplitCol = useSplitCol;
+
 /**
  * @see https://vkcom.github.io/VKUI/#/SplitCol
  */
-var SplitCol = function SplitCol(props) {
-  var children = props.children,
-      width = props.width,
-      maxWidth = props.maxWidth,
-      minWidth = props.minWidth,
-      spaced = props.spaced,
-      _props$animate = props.animate,
-      animate = _props$animate === void 0 ? false : _props$animate,
-      fixed = props.fixed,
-      style = props.style,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var SplitCol = function SplitCol(_ref) {
+  var children = _ref.children,
+      width = _ref.width,
+      maxWidth = _ref.maxWidth,
+      minWidth = _ref.minWidth,
+      spaced = _ref.spaced,
+      _ref$animate = _ref.animate,
+      animate = _ref$animate === void 0 ? false : _ref$animate,
+      fixed = _ref.fixed,
+      style = _ref.style,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var baseRef = React.useRef(null);
   var fixedInnerRef = React.useRef(null);
   var contextValue = React.useMemo(function () {

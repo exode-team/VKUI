@@ -30,4 +30,4 @@ export interface RootState {
 /**
  * @see https://vkcom.github.io/VKUI/#/Root
  */
-export declare const Root: React.FC<RootProps>;
+export declare const Root: ({ popout, modal, children, activeView: _activeView, onTransition, nav, ...restProps }: RootProps) => JSX.Element;

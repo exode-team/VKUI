@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/extends";
 import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "mode", "embedded", "sizeX", "hasMouse", "noLegacyClasses", "scroll"];
+var _excluded = ["children", "mode", "embedded", "sizeX", "hasMouse", "noLegacyClasses", "scroll", "portalRoot", "disablePortal"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { useDOM } from "../../lib/dom";
@@ -18,6 +18,7 @@ import { warnOnce } from "../../lib/warnOnce";
 import { useKeyboardInputTracker } from "../../hooks/useKeyboardInputTracker";
 import { useInsets } from "../../hooks/useInsets";
 import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
+import { isRefObject } from "../../lib/isRefObject";
 var warn = warnOnce("AppRoot");
 /**
  * @see https://vkcom.github.io/VKUI/#/AppRoot
@@ -33,6 +34,9 @@ export var AppRoot = withAdaptivity(function (_ref) {
       noLegacyClasses = _ref$noLegacyClasses === void 0 ? false : _ref$noLegacyClasses,
       _ref$scroll = _ref.scroll,
       scroll = _ref$scroll === void 0 ? "global" : _ref$scroll,
+      _ref$portalRoot = _ref.portalRoot,
+      portalRootProp = _ref$portalRoot === void 0 ? null : _ref$portalRoot,
+      disablePortal = _ref.disablePortal,
       props = _objectWithoutProperties(_ref, _excluded);
 
   // normalize mode
@@ -53,16 +57,7 @@ export var AppRoot = withAdaptivity(function (_ref) {
   var _React$useContext = React.useContext(ConfigProviderContext),
       appearance = _React$useContext.appearance;
 
-  var initialized = React.useRef(false);
-
-  if (!initialized.current) {
-    if (document && mode === "full") {
-      document.documentElement.classList.add("vkui");
-    }
-
-    classScopingMode.noConflict = noLegacyClasses;
-    initialized.current = true;
-  }
+  classScopingMode.noConflict = noLegacyClasses;
 
   if (process.env.NODE_ENV === "development") {
     if (scroll !== "global" && mode !== "embedded") {
@@ -76,16 +71,29 @@ export var AppRoot = withAdaptivity(function (_ref) {
 
 
   useIsomorphicLayoutEffect(function () {
-    var portal = document.createElement("div");
-    portal.classList.add("vkui__portal-root");
-    document.body.appendChild(portal);
+    var portal = null;
+
+    if (portalRootProp) {
+      if (isRefObject(portalRootProp)) {
+        portal = portalRootProp.current;
+      } else {
+        portal = portalRootProp;
+      }
+    }
+
+    if (!portal) {
+      portal = document.createElement("div");
+      portal.classList.add("vkui__portal-root");
+      document.body.appendChild(portal);
+    }
+
     setPortalRoot(portal);
     return function () {
-      var _portal$parentElement;
+      var _portal, _portal$parentElement;
 
-      (_portal$parentElement = portal.parentElement) === null || _portal$parentElement === void 0 ? void 0 : _portal$parentElement.removeChild(portal);
+      (_portal = portal) === null || _portal === void 0 ? void 0 : (_portal$parentElement = _portal.parentElement) === null || _portal$parentElement === void 0 ? void 0 : _portal$parentElement.removeChild(portal);
     };
-  }, []); // setup root classes
+  }, [portalRootProp]); // setup root classes
 
   useIsomorphicLayoutEffect(function () {
     var _rootRef$current, _parent$classList;
@@ -101,12 +109,18 @@ export var AppRoot = withAdaptivity(function (_ref) {
       var _parent$classList2;
 
       parent === null || parent === void 0 ? void 0 : (_parent$classList2 = parent.classList).remove.apply(_parent$classList2, _toConsumableArray(classes));
-
-      if (mode === "full") {
-        document === null || document === void 0 ? void 0 : document.documentElement.classList.remove("vkui");
-      }
     };
-  }, []); // setup insets
+  }, []);
+  useIsomorphicLayoutEffect(function () {
+    if (mode === "full") {
+      document.documentElement.classList.add("vkui");
+      return function () {
+        document.documentElement.classList.remove("vkui");
+      };
+    }
+
+    return undefined;
+  }, [document, mode]); // setup insets
 
   useIsomorphicLayoutEffect(function () {
     var _rootRef$current2;
@@ -167,7 +181,8 @@ export var AppRoot = withAdaptivity(function (_ref) {
       portalRoot: portalRoot,
       embedded: mode === "embedded",
       keyboardInput: isKeyboardInputActive,
-      mode: mode
+      mode: mode,
+      disablePortal: disablePortal
     }
   }, createScopedElement(ScrollController, {
     elRef: rootRef
@@ -186,4 +201,5 @@ export var AppRoot = withAdaptivity(function (_ref) {
   sizeX: true,
   hasMouse: true
 });
+AppRoot.displayName = "AppRoot";
 //# sourceMappingURL=AppRoot.js.map

@@ -34,14 +34,14 @@ var RadioIcon = function RadioIcon(props) {
   }));
 };
 
-var RadioComponent = function RadioComponent(props) {
-  var children = props.children,
-      description = props.description,
-      style = props.style,
-      className = props.className,
-      getRootRef = props.getRootRef,
-      sizeY = props.sizeY,
-      restProps = _objectWithoutProperties(props, _excluded);
+var RadioComponent = function RadioComponent(_ref) {
+  var children = _ref.children,
+      description = _ref.description,
+      style = _ref.style,
+      className = _ref.className,
+      getRootRef = _ref.getRootRef,
+      sizeY = _ref.sizeY,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
   var RadioTypography = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
@@ -77,4 +77,5 @@ var RadioComponent = function RadioComponent(props) {
 export var Radio = withAdaptivity(RadioComponent, {
   sizeY: true
 });
+Radio.displayName = "Radio";
 //# sourceMappingURL=Radio.js.map

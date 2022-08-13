@@ -26,4 +26,4 @@ export interface HoverPopperProps extends PopperCommonProps {
      */
     children?: React.ReactElement;
 }
-export declare const HoverPopper: React.FC<HoverPopperProps>;
+export declare const HoverPopper: ({ getRef, content, children, onShownChange, shown: _shown, showDelay, hideDelay, ...restProps }: HoverPopperProps) => JSX.Element;

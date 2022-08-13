@@ -4,15 +4,14 @@ import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
 import { TappableProps, Tappable } from "../Tappable/Tappable";
 import { Icon24Chevron } from "@vkontakte/icons";
-import { ANDROID, IOS } from "../../lib/platform";
+import { IOS } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
-import { Title } from "../Typography/Title/Title";
-import { Text } from "../Typography/Text/Text";
-import { Subhead } from "../Typography/Subhead/Subhead";
 import { Headline } from "../Typography/Headline/Headline";
+import { Footnote } from "../Typography/Footnote/Footnote";
+import { Caption } from "../Typography/Caption/Caption";
 import "./SimpleCell.css";
 
 export interface SimpleCellOwnProps extends HasComponent {
@@ -52,22 +51,17 @@ export interface SimpleCellProps extends SimpleCellOwnProps, TappableProps {}
 type SimpleCellTypographyProps = React.HTMLAttributes<HTMLDivElement> &
   HasComponent;
 
-const SimpleCellTypography: React.FC<SimpleCellTypographyProps> = (
-  props: SimpleCellTypographyProps
-) => {
+const SimpleCellTypography = (props: SimpleCellTypographyProps) => {
   const { sizeY } = useAdaptivity();
-  const platform = usePlatform();
 
   if (sizeY === SizeType.COMPACT) {
-    return <Text {...props} />;
-  } else if (platform === ANDROID) {
-    return <Headline Component="span" weight="3" {...props} />;
-  } else {
-    return <Title Component="span" level="3" weight="3" {...props} />;
+    return <Caption level="2" {...props} />;
   }
+
+  return <Footnote {...props} />;
 };
 
-const SimpleCellComponent: React.FC<SimpleCellProps> = ({
+const SimpleCellComponent = ({
   badge,
   before,
   indicator,
@@ -85,39 +79,39 @@ const SimpleCellComponent: React.FC<SimpleCellProps> = ({
   return (
     <Tappable
       {...restProps}
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("SimpleCell", platform),
-        {
-          "SimpleCell--exp": expandable,
-          "SimpleCell--mult": multiline,
-        },
+        expandable && "SimpleCell--exp",
+        multiline && "SimpleCell--mult",
         `SimpleCell--sizeY-${sizeY}`
       )}
     >
       {before}
       <div vkuiClass="SimpleCell__main">
         <div vkuiClass="SimpleCell__content">
-          <SimpleCellTypography vkuiClass="SimpleCell__children">
+          <Headline
+            Component="span"
+            vkuiClass="SimpleCell__children"
+            weight="3"
+          >
             {children}
-          </SimpleCellTypography>
+          </Headline>
           {hasReactNode(badge) && (
             <span vkuiClass="SimpleCell__badge">{badge}</span>
           )}
         </div>
         {description && (
-          <Subhead Component="span" vkuiClass="SimpleCell__description">
-            {description}
-          </Subhead>
+          <div vkuiClass="SimpleCell__content">
+            <SimpleCellTypography vkuiClass="SimpleCell__text SimpleCell__subtitle">
+              {description}
+            </SimpleCellTypography>
+          </div>
         )}
       </div>
       {hasReactNode(indicator) && (
-        <SimpleCellTypography
-          Component="span"
-          vkuiClass="SimpleCell__indicator"
-        >
+        <Headline Component="span" weight="3" vkuiClass="SimpleCell__indicator">
           {indicator}
-        </SimpleCellTypography>
+        </Headline>
       )}
       {hasAfter && (
         <div vkuiClass="SimpleCell__after">
@@ -133,3 +127,5 @@ const SimpleCellComponent: React.FC<SimpleCellProps> = ({
  * @see https://vkcom.github.io/VKUI/#/SimpleCell
  */
 export const SimpleCell = withAdaptivity(SimpleCellComponent, { sizeY: true });
+
+SimpleCell.displayName = "SimpleCell";

@@ -15,15 +15,11 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _react = require("react");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _FormField = require("../FormField/FormField");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
-
-var _usePlatform = require("../../hooks/usePlatform");
 
 var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value", "caretPosition", "alwaysInFocus", "isFocus"];
 
@@ -45,7 +41,6 @@ var InputComponent = function InputComponent(_ref) {
       _ref$isFocus = _ref.isFocus,
       isFocus = _ref$isFocus === void 0 ? false : _ref$isFocus,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
   var ref = (0, _react.useRef)(null);
 
   var handleChange = function handleChange(e) {
@@ -67,7 +62,8 @@ var InputComponent = function InputComponent(_ref) {
     caretPosition && ((_ref$current2 = ref.current) === null || _ref$current2 === void 0 ? void 0 : _ref$current2.setSelectionRange(caretPosition, caretPosition));
   }, []);
   return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Input", platform), !!align && "Input--".concat(align), "Input--sizeY-".concat(sizeY)),
+    vkuiClass: (0, _classNames.classNames)("Input", !!align && "Input--".concat(align), "Input--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
+    before && "Input--hasBefore", after && "Input--hasAfter"),
     style: style,
     className: className,
     getRootRef: getRootRef,
@@ -91,4 +87,5 @@ var Input = (0, _withAdaptivity.withAdaptivity)(InputComponent, {
   sizeY: true
 });
 exports.Input = Input;
+Input.displayName = "Input";
 //# sourceMappingURL=Input.js.map

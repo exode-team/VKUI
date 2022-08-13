@@ -28,11 +28,12 @@ var AppRootPortal = function AppRootPortal(_ref) {
 
   var _React$useContext = React.useContext(_AppRootContext.AppRootContext),
       portalRoot = _React$useContext.portalRoot,
-      mode = _React$useContext.mode;
+      mode = _React$useContext.mode,
+      disablePortal = _React$useContext.disablePortal;
 
   var appearance = (0, _useAppearance.useAppearance)();
   forcePortal = (_forcePortal = forcePortal) !== null && _forcePortal !== void 0 ? _forcePortal : mode !== "full";
-  return portalRoot && forcePortal ? /*#__PURE__*/(0, _reactDom.createPortal)((0, _jsxRuntime.createScopedElement)(_AppearanceProvider.AppearanceProvider, {
+  return !disablePortal && portalRoot && forcePortal ? /*#__PURE__*/(0, _reactDom.createPortal)((0, _jsxRuntime.createScopedElement)(_AppearanceProvider.AppearanceProvider, {
     appearance: appearance
   }, (0, _jsxRuntime.createScopedElement)("div", {
     className: className

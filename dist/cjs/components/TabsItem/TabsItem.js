@@ -17,8 +17,6 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _Tappable = require("../Tappable/Tappable");
 
 var _classNames = require("../../lib/classNames");
@@ -27,7 +25,7 @@ var _platform = require("../../lib/platform");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
-var _utils = require("../../lib/utils");
+var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _Tabs = require("../Tabs/Tabs");
 
@@ -35,42 +33,61 @@ var _Headline = require("../Typography/Headline/Headline");
 
 var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Text = require("../Typography/Text/Text");
-
-var _excluded = ["children", "selected", "after"];
+var _excluded = ["before", "children", "status", "after", "selected"];
 
 /**
  * @see https://vkcom.github.io/VKUI/#/TabsItem
  */
 var TabsItem = function TabsItem(_ref) {
-  var children = _ref.children,
+  var before = _ref.before,
+      children = _ref.children,
+      status = _ref.status,
+      after = _ref.after,
       _ref$selected = _ref.selected,
       selected = _ref$selected === void 0 ? false : _ref$selected,
-      after = _ref.after,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-  var mode = React.useContext(_Tabs.TabsModeContext);
-  var ItemTypography = mode === "buttons" || mode === "segmented" ? _Subhead.Subhead : _Headline.Headline;
 
-  if (platform === _platform.VKCOM) {
-    ItemTypography = _Text.Text;
+  var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
+      sizeY = _useAdaptivity.sizeY;
+
+  var _React$useContext = React.useContext(_Tabs.TabsModeContext),
+      mode = _React$useContext.mode,
+      withGaps = _React$useContext.withGaps;
+
+  var statusComponent = null;
+
+  if (status) {
+    statusComponent = typeof status === "number" ? (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
+      Component: "span",
+      vkuiClass: "TabsItem__status TabsItem__status--count",
+      weight: "2"
+    }, status) : (0, _jsxRuntime.createScopedElement)("span", {
+      vkuiClass: "TabsItem__status"
+    }, status);
   }
 
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("TabsItem", platform), {
-      "TabsItem--selected": selected
-    }),
-    hasActive: mode === "segmented",
+    vkuiClass: (0, _classNames.classNames)("TabsItem", (platform === _platform.IOS || platform === _platform.VKCOM) && "TabsItem--".concat(platform), mode && "TabsItem--".concat(mode), selected && "TabsItem--selected", // TODO v5.0.0 новая адаптивность
+    sizeY && "TabsItem--sizeY-".concat(sizeY), withGaps && "TabsItem--withGaps"),
+    hoverMode: "TabsItem--hover",
     activeMode: "TabsItem--active",
-    focusVisibleMode: mode === "segmented" ? "outside" : "inside"
-  }), (0, _jsxRuntime.createScopedElement)(ItemTypography, {
+    focusVisibleMode: mode === "segmented" ? "outside" : "inside",
+    hasActive: mode === "segmented"
+  }), before && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "TabsItem__before"
+  }, before), (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     Component: "span",
-    vkuiClass: "TabsItem__in",
+    vkuiClass: "TabsItem__label",
+    level: mode === "default" ? "1" : "2",
     weight: "2"
-  }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
+  }, children), statusComponent, after && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "TabsItem__after"
-  }, after));
+  }, after), mode === "default" && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "TabsItem__underline",
+    "aria-hidden": true,
+    "data-selected": selected
+  }));
 };
 
 exports.TabsItem = TabsItem;

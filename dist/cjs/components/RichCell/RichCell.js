@@ -15,56 +15,56 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _classNames = require("../../lib/classNames");
 
-var _usePlatform = require("../../hooks/usePlatform");
-
-var _getClassName = require("../../helpers/getClassName");
-
 var _Tappable = require("../Tappable/Tappable");
-
-var _utils = require("../../lib/utils");
-
-var _Paragraph = require("../Typography/Paragraph/Paragraph");
 
 var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _excluded = ["children", "text", "caption", "before", "after", "bottom", "actions", "multiline", "sizeY"];
+var _excluded = ["subhead", "children", "text", "caption", "before", "after", "afterCaption", "bottom", "actions", "multiline", "sizeY"];
 
 var RichCellComponent = function RichCellComponent(_ref) {
-  var children = _ref.children,
+  var subhead = _ref.subhead,
+      children = _ref.children,
       text = _ref.text,
       caption = _ref.caption,
       before = _ref.before,
       after = _ref.after,
+      afterCaption = _ref.afterCaption,
       bottom = _ref.bottom,
       actions = _ref.actions,
       multiline = _ref.multiline,
       sizeY = _ref.sizeY,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("RichCell", platform), {
-      "RichCell--mult": multiline
-    }, "RichCell--sizeY-".concat(sizeY))
-  }), before, (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: (0, _classNames.classNames)("RichCell", !multiline && "RichCell--text-ellipsis", "RichCell--sizeY-".concat(sizeY))
+  }), before && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "RichCell__before"
+  }, before), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__in"
-  }, after, (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
-    weight: "2",
+  }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__content"
   }, (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "RichCell__content-before"
+  }, subhead && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
+    Component: "div",
+    vkuiClass: "RichCell__subhead"
+  }, subhead), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__children"
-  }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "RichCell__after"
-  }, after)), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
+  }, children), text && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__text"
-  }, text), (0, _utils.hasReactNode)(caption) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
-    Component: "span",
+  }, text), caption && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
+    Component: "div",
     vkuiClass: "RichCell__caption"
-  }, caption), (0, _utils.hasReactNode)(bottom) && (0, _jsxRuntime.createScopedElement)("div", {
+  }, caption)), (after || afterCaption) && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "RichCell__content-after"
+  }, after && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "RichCell__after-children"
+  }, after), afterCaption && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "RichCell__after-caption"
+  }, afterCaption))), bottom && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__bottom"
-  }, bottom), (0, _utils.hasReactNode)(actions) && (0, _jsxRuntime.createScopedElement)("div", {
+  }, bottom), actions && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "RichCell__actions"
   }, actions)));
 };

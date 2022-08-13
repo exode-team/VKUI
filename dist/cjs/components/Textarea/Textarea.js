@@ -31,9 +31,6 @@ var _useExternRef = require("../../hooks/useExternRef");
 
 var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows", "maxHeight"];
 
-/**
- * @see https://vkcom.github.io/VKUI/#/Textarea
- */
 var TextareaComponent = function TextareaComponent(_ref) {
   var _ref$defaultValue = _ref.defaultValue,
       defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,
@@ -90,11 +87,15 @@ var TextareaComponent = function TextareaComponent(_ref) {
     onChange: onChange,
     ref: elementRef
   })));
-}; // eslint-disable-next-line import/no-default-export
+};
+/**
+ * @see https://vkcom.github.io/VKUI/#/Textarea
+ */
 
 
 var Textarea = (0, _withAdaptivity.withAdaptivity)(TextareaComponent, {
   sizeY: true
 });
 exports.Textarea = Textarea;
+Textarea.displayName = "Textarea";
 //# sourceMappingURL=Textarea.js.map

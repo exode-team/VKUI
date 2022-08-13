@@ -15,10 +15,6 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
-var _usePlatform = require("../../hooks/usePlatform");
-
 var _utils = require("../../lib/utils");
 
 var _Caption = require("../Typography/Caption/Caption");
@@ -26,6 +22,8 @@ var _Caption = require("../Typography/Caption/Caption");
 var _Tappable = require("../Tappable/Tappable");
 
 var _Subhead = require("../Typography/Subhead/Subhead");
+
+var _Footnote = require("../Typography/Footnote/Footnote");
 
 var _Avatar = require("../Avatar/Avatar");
 
@@ -58,9 +56,8 @@ var HorizontalCell = function HorizontalCell(_ref2) {
       getRootRef = _ref2.getRootRef,
       getRef = _ref2.getRef,
       restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
-  var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("HorizontalCell", platform), "HorizontalCell--".concat(size)),
+    vkuiClass: (0, _classNames.classNames)("HorizontalCell", "HorizontalCell--".concat(size)),
     ref: getRootRef,
     style: style,
     className: className
@@ -74,7 +71,7 @@ var HorizontalCell = function HorizontalCell(_ref2) {
   }, (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(CellTypography, {
     size: size,
     vkuiClass: "HorizontalCell__title"
-  }, header), (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+  }, header), (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Footnote.Footnote, {
     vkuiClass: "HorizontalCell__subtitle"
   }, subtitle))));
 };

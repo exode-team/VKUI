@@ -9,9 +9,9 @@ exports.SimpleCell = void 0;
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
 var _classNames = require("../../lib/classNames");
 
@@ -31,13 +31,11 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _Title = require("../Typography/Title/Title");
-
-var _Text = require("../Typography/Text/Text");
-
-var _Subhead = require("../Typography/Subhead/Subhead");
-
 var _Headline = require("../Typography/Headline/Headline");
+
+var _Footnote = require("../Typography/Footnote/Footnote");
+
+var _Caption = require("../Typography/Caption/Caption");
 
 var _excluded = ["badge", "before", "indicator", "children", "after", "description", "expandable", "multiline", "sizeY"];
 
@@ -45,22 +43,13 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
       sizeY = _useAdaptivity.sizeY;
 
-  var platform = (0, _usePlatform.usePlatform)();
-
   if (sizeY === _withAdaptivity.SizeType.COMPACT) {
-    return (0, _jsxRuntime.createScopedElement)(_Text.Text, props);
-  } else if (platform === _platform.ANDROID) {
-    return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
-      Component: "span",
-      weight: "3"
-    }, props));
-  } else {
-    return (0, _jsxRuntime.createScopedElement)(_Title.Title, (0, _extends2.default)({
-      Component: "span",
-      level: "3",
-      weight: "3"
+    return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
+      level: "2"
     }, props));
   }
+
+  return (0, _jsxRuntime.createScopedElement)(_Footnote.Footnote, props);
 };
 
 var SimpleCellComponent = function SimpleCellComponent(_ref) {
@@ -79,24 +68,24 @@ var SimpleCellComponent = function SimpleCellComponent(_ref) {
   var hasAfter = (0, _utils.hasReactNode)(after) || expandable && platform === _platform.IOS;
 
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SimpleCell", platform), {
-      "SimpleCell--exp": expandable,
-      "SimpleCell--mult": multiline
-    }, "SimpleCell--sizeY-".concat(sizeY))
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SimpleCell", platform), expandable && "SimpleCell--exp", multiline && "SimpleCell--mult", "SimpleCell--sizeY-".concat(sizeY))
   }), before, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "SimpleCell__main"
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "SimpleCell__content"
-  }, (0, _jsxRuntime.createScopedElement)(SimpleCellTypography, {
-    vkuiClass: "SimpleCell__children"
+  }, (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
+    Component: "span",
+    vkuiClass: "SimpleCell__children",
+    weight: "3"
   }, children), (0, _utils.hasReactNode)(badge) && (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "SimpleCell__badge"
-  }, badge)), description && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
+  }, badge)), description && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "SimpleCell__content"
+  }, (0, _jsxRuntime.createScopedElement)(SimpleCellTypography, {
+    vkuiClass: "SimpleCell__text SimpleCell__subtitle"
+  }, description))), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     Component: "span",
-    vkuiClass: "SimpleCell__description"
-  }, description)), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(SimpleCellTypography, {
-    Component: "span",
+    weight: "3",
     vkuiClass: "SimpleCell__indicator"
   }, indicator), hasAfter && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "SimpleCell__after"
@@ -111,4 +100,5 @@ var SimpleCell = (0, _withAdaptivity.withAdaptivity)(SimpleCellComponent, {
   sizeY: true
 });
 exports.SimpleCell = SimpleCell;
+SimpleCell.displayName = "SimpleCell";
 //# sourceMappingURL=SimpleCell.js.map

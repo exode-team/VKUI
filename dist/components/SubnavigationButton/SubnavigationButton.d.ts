@@ -21,4 +21,4 @@ export interface SubnavigationButtonProps extends Omit<TappableProps, "size"> {
 /**
  * @see https://vkcom.github.io/VKUI/#/SubnavigationButton
  */
-export declare const SubnavigationButton: React.FC<SubnavigationButtonProps>;
+export declare const SubnavigationButton: ({ size, selected, textLevel, before, after, expandable, children, ...restProps }: SubnavigationButtonProps) => JSX.Element;

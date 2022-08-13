@@ -8,15 +8,15 @@ import { AppRootPortal } from "../AppRoot/AppRootPortal";
 import { blurActiveElement, useDOM } from "../../lib/dom";
 import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import "./PopoutRoot.css";
-export var PopoutRootComponent = function PopoutRootComponent(props) {
-  var popout = props.popout,
-      modal = props.modal,
-      viewWidth = props.viewWidth,
-      viewHeight = props.viewHeight,
-      hasMouse = props.hasMouse,
-      children = props.children,
-      getRootRef = props.getRootRef,
-      restProps = _objectWithoutProperties(props, _excluded);
+export var PopoutRootComponent = function PopoutRootComponent(_ref) {
+  var popout = _ref.popout,
+      modal = _ref.modal,
+      viewWidth = _ref.viewWidth,
+      viewHeight = _ref.viewHeight,
+      hasMouse = _ref.hasMouse,
+      children = _ref.children,
+      getRootRef = _ref.getRootRef,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _useDOM = useDOM(),
       document = _useDOM.document;

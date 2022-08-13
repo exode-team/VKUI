@@ -1,5 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _defineProperty from "@babel/runtime/helpers/defineProperty";
+import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["children", "size", "showArrows", "withSpaces"];
 import { createScopedElement } from "../../lib/jsxRuntime";
@@ -41,7 +42,8 @@ export var CardScroll = function CardScroll(_ref) {
     }
 
     var containerWidth = refContainer.current.offsetWidth;
-    var slideIndex = Array.from(refContainer.current.children).findIndex(function (el) {
+
+    var slideIndex = _toConsumableArray(refContainer.current.children).findIndex(function (el) {
       return el.offsetLeft + el.offsetWidth + parseInt(window.getComputedStyle(el).marginRight) - offset >= 0;
     });
 

@@ -24,9 +24,11 @@ export const SelectType = {
 /**
  * @see https://vkcom.github.io/VKUI/#/SelectTypography
  */
-export const SelectTypography: React.FC<
-  Pick<CustomSelectProps, "selectType">
-> = ({ selectType = SelectType.default, children, ...restProps }) => {
+export const SelectTypography = ({
+  selectType = SelectType.default,
+  children,
+  ...restProps
+}: React.PropsWithChildren<Pick<CustomSelectProps, "selectType">>) => {
   const platform = usePlatform();
   const { sizeY } = useAdaptivity();
 
@@ -53,10 +55,10 @@ export const SelectTypography: React.FC<
 
 export interface SelectProps extends CustomSelectProps, AdaptivityProps {}
 
-const SelectComponent: React.FC<SelectProps & AdaptivityContextInterface> = ({
+const SelectComponent = ({
   hasMouse,
   ...props
-}: SelectProps) => {
+}: SelectProps & AdaptivityContextInterface) => {
   // Use custom select if device has connected a mouse
   if (hasMouse) {
     const { children, ...restProps } = props;
@@ -83,3 +85,5 @@ const SelectComponent: React.FC<SelectProps & AdaptivityContextInterface> = ({
 export const Select = withAdaptivity(SelectComponent, {
   hasMouse: true,
 });
+
+Select.displayName = "Select";

@@ -1,6 +1,4 @@
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
 import { ScrollSaver } from "./ScrollSaver";
 import { getNavId } from "../../lib/getNavId";
@@ -9,6 +7,7 @@ import {
   AdaptivityContextInterface,
   AdaptivityProps,
 } from "../AdaptivityProvider/AdaptivityContext";
+import { SMALL_TABLET_SIZE } from "../AdaptivityProvider/AdaptivityProvider";
 import "./Epic.css";
 
 export interface EpicProps
@@ -20,12 +19,14 @@ export interface EpicProps
 
 const warn = warnOnce("Epic");
 
-const EpicComponent: React.FC<EpicProps & AdaptivityContextInterface> = (
-  props
-) => {
-  const platform = usePlatform();
+const EpicComponent = ({
+  activeStory,
+  tabbar,
+  children,
+  viewWidth,
+  ...restProps
+}: EpicProps & AdaptivityContextInterface) => {
   const scroll = React.useRef<{ [key: string]: number }>({}).current;
-  const { activeStory, tabbar, children, viewWidth, ...restProps } = props;
 
   if (
     process.env.NODE_ENV === "development" &&
@@ -33,7 +34,7 @@ const EpicComponent: React.FC<EpicProps & AdaptivityContextInterface> = (
     viewWidth < ViewWidth.SMALL_TABLET
   ) {
     warn(
-      `Не рекомендуется использовать Epic без Tabbar при ширине окна меньше ${ViewWidth.SMALL_TABLET}px`
+      `Не рекомендуется использовать Epic без Tabbar при ширине окна меньше ${SMALL_TABLET_SIZE}px`
     );
   }
   const story =
@@ -44,7 +45,7 @@ const EpicComponent: React.FC<EpicProps & AdaptivityContextInterface> = (
     ) as React.ReactElement | undefined) ?? null;
 
   return (
-    <div {...restProps} vkuiClass={getClassName("Epic", platform)}>
+    <div {...restProps} vkuiClass="Epic">
       <ScrollSaver
         key={activeStory}
         initialScroll={scroll[activeStory] || 0}

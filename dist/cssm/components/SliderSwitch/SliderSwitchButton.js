@@ -15,14 +15,14 @@ import "./SliderSwitch.css";
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0.
  */
-export var SliderSwitchButton = function SliderSwitchButton(props) {
+export var SliderSwitchButton = function SliderSwitchButton(_ref) {
   var _classNames;
 
-  var active = props.active,
-      hovered = props.hovered,
-      children = props.children,
-      getRootRef = props.getRootRef,
-      restProps = _objectWithoutProperties(props, _excluded);
+  var active = _ref.active,
+      hovered = _ref.hovered,
+      children = _ref.children,
+      getRootRef = _ref.getRootRef,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
 

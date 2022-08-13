@@ -36,14 +36,14 @@ var _excluded = ["active", "hovered", "children", "getRootRef"];
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0.
  */
-var SliderSwitchButton = function SliderSwitchButton(props) {
+var SliderSwitchButton = function SliderSwitchButton(_ref) {
   var _classNames;
 
-  var active = props.active,
-      hovered = props.hovered,
-      children = props.children,
-      getRootRef = props.getRootRef,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+  var active = _ref.active,
+      hovered = _ref.hovered,
+      children = _ref.children,
+      getRootRef = _ref.getRootRef,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
   var _React$useState = React.useState(false),

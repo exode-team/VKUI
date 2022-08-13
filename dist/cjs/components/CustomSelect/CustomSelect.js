@@ -9,23 +9,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CustomSelect = void 0;
 
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
-var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
-var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
-
-var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/createSuper"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
@@ -39,11 +29,7 @@ var _classNames = require("../../lib/classNames");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _withPlatform = require("../../hoc/withPlatform");
-
 var _CustomSelectOption = require("../CustomSelectOption/CustomSelectOption");
-
-var _getClassName = require("../../helpers/getClassName");
 
 var _Input = require("../Input/Input");
 
@@ -55,14 +41,14 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _select = require("../../lib/select");
 
-var _is = require("../../lib/is");
-
 var _CustomSelectDropdown = require("../CustomSelectDropdown/CustomSelectDropdown");
 
 var _Select = require("../Select/Select");
 
-var _excluded = ["before", "searchable", "name", "className", "getRef", "getRootRef", "popupDirection", "options", "sizeY", "platform", "style", "onChange", "onBlur", "onFocus", "onClick", "renderOption", "children", "emptyText", "onInputChange", "filterFn", "renderDropdown", "onOpen", "onClose", "fetching", "icon", "dropdownOffsetDistance", "fixDropdownWidth", "forceDropdownPortal", "selectType"],
-    _excluded2 = ["option"];
+var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
+
+var _excluded = ["option"],
+    _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
 
 var findIndexAfter = function findIndexAfter() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -82,7 +68,7 @@ var findIndexBefore = function findIndexBefore() {
   var endIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : options.length;
   var result = -1;
 
-  if (options === undefined || endIndex <= 0) {
+  if (endIndex <= 0) {
     return result;
   }
 
@@ -108,588 +94,530 @@ var checkOptionsValueType = function checkOptionsValueType(options) {
   }
 };
 
-var CustomSelectComponent = /*#__PURE__*/function (_React$Component) {
-  (0, _inherits2.default)(CustomSelectComponent, _React$Component);
+function defaultRenderOptionFn(_ref) {
+  var option = _ref.option,
+      props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+  return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.CustomSelectOption, props);
+}
 
-  var _super = (0, _createSuper2.default)(CustomSelectComponent);
+var handleOptionDown = function handleOptionDown(e) {
+  e.preventDefault();
+};
 
-  function CustomSelectComponent(props) {
-    var _this;
+function findSelectedIndex(options, value) {
+  var _options$findIndex;
 
-    (0, _classCallCheck2.default)(this, CustomSelectComponent);
-    _this = _super.call(this, props);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "keyboardInput", void 0);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "isControlledOutside", false);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "selectEl", null);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "scrollBoxRef", /*#__PURE__*/React.createRef());
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "containerRef", /*#__PURE__*/React.createRef());
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "resetKeyboardInput", function () {
-      _this.keyboardInput = "";
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "getSelectedItem", function () {
-      var _this$state = _this.state,
-          selectedOptionIndex = _this$state.selectedOptionIndex,
-          options = _this$state.options;
+  return (_options$findIndex = options.findIndex(function (item) {
+    value = typeof item.value === "number" ? Number(value) : value;
+    return item.value === value;
+  })) !== null && _options$findIndex !== void 0 ? _options$findIndex : -1;
+}
 
-      if (!(options !== null && options !== void 0 && options.length)) {
-        return null;
-      }
+var filter = function filter(options, inputValue, filterFn) {
+  return typeof filterFn === "function" ? options.filter(function (option) {
+    return filterFn(inputValue, option);
+  }) : options;
+};
 
-      return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : undefined;
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "filter", function (options, inputValue, filterFn) {
-      return typeof filterFn === "function" ? options.filter(function (option) {
-        return filterFn(inputValue, option);
-      }) : options;
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "open", function () {
-      _this.setState(function (_ref) {
-        var selectedOptionIndex = _ref.selectedOptionIndex;
-        return {
-          opened: true,
-          focusedOptionIndex: selectedOptionIndex
-        };
-      }, function () {
-        var selectedOptionIndex = _this.state.selectedOptionIndex;
+var defaultOptions = [];
+var defaultIcon = (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null);
 
-        if (selectedOptionIndex !== undefined && _this.isValidIndex(selectedOptionIndex)) {
-          _this.scrollToElement(selectedOptionIndex, true);
-        }
-      });
+function CustomSelectComponent(props) {
+  var _props$value, _props$value2;
 
-      typeof _this.props.onOpen === "function" && _this.props.onOpen();
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "close", function () {
-      _this.resetKeyboardInput();
+  var before = props.before,
+      name = props.name,
+      className = props.className,
+      getRef = props.getRef,
+      getRootRef = props.getRootRef,
+      popupDirection = props.popupDirection,
+      sizeY = props.sizeY,
+      platform = props.platform,
+      style = props.style,
+      onChange = props.onChange,
+      children = props.children,
+      onInputChangeProp = props.onInputChange,
+      renderDropdown = props.renderDropdown,
+      onOpen = props.onOpen,
+      onClose = props.onClose,
+      fetching = props.fetching,
+      forceDropdownPortal = props.forceDropdownPortal,
+      _props$selectType = props.selectType,
+      selectType = _props$selectType === void 0 ? _Select.SelectType.default : _props$selectType,
+      autoHideScrollbar = props.autoHideScrollbar,
+      autoHideScrollbarDelay = props.autoHideScrollbarDelay,
+      _props$searchable = props.searchable,
+      searchable = _props$searchable === void 0 ? false : _props$searchable,
+      _props$renderOption = props.renderOption,
+      renderOptionProp = _props$renderOption === void 0 ? defaultRenderOptionFn : _props$renderOption,
+      _props$options = props.options,
+      optionsProp = _props$options === void 0 ? defaultOptions : _props$options,
+      _props$emptyText = props.emptyText,
+      emptyText = _props$emptyText === void 0 ? "Ничего не найдено" : _props$emptyText,
+      _props$filterFn = props.filterFn,
+      filterFn = _props$filterFn === void 0 ? _select.defaultFilterFn : _props$filterFn,
+      _props$icon = props.icon,
+      icon = _props$icon === void 0 ? defaultIcon : _props$icon,
+      _props$dropdownOffset = props.dropdownOffsetDistance,
+      dropdownOffsetDistance = _props$dropdownOffset === void 0 ? 0 : _props$dropdownOffset,
+      _props$fixDropdownWid = props.fixDropdownWidth,
+      fixDropdownWidth = _props$fixDropdownWid === void 0 ? true : _props$fixDropdownWid,
+      restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
 
-      _this.setState(function () {
-        return {
-          inputValue: "",
-          opened: false,
-          focusedOptionIndex: -1,
-          options: _this.props.options
-        };
-      });
-
-      typeof _this.props.onClose === "function" && _this.props.onClose();
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "selectFocused", function () {
-      var focusedOptionIndex = _this.state.focusedOptionIndex;
-
-      if (focusedOptionIndex !== undefined) {
-        _this.select(focusedOptionIndex);
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "select", function (index) {
-      var _this$state$options;
-
-      if (!_this.isValidIndex(index)) {
-        return;
-      }
-
-      var item = (_this$state$options = _this.state.options) === null || _this$state$options === void 0 ? void 0 : _this$state$options[index];
-
-      _this.setState({
-        nativeSelectValue: item === null || item === void 0 ? void 0 : item.value
-      }, function () {
-        var _this$selectEl;
-
-        var event = new Event("change", {
-          bubbles: true
-        });
-        (_this$selectEl = _this.selectEl) === null || _this$selectEl === void 0 ? void 0 : _this$selectEl.dispatchEvent(event);
-      });
-
-      _this.close();
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onClick", function () {
-      _this.state.opened ? _this.close() : _this.open();
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onFocus", function () {
-      var _this$selectEl2;
-
-      var event = new Event("focus");
-      (_this$selectEl2 = _this.selectEl) === null || _this$selectEl2 === void 0 ? void 0 : _this$selectEl2.dispatchEvent(event);
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onBlur", function () {
-      var _this$selectEl3;
-
-      _this.close();
-
-      var event = new Event("blur");
-      (_this$selectEl3 = _this.selectEl) === null || _this$selectEl3 === void 0 ? void 0 : _this$selectEl3.dispatchEvent(event);
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "focusOptionByIndex", function (index) {
-      var _this$state$options$l, _this$state$options2, _this$state$options3;
-
-      var scrollTo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-      if (index === undefined || index < 0 || index > ((_this$state$options$l = (_this$state$options2 = _this.state.options) === null || _this$state$options2 === void 0 ? void 0 : _this$state$options2.length) !== null && _this$state$options$l !== void 0 ? _this$state$options$l : 0) - 1) {
-        return;
-      }
-
-      var option = (_this$state$options3 = _this.state.options) === null || _this$state$options3 === void 0 ? void 0 : _this$state$options3[index];
-
-      if (option !== null && option !== void 0 && option.disabled) {
-        return;
-      }
-
-      scrollTo && _this.scrollToElement(index);
-
-      _this.setState(function (prevState) {
-        return (// Это оптимизация, прежде всего, под `onMouseOver`
-          prevState.focusedOptionIndex !== index ? {
-            focusedOptionIndex: index
-          } : null
-        );
-      });
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "focusOption", function (type) {
-      var focusedOptionIndex = _this.state.focusedOptionIndex;
-      var index = focusedOptionIndex;
-
-      if (type === "next") {
-        var nextIndex = findIndexAfter(_this.state.options, index);
-        index = nextIndex === -1 ? findIndexAfter(_this.state.options) : nextIndex; // Следующий за index или первый валидный до index
-      } else if (type === "prev") {
-        var beforeIndex = findIndexBefore(_this.state.options, index);
-        index = beforeIndex === -1 ? findIndexBefore(_this.state.options) : beforeIndex; // Предшествующий index или последний валидный после index
-      }
-
-      _this.focusOptionByIndex(index);
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleOptionHover", function (e) {
-      var _e$currentTarget$pare;
-
-      _this.focusOptionByIndex(Array.prototype.indexOf.call((_e$currentTarget$pare = e.currentTarget.parentNode) === null || _e$currentTarget$pare === void 0 ? void 0 : _e$currentTarget$pare.children, e.currentTarget), false);
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleOptionDown", function (e) {
-      e.preventDefault();
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleOptionClick", function (e) {
-      var _e$currentTarget$pare2, _this$state$options4;
-
-      var index = Array.prototype.indexOf.call((_e$currentTarget$pare2 = e.currentTarget.parentNode) === null || _e$currentTarget$pare2 === void 0 ? void 0 : _e$currentTarget$pare2.children, e.currentTarget);
-      var option = (_this$state$options4 = _this.state.options) === null || _this$state$options4 === void 0 ? void 0 : _this$state$options4[index];
-
-      if (option && !option.disabled) {
-        _this.selectFocused();
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "resetFocusedOption", function () {
-      _this.setState({
-        focusedOptionIndex: -1
-      });
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onKeyboardInput", function (key) {
-      var _this$state$options5;
-
-      var fullInput = _this.keyboardInput + key;
-      var optionIndex = (_this$state$options5 = _this.state.options) === null || _this$state$options5 === void 0 ? void 0 : _this$state$options5.findIndex(function (option) {
-        return (0, _utils.getTitleFromChildren)(option.label).toLowerCase().includes(fullInput);
-      });
-
-      if (optionIndex !== undefined && optionIndex > -1) {
-        _this.focusOptionByIndex(optionIndex);
-      }
-
-      _this.keyboardInput = fullInput;
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onLabelClick", function (e) {
-      var _this$scrollBoxRef$cu;
-
-      if ((_this$scrollBoxRef$cu = _this.scrollBoxRef.current) !== null && _this$scrollBoxRef$cu !== void 0 && _this$scrollBoxRef$cu.contains(e.target)) {
-        e.preventDefault();
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onNativeSelectChange", function (e) {
-      var newSelectedOptionIndex = _this.findSelectedIndex(_this.state.options, e.currentTarget.value);
-
-      if (_this.state.selectedOptionIndex !== newSelectedOptionIndex) {
-        var _this$props$onChange, _this$props;
-
-        if (!_this.isControlledOutside) {
-          _this.setState({
-            selectedOptionIndex: newSelectedOptionIndex
-          });
-        }
-
-        (_this$props$onChange = (_this$props = _this.props).onChange) === null || _this$props$onChange === void 0 ? void 0 : _this$props$onChange.call(_this$props, e);
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onInputChange", function (e) {
-      if (_this.props.onInputChange) {
-        var _options = _this.props.onInputChange(e, _this.props.options);
-
-        if (_options) {
-          if (process.env.NODE_ENV === "development") {
-            warn("Этот метод фильтрации устарел. Возвращаемое значение onInputChange будет " + "проигнорировано в v5.0.0. Для фильтрации обновляйте props.options самостоятельно или используйте свойство filterFn.");
-          }
-
-          _this.setState({
-            options: _options,
-            selectedOptionIndex: _this.findSelectedIndex(_options, _this.state.nativeSelectValue),
-            inputValue: e.target.value
-          });
-        } else {
-          _this.setState({
-            inputValue: e.target.value
-          });
-        }
-      } else {
-        var _options2 = _this.filter(_this.props.options, e.target.value, _this.props.filterFn);
-
-        _this.setState({
-          options: _options2,
-          selectedOptionIndex: _this.findSelectedIndex(_options2, _this.state.nativeSelectValue),
-          inputValue: e.target.value
-        });
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onInputKeyDown", function (event) {
-      ["ArrowUp", "ArrowDown", "Escape", "Enter"].includes(event.key) && _this.areOptionsShown && event.preventDefault();
-
-      switch (event.key) {
-        case "ArrowUp":
-          _this.areOptionsShown && _this.focusOption("prev");
-          break;
-
-        case "ArrowDown":
-          _this.areOptionsShown && _this.focusOption("next");
-          break;
-
-        case "Escape":
-          _this.close();
-
-          break;
-
-        case "Enter":
-          _this.areOptionsShown && _this.selectFocused();
-          break;
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleKeyDownSelect", function (event) {
-      var opened = _this.state.opened;
-
-      if (event.key.length === 1 && event.key !== " ") {
-        _this.onKeyboardInput(event.key);
-
-        return;
-      }
-
-      ["ArrowUp", "ArrowDown", "Escape", "Enter"].includes(event.key) && _this.areOptionsShown && event.preventDefault();
-
-      switch (event.key) {
-        case "ArrowUp":
-          if (opened) {
-            _this.areOptionsShown && _this.focusOption("prev");
-          } else {
-            _this.open();
-          }
-
-          break;
-
-        case "ArrowDown":
-          if (opened) {
-            _this.areOptionsShown && _this.focusOption("next");
-          } else {
-            _this.open();
-          }
-
-          break;
-
-        case "Escape":
-          _this.close();
-
-          break;
-
-        case "Enter":
-        case "Spacebar":
-        case " ":
-          if (opened) {
-            _this.areOptionsShown && _this.selectFocused();
-          } else {
-            _this.open();
-          }
-
-          break;
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleKeyUp", (0, _utils.debounce)(_this.resetKeyboardInput, 1000));
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "renderOption", function (option, index) {
-      var _this$state2 = _this.state,
-          focusedOptionIndex = _this$state2.focusedOptionIndex,
-          selectedOptionIndex = _this$state2.selectedOptionIndex;
-      var renderOption = _this.props.renderOption;
-      var hovered = index === focusedOptionIndex;
-      var selected = index === selectedOptionIndex;
-      return (0, _jsxRuntime.createScopedElement)(React.Fragment, {
-        key: "".concat(option.value)
-      }, renderOption({
-        option: option,
-        hovered: hovered,
-        children: option.label,
-        selected: selected,
-        disabled: option.disabled,
-        onClick: _this.handleOptionClick,
-        onMouseDown: _this.handleOptionDown,
-        // Используем `onMouseOver` вместо `onMouseEnter`.
-        // При параметре `searchable`, обновляется "ребёнок", из-за чего `onMouseEnter` не срабатывает в следующих кейсах:
-        //  1. До загрузки выпадающего списка, курсор мышки находится над произвольным элементом этого списка.
-        //     > Лечение: только увод курсора мыши и возвращении его обратно вызывает событие `onMouseEnter` на этот элемент.
-        //  2. Если это тач-устройство.
-        //     > Лечение: нужно нажать на какой-нибудь произвольный элемент списка, после чего `onMouseEnter` будет работать на соседние элементы,
-        //     но не на тот, на который нажали в первый раз.
-        // Более подробно по ссылке https://github.com/facebook/react/issues/13956#issuecomment-1082055744
-        onMouseOver: _this.handleOptionHover
-      }));
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "selectRef", function (element) {
-      _this.selectEl = element;
-
-      if (_this.props.getRef) {
-        (0, _utils.setRef)(element, _this.props.getRef);
-      }
-    });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onPlacementChange", function (placement) {
-      _this.setState(function () {
-        return {
-          popperPlacement: placement
-        };
-      });
-    });
-    var value = props.value,
-        defaultValue = props.defaultValue;
-    var initialValue = value !== undefined ? value : defaultValue;
-    _this.keyboardInput = "";
-
-    if (process.env.NODE_ENV === "development") {
-      checkOptionsValueType(props.options);
-    }
-
-    _this.state = {
-      opened: false,
-      focusedOptionIndex: -1,
-      selectedOptionIndex: _this.findSelectedIndex(props.options, initialValue),
-      nativeSelectValue: initialValue,
-      options: props.options,
-      inputValue: ""
-    };
-
-    if (props.value !== undefined) {
-      _this.isControlledOutside = true;
-    }
-
-    return _this;
+  if (process.env.NODE_ENV === "development") {
+    checkOptionsValueType(optionsProp);
   }
 
-  (0, _createClass2.default)(CustomSelectComponent, [{
-    key: "areOptionsShown",
-    get: function get() {
-      return this.scrollBoxRef.current !== null;
-    }
-  }, {
-    key: "findSelectedIndex",
-    value: function findSelectedIndex(options, value) {
-      var _options$findIndex;
+  var containerRef = React.useRef(null);
+  var scrollBoxRef = React.useRef(null);
+  var selectElRef = React.useRef(null);
 
-      return (_options$findIndex = options === null || options === void 0 ? void 0 : options.findIndex(function (item) {
-        value = typeof item.value === "number" ? Number(value) : value;
-        return item.value === value;
-      })) !== null && _options$findIndex !== void 0 ? _options$findIndex : -1;
-    }
-  }, {
-    key: "isValidIndex",
-    value: function isValidIndex(index) {
-      var _this$state$options$l2, _this$state$options6;
+  var _React$useState = React.useState(-1),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      focusedOptionIndex = _React$useState2[0],
+      setFocusedOptionIndex = _React$useState2[1];
 
-      return index >= 0 && index < ((_this$state$options$l2 = (_this$state$options6 = this.state.options) === null || _this$state$options6 === void 0 ? void 0 : _this$state$options6.length) !== null && _this$state$options$l2 !== void 0 ? _this$state$options$l2 : 0);
-    }
-  }, {
-    key: "scrollToElement",
-    value: function scrollToElement(index) {
-      var center = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var dropdown = this.scrollBoxRef.current;
-      var item = dropdown ? dropdown.children[index] : null;
+  var _React$useState3 = React.useState(props.value !== undefined),
+      _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
+      isControlledOutside = _React$useState4[0],
+      setIsControlledOutside = _React$useState4[1];
 
-      if (!item || !dropdown) {
-        return;
+  var _React$useState5 = React.useState(""),
+      _React$useState6 = (0, _slicedToArray2.default)(_React$useState5, 2),
+      inputValue = _React$useState6[0],
+      setInputValue = _React$useState6[1];
+
+  var _React$useState7 = React.useState((_props$value = props.value) !== null && _props$value !== void 0 ? _props$value : props.defaultValue),
+      _React$useState8 = (0, _slicedToArray2.default)(_React$useState7, 2),
+      nativeSelectValue = _React$useState8[0],
+      setNativeSelectValue = _React$useState8[1];
+
+  var _React$useState9 = React.useState(""),
+      _React$useState10 = (0, _slicedToArray2.default)(_React$useState9, 2),
+      keyboardInput = _React$useState10[0],
+      setKeyboardInput = _React$useState10[1];
+
+  var _React$useState11 = React.useState(undefined),
+      _React$useState12 = (0, _slicedToArray2.default)(_React$useState11, 2),
+      popperPlacement = _React$useState12[0],
+      setPopperPlacement = _React$useState12[1];
+
+  var _React$useState13 = React.useState(optionsProp),
+      _React$useState14 = (0, _slicedToArray2.default)(_React$useState13, 2),
+      options = _React$useState14[0],
+      setOptions = _React$useState14[1];
+
+  var _React$useState15 = React.useState(findSelectedIndex(optionsProp, (_props$value2 = props.value) !== null && _props$value2 !== void 0 ? _props$value2 : props.defaultValue)),
+      _React$useState16 = (0, _slicedToArray2.default)(_React$useState15, 2),
+      selectedOptionIndex = _React$useState16[0],
+      setSelectedOptionIndex = _React$useState16[1];
+
+  var _React$useState17 = React.useState(false),
+      _React$useState18 = (0, _slicedToArray2.default)(_React$useState17, 2),
+      opened = _React$useState18[0],
+      setOpened = _React$useState18[1];
+
+  React.useEffect(function () {
+    setIsControlledOutside(props.value !== undefined);
+    setNativeSelectValue(function (nativeSelectValue) {
+      var _props$value3;
+
+      return (_props$value3 = props.value) !== null && _props$value3 !== void 0 ? _props$value3 : nativeSelectValue;
+    });
+  }, [props.value]);
+  (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
+    if (nativeSelectValue) {
+      var _selectElRef$current;
+
+      var _event = new Event("change", {
+        bubbles: true
+      });
+
+      (_selectElRef$current = selectElRef.current) === null || _selectElRef$current === void 0 ? void 0 : _selectElRef$current.dispatchEvent(_event);
+    }
+  }, [nativeSelectValue]);
+  var selected = React.useMemo(function () {
+    if (!options.length) {
+      return null;
+    }
+
+    return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : undefined;
+  }, [options, selectedOptionIndex]);
+  var openedClassNames = React.useMemo(function () {
+    return (0, _classNames.classNames)(opened && "Select--open", opened && dropdownOffsetDistance === 0 && (popperPlacement !== null && popperPlacement !== void 0 && popperPlacement.includes("top") ? "Select--pop-up" : "Select--pop-down"));
+  }, [dropdownOffsetDistance, opened, popperPlacement]);
+  var resetKeyboardInput = React.useCallback(function () {
+    setKeyboardInput("");
+  }, []);
+  var scrollToElement = React.useCallback(function (index) {
+    var center = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var dropdown = scrollBoxRef.current;
+    var item = dropdown ? dropdown.children[index] : null;
+
+    if (!item || !dropdown) {
+      return;
+    }
+
+    var dropdownHeight = dropdown.offsetHeight;
+    var scrollTop = dropdown.scrollTop;
+    var itemTop = item.offsetTop;
+    var itemHeight = item.offsetHeight;
+
+    if (center) {
+      dropdown.scrollTop = itemTop - dropdownHeight / 2 + itemHeight / 2;
+    } else if (itemTop + itemHeight > dropdownHeight + scrollTop) {
+      dropdown.scrollTop = itemTop - dropdownHeight + itemHeight;
+    } else if (itemTop < scrollTop) {
+      dropdown.scrollTop = itemTop;
+    }
+  }, []);
+  var isValidIndex = React.useCallback(function (index) {
+    var _options$length;
+
+    return index >= 0 && index < ((_options$length = options.length) !== null && _options$length !== void 0 ? _options$length : 0);
+  }, [options.length]);
+  var focusOptionByIndex = React.useCallback(function (index) {
+    var _options$length2;
+
+    var scrollTo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+    if (index === undefined || index < 0 || index > ((_options$length2 = options.length) !== null && _options$length2 !== void 0 ? _options$length2 : 0) - 1) {
+      return;
+    }
+
+    var option = options[index];
+
+    if (option !== null && option !== void 0 && option.disabled) {
+      return;
+    }
+
+    if (scrollTo) {
+      scrollToElement(index);
+    } // Это оптимизация, прежде всего, под `onMouseOver`
+
+
+    setFocusedOptionIndex(function (focusedOptionIndex) {
+      return focusedOptionIndex !== index ? index : focusedOptionIndex;
+    });
+  }, [options, scrollToElement]);
+  var areOptionsShown = React.useCallback(function () {
+    return scrollBoxRef.current !== null;
+  }, []);
+  var onKeyboardInput = React.useCallback(function (key) {
+    var fullInput = keyboardInput + key;
+    var optionIndex = options.findIndex(function (option) {
+      return (0, _utils.getTitleFromChildren)(option.label).toLowerCase().includes(fullInput);
+    });
+
+    if (optionIndex !== undefined && optionIndex > -1) {
+      focusOptionByIndex(optionIndex);
+    }
+
+    setKeyboardInput(fullInput);
+  }, [focusOptionByIndex, keyboardInput, options]);
+  var close = React.useCallback(function () {
+    resetKeyboardInput();
+    setInputValue("");
+    setOpened(false);
+    setFocusedOptionIndex(-1);
+    setOptions(optionsProp);
+    onClose === null || onClose === void 0 ? void 0 : onClose();
+  }, [onClose, optionsProp, resetKeyboardInput]);
+  var selectFocused = React.useCallback(function () {
+    if (focusedOptionIndex !== undefined && isValidIndex(focusedOptionIndex)) {
+      var item = options[focusedOptionIndex];
+      setNativeSelectValue(item === null || item === void 0 ? void 0 : item.value);
+      close();
+    }
+  }, [close, focusedOptionIndex, isValidIndex, options]);
+  var open = React.useCallback(function () {
+    setOpened(true);
+    setFocusedOptionIndex(selectedOptionIndex);
+
+    if (typeof onOpen === "function") {
+      onOpen();
+    }
+  }, [onOpen, selectedOptionIndex]);
+  React.useEffect(function () {
+    if (opened && selectedOptionIndex !== undefined && isValidIndex(selectedOptionIndex)) {
+      scrollToElement(selectedOptionIndex, true);
+    }
+  }, [isValidIndex, opened, scrollToElement, selectedOptionIndex]);
+  var onBlur = React.useCallback(function () {
+    var _selectElRef$current2;
+
+    close();
+    var event = new Event("blur");
+    (_selectElRef$current2 = selectElRef.current) === null || _selectElRef$current2 === void 0 ? void 0 : _selectElRef$current2.dispatchEvent(event);
+  }, [close]);
+  var resetFocusedOption = React.useCallback(function () {
+    setFocusedOptionIndex(-1);
+  }, []);
+  var onFocus = React.useCallback(function () {
+    var _selectElRef$current3;
+
+    var event = new Event("focus");
+    (_selectElRef$current3 = selectElRef.current) === null || _selectElRef$current3 === void 0 ? void 0 : _selectElRef$current3.dispatchEvent(event);
+  }, []);
+  var onClick = React.useCallback(function () {
+    if (opened) {
+      close();
+    } else {
+      open();
+    }
+  }, [close, open, opened]);
+  var handleKeyUp = React.useMemo(function () {
+    return (0, _utils.debounce)(resetKeyboardInput, 1000);
+  }, [resetKeyboardInput]);
+  var focusOption = React.useCallback(function (type) {
+    var index = focusedOptionIndex;
+
+    if (type === "next") {
+      var nextIndex = findIndexAfter(options, index);
+      index = nextIndex === -1 ? findIndexAfter(options) : nextIndex; // Следующий за index или первый валидный до index
+    } else if (type === "prev") {
+      var beforeIndex = findIndexBefore(options, index);
+      index = beforeIndex === -1 ? findIndexBefore(options) : beforeIndex; // Предшествующий index или последний валидный после index
+    }
+
+    focusOptionByIndex(index);
+  }, [focusOptionByIndex, focusedOptionIndex, options]);
+  React.useEffect(function () {
+    var _ref2, _props$value4;
+
+    var value = (_ref2 = (_props$value4 = props.value) !== null && _props$value4 !== void 0 ? _props$value4 : nativeSelectValue) !== null && _ref2 !== void 0 ? _ref2 : props.defaultValue;
+    var options = searchable && inputValue !== undefined ? filter(optionsProp, inputValue, filterFn) : optionsProp;
+    setOptions(options);
+    setSelectedOptionIndex(findSelectedIndex(options, value));
+  }, [filterFn, inputValue, nativeSelectValue, optionsProp, props.defaultValue, props.value, searchable]);
+  /**
+   * Нужен для правильного поведения обработчика onClick на select. Фильтрует клики, которые были сделаны по
+   * выпадающему списку.
+   */
+
+  var onLabelClick = React.useCallback(function (e) {
+    var _scrollBoxRef$current;
+
+    if ((_scrollBoxRef$current = scrollBoxRef.current) !== null && _scrollBoxRef$current !== void 0 && _scrollBoxRef$current.contains(e.target)) {
+      e.preventDefault();
+    }
+  }, []);
+  var onNativeSelectChange = React.useCallback(function (e) {
+    var newSelectedOptionIndex = findSelectedIndex(options, e.currentTarget.value);
+
+    if (selectedOptionIndex !== newSelectedOptionIndex) {
+      if (!isControlledOutside) {
+        setSelectedOptionIndex(newSelectedOptionIndex);
       }
 
-      var dropdownHeight = dropdown.offsetHeight;
-      var scrollTop = dropdown.scrollTop;
-      var itemTop = item.offsetTop;
-      var itemHeight = item.offsetHeight;
-
-      if (center) {
-        dropdown.scrollTop = itemTop - dropdownHeight / 2 + itemHeight / 2;
-      } else if (itemTop + itemHeight > dropdownHeight + scrollTop) {
-        dropdown.scrollTop = itemTop - dropdownHeight + itemHeight;
-      } else if (itemTop < scrollTop) {
-        dropdown.scrollTop = itemTop;
-      }
+      onChange === null || onChange === void 0 ? void 0 : onChange(e);
     }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      // Внутри useEffect и так is, можно убрать
-      if (!(0, _is.is)(prevProps.value, this.props.value) || prevProps.options !== this.props.options) {
+  }, [isControlledOutside, onChange, options, selectedOptionIndex]);
+  var onInputKeyDown = React.useCallback(function (event) {
+    ["ArrowUp", "ArrowDown", "Escape", "Enter"].includes(event.key) && areOptionsShown() && event.preventDefault();
+
+    switch (event.key) {
+      case "ArrowUp":
+        areOptionsShown() && focusOption("prev");
+        break;
+
+      case "ArrowDown":
+        areOptionsShown() && focusOption("next");
+        break;
+
+      case "Escape":
+        close();
+        break;
+
+      case "Enter":
+        areOptionsShown() && selectFocused();
+        break;
+    }
+  }, [areOptionsShown, close, focusOption, selectFocused]);
+  var onInputChange = React.useCallback(function (e) {
+    if (onInputChangeProp) {
+      var _options = onInputChangeProp(e, optionsProp);
+
+      if (_options) {
         if (process.env.NODE_ENV === "development") {
-          checkOptionsValueType(this.props.options);
+          warn("Этот метод фильтрации устарел. Возвращаемое значение onInputChange будет " + "проигнорировано в v5.0.0. Для фильтрации обновляйте props.options самостоятельно или используйте свойство filterFn.");
         }
 
-        this.isControlledOutside = this.props.value !== undefined;
-
-        var _value = this.props.value === undefined ? this.state.nativeSelectValue : this.props.value;
-
-        var _options3 = this.props.searchable && this.state.inputValue !== undefined ? this.filter(this.props.options, this.state.inputValue, this.props.filterFn) : this.props.options;
-
-        this.setState({
-          nativeSelectValue: _value,
-          selectedOptionIndex: this.findSelectedIndex(_options3, _value),
-          options: _options3
-        });
+        setOptions(_options);
+        setSelectedOptionIndex(findSelectedIndex(_options, nativeSelectValue));
       }
+    } else {
+      var _options2 = filter(optionsProp, e.target.value, filterFn);
+
+      setOptions(_options2);
+      setSelectedOptionIndex(findSelectedIndex(_options2, nativeSelectValue));
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$state$popperPla;
 
-      var _this$state3 = this.state,
-          opened = _this$state3.opened,
-          nativeSelectValue = _this$state3.nativeSelectValue,
-          stateOptions = _this$state3.options;
-      var _this$props2 = this.props,
-          before = _this$props2.before,
-          searchable = _this$props2.searchable,
-          name = _this$props2.name,
-          className = _this$props2.className,
-          getRef = _this$props2.getRef,
-          getRootRef = _this$props2.getRootRef,
-          popupDirection = _this$props2.popupDirection,
-          options = _this$props2.options,
-          sizeY = _this$props2.sizeY,
-          platform = _this$props2.platform,
-          style = _this$props2.style,
-          onChange = _this$props2.onChange,
-          onBlur = _this$props2.onBlur,
-          onFocus = _this$props2.onFocus,
-          onClick = _this$props2.onClick,
-          renderOption = _this$props2.renderOption,
-          children = _this$props2.children,
-          emptyText = _this$props2.emptyText,
-          onInputChange = _this$props2.onInputChange,
-          filterFn = _this$props2.filterFn,
-          renderDropdown = _this$props2.renderDropdown,
-          onOpen = _this$props2.onOpen,
-          onClose = _this$props2.onClose,
-          fetching = _this$props2.fetching,
-          icon = _this$props2.icon,
-          dropdownOffsetDistance = _this$props2.dropdownOffsetDistance,
-          fixDropdownWidth = _this$props2.fixDropdownWidth,
-          forceDropdownPortal = _this$props2.forceDropdownPortal,
-          _this$props2$selectTy = _this$props2.selectType,
-          selectType = _this$props2$selectTy === void 0 ? _Select.SelectType.default : _this$props2$selectTy,
-          restProps = (0, _objectWithoutProperties2.default)(_this$props2, _excluded);
-      var selected = this.getSelectedItem();
-      var label = selected ? selected.label : undefined;
-      var defaultDropdownContent = stateOptions !== undefined && stateOptions.length > 0 ? stateOptions.map(this.renderOption) : (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
-        vkuiClass: "CustomSelect__empty"
-      }, this.props.emptyText);
-      var resolvedContent;
-
-      if (typeof renderDropdown === "function") {
-        resolvedContent = renderDropdown({
-          defaultDropdownContent: defaultDropdownContent
-        });
-      } else {
-        resolvedContent = defaultDropdownContent;
-      }
-
-      var openedClassNames = (0, _classNames.classNames)(opened && "Select--open", opened && dropdownOffsetDistance === 0 && ((_this$state$popperPla = this.state.popperPlacement) !== null && _this$state$popperPla !== void 0 && _this$state$popperPla.includes("top") ? "Select--pop-up" : "Select--pop-down"));
-      return (0, _jsxRuntime.createScopedElement)("label", {
-        vkuiClass: (0, _getClassName.getClassName)("CustomSelect", platform),
-        className: className,
-        style: style,
-        ref: (0, _utils.multiRef)(this.containerRef, getRootRef),
-        onClick: this.onLabelClick
-      }, opened && searchable ? (0, _jsxRuntime.createScopedElement)(_Input.Input, (0, _extends2.default)({}, restProps, {
-        autoFocus: true,
-        onBlur: this.onBlur,
-        vkuiClass: openedClassNames,
-        value: this.state.inputValue,
-        onKeyDown: this.onInputKeyDown,
-        onChange: this.onInputChange // TODO Ожидается, что клик поймает нативный select, но его перехватывает Input. К сожалению, это приводит к конфликтам типизации.
-        // TODO Нужно перестать пытаться превратить CustomSelect в select. Тогда эта проблема уйдёт.
-        // @ts-ignore
-        ,
-        onClick: onClick,
-        before: before,
-        after: icon,
-        placeholder: restProps.placeholder,
-        mode: (0, _select.getFormFieldModeFromSelectType)(selectType)
-      })) : (0, _jsxRuntime.createScopedElement)(_SelectMimicry.SelectMimicry, (0, _extends2.default)({}, restProps, {
-        "aria-hidden": true,
-        onClick: this.onClick,
-        onKeyDown: this.handleKeyDownSelect,
-        onKeyUp: this.handleKeyUp,
-        onFocus: this.onFocus,
-        onBlur: this.onBlur,
-        vkuiClass: openedClassNames,
-        after: icon,
-        selectType: selectType
-      }), label), (0, _jsxRuntime.createScopedElement)("select", {
-        ref: this.selectRef,
-        name: name,
-        onChange: this.onNativeSelectChange,
-        onBlur: onBlur,
-        onFocus: onFocus,
-        onClick: onClick,
-        value: nativeSelectValue,
-        "aria-hidden": true,
-        vkuiClass: "CustomSelect__control"
-      }, options.map(function (item) {
-        return (0, _jsxRuntime.createScopedElement)("option", {
-          key: "".concat(item.value),
-          value: item.value
-        });
-      })), opened && (0, _jsxRuntime.createScopedElement)(_CustomSelectDropdown.CustomSelectDropdown, {
-        targetRef: this.containerRef,
-        placement: popupDirection,
-        scrollBoxRef: this.scrollBoxRef,
-        onPlacementChange: this.onPlacementChange,
-        onMouseLeave: this.resetFocusedOption,
-        fetching: fetching,
-        offsetDistance: dropdownOffsetDistance,
-        sameWidth: fixDropdownWidth,
-        forcePortal: forceDropdownPortal
-      }, resolvedContent));
+    setInputValue(e.target.value);
+  }, [filterFn, nativeSelectValue, onInputChangeProp, optionsProp]);
+  var handleKeyDownSelect = React.useCallback(function (event) {
+    if (event.key.length === 1 && event.key !== " ") {
+      onKeyboardInput(event.key);
+      return;
     }
-  }]);
-  return CustomSelectComponent;
-}(React.Component);
+
+    ["ArrowUp", "ArrowDown", "Escape", "Enter"].includes(event.key) && areOptionsShown() && event.preventDefault();
+
+    switch (event.key) {
+      case "ArrowUp":
+        if (opened) {
+          areOptionsShown() && focusOption("prev");
+        } else {
+          open();
+        }
+
+        break;
+
+      case "ArrowDown":
+        if (opened) {
+          areOptionsShown() && focusOption("next");
+        } else {
+          open();
+        }
+
+        break;
+
+      case "Escape":
+        close();
+        break;
+
+      case "Enter":
+      case "Spacebar":
+      case " ":
+        if (opened) {
+          areOptionsShown() && selectFocused();
+        } else {
+          open();
+        }
+
+        break;
+    }
+  }, [areOptionsShown, close, focusOption, onKeyboardInput, open, opened, selectFocused]);
+  var handleOptionClick = React.useCallback(function (e) {
+    var _e$currentTarget$pare;
+
+    var index = Array.prototype.indexOf.call((_e$currentTarget$pare = e.currentTarget.parentNode) === null || _e$currentTarget$pare === void 0 ? void 0 : _e$currentTarget$pare.children, e.currentTarget);
+    var option = options[index];
+
+    if (option && !option.disabled) {
+      selectFocused();
+    }
+  }, [options, selectFocused]);
+  var handleOptionHover = React.useCallback(function (e) {
+    var _e$currentTarget$pare2;
+
+    focusOptionByIndex(Array.prototype.indexOf.call((_e$currentTarget$pare2 = e.currentTarget.parentNode) === null || _e$currentTarget$pare2 === void 0 ? void 0 : _e$currentTarget$pare2.children, e.currentTarget), false);
+  }, [focusOptionByIndex]);
+  var renderOption = React.useCallback(function (option, index) {
+    var hovered = index === focusedOptionIndex;
+    var selected = index === selectedOptionIndex;
+    return (0, _jsxRuntime.createScopedElement)(React.Fragment, {
+      key: "".concat(option.value)
+    }, renderOptionProp({
+      option: option,
+      hovered: hovered,
+      children: option.label,
+      selected: selected,
+      disabled: option.disabled,
+      onClick: handleOptionClick,
+      onMouseDown: handleOptionDown,
+      // Используем `onMouseOver` вместо `onMouseEnter`.
+      // При параметре `searchable`, обновляется "ребёнок", из-за чего `onMouseEnter` не срабатывает в следующих кейсах:
+      //  1. До загрузки выпадающего списка, курсор мышки находится над произвольным элементом этого списка.
+      //     > Лечение: только увод курсора мыши и возвращении его обратно вызывает событие `onMouseEnter` на этот элемент.
+      //  2. Если это тач-устройство.
+      //     > Лечение: нужно нажать на какой-нибудь произвольный элемент списка, после чего `onMouseEnter` будет работать на соседние элементы,
+      //     но не на тот, на который нажали в первый раз.
+      // Более подробно по ссылке https://github.com/facebook/react/issues/13956#issuecomment-1082055744
+      onMouseOver: handleOptionHover
+    }));
+  }, [focusedOptionIndex, handleOptionClick, handleOptionHover, renderOptionProp, selectedOptionIndex]);
+  var resolvedContent = React.useMemo(function () {
+    var defaultDropdownContent = (options === null || options === void 0 ? void 0 : options.length) > 0 ? options.map(renderOption) : (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+      vkuiClass: "CustomSelect__empty"
+    }, emptyText);
+
+    if (typeof renderDropdown === "function") {
+      return renderDropdown({
+        defaultDropdownContent: defaultDropdownContent
+      });
+    } else {
+      return defaultDropdownContent;
+    }
+  }, [emptyText, options, renderDropdown, renderOption]);
+  return (0, _jsxRuntime.createScopedElement)("label", {
+    vkuiClass: "CustomSelect",
+    className: className,
+    style: style,
+    ref: (0, _utils.multiRef)(containerRef, getRootRef),
+    onClick: onLabelClick
+  }, opened && searchable ? (0, _jsxRuntime.createScopedElement)(_Input.Input, (0, _extends2.default)({}, restProps, {
+    autoFocus: true,
+    onBlur: onBlur,
+    vkuiClass: openedClassNames,
+    value: inputValue,
+    onKeyDown: onInputKeyDown,
+    onChange: onInputChange // TODO Ожидается, что клик поймает нативный select, но его перехватывает Input. К сожалению, это приводит к конфликтам типизации.
+    // TODO Нужно перестать пытаться превратить CustomSelect в select. Тогда эта проблема уйдёт.
+    // @ts-ignore
+    ,
+    onClick: props.onClick,
+    before: before,
+    after: icon,
+    placeholder: restProps.placeholder,
+    mode: (0, _select.getFormFieldModeFromSelectType)(selectType)
+  })) : (0, _jsxRuntime.createScopedElement)(_SelectMimicry.SelectMimicry, (0, _extends2.default)({}, restProps, {
+    "aria-hidden": true,
+    onClick: onClick,
+    onKeyDown: handleKeyDownSelect,
+    onKeyUp: handleKeyUp,
+    onFocus: onFocus,
+    onBlur: onBlur,
+    vkuiClass: openedClassNames,
+    after: icon,
+    selectType: selectType
+  }), selected === null || selected === void 0 ? void 0 : selected.label), (0, _jsxRuntime.createScopedElement)("select", {
+    ref: selectElRef,
+    name: name,
+    onChange: onNativeSelectChange,
+    onBlur: props.onBlur,
+    onFocus: props.onFocus,
+    onClick: props.onClick,
+    value: nativeSelectValue,
+    "aria-hidden": true,
+    vkuiClass: "CustomSelect__control"
+  }, optionsProp.map(function (item) {
+    return (0, _jsxRuntime.createScopedElement)("option", {
+      key: "".concat(item.value),
+      value: item.value
+    });
+  })), opened && (0, _jsxRuntime.createScopedElement)(_CustomSelectDropdown.CustomSelectDropdown, {
+    targetRef: containerRef,
+    placement: popupDirection,
+    scrollBoxRef: scrollBoxRef,
+    onPlacementChange: setPopperPlacement,
+    onMouseLeave: resetFocusedOption,
+    fetching: fetching,
+    offsetDistance: dropdownOffsetDistance,
+    sameWidth: fixDropdownWidth,
+    forcePortal: forceDropdownPortal,
+    autoHideScrollbar: autoHideScrollbar,
+    autoHideScrollbarDelay: autoHideScrollbarDelay,
+    observableRefs: scrollBoxRef
+  }, resolvedContent));
+}
 /**
  * @see https://vkcom.github.io/VKUI/#/CustomSelect
  */
 
 
-(0, _defineProperty2.default)(CustomSelectComponent, "defaultProps", {
-  searchable: false,
-  renderOption: function renderOption(_ref2) {
-    var option = _ref2.option,
-        props = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
-    return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.CustomSelectOption, props);
-  },
-  options: [],
-  emptyText: "Ничего не найдено",
-  filterFn: _select.defaultFilterFn,
-  icon: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null),
-  dropdownOffsetDistance: 0,
-  fixDropdownWidth: true
-});
-var CustomSelect = (0, _withPlatform.withPlatform)((0, _withAdaptivity.withAdaptivity)(CustomSelectComponent, {
+var CustomSelect = (0, _withAdaptivity.withAdaptivity)(CustomSelectComponent, {
   sizeY: true
-}));
+});
 exports.CustomSelect = CustomSelect;
 //# sourceMappingURL=CustomSelect.js.map

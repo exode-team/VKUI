@@ -18,10 +18,7 @@ export interface TextareaProps
   defaultValue?: string;
 }
 
-/**
- * @see https://vkcom.github.io/VKUI/#/Textarea
- */
-const TextareaComponent: React.FC<TextareaProps> = ({
+const TextareaComponent = ({
   defaultValue = "",
   grow = true,
   style,
@@ -78,5 +75,9 @@ const TextareaComponent: React.FC<TextareaProps> = ({
   );
 };
 
-// eslint-disable-next-line import/no-default-export
+/**
+ * @see https://vkcom.github.io/VKUI/#/Textarea
+ */
 export const Textarea = withAdaptivity(TextareaComponent, { sizeY: true });
+
+Textarea.displayName = "Textarea";

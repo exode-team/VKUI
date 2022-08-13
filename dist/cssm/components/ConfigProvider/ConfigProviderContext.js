@@ -17,4 +17,7 @@ export var ConfigProviderContext = /*#__PURE__*/React.createContext({
   // appearance: Appearance.LIGHT,
 
 });
+export var useConfigProvider = function useConfigProvider() {
+  return React.useContext(ConfigProviderContext);
+};
 //# sourceMappingURL=ConfigProviderContext.js.map

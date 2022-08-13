@@ -15,7 +15,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _classNames = require("../../lib/classNames");
 
-var _excluded = ["mode", "gap", "stretched", "getRootRef", "children"];
+var _excluded = ["mode", "gap", "stretched", "align", "getRootRef", "children"];
 
 /**
  * @see https://vkcom.github.io/VKUI/#/ButtonGroup
@@ -27,11 +27,13 @@ var ButtonGroup = function ButtonGroup(_ref) {
       gap = _ref$gap === void 0 ? "m" : _ref$gap,
       _ref$stretched = _ref.stretched,
       stretched = _ref$stretched === void 0 ? false : _ref$stretched,
+      _ref$align = _ref.align,
+      align = _ref$align === void 0 ? "left" : _ref$align,
       getRootRef = _ref.getRootRef,
       children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
-    vkuiClass: (0, _classNames.classNames)("ButtonGroup", "ButtonGroup--mode-".concat(mode), gap !== "none" && "ButtonGroup--gap-".concat(gap), stretched && "ButtonGroup--stretched"),
+    vkuiClass: (0, _classNames.classNames)("ButtonGroup", "ButtonGroup--mode-".concat(mode), gap !== "none" && "ButtonGroup--gap-".concat(gap), stretched && "ButtonGroup--stretched", "ButtonGroup--align-".concat(align)),
     role: "group",
     ref: getRootRef
   }, restProps), children);

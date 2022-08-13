@@ -26,14 +26,14 @@ var preventDefault = function preventDefault(e) {
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayout
  */
-var FormLayout = function FormLayout(props) {
-  var children = props.children,
-      _props$Component = props.Component,
-      Component = _props$Component === void 0 ? "form" : _props$Component,
-      getRef = props.getRef,
-      _props$onSubmit = props.onSubmit,
-      onSubmit = _props$onSubmit === void 0 ? preventDefault : _props$onSubmit,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var FormLayout = function FormLayout(_ref) {
+  var children = _ref.children,
+      _ref$Component = _ref.Component,
+      Component = _ref$Component === void 0 ? "form" : _ref$Component,
+      getRef = _ref.getRef,
+      _ref$onSubmit = _ref.onSubmit,
+      onSubmit = _ref$onSubmit === void 0 ? preventDefault : _ref$onSubmit,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, restProps, {
     vkuiClass: (0, _getClassName.getClassName)("FormLayout", platform),

@@ -1,17 +1,24 @@
 import * as React from "react";
+import { Modifier } from "react-popper";
 import { CustomScrollView } from "../CustomScrollView/CustomScrollView";
+import { TrackerOptionsProps } from "../CustomScrollView/useTrackerVisibility";
 import { classNames } from "../../lib/classNames";
 import { Popper, Placement } from "../Popper/Popper";
 import { Spinner } from "../Spinner/Spinner";
 import { HasRef } from "../../types";
+import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import "./CustomSelectDropdown.css";
 
 export interface CustomSelectDropdownProps
   extends React.HTMLAttributes<HTMLElement>,
-    HasRef<HTMLDivElement> {
+    HasRef<HTMLDivElement>,
+    TrackerOptionsProps {
   targetRef: React.RefObject<HTMLElement>;
   placement?: Placement;
-  scrollBoxRef?: React.Ref<HTMLDivElement>;
+  scrollBoxRef?: React.RefObject<HTMLDivElement>;
+  observableRefs?:
+    | Array<React.RefObject<HTMLElement>>
+    | React.RefObject<HTMLElement>;
   fetching?: boolean;
   offsetDistance?: number;
   sameWidth?: boolean;
@@ -21,7 +28,29 @@ export interface CustomSelectDropdownProps
 
 const calcIsTop = (placement?: Placement) => placement?.includes("top");
 
-export const CustomSelectDropdown: React.FC<CustomSelectDropdownProps> = ({
+function getObserverModifier<T extends HTMLElement>(
+  element: T
+): Modifier<string> {
+  return {
+    name: "customSelectChildrenChange",
+    enabled: true,
+    phase: "main",
+    effect: ({ instance }) => {
+      const observer = new MutationObserver(instance.forceUpdate);
+
+      observer.observe(element, {
+        childList: true,
+        subtree: true,
+      });
+
+      return () => {
+        observer.disconnect();
+      };
+    },
+  };
+}
+
+export const CustomSelectDropdown = ({
   children,
   targetRef,
   scrollBoxRef,
@@ -31,9 +60,34 @@ export const CustomSelectDropdown: React.FC<CustomSelectDropdownProps> = ({
   offsetDistance = 0,
   sameWidth = true,
   forcePortal = true,
+  autoHideScrollbar,
+  autoHideScrollbarDelay,
+  observableRefs,
   ...restProps
-}) => {
+}: CustomSelectDropdownProps) => {
   const [isTop, setIsTop] = React.useState(() => calcIsTop(placement));
+  const [customModifiers, setCustomModifiers] = React.useState<
+    Array<Modifier<string>>
+  >([]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!observableRefs) {
+      return;
+    }
+    const customModifiers: Array<Modifier<string>> = [];
+
+    if (Array.isArray(observableRefs)) {
+      for (const ref of observableRefs) {
+        if (ref?.current) {
+          customModifiers.push(getObserverModifier(ref.current));
+        }
+      }
+    } else if (observableRefs.current) {
+      customModifiers.push(getObserverModifier(observableRefs.current));
+    }
+
+    setCustomModifiers(customModifiers);
+  }, [observableRefs]);
 
   const onPlacementChange = React.useCallback(
     ({ placement }: { placement?: Placement }) => {
@@ -59,11 +113,14 @@ export const CustomSelectDropdown: React.FC<CustomSelectDropdownProps> = ({
         sameWidth && "CustomSelectDropdown--wide"
       )}
       forcePortal={forcePortal}
+      customModifiers={customModifiers}
       {...restProps}
     >
       <CustomScrollView
         boxRef={scrollBoxRef}
         vkuiClass="CustomSelectDropdown__in"
+        autoHideScrollbar={autoHideScrollbar}
+        autoHideScrollbarDelay={autoHideScrollbarDelay}
       >
         {fetching ? (
           <div vkuiClass="CustomSelectDropdown__fetching">

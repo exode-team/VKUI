@@ -1,22 +1,23 @@
 import * as React from "react";
 export interface ScrollContextInterface {
-    getScroll(): {
+    getScroll(this: void): {
         x: number;
         y: number;
     };
-    scrollTo(x?: number, y?: number): void;
+    scrollTo(this: void, x?: number, y?: number): void;
     isScrollLock: boolean;
-    enableScrollLock(): void;
-    disableScrollLock(): void;
+    enableScrollLock(this: void): void;
+    disableScrollLock(this: void): void;
     beforeScrollLockFnSetRef?: React.RefObject<Set<() => void>>;
 }
 export declare const ScrollContext: React.Context<ScrollContextInterface>;
 export declare const useScroll: () => ScrollContextInterface;
 export interface ScrollControllerProps {
     elRef: React.RefObject<HTMLElement>;
+    children?: React.ReactNode;
 }
-export declare const GlobalScrollController: React.FC<ScrollControllerProps>;
-export declare const ElementScrollController: React.FC<ScrollControllerProps>;
+export declare const GlobalScrollController: ({ children }: ScrollControllerProps) => JSX.Element;
+export declare const ElementScrollController: ({ elRef, children, }: ScrollControllerProps) => JSX.Element;
 /**
  * Вызывает функцию effect, до блокировки прокрутки
  * @param effect функция, которая может возвращать функцию очистки

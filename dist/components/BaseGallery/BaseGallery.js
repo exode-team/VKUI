@@ -7,7 +7,7 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { Touch } from "../Touch/Touch";
-import HorizontalScrollArrow from "../HorizontalScroll/HorizontalScrollArrow";
+import { HorizontalScrollArrow } from "../HorizontalScroll/HorizontalScrollArrow";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useDOM } from "../../lib/dom";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
@@ -17,7 +17,7 @@ import { calcMax, calcMin } from "./helpers";
 var ANIMATION_DURATION = 0.24;
 var LAYOUT_DEFAULT_STATE = {
   containerWidth: 0,
-  viewporOffsettWidth: 0,
+  viewportOffsetWidth: 0,
   layerWidth: 0,
   min: 0,
   max: 0,
@@ -110,7 +110,7 @@ export var BaseGallery = function BaseGallery(_ref) {
       if (isCenterWithCustomWidth) {
         var _layoutState$current$4;
 
-        var viewportWidth = (_layoutState$current$4 = layoutState.current.viewporOffsettWidth) !== null && _layoutState$current$4 !== void 0 ? _layoutState$current$4 : 0;
+        var viewportWidth = (_layoutState$current$4 = layoutState.current.viewportOffsetWidth) !== null && _layoutState$current$4 !== void 0 ? _layoutState$current$4 : 0;
         return viewportWidth / 2 - coordX - width / 2;
       }
 
@@ -154,24 +154,24 @@ export var BaseGallery = function BaseGallery(_ref) {
       };
     })) !== null && _React$Children$map !== void 0 ? _React$Children$map : [];
     var localContainerWidth = (_rootRef$current$offs = (_rootRef$current = rootRef.current) === null || _rootRef$current === void 0 ? void 0 : _rootRef$current.offsetWidth) !== null && _rootRef$current$offs !== void 0 ? _rootRef$current$offs : 0;
-    var localViewporOffsettWidth = (_viewportRef$current$ = (_viewportRef$current = viewportRef.current) === null || _viewportRef$current === void 0 ? void 0 : _viewportRef$current.offsetWidth) !== null && _viewportRef$current$ !== void 0 ? _viewportRef$current$ : 0;
+    var localviewportOffsetWidth = (_viewportRef$current$ = (_viewportRef$current = viewportRef.current) === null || _viewportRef$current === void 0 ? void 0 : _viewportRef$current.offsetWidth) !== null && _viewportRef$current$ !== void 0 ? _viewportRef$current$ : 0;
     var localLayerWidth = localSlides.reduce(function (val, slide) {
       return slide.width + val;
     }, 0);
     layoutState.current = {
       containerWidth: localContainerWidth,
-      viewporOffsettWidth: localViewporOffsettWidth,
+      viewportOffsetWidth: localviewportOffsetWidth,
       layerWidth: localLayerWidth,
       max: calcMax({
         slides: localSlides,
-        viewporOffsettWidth: localViewporOffsettWidth,
+        viewportOffsetWidth: localviewportOffsetWidth,
         isCenterWithCustomWidth: isCenterWithCustomWidth
       }),
       min: calcMin({
         containerWidth: localContainerWidth,
         layerWidth: localLayerWidth,
         slides: localSlides,
-        viewporOffsettWidth: localViewporOffsettWidth,
+        viewportOffsetWidth: localviewportOffsetWidth,
         isCenterWithCustomWidth: isCenterWithCustomWidth,
         align: align
       }),

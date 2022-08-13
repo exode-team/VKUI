@@ -147,4 +147,5 @@ var UniversalSliderDumb = function UniversalSliderDumb(_ref) {
 export var UniversalSlider = withAdaptivity(UniversalSliderDumb, {
   sizeY: true
 });
+UniversalSlider.displayName = "UniversalSlider";
 //# sourceMappingURL=UniversalSlider.js.map

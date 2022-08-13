@@ -26,20 +26,17 @@ var _excluded = ["icon", "header", "action", "children", "stretched", "getRootRe
 /**
  * @see https://vkcom.github.io/VKUI/#/Placeholder
  */
-var Placeholder = function Placeholder(props) {
-  var icon = props.icon,
-      header = props.header,
-      action = props.action,
-      children = props.children,
-      stretched = props.stretched,
-      getRootRef = props.getRootRef,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var Placeholder = function Placeholder(_ref) {
+  var icon = _ref.icon,
+      header = _ref.header,
+      action = _ref.action,
+      children = _ref.children,
+      stretched = _ref.stretched,
+      getRootRef = _ref.getRootRef,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)("Placeholder", {
-      "Placeholder--stretched": stretched
-    })
+    ref: getRootRef,
+    vkuiClass: (0, _classNames.classNames)("Placeholder", stretched && "Placeholder--stretched")
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Placeholder__in"
   }, (0, _utils.hasReactNode)(icon) && (0, _jsxRuntime.createScopedElement)("div", {

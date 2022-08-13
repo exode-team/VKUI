@@ -8,4 +8,4 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLElement>, Ha
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0.
  */
-export declare const SliderSwitchButton: React.FunctionComponent<ButtonProps>;
+export declare const SliderSwitchButton: ({ active, hovered, children, getRootRef, ...restProps }: ButtonProps) => JSX.Element;

@@ -45,7 +45,7 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _ScrollContext = require("../AppRoot/ScrollContext");
 
-var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem"];
+var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem", "popupDirection"];
 var warn = (0, _warnOnce.warnOnce)("ActionSheet");
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheet
@@ -58,6 +58,8 @@ var ActionSheet = function ActionSheet(_ref) {
       text = _ref.text,
       style = _ref.style,
       iosCloseItem = _ref.iosCloseItem,
+      _ref$popupDirection = _ref.popupDirection,
+      popupDirection = _ref$popupDirection === void 0 ? "bottom" : _ref$popupDirection,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -129,6 +131,7 @@ var ActionSheet = function ActionSheet(_ref) {
     closing: closing,
     timeout: timeout
   }, restProps, {
+    popupDirection: popupDirection,
     onClose: onClose,
     className: isDesktop ? className : undefined,
     style: isDesktop ? style : undefined
@@ -157,7 +160,4 @@ var ActionSheet = function ActionSheet(_ref) {
 };
 
 exports.ActionSheet = ActionSheet;
-ActionSheet.defaultProps = {
-  popupDirection: "bottom"
-};
 //# sourceMappingURL=ActionSheet.js.map

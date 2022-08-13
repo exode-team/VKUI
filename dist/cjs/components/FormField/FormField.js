@@ -19,13 +19,7 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
-
-var _usePlatform = require("../../hooks/usePlatform");
-
-var _utils = require("../../lib/utils");
 
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
@@ -50,7 +44,6 @@ var FormField = function FormField(_ref) {
       _ref$mode = _ref.mode,
       mode = _ref$mode === void 0 ? FormFieldMode.default : _ref$mode,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
 
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
       sizeY = _useAdaptivity.sizeY;
@@ -76,11 +69,12 @@ var FormField = function FormField(_ref) {
     ref: getRootRef,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormField", platform), "FormField--".concat(mode), "FormField--sizeY-".concat(sizeY), disabled && "FormField--disabled", !disabled && hover && "FormField--hover")
-  }), (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: (0, _classNames.classNames)("FormField", "FormField--".concat(mode), "FormField--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
+    disabled && "FormField--disabled", !disabled && hover && "FormField--hover")
+  }), before && (0, _jsxRuntime.createScopedElement)("div", {
     role: "presentation",
     vkuiClass: "FormField__before"
-  }, before), children, (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("div", {
+  }, before), children, after && (0, _jsxRuntime.createScopedElement)("div", {
     role: "presentation",
     vkuiClass: "FormField__after"
   }, after), (0, _jsxRuntime.createScopedElement)("div", {

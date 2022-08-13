@@ -44,11 +44,11 @@ var _Headline = require("../Typography/Headline/Headline");
 var _excluded = ["size", "sizeY", "platform"],
     _excluded2 = ["size", "mode", "appearance", "stretched", "align", "children", "before", "after", "getRootRef", "sizeY", "Component", "loading", "onClick", "stopPropagation"];
 
-var ButtonTypography = function ButtonTypography(props) {
-  var size = props.size,
-      sizeY = props.sizeY,
-      platform = props.platform,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded);
+var ButtonTypography = function ButtonTypography(_ref) {
+  var size = _ref.size,
+      sizeY = _ref.sizeY,
+      platform = _ref.platform,
+      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var isCompact = sizeY === _withAdaptivity.SizeType.COMPACT;
 
   switch (size) {
@@ -151,28 +151,28 @@ function resolveButtonAppearance(appearance, mode) {
   };
 }
 
-var ButtonComponent = function ButtonComponent(_ref) {
-  var _ref$size = _ref.size,
-      size = _ref$size === void 0 ? "s" : _ref$size,
-      _ref$mode = _ref.mode,
-      mode = _ref$mode === void 0 ? "primary" : _ref$mode,
-      appearance = _ref.appearance,
-      _ref$stretched = _ref.stretched,
-      stretched = _ref$stretched === void 0 ? false : _ref$stretched,
-      _ref$align = _ref.align,
-      align = _ref$align === void 0 ? "center" : _ref$align,
-      children = _ref.children,
-      before = _ref.before,
-      after = _ref.after,
-      getRootRef = _ref.getRootRef,
-      sizeY = _ref.sizeY,
-      _ref$Component = _ref.Component,
-      Component = _ref$Component === void 0 ? "button" : _ref$Component,
-      loading = _ref.loading,
-      onClick = _ref.onClick,
-      _ref$stopPropagation = _ref.stopPropagation,
-      stopPropagation = _ref$stopPropagation === void 0 ? true : _ref$stopPropagation,
-      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded2);
+var ButtonComponent = function ButtonComponent(_ref2) {
+  var _ref2$size = _ref2.size,
+      size = _ref2$size === void 0 ? "s" : _ref2$size,
+      _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "primary" : _ref2$mode,
+      appearance = _ref2.appearance,
+      _ref2$stretched = _ref2.stretched,
+      stretched = _ref2$stretched === void 0 ? false : _ref2$stretched,
+      _ref2$align = _ref2.align,
+      align = _ref2$align === void 0 ? "center" : _ref2$align,
+      children = _ref2.children,
+      before = _ref2.before,
+      after = _ref2.after,
+      getRootRef = _ref2.getRootRef,
+      sizeY = _ref2.sizeY,
+      _ref2$Component = _ref2.Component,
+      Component = _ref2$Component === void 0 ? "button" : _ref2$Component,
+      loading = _ref2.loading,
+      onClick = _ref2.onClick,
+      _ref2$stopPropagation = _ref2.stopPropagation,
+      stopPropagation = _ref2$stopPropagation === void 0 ? true : _ref2$stopPropagation,
+      restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
   var platform = (0, _usePlatform.usePlatform)();
   var hasIcons = Boolean(before || after);
   var hasIconOnly = !children && Boolean(after) !== Boolean(before);
@@ -182,15 +182,16 @@ var ButtonComponent = function ButtonComponent(_ref) {
       resolvedAppearance = _resolveButtonAppeara.resolvedAppearance;
 
   var hasNewTokens = React.useContext(_ConfigProviderContext.ConfigProviderContext).hasNewTokens;
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
+    hoverMode: hasNewTokens ? "Button--hover" : "background",
+    activeMode: hasNewTokens ? "Button--active" : "opacity"
+  }, restProps, {
     Component: restProps.href ? "a" : Component,
     onClick: loading ? undefined : onClick,
     focusVisibleMode: "outside",
     stopPropagation: stopPropagation,
     vkuiClass: (0, _classNames.classNames)("Button", "Button--sz-".concat(size), "Button--lvl-".concat(resolvedMode), "Button--clr-".concat(resolvedAppearance), "Button--aln-".concat(align), "Button--sizeY-".concat(sizeY), stretched && "Button--stretched", hasIcons && "Button--with-icon", hasIconOnly && "Button--singleIcon", loading && "Button--loading"),
-    getRootRef: getRootRef,
-    hoverMode: hasNewTokens ? "Button--hover" : "background",
-    activeMode: hasNewTokens ? "Button--active" : "opacity"
+    getRootRef: getRootRef
   }), loading && (0, _jsxRuntime.createScopedElement)(_Spinner.Spinner, {
     size: "small",
     vkuiClass: "Button__spinner"
@@ -219,4 +220,5 @@ var Button = (0, _withAdaptivity.withAdaptivity)(ButtonComponent, {
   sizeY: true
 });
 exports.Button = Button;
+Button.displayName = "Button";
 //# sourceMappingURL=Button.js.map

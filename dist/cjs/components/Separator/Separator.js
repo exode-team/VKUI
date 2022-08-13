@@ -27,7 +27,8 @@ var Separator = function Separator(_ref) {
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     "aria-hidden": "true",
     vkuiClass: (0, _classNames.classNames)("Separator", wide && "Separator--wide", // TODO: v5 remove
-    !wide && "Separator--padded")
+    !wide && "Separator--padded"),
+    role: "separator"
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: (0, _classNames.classNames)("Separator__in", expanded && "Separator__in--expanded")
   }));

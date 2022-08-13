@@ -25,7 +25,7 @@ var _classNames = require("../../lib/classNames");
 
 var _Touch = require("../Touch/Touch");
 
-var _HorizontalScrollArrow = _interopRequireDefault(require("../HorizontalScroll/HorizontalScrollArrow"));
+var _HorizontalScrollArrow = require("../HorizontalScroll/HorizontalScrollArrow");
 
 var _useExternRef = require("../../hooks/useExternRef");
 
@@ -43,7 +43,7 @@ var _excluded = ["bullets", "getRootRef", "children", "slideWidth", "slideIndex"
 var ANIMATION_DURATION = 0.24;
 var LAYOUT_DEFAULT_STATE = {
   containerWidth: 0,
-  viewporOffsettWidth: 0,
+  viewportOffsetWidth: 0,
   layerWidth: 0,
   min: 0,
   max: 0,
@@ -136,7 +136,7 @@ var BaseGallery = function BaseGallery(_ref) {
       if (isCenterWithCustomWidth) {
         var _layoutState$current$4;
 
-        var viewportWidth = (_layoutState$current$4 = layoutState.current.viewporOffsettWidth) !== null && _layoutState$current$4 !== void 0 ? _layoutState$current$4 : 0;
+        var viewportWidth = (_layoutState$current$4 = layoutState.current.viewportOffsetWidth) !== null && _layoutState$current$4 !== void 0 ? _layoutState$current$4 : 0;
         return viewportWidth / 2 - coordX - width / 2;
       }
 
@@ -180,24 +180,24 @@ var BaseGallery = function BaseGallery(_ref) {
       };
     })) !== null && _React$Children$map !== void 0 ? _React$Children$map : [];
     var localContainerWidth = (_rootRef$current$offs = (_rootRef$current = rootRef.current) === null || _rootRef$current === void 0 ? void 0 : _rootRef$current.offsetWidth) !== null && _rootRef$current$offs !== void 0 ? _rootRef$current$offs : 0;
-    var localViewporOffsettWidth = (_viewportRef$current$ = (_viewportRef$current = viewportRef.current) === null || _viewportRef$current === void 0 ? void 0 : _viewportRef$current.offsetWidth) !== null && _viewportRef$current$ !== void 0 ? _viewportRef$current$ : 0;
+    var localviewportOffsetWidth = (_viewportRef$current$ = (_viewportRef$current = viewportRef.current) === null || _viewportRef$current === void 0 ? void 0 : _viewportRef$current.offsetWidth) !== null && _viewportRef$current$ !== void 0 ? _viewportRef$current$ : 0;
     var localLayerWidth = localSlides.reduce(function (val, slide) {
       return slide.width + val;
     }, 0);
     layoutState.current = {
       containerWidth: localContainerWidth,
-      viewporOffsettWidth: localViewporOffsettWidth,
+      viewportOffsetWidth: localviewportOffsetWidth,
       layerWidth: localLayerWidth,
       max: (0, _helpers.calcMax)({
         slides: localSlides,
-        viewporOffsettWidth: localViewporOffsettWidth,
+        viewportOffsetWidth: localviewportOffsetWidth,
         isCenterWithCustomWidth: isCenterWithCustomWidth
       }),
       min: (0, _helpers.calcMin)({
         containerWidth: localContainerWidth,
         layerWidth: localLayerWidth,
         slides: localSlides,
-        viewporOffsettWidth: localViewporOffsettWidth,
+        viewportOffsetWidth: localviewportOffsetWidth,
         isCenterWithCustomWidth: isCenterWithCustomWidth,
         align: align
       }),
@@ -386,10 +386,10 @@ var BaseGallery = function BaseGallery(_ref) {
       vkuiClass: (0, _classNames.classNames)("Gallery__bullet", index === slideIndex && "Gallery__bullet--active"),
       key: index
     });
-  })), showArrows && hasMouse && canSlideLeft && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.default, {
+  })), showArrows && hasMouse && canSlideLeft && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.HorizontalScrollArrow, {
     direction: "left",
     onClick: slideLeft
-  }), showArrows && hasMouse && canSlideRight && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.default, {
+  }), showArrows && hasMouse && canSlideRight && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.HorizontalScrollArrow, {
     direction: "right",
     onClick: slideRight
   }));

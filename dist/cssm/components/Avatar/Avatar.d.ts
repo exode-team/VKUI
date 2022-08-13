@@ -21,4 +21,4 @@ export declare const AVATAR_DEFAULT_SHADOW = true;
 /**
  * @see https://vkcom.github.io/VKUI/#/Avatar
  */
-export declare const Avatar: React.FC<AvatarProps>;
+export declare const Avatar: ({ alt, crossOrigin, decoding, height, loading, referrerPolicy, sizes, src, srcSet, useMap, width, getRef, size, shadow, mode, className, children, getRootRef, style, "aria-label": ariaLabel, badge, overlayIcon, overlayMode, overlayAction: passedOverlayAction, onClick, ...restProps }: AvatarProps) => JSX.Element;
