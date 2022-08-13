@@ -37,7 +37,7 @@ var HorizontalScrollArrow = function HorizontalScrollArrow(_ref) {
   if (size === "m") {
     ArrowIcon = direction === "left" ? _icons.Icon16ChevronLeft : _icons.Icon16Chevron;
   } else {
-    ArrowIcon = direction === "left" ? _icons.Icon24ChevronLeft : _icons.Icon24Chevron;
+    ArrowIcon = direction === "left" ? _icons.Icon24ChevronCompactLeft : _icons.Icon24Chevron;
   }
 
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {

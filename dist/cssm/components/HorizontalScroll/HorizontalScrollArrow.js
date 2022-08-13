@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["size", "direction", "onClick"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { Icon24Chevron, Icon24ChevronLeft, Icon16Chevron, Icon16ChevronLeft } from "@vkontakte/icons";
+import { Icon24Chevron, Icon24ChevronCompactLeft, Icon16Chevron, Icon16ChevronLeft } from "@vkontakte/icons";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { IOS } from "../../lib/platform";
@@ -21,7 +21,7 @@ export var HorizontalScrollArrow = function HorizontalScrollArrow(_ref) {
   if (size === "m") {
     ArrowIcon = direction === "left" ? Icon16ChevronLeft : Icon16Chevron;
   } else {
-    ArrowIcon = direction === "left" ? Icon24ChevronLeft : Icon24Chevron;
+    ArrowIcon = direction === "left" ? Icon24ChevronCompactLeft : Icon24Chevron;
   }
 
   return createScopedElement(Tappable, _extends({}, restProps, {
