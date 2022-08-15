@@ -10,6 +10,7 @@ import { classNames } from "../../lib/classNames";
 import { Popper } from "../Popper/Popper";
 import { Spinner } from "../Spinner/Spinner";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
+import { noop } from "../../lib/utils";
 
 var calcIsTop = function calcIsTop(placement) {
   return placement === null || placement === void 0 ? void 0 : placement.includes("top");
@@ -20,6 +21,7 @@ function getObserverModifier(element) {
     name: "customSelectChildrenChange",
     enabled: true,
     phase: "main",
+    fn: noop,
     effect: function effect(_ref) {
       var instance = _ref.instance;
       var observer = new MutationObserver(instance.forceUpdate);

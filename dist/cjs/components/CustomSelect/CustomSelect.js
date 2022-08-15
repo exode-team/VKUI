@@ -226,7 +226,7 @@ function CustomSelectComponent(props) {
     });
   }, [props.value]);
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
-    if (nativeSelectValue) {
+    if (nativeSelectValue !== undefined) {
       var _selectElRef$current;
 
       var _event = new Event("change", {

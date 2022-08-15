@@ -16,32 +16,61 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 var ARROW_PADDING = 8;
 var ARROW_WIDTH = 20;
 var ARROW_HEIGHT = 8;
+var preventOverflowModifier = {
+  name: "preventOverflow",
+  options: {
+    mainAxis: false
+  }
+};
+var flipModifier = {
+  name: "flip"
+};
+var arrowModifier = {
+  name: "arrow",
+  options: {
+    padding: ARROW_PADDING
+  }
+};
+var sameWidthModifier = {
+  name: "sameWidth",
+  enabled: true,
+  phase: "beforeWrite",
+  requires: ["computeStyles"],
+  fn: function fn(_ref) {
+    var state = _ref.state;
+    state.styles.popper.width = "".concat(state.rects.reference.width, "px");
+  },
+  effect: function effect(_ref2) {
+    var state = _ref2.state;
+    state.elements.popper.style.width = "".concat(state.elements.reference.offsetWidth, "px");
+  }
+};
 /**
  * @see https://vkcom.github.io/VKUI/#/Popper
  */
 
-export var Popper = function Popper(_ref) {
+export var Popper = function Popper(_ref3) {
   var _targetRef$current3;
 
-  var targetRef = _ref.targetRef,
-      children = _ref.children,
-      getRef = _ref.getRef,
-      _ref$placement = _ref.placement,
-      placement = _ref$placement === void 0 ? "bottom-start" : _ref$placement,
-      onPlacementChange = _ref.onPlacementChange,
-      arrow = _ref.arrow,
-      arrowClassName = _ref.arrowClassName,
-      sameWidth = _ref.sameWidth,
-      _ref$offsetDistance = _ref.offsetDistance,
-      offsetDistance = _ref$offsetDistance === void 0 ? 8 : _ref$offsetDistance,
-      _ref$offsetSkidding = _ref.offsetSkidding,
-      offsetSkidding = _ref$offsetSkidding === void 0 ? 0 : _ref$offsetSkidding,
-      _ref$forcePortal = _ref.forcePortal,
-      forcePortal = _ref$forcePortal === void 0 ? true : _ref$forcePortal,
-      compStyles = _ref.style,
-      customModifiers = _ref.customModifiers,
-      renderContent = _ref.renderContent,
-      restProps = _objectWithoutProperties(_ref, _excluded);
+  var targetRef = _ref3.targetRef,
+      children = _ref3.children,
+      getRef = _ref3.getRef,
+      _ref3$placement = _ref3.placement,
+      placement = _ref3$placement === void 0 ? "bottom-start" : _ref3$placement,
+      onPlacementChange = _ref3.onPlacementChange,
+      arrow = _ref3.arrow,
+      arrowClassName = _ref3.arrowClassName,
+      sameWidth = _ref3.sameWidth,
+      _ref3$offsetDistance = _ref3.offsetDistance,
+      offsetDistance = _ref3$offsetDistance === void 0 ? 8 : _ref3$offsetDistance,
+      _ref3$offsetSkidding = _ref3.offsetSkidding,
+      offsetSkidding = _ref3$offsetSkidding === void 0 ? 0 : _ref3$offsetSkidding,
+      _ref3$forcePortal = _ref3.forcePortal,
+      forcePortal = _ref3$forcePortal === void 0 ? true : _ref3$forcePortal,
+      compStyles = _ref3.style,
+      customModifiers = _ref3.customModifiers,
+      renderContent = _ref3.renderContent,
+      restProps = _objectWithoutProperties(_ref3, _excluded);
 
   var _React$useState = React.useState(null),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -56,45 +85,19 @@ export var Popper = function Popper(_ref) {
   var platform = usePlatform();
   var setExternalRef = useExternRef(getRef, setPopperNode);
   var modifiers = React.useMemo(function () {
-    var modifiers = [{
-      name: "preventOverflow",
-      options: {
-        mainAxis: false
-      }
-    }, {
+    var modifiers = [preventOverflowModifier, {
       name: "offset",
       options: {
         offset: [arrow ? offsetSkidding - smallTargetOffsetSkidding : offsetSkidding, arrow ? offsetDistance + ARROW_HEIGHT : offsetDistance]
       }
-    }, {
-      name: "flip"
-    }];
+    }, flipModifier];
 
     if (arrow) {
-      modifiers.push({
-        name: "arrow",
-        options: {
-          padding: ARROW_PADDING
-        }
-      });
+      modifiers.push(arrowModifier);
     }
 
     if (sameWidth) {
-      var _sameWidth = {
-        name: "sameWidth",
-        enabled: true,
-        phase: "beforeWrite",
-        requires: ["computeStyles"],
-        fn: function fn(_ref2) {
-          var state = _ref2.state;
-          state.styles.popper.width = "".concat(state.rects.reference.width, "px");
-        },
-        effect: function effect(_ref3) {
-          var state = _ref3.state;
-          state.elements.popper.style.width = "".concat(state.elements.reference.offsetWidth, "px");
-        }
-      };
-      modifiers.push(_sameWidth);
+      modifiers.push(sameWidthModifier);
     }
 
     if (customModifiers) {

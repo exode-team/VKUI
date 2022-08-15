@@ -31,6 +31,8 @@ var _Spinner = require("../Spinner/Spinner");
 
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
+var _utils = require("../../lib/utils");
+
 var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal", "autoHideScrollbar", "autoHideScrollbarDelay", "observableRefs"];
 
 var calcIsTop = function calcIsTop(placement) {
@@ -42,6 +44,7 @@ function getObserverModifier(element) {
     name: "customSelectChildrenChange",
     enabled: true,
     phase: "main",
+    fn: _utils.noop,
     effect: function effect(_ref) {
       var instance = _ref.instance;
       var observer = new MutationObserver(instance.forceUpdate);
