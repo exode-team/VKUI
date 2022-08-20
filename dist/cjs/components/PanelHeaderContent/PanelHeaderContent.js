@@ -76,9 +76,8 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
     hasActive: platform === _platform.IOS,
     activeMode: "opacity"
   }) : {};
-  var baseClassNames = (0, _getClassName.getClassName)("PanelHeaderContent", platform);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, rootProps, {
-    vkuiClass: baseClassNames,
+    vkuiClass: (0, _getClassName.getClassName)("PanelHeaderContent", platform),
     style: style,
     className: className
   }), (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {

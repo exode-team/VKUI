@@ -23,9 +23,14 @@ function isPlatformAlias(platformAlias) {
 
 
 function getPlatformByQueryString(queryString) {
-  var parsedQuery = querystring.parse(queryString);
-  var platformAliasByQuery = parsedQuery["vk_platform"];
-  return typeof platformAliasByQuery === "string" && isPlatformAlias(platformAliasByQuery) ? PLATFORM_ALIAS[platformAliasByQuery] : undefined;
+  try {
+    var parsedQuery = querystring.parse(queryString);
+    var platformAliasByQuery = parsedQuery["vk_platform"];
+    return typeof platformAliasByQuery === "string" && isPlatformAlias(platformAliasByQuery) ? PLATFORM_ALIAS[platformAliasByQuery] : undefined;
+  } catch (e) {
+    console.warn(e);
+    return undefined;
+  }
 }
 
 var platformByQueryString = canUseDOM ? getPlatformByQueryString(location.search) : undefined;

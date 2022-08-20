@@ -35,10 +35,15 @@ function isPlatformAlias(platformAlias) {
 
 
 function getPlatformByQueryString(queryString) {
-  var parsedQuery = _vkjs.querystring.parse(queryString);
+  try {
+    var parsedQuery = _vkjs.querystring.parse(queryString);
 
-  var platformAliasByQuery = parsedQuery["vk_platform"];
-  return typeof platformAliasByQuery === "string" && isPlatformAlias(platformAliasByQuery) ? PLATFORM_ALIAS[platformAliasByQuery] : undefined;
+    var platformAliasByQuery = parsedQuery["vk_platform"];
+    return typeof platformAliasByQuery === "string" && isPlatformAlias(platformAliasByQuery) ? PLATFORM_ALIAS[platformAliasByQuery] : undefined;
+  } catch (e) {
+    console.warn(e);
+    return undefined;
+  }
 }
 
 var platformByQueryString = _dom.canUseDOM ? getPlatformByQueryString(location.search) : undefined;
