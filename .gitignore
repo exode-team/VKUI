@@ -3,7 +3,6 @@ src/styles/generated/
 PUBLISHING.md
 
 # Builds
-dist/*
 !e2e/dist/index.html
 styleguide-build/
 
