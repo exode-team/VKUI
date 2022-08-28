@@ -3,7 +3,6 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["platform", "mode"],
     _excluded2 = ["mode", "children", "subtitle", "indicator", "aside", "getRootRef", "multiline"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode, isPrimitiveReactNode } from "../../lib/utils";
@@ -85,11 +84,8 @@ export var Header = function Header(_ref2) {
   var AsideTypography = platform === Platform.VKCOM ? Subhead : Text;
   var SubtitleTypography = mode === "secondary" ? Subhead : Caption;
   return createScopedElement("header", _extends({}, restProps, {
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("Header", platform), "Header--mode-".concat(mode), {
-      "Header--pi": isPrimitiveReactNode(indicator)
-    })
+    ref: getRootRef,
+    vkuiClass: classNames("Header", platform === Platform.VKCOM && "Header--vkcom", platform === Platform.ANDROID && "Header--android", platform === Platform.IOS && "Header--ios", "Header--mode-".concat(mode), isPrimitiveReactNode(indicator) && "Header--pi")
   }), createScopedElement("div", {
     vkuiClass: "Header__main"
   }, createScopedElement(HeaderContent, {
@@ -98,10 +94,7 @@ export var Header = function Header(_ref2) {
     mode: mode,
     platform: platform
   }, createScopedElement("span", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames("Header__content-in", {
-      "Header__content-in--multiline": multiline
-    })
+    vkuiClass: classNames("Header__content-in", multiline && "Header__content-in--multiline")
   }, children), hasReactNode(indicator) && createScopedElement(Caption, {
     vkuiClass: "Header__indicator",
     weight: mode === "primary" || mode === "secondary" ? "1" : undefined

@@ -63,17 +63,8 @@ var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     });
   }
 
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable // eslint-disable-next-line vkui/no-object-expression-in-arguments
-  , {
-    vkuiClass: (0, _classNames.classNames)("CalendarDay", "CalendarDay--size-".concat(size), {
-      "CalendarDay--today": today,
-      "CalendarDay--selected": selected && !disabled,
-      "CalendarDay--active": active && !disabled,
-      "CalendarDay--selection-start": selectionStart,
-      "CalendarDay--selection-end": selectionEnd,
-      "CalendarDay--disabled": disabled,
-      "CalendarDay--not-same-month": !sameMonth
-    }),
+  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
+    vkuiClass: (0, _classNames.classNames)("CalendarDay", "CalendarDay--size-".concat(size), today && "CalendarDay--today", selected && !disabled && "CalendarDay--selected", active && !disabled && "CalendarDay--active", selectionStart && "CalendarDay--selection-start", selectionEnd && "CalendarDay--selection-end", disabled && "CalendarDay--disabled", !sameMonth && "CalendarDay--not-same-month"),
     hoverMode: active ? "CalendarDay--active-hover" : "CalendarDay--hover",
     hasActive: false,
     onClick: onClick,
@@ -90,17 +81,9 @@ var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     onEnter: handleEnter,
     onLeave: handleLeave
   }, (0, _jsxRuntime.createScopedElement)("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)("CalendarDay__hinted", {
-      "CalendarDay__hinted--active": hinted,
-      "CalendarDay__hinted--selection-start": hintedSelectionStart,
-      "CalendarDay__hinted--selection-end": hintedSelectionEnd
-    })
+    vkuiClass: (0, _classNames.classNames)("CalendarDay__hinted", hinted && "CalendarDay__hinted--active", hintedSelectionStart && "CalendarDay__hinted--selection-start", hintedSelectionEnd && "CalendarDay__hinted--selection-end")
   }, (0, _jsxRuntime.createScopedElement)("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)("CalendarDay__inner", {
-      "CalendarDay__inner--active": active && !disabled
-    })
+    vkuiClass: (0, _classNames.classNames)("CalendarDay__inner", active && !disabled && "CalendarDay__inner--active")
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarDay__day-number"
   }, day.getDate()))));

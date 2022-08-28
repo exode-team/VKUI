@@ -15,13 +15,15 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
-var _getClassName = require("../../helpers/getClassName");
+var _classNames = require("../../lib/classNames");
 
 var _Tappable = require("../Tappable/Tappable");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
 var _utils = require("../../lib/utils");
+
+var _getClassName = require("../../helpers/getClassName");
 
 var _Caption = require("../Typography/Caption/Caption");
 
@@ -83,7 +85,7 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   }), (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeaderContent__before"
   }, before), (0, _jsxRuntime.createScopedElement)(InComponent, (0, _extends2.default)({}, inProps, {
-    vkuiClass: "PanelHeaderContent__in"
+    vkuiClass: (0, _classNames.classNames)("PanelHeaderContent__in", !before && platform !== _platform.ANDROID && "PanelHeaderContent__in--centered")
   }), (0, _utils.hasReactNode)(status) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "PanelHeaderContent__status"
   }, status), (0, _jsxRuntime.createScopedElement)("div", {

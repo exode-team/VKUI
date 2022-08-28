@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["Component", "children", "getRootRef", "before", "after", "disabled", "mode"];
+var _excluded = ["Component", "status", "children", "getRootRef", "before", "after", "disabled", "mode"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -17,6 +17,8 @@ export var FormFieldMode = {
 export var FormField = function FormField(_ref) {
   var _ref$Component = _ref.Component,
       Component = _ref$Component === void 0 ? "div" : _ref$Component,
+      _ref$status = _ref.status,
+      status = _ref$status === void 0 ? "default" : _ref$status,
       children = _ref.children,
       getRootRef = _ref.getRootRef,
       before = _ref.before,
@@ -50,7 +52,7 @@ export var FormField = function FormField(_ref) {
     ref: getRootRef,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    vkuiClass: classNames("FormField", "FormField--".concat(mode), "FormField--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
+    vkuiClass: classNames("FormField", "FormField--".concat(mode), "FormField--status-".concat(status), "FormField--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
     disabled && "FormField--disabled", !disabled && hover && "FormField--hover")
   }), before && createScopedElement("div", {
     role: "presentation",

@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY", "before", "after", "selectType"];
+var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY", "before", "after", "selectType", "status"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
@@ -29,6 +29,7 @@ var SelectMimicryComponent = function SelectMimicryComponent(_ref) {
       after = _ref$after === void 0 ? createScopedElement(DropdownIcon, null) : _ref$after,
       _ref$selectType = _ref.selectType,
       selectType = _ref$selectType === void 0 ? SelectType.default : _ref$selectType,
+      status = _ref.status,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -43,7 +44,8 @@ var SelectMimicryComponent = function SelectMimicryComponent(_ref) {
     disabled: disabled,
     before: before,
     after: after,
-    mode: getFormFieldModeFromSelectType(selectType)
+    mode: getFormFieldModeFromSelectType(selectType),
+    status: status
   }), createScopedElement("div", {
     vkuiClass: "Select__container"
   }, createScopedElement(SelectTypography, {

@@ -43,7 +43,7 @@ var _InputLikeDivider = require("../InputLike/InputLikeDivider");
 
 var _callMultiple = require("../../lib/callMultiple");
 
-var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "prevMonthIcon", "nextMonthIcon", "disableCalendar"];
 
 var elementsConfig = function elementsConfig(index) {
   var length = 2;
@@ -140,6 +140,8 @@ var DateRangeInput = function DateRangeInput(_ref) {
       showCalendarAriaLabel = _ref$showCalendarAria === void 0 ? "Показать календарь" : _ref$showCalendarAria,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      _ref$disableCalendar = _ref.disableCalendar,
+      disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var daysStartRef = React.useRef(null);
   var monthsStartRef = React.useRef(null);
@@ -291,7 +293,7 @@ var DateRangeInput = function DateRangeInput(_ref) {
     onElementSelect: setFocusedElement,
     value: internalValue[5],
     "aria-label": changeEndYearAriaLabel
-  })), open && (0, _jsxRuntime.createScopedElement)(_Popper.Popper, {
+  })), open && !disableCalendar && (0, _jsxRuntime.createScopedElement)(_Popper.Popper, {
     targetRef: rootRef,
     offsetDistance: 8,
     placement: calendarPlacement

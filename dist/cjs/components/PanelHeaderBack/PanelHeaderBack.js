@@ -27,8 +27,6 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _excluded = ["label", "sizeX", "aria-label"];
@@ -45,11 +43,8 @@ var PanelHeaderBackComponent = function PanelHeaderBackComponent(_ref) {
   var platform = (0, _usePlatform.usePlatform)();
   var showLabel = platform === _platform.VKCOM || platform === _platform.IOS && sizeX === _withAdaptivity.SizeType.REGULAR;
   return (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, (0, _extends2.default)({}, restProps, {
-    "aria-label": ariaLabel // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderBack", platform), {
-      "PanelHeaderBack--has-label": showLabel && !!label
-    }),
+    "aria-label": ariaLabel,
+    vkuiClass: (0, _classNames.classNames)("PanelHeaderBack", platform === _platform.IOS && "PanelHeaderBack--ios", platform === _platform.VKCOM && "PanelHeaderBack--vkcom", showLabel && !!label && "PanelHeaderBack--has-label"),
     label: showLabel && label
   }), platform === _platform.ANDROID && (0, _jsxRuntime.createScopedElement)(_icons.Icon28ArrowLeftOutline, null), platform === _platform.VKCOM && (0, _jsxRuntime.createScopedElement)(_icons.Icon28ChevronLeftOutline, null), platform === _platform.IOS && (0, _jsxRuntime.createScopedElement)(_icons.Icon28ChevronBack, null));
 };

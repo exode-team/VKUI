@@ -1,4 +1,4 @@
-import { canUseDOM } from "@vkontakte/vkjs";
+import { canUseDOM } from "./dom";
 
 /*
  * Получает координату по оси абсцисс из touch- или mouse-события

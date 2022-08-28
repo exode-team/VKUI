@@ -43,7 +43,7 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _callMultiple = require("../../lib/callMultiple");
 
-var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "disableCalendar"];
 
 var elementsConfig = function elementsConfig(index) {
   var length = 2;
@@ -144,6 +144,8 @@ var DateInput = function DateInput(_ref) {
       onPrevMonth = _ref.onPrevMonth,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      _ref$disableCalendar = _ref.disableCalendar,
+      disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var daysRef = React.useRef(null);
   var monthsRef = React.useRef(null);
@@ -269,7 +271,7 @@ var DateInput = function DateInput(_ref) {
     onElementSelect: setFocusedElement,
     value: internalValue[4],
     "aria-label": changeMinutesAriaLabel
-  }))), open && (0, _jsxRuntime.createScopedElement)(_Popper.Popper, {
+  }))), open && !disableCalendar && (0, _jsxRuntime.createScopedElement)(_Popper.Popper, {
     targetRef: rootRef,
     offsetDistance: 8,
     placement: calendarPlacement

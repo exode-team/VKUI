@@ -240,10 +240,7 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
       return (0, _jsxRuntime.createScopedElement)(_ModalRootContext.ModalRootContext.Provider, {
         value: this.modalRootContext
       }, (0, _jsxRuntime.createScopedElement)("div", {
-        // eslint-disable-next-line vkui/no-object-expression-in-arguments
-        vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalRoot", this.props.platform), {
-          "ModalRoot--vkapps": ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === _ConfigProviderContext.WebviewType.VKAPPS
-        }, "ModalRoot--desktop")
+        vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalRoot", this.props.platform), ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === _ConfigProviderContext.WebviewType.VKAPPS && "ModalRoot--vkapps", "ModalRoot--desktop")
       }, (0, _jsxRuntime.createScopedElement)("div", {
         vkuiClass: "ModalRoot__mask",
         ref: this.maskElementRef,
@@ -262,13 +259,8 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
           restoreFocus: false,
           onClose: _this5.props.onExit,
           timeout: _this5.timeout,
-          key: key // eslint-disable-next-line vkui/no-object-expression-in-arguments
-          ,
-          vkuiClass: (0, _classNames.classNames)("ModalRoot__modal", {
-            "ModalRoot__modal--active": !exitingModal && !enteringModal && modalId === activeModal,
-            "ModalRoot__modal--prev": modalId === exitingModal,
-            "ModalRoot__modal--next": Boolean(exitingModal) && modalId === activeModal
-          })
+          key: key,
+          vkuiClass: (0, _classNames.classNames)("ModalRoot__modal", !exitingModal && !enteringModal && modalId === activeModal && "ModalRoot__modal--active", modalId === exitingModal && "ModalRoot__modal--prev", Boolean(exitingModal) && modalId === activeModal && "ModalRoot__modal--next")
         }, Modal);
       }))));
     }

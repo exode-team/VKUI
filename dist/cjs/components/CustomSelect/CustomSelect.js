@@ -120,10 +120,14 @@ var filter = function filter(options, inputValue, filterFn) {
 };
 
 var defaultOptions = [];
-var defaultIcon = (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null);
 
 function CustomSelectComponent(props) {
   var _props$value, _props$value2;
+
+  var _React$useState = React.useState(false),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      opened = _React$useState2[0],
+      setOpened = _React$useState2[1];
 
   var before = props.before,
       name = props.name,
@@ -157,7 +161,9 @@ function CustomSelectComponent(props) {
       _props$filterFn = props.filterFn,
       filterFn = _props$filterFn === void 0 ? _select.defaultFilterFn : _props$filterFn,
       _props$icon = props.icon,
-      icon = _props$icon === void 0 ? defaultIcon : _props$icon,
+      icon = _props$icon === void 0 ? (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, {
+    opened: opened
+  }) : _props$icon,
       _props$dropdownOffset = props.dropdownOffsetDistance,
       dropdownOffsetDistance = _props$dropdownOffset === void 0 ? 0 : _props$dropdownOffset,
       _props$fixDropdownWid = props.fixDropdownWidth,
@@ -172,50 +178,45 @@ function CustomSelectComponent(props) {
   var scrollBoxRef = React.useRef(null);
   var selectElRef = React.useRef(null);
 
-  var _React$useState = React.useState(-1),
-      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
-      focusedOptionIndex = _React$useState2[0],
-      setFocusedOptionIndex = _React$useState2[1];
-
-  var _React$useState3 = React.useState(props.value !== undefined),
+  var _React$useState3 = React.useState(-1),
       _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
-      isControlledOutside = _React$useState4[0],
-      setIsControlledOutside = _React$useState4[1];
+      focusedOptionIndex = _React$useState4[0],
+      setFocusedOptionIndex = _React$useState4[1];
 
-  var _React$useState5 = React.useState(""),
+  var _React$useState5 = React.useState(props.value !== undefined),
       _React$useState6 = (0, _slicedToArray2.default)(_React$useState5, 2),
-      inputValue = _React$useState6[0],
-      setInputValue = _React$useState6[1];
+      isControlledOutside = _React$useState6[0],
+      setIsControlledOutside = _React$useState6[1];
 
-  var _React$useState7 = React.useState((_props$value = props.value) !== null && _props$value !== void 0 ? _props$value : props.defaultValue),
+  var _React$useState7 = React.useState(""),
       _React$useState8 = (0, _slicedToArray2.default)(_React$useState7, 2),
-      nativeSelectValue = _React$useState8[0],
-      setNativeSelectValue = _React$useState8[1];
+      inputValue = _React$useState8[0],
+      setInputValue = _React$useState8[1];
 
-  var _React$useState9 = React.useState(""),
+  var _React$useState9 = React.useState((_props$value = props.value) !== null && _props$value !== void 0 ? _props$value : props.defaultValue),
       _React$useState10 = (0, _slicedToArray2.default)(_React$useState9, 2),
-      keyboardInput = _React$useState10[0],
-      setKeyboardInput = _React$useState10[1];
+      nativeSelectValue = _React$useState10[0],
+      setNativeSelectValue = _React$useState10[1];
 
-  var _React$useState11 = React.useState(undefined),
+  var _React$useState11 = React.useState(""),
       _React$useState12 = (0, _slicedToArray2.default)(_React$useState11, 2),
-      popperPlacement = _React$useState12[0],
-      setPopperPlacement = _React$useState12[1];
+      keyboardInput = _React$useState12[0],
+      setKeyboardInput = _React$useState12[1];
 
-  var _React$useState13 = React.useState(optionsProp),
+  var _React$useState13 = React.useState(undefined),
       _React$useState14 = (0, _slicedToArray2.default)(_React$useState13, 2),
-      options = _React$useState14[0],
-      setOptions = _React$useState14[1];
+      popperPlacement = _React$useState14[0],
+      setPopperPlacement = _React$useState14[1];
 
-  var _React$useState15 = React.useState(findSelectedIndex(optionsProp, (_props$value2 = props.value) !== null && _props$value2 !== void 0 ? _props$value2 : props.defaultValue)),
+  var _React$useState15 = React.useState(optionsProp),
       _React$useState16 = (0, _slicedToArray2.default)(_React$useState15, 2),
-      selectedOptionIndex = _React$useState16[0],
-      setSelectedOptionIndex = _React$useState16[1];
+      options = _React$useState16[0],
+      setOptions = _React$useState16[1];
 
-  var _React$useState17 = React.useState(false),
+  var _React$useState17 = React.useState(findSelectedIndex(optionsProp, (_props$value2 = props.value) !== null && _props$value2 !== void 0 ? _props$value2 : props.defaultValue)),
       _React$useState18 = (0, _slicedToArray2.default)(_React$useState17, 2),
-      opened = _React$useState18[0],
-      setOpened = _React$useState18[1];
+      selectedOptionIndex = _React$useState18[0],
+      setSelectedOptionIndex = _React$useState18[1];
 
   React.useEffect(function () {
     setIsControlledOutside(props.value !== undefined);

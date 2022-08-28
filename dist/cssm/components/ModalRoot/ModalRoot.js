@@ -653,13 +653,8 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
         value: true
       }, createScopedElement(ModalRootContext.Provider, {
         value: this.modalRootContext
-      }, createScopedElement(Touch // eslint-disable-next-line vkui/no-object-expression-in-arguments
-      , {
-        vkuiClass: classNames(getClassName("ModalRoot", this.props.platform), {
-          "ModalRoot--vkapps": ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === WebviewType.VKAPPS,
-          "ModalRoot--touched": touchDown,
-          "ModalRoot--switching": !!(enteringModal || exitingModal)
-        }),
+      }, createScopedElement(Touch, {
+        vkuiClass: classNames(getClassName("ModalRoot", this.props.platform), ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === WebviewType.VKAPPS && "ModalRoot--vkapps", touchDown && "ModalRoot--touched", !!(enteringModal || exitingModal) && "ModalRoot--switching"),
         onMove: this.onTouchMove,
         onEnd: this.onTouchEnd,
         onScroll: this.onScroll
@@ -693,17 +688,8 @@ var ModalRootTouchComponent = /*#__PURE__*/function (_React$Component) {
             }
           },
           onClose: _this7.props.onExit,
-          timeout: _this7.timeout // eslint-disable-next-line vkui/no-object-expression-in-arguments
-          ,
-          vkuiClass: classNames("ModalRoot__modal", {
-            "ModalRoot__modal--active": modalId === activeModal,
-            "ModalRoot__modal--prev": modalId === exitingModal,
-            "ModalRoot__modal--next": exitingModal && modalId === activeModal || modalId === enteringModal,
-            "ModalRoot__modal--dragging": dragging,
-            "ModalRoot__modal--expandable": isPage && modalState.expandable,
-            "ModalRoot__modal--expanded": isPage && modalState.expanded,
-            "ModalRoot__modal--collapsed": isPage && modalState.collapsed
-          }),
+          timeout: _this7.timeout,
+          vkuiClass: classNames("ModalRoot__modal", modalId === activeModal && "ModalRoot__modal--active", modalId === exitingModal && "ModalRoot__modal--prev", (exitingModal && modalId === activeModal || modalId === enteringModal) && "ModalRoot__modal--next", dragging && "ModalRoot__modal--dragging", isPage && modalState.expandable && "ModalRoot__modal--expandable", isPage && modalState.expanded && "ModalRoot__modal--expanded", isPage && modalState.collapsed && "ModalRoot__modal--collapsed"),
           restoreFocus: false
         }, Modal);
       })))));

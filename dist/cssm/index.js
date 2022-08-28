@@ -28,6 +28,7 @@ export { PopoutWrapper } from "./components/PopoutWrapper/PopoutWrapper";
 export { Alert } from "./components/Alert/Alert";
 export { ActionSheet } from "./components/ActionSheet/ActionSheet";
 export { ActionSheetItem } from "./components/ActionSheetItem/ActionSheetItem";
+export { ActionSheetDefaultIosCloseItem } from "./components/ActionSheet/ActionSheetDefaultIosCloseItem";
 export { ScreenSpinner } from "./components/ScreenSpinner/ScreenSpinner";
 export { Snackbar } from "./components/Snackbar/Snackbar";
 

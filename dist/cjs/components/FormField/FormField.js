@@ -23,7 +23,7 @@ var _classNames = require("../../lib/classNames");
 
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
-var _excluded = ["Component", "children", "getRootRef", "before", "after", "disabled", "mode"];
+var _excluded = ["Component", "status", "children", "getRootRef", "before", "after", "disabled", "mode"];
 var FormFieldMode = {
   default: "default",
   plain: "plain"
@@ -36,6 +36,8 @@ exports.FormFieldMode = FormFieldMode;
 var FormField = function FormField(_ref) {
   var _ref$Component = _ref.Component,
       Component = _ref$Component === void 0 ? "div" : _ref$Component,
+      _ref$status = _ref.status,
+      status = _ref$status === void 0 ? "default" : _ref$status,
       children = _ref.children,
       getRootRef = _ref.getRootRef,
       before = _ref.before,
@@ -69,7 +71,7 @@ var FormField = function FormField(_ref) {
     ref: getRootRef,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    vkuiClass: (0, _classNames.classNames)("FormField", "FormField--".concat(mode), "FormField--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
+    vkuiClass: (0, _classNames.classNames)("FormField", "FormField--".concat(mode), "FormField--status-".concat(status), "FormField--sizeY-".concat(sizeY), // TODO v5.0.0 поправить под новую адаптивность
     disabled && "FormField--disabled", !disabled && hover && "FormField--hover")
   }), before && (0, _jsxRuntime.createScopedElement)("div", {
     role: "presentation",

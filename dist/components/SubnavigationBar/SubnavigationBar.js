@@ -2,9 +2,7 @@ import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["mode", "children", "showArrows", "getScrollToLeft", "getScrollToRight", "scrollAnimationDuration"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { usePlatform } from "../../hooks/usePlatform";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
 import { HorizontalScroll } from "../HorizontalScroll/HorizontalScroll";
 
 var defaultScrollToLeft = function defaultScrollToLeft(x) {
@@ -32,7 +30,6 @@ export var SubnavigationBar = function SubnavigationBar(_ref) {
       scrollAnimationDuration = _ref.scrollAnimationDuration,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var platform = usePlatform();
   var ScrollWrapper;
   var scrollWrapperProps = {};
 
@@ -49,7 +46,7 @@ export var SubnavigationBar = function SubnavigationBar(_ref) {
   }
 
   return createScopedElement("div", _extends({}, restProps, {
-    vkuiClass: classNames(getClassName("SubnavigationBar", platform), "SubnavigationBar--".concat(mode))
+    vkuiClass: classNames("SubnavigationBar", "SubnavigationBar--".concat(mode))
   }), createScopedElement(ScrollWrapper, _extends({
     vkuiClass: "SubnavigationBar__in"
   }, scrollWrapperProps), createScopedElement("div", {

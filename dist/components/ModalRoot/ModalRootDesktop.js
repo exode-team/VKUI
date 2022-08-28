@@ -214,10 +214,7 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
       return createScopedElement(ModalRootContext.Provider, {
         value: this.modalRootContext
       }, createScopedElement("div", {
-        // eslint-disable-next-line vkui/no-object-expression-in-arguments
-        vkuiClass: classNames(getClassName("ModalRoot", this.props.platform), {
-          "ModalRoot--vkapps": ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === WebviewType.VKAPPS
-        }, "ModalRoot--desktop")
+        vkuiClass: classNames(getClassName("ModalRoot", this.props.platform), ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.webviewType) === WebviewType.VKAPPS && "ModalRoot--vkapps", "ModalRoot--desktop")
       }, createScopedElement("div", {
         vkuiClass: "ModalRoot__mask",
         ref: this.maskElementRef,
@@ -236,13 +233,8 @@ var ModalRootDesktopComponent = /*#__PURE__*/function (_React$Component) {
           restoreFocus: false,
           onClose: _this5.props.onExit,
           timeout: _this5.timeout,
-          key: key // eslint-disable-next-line vkui/no-object-expression-in-arguments
-          ,
-          vkuiClass: classNames("ModalRoot__modal", {
-            "ModalRoot__modal--active": !exitingModal && !enteringModal && modalId === activeModal,
-            "ModalRoot__modal--prev": modalId === exitingModal,
-            "ModalRoot__modal--next": Boolean(exitingModal) && modalId === activeModal
-          })
+          key: key,
+          vkuiClass: classNames("ModalRoot__modal", !exitingModal && !enteringModal && modalId === activeModal && "ModalRoot__modal--active", modalId === exitingModal && "ModalRoot__modal--prev", Boolean(exitingModal) && modalId === activeModal && "ModalRoot__modal--next")
         }, Modal);
       }))));
     }

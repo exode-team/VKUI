@@ -11,8 +11,6 @@ import { Button } from "../Button/Button";
 import { SimpleCell } from "../SimpleCell/SimpleCell";
 import { Avatar } from "../Avatar/Avatar";
 import { Caption } from "../Typography/Caption/Caption";
-import { usePlatform } from "../../hooks/usePlatform";
-import { getClassName } from "../../helpers/getClassName";
 import { warnOnce } from "../../lib/warnOnce";
 import "./PromoBanner.css";
 var warn = warnOnce("PromoBanner");
@@ -27,7 +25,6 @@ export var PromoBanner = function PromoBanner(_ref) {
       isCloseButtonHidden = _ref.isCloseButtonHidden,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var platform = usePlatform();
   var ageRestrictions = bannerData.ageRestrictions != null ? parseInt(bannerData.ageRestrictions) : bannerData.ageRestriction;
 
   if (bannerData.ageRestriction && process.env.NODE_ENV === "development") {
@@ -53,7 +50,7 @@ export var PromoBanner = function PromoBanner(_ref) {
     }
   }, [statsPixels.playbackStarted]);
   return createScopedElement("div", _extends({
-    vkuiClass: getClassName("PromoBanner", platform)
+    vkuiClass: "PromoBanner"
   }, restProps), createScopedElement("div", {
     vkuiClass: "PromoBanner__head"
   }, createScopedElement(Caption, {

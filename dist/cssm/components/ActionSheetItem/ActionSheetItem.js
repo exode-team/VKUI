@@ -1,22 +1,18 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick"];
+var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick", "multiline"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
 import { Tappable } from "../Tappable/Tappable";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode, noop } from "../../lib/utils";
+import { Platform } from "../../lib/platform";
 import { Subhead } from "../Typography/Subhead/Subhead";
-import { Title } from "../Typography/Title/Title";
 import { Text } from "../Typography/Text/Text";
-import { ANDROID, VKCOM } from "../../lib/platform";
-import { Icon16Done, Icon24Done } from "@vkontakte/icons";
+import { Icon24CheckCircleOn } from "@vkontakte/icons";
 import { ActionSheetContext } from "../ActionSheet/ActionSheetContext";
-import { Caption } from "../Typography/Caption/Caption";
-import { Headline } from "../Typography/Headline/Headline";
-import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
+import { withAdaptivity } from "../../hoc/withAdaptivity";
 import "./ActionSheetItem.css";
 
 var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
@@ -36,6 +32,8 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
       onClick = _ref.onClick,
       sizeY = _ref.sizeY,
       onImmediateClick = _ref.onImmediateClick,
+      _ref$multiline = _ref.multiline,
+      multiline = _ref$multiline === void 0 ? false : _ref$multiline,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -53,45 +51,27 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     Component = "label";
   }
 
-  var isCompact = hasReactNode(subtitle) || hasReactNode(meta) || selectable;
+  var isRich = hasReactNode(subtitle) || hasReactNode(meta) || selectable;
+  var isCentered = !isRich && !hasReactNode(before) && platform === Platform.IOS;
   return createScopedElement(Tappable, _extends({}, restProps, {
     onClick: selectable ? onClick : onItemClick(onClick, onImmediateClick, Boolean(autoclose)),
-    activeMode: "ActionSheetItem--active" // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("ActionSheetItem", platform), "ActionSheetItem--".concat(mode), "ActionSheetItem--sizeY-".concat(sizeY), {
-      "ActionSheetItem--compact": isCompact,
-      "ActionSheetItem--desktop": isDesktop,
-      "ActionSheetItem--withSubtitle": hasReactNode(subtitle)
-    }),
+    activeMode: platform === Platform.IOS ? "ActionSheetItem--active" : undefined,
+    vkuiClass: classNames("ActionSheetItem", platform === Platform.IOS && "ActionSheetItem--ios", "ActionSheetItem--".concat(mode), "ActionSheetItem--sizeY-".concat(sizeY), isRich && "ActionSheetItem--rich", isDesktop && "ActionSheetItem--desktop"),
     Component: Component
   }), hasReactNode(before) && createScopedElement("div", {
     vkuiClass: "ActionSheetItem__before"
   }, before), createScopedElement("div", {
-    vkuiClass: "ActionSheetItem__container"
+    vkuiClass: classNames("ActionSheetItem__container", !multiline && "ActionSheetItem--ellipsis")
   }, createScopedElement("div", {
-    vkuiClass: "ActionSheetItem__content"
-  }, sizeY === SizeType.COMPACT ? createScopedElement(React.Fragment, null, createScopedElement(Text, {
+    vkuiClass: classNames("ActionSheetItem__content", isCentered && "ActionSheetItem--centered")
+  }, createScopedElement(Text, {
     weight: mode === "cancel" ? "2" : undefined,
     vkuiClass: "ActionSheetItem__children"
   }, children), hasReactNode(meta) && createScopedElement(Text, {
     vkuiClass: "ActionSheetItem__meta"
-  }, meta)) : createScopedElement(React.Fragment, null, platform === ANDROID ? createScopedElement(Headline, {
-    weight: mode === "cancel" ? "2" : "3"
-  }, children) : createScopedElement(Title, {
-    weight: mode === "cancel" ? "2" : "3",
-    level: isCompact || hasReactNode(before) ? "3" : "2",
-    vkuiClass: "ActionSheetItem__children"
-  }, children), hasReactNode(meta) && (platform === ANDROID ? createScopedElement(Headline, {
-    weight: mode === "cancel" ? "2" : "3"
-  }, children) : createScopedElement(Title, {
-    weight: "3",
-    level: isCompact || hasReactNode(before) ? "3" : "2",
-    vkuiClass: "ActionSheetItem__meta"
-  }, meta)))), hasReactNode(subtitle) && (sizeY === SizeType.COMPACT ? createScopedElement(Caption, {
+  }, meta)), hasReactNode(subtitle) && createScopedElement(Subhead, {
     vkuiClass: "ActionSheetItem__subtitle"
-  }, subtitle) : createScopedElement(Subhead, {
-    vkuiClass: "ActionSheetItem__subtitle"
-  }, subtitle))), selectable && createScopedElement("div", {
+  }, subtitle)), selectable && createScopedElement("div", {
     vkuiClass: "ActionSheetItem__after"
   }, createScopedElement("input", {
     type: "radio",
@@ -105,7 +85,7 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     disabled: restProps.disabled
   }), createScopedElement("div", {
     vkuiClass: "ActionSheetItem__marker"
-  }, platform === VKCOM ? createScopedElement(Icon24Done, null) : createScopedElement(Icon16Done, null))));
+  }, createScopedElement(Icon24CheckCircleOn, null))));
 };
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheetItem

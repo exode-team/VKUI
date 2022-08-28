@@ -25,8 +25,6 @@ var _PanelHeader = require("../PanelHeader/PanelHeader");
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _excluded = ["children", "separator", "getRef"];
 
 /**
@@ -39,10 +37,11 @@ var ModalPageHeader = function ModalPageHeader(_ref) {
       getRef = _ref.getRef,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-  var hasSeparator = separator && platform === _platform.VKCOM;
+  var hasSeparator = separator && platform === _platform.VKCOM; // TODO v5.0.0 поправить под новую адаптивность
+
   var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
   return (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ModalPageHeader", platform), isDesktop && "ModalPageHeader--desktop"),
+    vkuiClass: (0, _classNames.classNames)("ModalPageHeader", platform !== _platform.VKCOM && "ModalPageHeader--withGaps", isDesktop && "ModalPageHeader--desktop"),
     ref: getRef
   }, (0, _jsxRuntime.createScopedElement)(_PanelHeader.PanelHeader, (0, _extends2.default)({
     vkuiClass: "ModalPageHeader__in"

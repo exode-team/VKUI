@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isTesting = void 0;
 
-var _vkjs = require("@vkontakte/vkjs");
+var _dom = require("./dom");
 
 // eslint-disable-next-line no-restricted-globals
-var isTesting = Boolean(_vkjs.canUseDOM && window.__isVkuiTesting);
+var isTesting = Boolean(_dom.canUseDOM && window.__isVkuiTesting);
 exports.isTesting = isTesting;
 //# sourceMappingURL=testing.js.map

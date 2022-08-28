@@ -23,8 +23,6 @@ var _Tappable = require("../Tappable/Tappable");
 
 var _PopoutWrapper = require("../PopoutWrapper/PopoutWrapper");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _platform = require("../../lib/platform");
@@ -125,14 +123,14 @@ var AlertAction = function AlertAction(_ref) {
     }, restProps), action.title);
   }
 
-  var mode = action.mode === "cancel" ? "secondary" : "primary";
+  var mode = "tertiary"; // TODO v5.0.0 поправить под новую адаптивность
 
-  if (platform === _platform.ANDROID) {
-    mode = "tertiary";
+  if (viewWidth === _withAdaptivity.ViewWidth.DESKTOP && action.mode === "destructive") {
+    mode = "destructive";
+  }
 
-    if (viewWidth === _withAdaptivity.ViewWidth.DESKTOP && action.mode === "destructive") {
-      mode = "destructive";
-    }
+  if (platform === _platform.VKCOM) {
+    mode = action.mode === "cancel" ? "secondary" : "primary";
   }
 
   return (0, _jsxRuntime.createScopedElement)(_Button.Button, {
@@ -179,9 +177,10 @@ var Alert = function Alert(_ref2) {
 
   var elementRef = React.useRef(null);
   var resolvedActionsLayout = platform === _platform.VKCOM ? "horizontal" : actionsLayout;
-  var canShowCloseButton = platform === _platform.VKCOM || platform === _platform.ANDROID && viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET;
-  var isDesktop = viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET;
-  var timeout = platform === _platform.ANDROID || platform === _platform.VKCOM ? 200 : 300;
+  var canShowCloseButton = platform !== _platform.IOS && viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET;
+  var isDesktop = viewWidth >= _withAdaptivity.ViewWidth.SMALL_TABLET; // TODO v5.0.0 поправить под новую адаптивность
+
+  var timeout = platform === _platform.IOS ? 300 : 200;
   var close = React.useCallback(function () {
     setClosing(true);
     waitTransitionFinish(elementRef.current, function (e) {
@@ -217,7 +216,7 @@ var Alert = function Alert(_ref2) {
     onClick: _utils.stopPropagation,
     onClose: close,
     timeout: timeout,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Alert", platform), resolvedActionsLayout === "vertical" ? "Alert--v" : "Alert--h", closing && "Alert--closing", isDesktop && "Alert--desktop"),
+    vkuiClass: (0, _classNames.classNames)("Alert", platform === _platform.IOS && "Alert--ios", platform === _platform.VKCOM && "Alert--vkcom", resolvedActionsLayout === "vertical" ? "Alert--v" : "Alert--h", closing && "Alert--closing", isDesktop && "Alert--desktop"),
     role: "alertdialog",
     "aria-modal": true,
     "aria-labelledby": "vkui--alert--title",

@@ -13,8 +13,6 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
@@ -25,13 +23,13 @@ var React = _interopRequireWildcard(require("react"));
 
 var _mitt = _interopRequireDefault(require("mitt"));
 
-var _vkjs = require("@vkontakte/vkjs");
+var _utils = require("../../lib/utils");
 
 var _Touch = require("../Touch/Touch");
 
 var _TouchContext = _interopRequireDefault(require("../Touch/TouchContext"));
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _platform = require("../../lib/platform");
 
@@ -73,7 +71,7 @@ var TapState = {
   exiting: 3
 };
 var TappableContext = /*#__PURE__*/React.createContext({
-  onHoverChange: _vkjs.noop
+  onHoverChange: _utils.noop
 });
 
 function useActivity(hasActive, stopDelay) {
@@ -114,11 +112,11 @@ function useActivity(hasActive, stopDelay) {
       activeBus.emit("active", id);
     }
 
-    return _vkjs.noop;
+    return _utils.noop;
   }, [activity]);
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (activity === TapState.none) {
-      return _vkjs.noop;
+      return _utils.noop;
     }
 
     var onActiveChange = function onActiveChange(activeId) {
@@ -151,8 +149,6 @@ function useActivity(hasActive, stopDelay) {
 }
 
 var TappableComponent = function TappableComponent(_ref) {
-  var _classNames;
-
   var children = _ref.children,
       Component = _ref.Component,
       onClick = _ref.onClick,
@@ -231,7 +227,7 @@ var TappableComponent = function TappableComponent(_ref) {
   }).current;
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (!hovered) {
-      return _vkjs.noop;
+      return _utils.noop;
     }
 
     onHoverChange(true);
@@ -320,13 +316,9 @@ var TappableComponent = function TappableComponent(_ref) {
 
     var activeDuration = duration - ACTIVE_DELAY;
     stop(activeDuration >= 100 ? 0 : activeEffectDelay - activeDuration);
-  } // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  }
 
-
-  var classes = (0, _classNames2.classNames)("Tappable", platform === _platform.IOS && "Tappable--ios", "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
-    "Tappable--active": hasActive && active,
-    "Tappable--mouse": hasMouse
-  }, (0, _defineProperty2.default)(_classNames, "Tappable--hover-".concat(hoverMode), hasHover && hovered && isPresetHoverMode), (0, _defineProperty2.default)(_classNames, "Tappable--active-".concat(activeMode), hasActive && active && isPresetActiveMode), (0, _defineProperty2.default)(_classNames, "Tappable--focus-visible", focusVisible), _classNames));
+  var classes = (0, _classNames.classNames)("Tappable", platform === _platform.IOS && "Tappable--ios", "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, hasActive && active && "Tappable--active", hasMouse && "Tappable--mouse", hasHover && hovered && isPresetHoverMode && "Tappable--hover-".concat(hoverMode), hasActive && active && isPresetActiveMode && "Tappable--active-".concat(activeMode), focusVisible && "Tappable--focus-visible");
   var handlers = {
     onStart: (0, _callMultiple.callMultiple)(onStart, props.onStart),
     onMove: (0, _callMultiple.callMultiple)(onMove, props.onMove),

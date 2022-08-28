@@ -33,7 +33,7 @@ var React = _interopRequireWildcard(require("react"));
 
 var _SliderSwitchButton = require("./SliderSwitchButton");
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _warnOnce = require("../../lib/warnOnce");
 
@@ -149,8 +149,6 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _classNames;
-
       var _this$props = this.props,
           name = _this$props.name,
           options = _this$props.options,
@@ -174,8 +172,7 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
       }), !firstActive && !secondActive && (0, _jsxRuntime.createScopedElement)("div", {
         vkuiClass: "SliderSwitch__border"
       }), (0, _jsxRuntime.createScopedElement)("div", {
-        // eslint-disable-next-line vkui/no-object-expression-in-arguments
-        vkuiClass: (0, _classNames2.classNames)("SliderSwitch__slider", (_classNames = {}, (0, _defineProperty2.default)(_classNames, "SliderSwitch--firstActive", firstActive), (0, _defineProperty2.default)(_classNames, "SliderSwitch--secondActive", secondActive), _classNames))
+        vkuiClass: (0, _classNames.classNames)("SliderSwitch__slider", firstActive && "SliderSwitch--firstActive", secondActive && "SliderSwitch--secondActive")
       }), (0, _jsxRuntime.createScopedElement)("input", {
         type: "hidden",
         name: name,

@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline", "selectType"];
+var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline", "selectType", "status"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -32,6 +32,7 @@ var NativeSelectComponent = function NativeSelectComponent(_ref) {
       multiline = _ref.multiline,
       _ref$selectType = _ref.selectType,
       selectType = _ref$selectType === void 0 ? SelectType.default : _ref$selectType,
+      status = _ref.status,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -71,7 +72,8 @@ var NativeSelectComponent = function NativeSelectComponent(_ref) {
     style: style,
     getRootRef: getRootRef,
     disabled: disabled,
-    after: createScopedElement(DropdownIcon, null)
+    after: createScopedElement(DropdownIcon, null),
+    status: status
   }, createScopedElement("select", _extends({}, restProps, {
     disabled: disabled,
     vkuiClass: "Select__el",

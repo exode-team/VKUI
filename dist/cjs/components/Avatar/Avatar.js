@@ -112,11 +112,7 @@ var Avatar = function Avatar(_ref) {
 
   var hasSrc = src || srcSet;
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)("Avatar", "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), {
-      "Avatar--shadow": shadow,
-      "Avatar--failed": failedImage
-    }),
+    vkuiClass: (0, _classNames.classNames)("Avatar", "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), shadow && "Avatar--shadow", failedImage && "Avatar--failed"),
     className: className,
     ref: getRootRef,
     role: hasSrc ? "img" : "presentation",
@@ -146,23 +142,14 @@ var Avatar = function Avatar(_ref) {
   }), children && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Avatar__children"
   }, children), overlayIcon && (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
-    Component: "button" // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)("Avatar__overlay", {
-      "Avatar__overlay--visible": overlayAction === "always",
-      "Avatar__overlay--light": overlayMode === "light",
-      "Avatar__overlay--dark": overlayMode === "dark"
-    }),
+    Component: "button",
+    vkuiClass: (0, _classNames.classNames)("Avatar__overlay", overlayAction === "always" && "Avatar__overlay--visible", overlayMode === "light" && "Avatar__overlay--light", overlayMode === "dark" && "Avatar__overlay--dark"),
     hoverMode: "Avatar__overlay--visible",
     focusVisibleMode: "Avatar__overlay--focus-visible",
     hasActive: false,
     onClick: onClick
   }, overlayIcon), badge && (0, _jsxRuntime.createScopedElement)("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)("Avatar__badge", {
-      "Avatar__badge--large": size >= 96,
-      "Avatar__badge--shadow": badge !== "online" && badge !== "online-mobile"
-    })
+    vkuiClass: (0, _classNames.classNames)("Avatar__badge", size >= 96 && "Avatar__badge--large", badge !== "online" && badge !== "online-mobile" && "Avatar__badge--shadow")
   }, badge === "online" ? (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Avatar__badge-online"
   }, (0, _jsxRuntime.createScopedElement)(_icons.Icon12Circle, {

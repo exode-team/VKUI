@@ -36,7 +36,7 @@ var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
   return (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, (0, _extends2.default)({
     "aria-label": (0, _utils.getTitleFromChildren)(children),
     primary: true
-  }, restProps), platform === _platform.ANDROID || platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_icons.Icon28DoneOutline, null) : children);
+  }, restProps), platform === _platform.IOS ? children : (0, _jsxRuntime.createScopedElement)(_icons.Icon28DoneOutline, null));
 };
 
 exports.PanelHeaderSubmit = PanelHeaderSubmit;

@@ -34,12 +34,11 @@ exports.MOBILE_SIZE = MOBILE_SIZE;
 var MOBILE_LANDSCAPE_HEIGHT = 414;
 exports.MOBILE_LANDSCAPE_HEIGHT = MOBILE_LANDSCAPE_HEIGHT;
 var MEDIUM_HEIGHT = 720;
+exports.MEDIUM_HEIGHT = MEDIUM_HEIGHT;
+
 /**
  * @see https://vkcom.github.io/VKUI/#/AdaptivityProvider
  */
-
-exports.MEDIUM_HEIGHT = MEDIUM_HEIGHT;
-
 var AdaptivityProvider = function AdaptivityProvider(props) {
   var adaptivityRef = React.useRef(null);
 

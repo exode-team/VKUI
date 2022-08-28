@@ -29,7 +29,7 @@ var _useEnsuredControl3 = require("../../hooks/useEnsuredControl");
 
 var _useExternRef = require("../../hooks/useExternRef");
 
-var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows", "maxHeight"];
+var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows", "maxHeight", "status"];
 
 var TextareaComponent = function TextareaComponent(_ref) {
   var _ref$defaultValue = _ref.defaultValue,
@@ -45,6 +45,7 @@ var TextareaComponent = function TextareaComponent(_ref) {
       _ref$rows = _ref.rows,
       rows = _ref$rows === void 0 ? 2 : _ref$rows,
       maxHeight = _ref.maxHeight,
+      status = _ref.status,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useEnsuredControl = (0, _useEnsuredControl3.useEnsuredControl)(restProps, {
@@ -76,7 +77,8 @@ var TextareaComponent = function TextareaComponent(_ref) {
     className: className,
     style: style,
     getRootRef: getRootRef,
-    disabled: restProps.disabled
+    disabled: restProps.disabled,
+    status: status
   }, (0, _jsxRuntime.createScopedElement)("textarea", (0, _extends2.default)({}, restProps, {
     style: {
       maxHeight: maxHeight

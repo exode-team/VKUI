@@ -1,32 +1,11 @@
-import * as React from "react";
-import { HasAlign, HasRef, HasRootRef } from "../../types";
+/// <reference types="react" />
 import { FormFieldProps } from "../FormField/FormField";
-import { ChipProps } from "../Chip/Chip";
+import { ChipOption } from "../Chip/Chip";
+import { ChipsInputBaseProps } from "../ChipsInputBase/ChipsInputBase";
 import "./ChipsInput.css";
-export declare type ChipsInputValue = string | number;
-export interface ChipsInputOption {
-    value?: ChipsInputValue;
-    label?: string;
-    [otherProp: string]: any;
+export interface ChipsInputProps<Option extends ChipOption> extends ChipsInputBaseProps<Option>, FormFieldProps {
 }
-export interface RenderChip<Option extends ChipsInputOption> extends ChipProps {
-    label: string;
-    option: Option;
-    disabled: boolean;
-}
-export interface ChipsInputProps<Option extends ChipsInputOption> extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange">, HasRef<HTMLInputElement>, HasRootRef<HTMLDivElement>, HasAlign, FormFieldProps {
-    value: Option[];
-    inputValue?: string;
-    onChange?: (o: Option[]) => void;
-    onInputChange?: (e?: React.ChangeEvent<HTMLInputElement>) => void;
-    getOptionValue?: (o?: Option) => ChipsInputValue;
-    getOptionLabel?: (o?: Option) => string;
-    getNewOptionData?: (v?: ChipsInputValue, l?: string) => Option;
-    renderChip?: (props?: RenderChip<Option>) => React.ReactNode;
-    inputAriaLabel?: string;
-}
-export declare const chipsInputDefaultProps: ChipsInputProps<any>;
 /**
  * @see https://vkcom.github.io/VKUI/#/ChipsInput
  */
-export declare const ChipsInput: <Option extends ChipsInputOption>(props: ChipsInputProps<Option>) => JSX.Element;
+export declare const ChipsInput: <Option extends ChipOption>({ style, className, getRootRef, before, after, status, ...restProps }: ChipsInputProps<Option>) => JSX.Element;

@@ -15,6 +15,12 @@ Object.defineProperty(exports, "ActionSheet", {
     return _ActionSheet.ActionSheet;
   }
 });
+Object.defineProperty(exports, "ActionSheetDefaultIosCloseItem", {
+  enumerable: true,
+  get: function get() {
+    return _ActionSheetDefaultIosCloseItem.ActionSheetDefaultIosCloseItem;
+  }
+});
 Object.defineProperty(exports, "ActionSheetItem", {
   enumerable: true,
   get: function get() {
@@ -953,6 +959,8 @@ var _Alert = require("./components/Alert/Alert");
 var _ActionSheet = require("./components/ActionSheet/ActionSheet");
 
 var _ActionSheetItem = require("./components/ActionSheetItem/ActionSheetItem");
+
+var _ActionSheetDefaultIosCloseItem = require("./components/ActionSheet/ActionSheetDefaultIosCloseItem");
 
 var _ScreenSpinner = require("./components/ScreenSpinner/ScreenSpinner");
 

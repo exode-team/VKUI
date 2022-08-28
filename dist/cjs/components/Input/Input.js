@@ -21,7 +21,7 @@ var _FormField = require("../FormField/FormField");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value", "caretPosition", "alwaysInFocus", "isFocus"];
+var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value", "caretPosition", "alwaysInFocus", "isFocus", "status"];
 
 var InputComponent = function InputComponent(_ref) {
   var _ref$type = _ref.type,
@@ -40,6 +40,7 @@ var InputComponent = function InputComponent(_ref) {
       alwaysInFocus = _ref.alwaysInFocus,
       _ref$isFocus = _ref.isFocus,
       isFocus = _ref$isFocus === void 0 ? false : _ref$isFocus,
+      status = _ref.status,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var ref = (0, _react.useRef)(null);
 
@@ -69,7 +70,8 @@ var InputComponent = function InputComponent(_ref) {
     getRootRef: getRootRef,
     before: before,
     after: after,
-    disabled: restProps.disabled
+    disabled: restProps.disabled,
+    status: status
   }, (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({}, restProps, {
     type: type,
     onInput: handleChange,

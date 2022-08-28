@@ -13,11 +13,13 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
+var _platform = require("../../lib/platform");
+
 var _usePlatform = require("../../hooks/usePlatform");
+
+var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _FocusTrap = require("../FocusTrap/FocusTrap");
 
@@ -33,14 +35,14 @@ var ActionSheetDropdown = function ActionSheetDropdown(_ref) {
       toggleRef = _ref.toggleRef,
       popupDirection = _ref.popupDirection,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+
+  var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
+      sizeY = _useAdaptivity.sizeY;
+
   var platform = (0, _usePlatform.usePlatform)();
-  var baseClaseName = (0, _getClassName.getClassName)("ActionSheet", platform);
   return (0, _jsxRuntime.createScopedElement)(_FocusTrap.FocusTrap, (0, _extends2.default)({}, restProps, {
-    onClick: stopPropagation // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)(baseClaseName, {
-      "ActionSheet--closing": closing
-    })
+    onClick: stopPropagation,
+    vkuiClass: (0, _classNames.classNames)("ActionSheet", platform === _platform.Platform.IOS && "ActionSheet--ios", closing && "ActionSheet--closing", "ActionSheet--sizeY-".concat(sizeY))
   }), children);
 };
 

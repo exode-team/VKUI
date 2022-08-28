@@ -13,8 +13,6 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _usePlatform = require("../../hooks/usePlatform");
@@ -106,11 +104,8 @@ var Header = function Header(_ref2) {
   var AsideTypography = platform === _platform.Platform.VKCOM ? _Subhead.Subhead : _Text.Text;
   var SubtitleTypography = mode === "secondary" ? _Subhead.Subhead : _Caption.Caption;
   return (0, _jsxRuntime.createScopedElement)("header", (0, _extends2.default)({}, restProps, {
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Header", platform), "Header--mode-".concat(mode), {
-      "Header--pi": (0, _utils.isPrimitiveReactNode)(indicator)
-    })
+    ref: getRootRef,
+    vkuiClass: (0, _classNames.classNames)("Header", platform === _platform.Platform.VKCOM && "Header--vkcom", platform === _platform.Platform.ANDROID && "Header--android", platform === _platform.Platform.IOS && "Header--ios", "Header--mode-".concat(mode), (0, _utils.isPrimitiveReactNode)(indicator) && "Header--pi")
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Header__main"
   }, (0, _jsxRuntime.createScopedElement)(HeaderContent, {
@@ -119,10 +114,7 @@ var Header = function Header(_ref2) {
     mode: mode,
     platform: platform
   }, (0, _jsxRuntime.createScopedElement)("span", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)("Header__content-in", {
-      "Header__content-in--multiline": multiline
-    })
+    vkuiClass: (0, _classNames.classNames)("Header__content-in", multiline && "Header__content-in--multiline")
   }, children), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "Header__indicator",
     weight: mode === "primary" || mode === "secondary" ? "1" : undefined

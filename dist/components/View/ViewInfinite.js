@@ -544,16 +544,7 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
         var scrollList = panelId && _this4.scrolls[panelId] || [];
         var scroll = scrollList[scrollList.length - 1] || 0;
         return createScopedElement("div", {
-          // eslint-disable-next-line vkui/no-object-expression-in-arguments
-          vkuiClass: classNames("View__panel", {
-            "View__panel--active": panelId === activePanel,
-            "View__panel--prev": panelId === prevPanel,
-            "View__panel--next": panelId === nextPanel,
-            "View__panel--swipe-back-prev": panelId === swipeBackPrevPanel,
-            "View__panel--swipe-back-next": panelId === swipeBackNextPanel,
-            "View__panel--swipe-back-success": swipeBackResult === SwipeBackResults.success,
-            "View__panel--swipe-back-failed": swipeBackResult === SwipeBackResults.fail
-          }),
+          vkuiClass: classNames("View__panel", panelId === activePanel && "View__panel--active", panelId === prevPanel && "View__panel--prev", panelId === nextPanel && "View__panel--next", panelId === swipeBackPrevPanel && "View__panel--swipe-back-prev", panelId === swipeBackNextPanel && "View__panel--swipe-back-next", swipeBackResult === SwipeBackResults.success && "View__panel--swipe-back-success", swipeBackResult === SwipeBackResults.fail && "View__panel--swipe-back-failed"),
           onAnimationEnd: isTransitionTarget ? _this4.transitionEndHandler : undefined,
           ref: function ref(el) {
             return panelId !== undefined && (_this4.panelNodes[panelId] = el);

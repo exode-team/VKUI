@@ -23,13 +23,13 @@ var _FixedLayout = require("../FixedLayout/FixedLayout");
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _AdaptivityContext = require("../AdaptivityProvider/AdaptivityContext");
 
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _dom = require("../../lib/dom");
+
+var _platform = require("../../lib/platform");
 
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 
@@ -90,12 +90,8 @@ var PanelHeaderContext = function PanelHeaderContext(_ref) {
     return closing ? animationFallback.set() : animationFallback.clear();
   }, [animationFallback, closing]);
   return (0, _jsxRuntime.createScopedElement)(_FixedLayout.FixedLayout, (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderContext", platform), {
-      "PanelHeaderContext--opened": opened,
-      "PanelHeaderContext--closing": closing,
-      "PanelHeaderContext--desktop": isDesktop
-    }),
+    vkuiClass: (0, _classNames.classNames)("PanelHeaderContext", platform === _platform.IOS && "PanelHeaderContext--ios", opened && "PanelHeaderContext--opened", closing && "PanelHeaderContext--closing", isDesktop && "PanelHeaderContext--desktop", // TODO v5.0.0 поправить под новую адаптивность
+    (platform !== _platform.IOS || platform === _platform.IOS && isDesktop) && "PanelHeaderContext--rounded"),
     vertical: "top"
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PanelHeaderContext__in",

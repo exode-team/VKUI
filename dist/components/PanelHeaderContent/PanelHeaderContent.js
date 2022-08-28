@@ -3,13 +3,14 @@ import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["className", "style", "aside", "status", "before", "children", "onClick"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { getClassName } from "../../helpers/getClassName";
+import { classNames } from "../../lib/classNames";
 import { Tappable } from "../Tappable/Tappable";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
+import { getClassName } from "../../helpers/getClassName";
 import { Caption } from "../Typography/Caption/Caption";
 import { Headline } from "../Typography/Headline/Headline";
-import { IOS, Platform } from "../../lib/platform";
+import { IOS, ANDROID, Platform } from "../../lib/platform";
 import { Text } from "../Typography/Text/Text";
 
 var PanelHeaderChildren = function PanelHeaderChildren(_ref) {
@@ -63,7 +64,7 @@ export var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   }), hasReactNode(before) && createScopedElement("div", {
     vkuiClass: "PanelHeaderContent__before"
   }, before), createScopedElement(InComponent, _extends({}, inProps, {
-    vkuiClass: "PanelHeaderContent__in"
+    vkuiClass: classNames("PanelHeaderContent__in", !before && platform !== ANDROID && "PanelHeaderContent__in--centered")
   }), hasReactNode(status) && createScopedElement(Caption, {
     vkuiClass: "PanelHeaderContent__status"
   }, status), createScopedElement("div", {

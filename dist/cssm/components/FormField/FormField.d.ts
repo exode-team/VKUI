@@ -6,6 +6,7 @@ export declare const FormFieldMode: {
     readonly plain: "plain";
 };
 export interface FormFieldProps {
+    status?: "default" | "error" | "valid";
     /**
      * Добавляет иконку слева.
      *
@@ -32,5 +33,5 @@ interface FormFieldOwnProps extends React.AllHTMLAttributes<HTMLElement>, HasRoo
 /**
  * @see https://vkcom.github.io/VKUI/#/FormField
  */
-export declare const FormField: ({ Component, children, getRootRef, before, after, disabled, mode, ...restProps }: FormFieldOwnProps) => JSX.Element;
+export declare const FormField: ({ Component, status, children, getRootRef, before, after, disabled, mode, ...restProps }: FormFieldOwnProps) => JSX.Element;
 export {};

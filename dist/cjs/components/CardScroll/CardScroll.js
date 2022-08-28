@@ -13,15 +13,13 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var React = _interopRequireWildcard(require("react"));
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _getClassName = require("../../helpers/getClassName");
 
@@ -104,8 +102,7 @@ var CardScroll = function CardScroll(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("CardScroll", platform), "CardScroll--sizeX-".concat(sizeX), "CardScroll--".concat(size), (0, _defineProperty2.default)({}, "CardScroll--withSpaces", withSpaces))
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("CardScroll", platform), "CardScroll--sizeX-".concat(sizeX), "CardScroll--".concat(size), withSpaces && "CardScroll--withSpaces")
   }), (0, _jsxRuntime.createScopedElement)(_HorizontalScroll.HorizontalScroll, {
     getScrollToLeft: getScrollToLeft,
     getScrollToRight: getScrollToRight,

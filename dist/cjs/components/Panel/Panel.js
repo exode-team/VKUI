@@ -11,13 +11,9 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _getClassName = require("../../helpers/getClassName");
-
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _Touch = require("../Touch/Touch");
 
@@ -44,11 +40,9 @@ var Panel = (0, _withAdaptivity.withAdaptivity)(function (_ref) {
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("Panel", platform), "Panel--".concat(sizeX), (0, _defineProperty2.default)({
-      "Panel--centered": centered
-    }, "Panel--sizeX-".concat(sizeX), true))
+    ref: getRootRef,
+    vkuiClass: (0, _classNames.classNames)("Panel", platform === _platform.IOS && "Panel--ios", platform === _platform.VKCOM && "Panel--vkcom", // TODO v5.0.0 поправить под новую адаптивность
+    "Panel--sizeX-".concat(sizeX), centered && "Panel--centered")
   }), (0, _jsxRuntime.createScopedElement)(_Touch.Touch, {
     Component: _TooltipContainer.TooltipContainer,
     vkuiClass: "Panel__in"

@@ -3,7 +3,6 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["children", "toggleRef", "closing", "popupDirection", "onClose", "className", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { useDOM } from "../../lib/dom";
 import { usePlatform } from "../../hooks/usePlatform";
@@ -11,6 +10,7 @@ import { useEffectDev } from "../../hooks/useEffectDev";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { isRefObject } from "../../lib/isRefObject";
 import { warnOnce } from "../../lib/warnOnce";
+import { Platform } from "../../lib/platform";
 import { useEventListener } from "../../hooks/useEventListener";
 import { FocusTrap } from "../FocusTrap/FocusTrap";
 import { Popper } from "../Popper/Popper";
@@ -70,16 +70,15 @@ export var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref
       return toggleRef;
     }
 
-    var refObject = {
+    return {
       current: toggleRef
     };
-    return refObject;
   }, [toggleRef]);
   return createScopedElement(Popper, {
     targetRef: targetRef,
     offsetDistance: 0,
     placement: isPopupDirectionTop ? "top-end" : "bottom-end",
-    vkuiClass: classNames(getClassName("ActionSheet", platform), "ActionSheet--desktop", "ActionSheet--sizeY-".concat(sizeY)),
+    vkuiClass: classNames("ActionSheet", platform === Platform.IOS && "ActionSheet--ios", "ActionSheet--desktop", "ActionSheet--sizeY-".concat(sizeY)),
     className: className,
     style: style,
     getRef: elementRef,

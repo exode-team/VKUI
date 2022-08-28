@@ -4,15 +4,14 @@ import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 var _excluded = ["option"],
-    _excluded2 = ["style", "onFocus", "onKeyDown", "className", "fetching", "renderOption", "emptyText", "getRef", "getRootRef", "disabled", "placeholder", "tabIndex", "getOptionValue", "getOptionLabel", "showSelected", "getNewOptionData", "renderChip", "popupDirection", "creatable", "filterFn", "inputValue", "creatableText", "sizeY", "closeAfterSelect", "onChangeStart", "after", "options"];
+    _excluded2 = ["style", "onFocus", "onKeyDown", "className", "fetching", "renderOption", "emptyText", "getRef", "getRootRef", "disabled", "placeholder", "tabIndex", "getOptionValue", "getOptionLabel", "showSelected", "getNewOptionData", "renderChip", "popupDirection", "creatable", "filterFn", "inputValue", "creatableText", "closeAfterSelect", "onChangeStart", "before", "options"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
 import { classNames } from "../../lib/classNames";
-import { ChipsInput, chipsInputDefaultProps } from "../ChipsInput/ChipsInput";
+import { ChipsInputBase, chipsInputDefaultProps } from "../ChipsInputBase/ChipsInputBase";
 import { CustomSelectOption } from "../CustomSelectOption/CustomSelectOption";
-import { useChipsSelect } from "./useChipsSelect";
-import { withAdaptivity } from "../../hoc/withAdaptivity";
+import { useChipsSelect } from "../../hooks/useChipsSelect";
 import { noop } from "../../lib/utils";
 import { useDOM } from "../../lib/dom";
 import { Caption } from "../Typography/Caption/Caption";
@@ -21,6 +20,8 @@ import { useExternRef } from "../../hooks/useExternRef";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
 import { defaultFilterFn } from "../../lib/select";
 import { CustomSelectDropdown } from "../CustomSelectDropdown/CustomSelectDropdown";
+import { FormField } from "../FormField/FormField";
+import { IconButton } from "../IconButton/IconButton";
 var FOCUS_ACTION_NEXT = "next";
 var FOCUS_ACTION_PREV = "prev";
 
@@ -41,8 +42,12 @@ var chipsSelectDefaultProps = _objectSpread(_objectSpread({}, chipsInputDefaultP
     return createScopedElement(CustomSelectOption, restProps);
   }
 });
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsSelect
+ */
 
-var ChipsSelectComponent = function ChipsSelectComponent(props) {
+
+export var ChipsSelect = function ChipsSelect(props) {
   var propsWithDefault = _objectSpread(_objectSpread({}, chipsSelectDefaultProps), props);
 
   var style = propsWithDefault.style,
@@ -67,10 +72,9 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
       filterFn = propsWithDefault.filterFn,
       inputValue = propsWithDefault.inputValue,
       creatableText = propsWithDefault.creatableText,
-      sizeY = propsWithDefault.sizeY,
       closeAfterSelect = propsWithDefault.closeAfterSelect,
       onChangeStart = propsWithDefault.onChangeStart,
-      after = propsWithDefault.after,
+      before = propsWithDefault.before,
       options = propsWithDefault.options,
       restProps = _objectWithoutProperties(propsWithDefault, _excluded2);
 
@@ -110,9 +114,9 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
   };
 
   var handleClickOutside = function handleClickOutside(e) {
-    var rootNode = rootRef.current;
+    var _rootRef$current;
 
-    if (rootNode && e.target !== rootNode && !rootNode.contains(e.target)) {
+    if (e.target !== rootRef.current && !((_rootRef$current = rootRef.current) !== null && _rootRef$current !== void 0 && _rootRef$current.contains(e.target))) {
       setOpened(false);
     }
   };
@@ -268,12 +272,35 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
   var observableRefs = React.useMemo(function () {
     return [scrollBoxRef, rootRef];
   }, [rootRef, scrollBoxRef]);
-  return createScopedElement("div", {
-    vkuiClass: classNames("ChipsSelect", "ChipsSelect--sizeY-".concat(sizeY)),
-    ref: rootRef,
+
+  var toggleOpened = function toggleOpened() {
+    setOpened(function (prevOpened) {
+      return !prevOpened;
+    });
+  };
+
+  return createScopedElement(FormField, {
+    vkuiClass: classNames("ChipsSelect", opened && "Select--open", opened && (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")),
+    getRootRef: rootRef,
     style: style,
-    className: className
-  }, createScopedElement(ChipsInput, _extends({}, restProps, {
+    className: className,
+    disabled: disabled,
+    role: "application",
+    "aria-disabled": disabled,
+    "aria-readonly": restProps.readOnly,
+    after: createScopedElement(IconButton, {
+      vkuiClass: "ChipsSelect__dropdown",
+      activeMode: "",
+      hoverMode: "" // TODO: add label customization
+      ,
+      "aria-label": opened ? "Скрыть" : "Развернуть",
+      onClick: toggleOpened
+    }, createScopedElement(DropdownIcon, {
+      vkuiClass: "ChipsSelect__icon",
+      opened: opened
+    })),
+    before: before
+  }, createScopedElement(ChipsInputBase, _extends({}, restProps, {
     tabIndex: tabIndex,
     value: selectedOptions,
     inputValue: fieldValue,
@@ -284,11 +311,9 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
     placeholder: placeholder,
-    vkuiClass: classNames(opened && "Select--open", opened && (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")),
     getRef: getRef,
     disabled: disabled,
-    onInputChange: handleInputChange,
-    after: createScopedElement(DropdownIcon, null)
+    onInputChange: handleInputChange
   })), opened && createScopedElement(CustomSelectDropdown, {
     targetRef: rootRef,
     placement: popupDirection,
@@ -343,13 +368,4 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     }));
   })));
 };
-/**
- * @see https://vkcom.github.io/VKUI/#/ChipsSelect
- */
-
-
-export var ChipsSelect = withAdaptivity(ChipsSelectComponent, {
-  sizeY: true
-});
-ChipsSelect.displayName = "ChipsSelect";
 //# sourceMappingURL=ChipsSelect.js.map

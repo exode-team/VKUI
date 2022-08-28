@@ -1,19 +1,27 @@
 import _extends from "@babel/runtime/helpers/extends";
+import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
+var _excluded = ["opened"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { Icon20Dropdown, Icon24ChevronDown } from "@vkontakte/icons";
+import { Icon20Dropdown, Icon24ChevronDown, Icon24ChevronUp, Icon20ChevronUp } from "@vkontakte/icons";
+import { classNames } from "../../lib/classNames";
 import { SizeType } from "../AdaptivityProvider/AdaptivityContext";
-import { getClassName } from "../../helpers/getClassName";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
-import { usePlatform } from "../../hooks/usePlatform";
-export var DropdownIcon = function DropdownIcon(props) {
-  var platform = usePlatform();
+export var DropdownIcon = function DropdownIcon(_ref) {
+  var _ref$opened = _ref.opened,
+      opened = _ref$opened === void 0 ? false : _ref$opened,
+      restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _useAdaptivity = useAdaptivity(),
       sizeY = _useAdaptivity.sizeY;
 
   var Icon = sizeY === SizeType.COMPACT ? Icon20Dropdown : Icon24ChevronDown;
+
+  if (opened) {
+    Icon = sizeY === SizeType.COMPACT ? Icon20ChevronUp : Icon24ChevronUp;
+  }
+
   return createScopedElement(Icon, _extends({
-    vkuiClass: getClassName("DropdownIcon", platform)
-  }, props));
+    vkuiClass: classNames("DropdownIcon")
+  }, restProps));
 };
 //# sourceMappingURL=DropdownIcon.js.map

@@ -27,13 +27,11 @@ var _DropdownIcon = require("../DropdownIcon/DropdownIcon");
 
 var _classNames = require("../../lib/classNames");
 
-var _ChipsInput = require("../ChipsInput/ChipsInput");
+var _ChipsInputBase = require("../ChipsInputBase/ChipsInputBase");
 
 var _CustomSelectOption = require("../CustomSelectOption/CustomSelectOption");
 
-var _useChipsSelect2 = require("./useChipsSelect");
-
-var _withAdaptivity = require("../../hoc/withAdaptivity");
+var _useChipsSelect2 = require("../../hooks/useChipsSelect");
 
 var _utils = require("../../lib/utils");
 
@@ -51,11 +49,15 @@ var _select = require("../../lib/select");
 
 var _CustomSelectDropdown = require("../CustomSelectDropdown/CustomSelectDropdown");
 
+var _FormField = require("../FormField/FormField");
+
+var _IconButton = require("../IconButton/IconButton");
+
 var _excluded = ["option"],
-    _excluded2 = ["style", "onFocus", "onKeyDown", "className", "fetching", "renderOption", "emptyText", "getRef", "getRootRef", "disabled", "placeholder", "tabIndex", "getOptionValue", "getOptionLabel", "showSelected", "getNewOptionData", "renderChip", "popupDirection", "creatable", "filterFn", "inputValue", "creatableText", "sizeY", "closeAfterSelect", "onChangeStart", "after", "options"];
+    _excluded2 = ["style", "onFocus", "onKeyDown", "className", "fetching", "renderOption", "emptyText", "getRef", "getRootRef", "disabled", "placeholder", "tabIndex", "getOptionValue", "getOptionLabel", "showSelected", "getNewOptionData", "renderChip", "popupDirection", "creatable", "filterFn", "inputValue", "creatableText", "closeAfterSelect", "onChangeStart", "before", "options"];
 var FOCUS_ACTION_NEXT = "next";
 var FOCUS_ACTION_PREV = "prev";
-var chipsSelectDefaultProps = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, _ChipsInput.chipsInputDefaultProps), {}, {
+var chipsSelectDefaultProps = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, _ChipsInputBase.chipsInputDefaultProps), {}, {
   emptyText: "Ничего не найдено",
   creatableText: "Создать значение",
   onChangeStart: _utils.noop,
@@ -71,8 +73,11 @@ var chipsSelectDefaultProps = (0, _objectSpread2.default)((0, _objectSpread2.def
     return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.CustomSelectOption, restProps);
   }
 });
+/**
+ * @see https://vkcom.github.io/VKUI/#/ChipsSelect
+ */
 
-var ChipsSelectComponent = function ChipsSelectComponent(props) {
+var ChipsSelect = function ChipsSelect(props) {
   var propsWithDefault = (0, _objectSpread2.default)((0, _objectSpread2.default)({}, chipsSelectDefaultProps), props);
   var style = propsWithDefault.style,
       onFocus = propsWithDefault.onFocus,
@@ -96,10 +101,9 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
       filterFn = propsWithDefault.filterFn,
       inputValue = propsWithDefault.inputValue,
       creatableText = propsWithDefault.creatableText,
-      sizeY = propsWithDefault.sizeY,
       closeAfterSelect = propsWithDefault.closeAfterSelect,
       onChangeStart = propsWithDefault.onChangeStart,
-      after = propsWithDefault.after,
+      before = propsWithDefault.before,
       options = propsWithDefault.options,
       restProps = (0, _objectWithoutProperties2.default)(propsWithDefault, _excluded2);
 
@@ -139,9 +143,9 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
   };
 
   var handleClickOutside = function handleClickOutside(e) {
-    var rootNode = rootRef.current;
+    var _rootRef$current;
 
-    if (rootNode && e.target !== rootNode && !rootNode.contains(e.target)) {
+    if (e.target !== rootRef.current && !((_rootRef$current = rootRef.current) !== null && _rootRef$current !== void 0 && _rootRef$current.contains(e.target))) {
       setOpened(false);
     }
   };
@@ -297,12 +301,35 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
   var observableRefs = React.useMemo(function () {
     return [scrollBoxRef, rootRef];
   }, [rootRef, scrollBoxRef]);
-  return (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: (0, _classNames.classNames)("ChipsSelect", "ChipsSelect--sizeY-".concat(sizeY)),
-    ref: rootRef,
+
+  var toggleOpened = function toggleOpened() {
+    setOpened(function (prevOpened) {
+      return !prevOpened;
+    });
+  };
+
+  return (0, _jsxRuntime.createScopedElement)(_FormField.FormField, {
+    vkuiClass: (0, _classNames.classNames)("ChipsSelect", opened && "Select--open", opened && (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")),
+    getRootRef: rootRef,
     style: style,
-    className: className
-  }, (0, _jsxRuntime.createScopedElement)(_ChipsInput.ChipsInput, (0, _extends2.default)({}, restProps, {
+    className: className,
+    disabled: disabled,
+    role: "application",
+    "aria-disabled": disabled,
+    "aria-readonly": restProps.readOnly,
+    after: (0, _jsxRuntime.createScopedElement)(_IconButton.IconButton, {
+      vkuiClass: "ChipsSelect__dropdown",
+      activeMode: "",
+      hoverMode: "" // TODO: add label customization
+      ,
+      "aria-label": opened ? "Скрыть" : "Развернуть",
+      onClick: toggleOpened
+    }, (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, {
+      vkuiClass: "ChipsSelect__icon",
+      opened: opened
+    })),
+    before: before
+  }, (0, _jsxRuntime.createScopedElement)(_ChipsInputBase.ChipsInputBase, (0, _extends2.default)({}, restProps, {
     tabIndex: tabIndex,
     value: selectedOptions,
     inputValue: fieldValue,
@@ -313,11 +340,9 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
     placeholder: placeholder,
-    vkuiClass: (0, _classNames.classNames)(opened && "Select--open", opened && (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")),
     getRef: getRef,
     disabled: disabled,
-    onInputChange: handleInputChange,
-    after: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null)
+    onInputChange: handleInputChange
   })), opened && (0, _jsxRuntime.createScopedElement)(_CustomSelectDropdown.CustomSelectDropdown, {
     targetRef: rootRef,
     placement: popupDirection,
@@ -372,14 +397,6 @@ var ChipsSelectComponent = function ChipsSelectComponent(props) {
     }));
   })));
 };
-/**
- * @see https://vkcom.github.io/VKUI/#/ChipsSelect
- */
 
-
-var ChipsSelect = (0, _withAdaptivity.withAdaptivity)(ChipsSelectComponent, {
-  sizeY: true
-});
 exports.ChipsSelect = ChipsSelect;
-ChipsSelect.displayName = "ChipsSelect";
 //# sourceMappingURL=ChipsSelect.js.map

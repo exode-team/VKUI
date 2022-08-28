@@ -135,8 +135,6 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _classNames;
-
       var _this$props = this.props,
           name = _this$props.name,
           options = _this$props.options,
@@ -161,8 +159,7 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
       }), !firstActive && !secondActive && createScopedElement("div", {
         vkuiClass: "SliderSwitch__border"
       }), createScopedElement("div", {
-        // eslint-disable-next-line vkui/no-object-expression-in-arguments
-        vkuiClass: classNames("SliderSwitch__slider", (_classNames = {}, _defineProperty(_classNames, "SliderSwitch--firstActive", firstActive), _defineProperty(_classNames, "SliderSwitch--secondActive", secondActive), _classNames))
+        vkuiClass: classNames("SliderSwitch__slider", firstActive && "SliderSwitch--firstActive", secondActive && "SliderSwitch--secondActive")
       }), createScopedElement("input", {
         type: "hidden",
         name: name,

@@ -29,7 +29,7 @@ var _select = require("../../lib/select");
 
 var _Select = require("../Select/Select");
 
-var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY", "before", "after", "selectType"];
+var _excluded = ["tabIndex", "placeholder", "children", "align", "getRootRef", "multiline", "disabled", "onClick", "sizeX", "sizeY", "before", "after", "selectType", "status"];
 
 var SelectMimicryComponent = function SelectMimicryComponent(_ref) {
   var _ref$tabIndex = _ref.tabIndex,
@@ -48,6 +48,7 @@ var SelectMimicryComponent = function SelectMimicryComponent(_ref) {
       after = _ref$after === void 0 ? (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null) : _ref$after,
       _ref$selectType = _ref.selectType,
       selectType = _ref$selectType === void 0 ? _Select.SelectType.default : _ref$selectType,
+      status = _ref.status,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var title = children || placeholder;
@@ -61,7 +62,8 @@ var SelectMimicryComponent = function SelectMimicryComponent(_ref) {
     disabled: disabled,
     before: before,
     after: after,
-    mode: (0, _select.getFormFieldModeFromSelectType)(selectType)
+    mode: (0, _select.getFormFieldModeFromSelectType)(selectType),
+    status: status
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Select__container"
   }, (0, _jsxRuntime.createScopedElement)(_Select.SelectTypography, {

@@ -4,7 +4,7 @@ var _excluded = ["children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { PanelHeaderButton } from "../PanelHeaderButton/PanelHeaderButton";
 import { Icon28DoneOutline } from "@vkontakte/icons";
-import { ANDROID, VKCOM } from "../../lib/platform";
+import { IOS } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getTitleFromChildren } from "../../lib/utils";
 /**
@@ -20,6 +20,6 @@ export var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
   return createScopedElement(PanelHeaderButton, _extends({
     "aria-label": getTitleFromChildren(children),
     primary: true
-  }, restProps), platform === ANDROID || platform === VKCOM ? createScopedElement(Icon28DoneOutline, null) : children);
+  }, restProps), platform === IOS ? children : createScopedElement(Icon28DoneOutline, null));
 };
 //# sourceMappingURL=PanelHeaderSubmit.js.map

@@ -15,10 +15,6 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
-var _usePlatform = require("../../hooks/usePlatform");
-
 var _Headline = require("../Typography/Headline/Headline");
 
 var _Caption = require("../Typography/Caption/Caption");
@@ -27,7 +23,10 @@ var _utils = require("../../lib/utils");
 
 var _excluded = ["mode", "header", "children", "dangerouslySetInnerHTML"];
 
+/* TODO: v5.0.0 удалить */
+
 /**
+ * @deprecated Этот компонент устарел и будет удален в v5.0.0. Используйте [`Banner`](#/Banner).
  * @see https://vkcom.github.io/VKUI/#/FormStatus
  */
 var FormStatus = function FormStatus(_ref) {
@@ -36,9 +35,8 @@ var FormStatus = function FormStatus(_ref) {
       children = _ref.children,
       dangerouslySetInnerHTML = _ref.dangerouslySetInnerHTML,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("FormStatus", platform), "FormStatus--".concat(mode))
+    vkuiClass: (0, _classNames.classNames)("FormStatus", "FormStatus--".concat(mode))
   }), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     weight: "2",
     vkuiClass: "FormStatus__header"

@@ -1,14 +1,12 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["centered", "children", "getRootRef", "sizeX", "nav"];
 import { createScopedElement } from "../../lib/jsxRuntime";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import { Touch } from "../Touch/Touch";
 import { TooltipContainer } from "../Tooltip/TooltipContainer";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
-import { IOS } from "../../lib/platform";
+import { IOS, VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import "./Panel.css";
 
@@ -26,11 +24,9 @@ export var Panel = withAdaptivity(function (_ref) {
 
   var platform = usePlatform();
   return createScopedElement("div", _extends({}, restProps, {
-    ref: getRootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("Panel", platform), "Panel--".concat(sizeX), _defineProperty({
-      "Panel--centered": centered
-    }, "Panel--sizeX-".concat(sizeX), true))
+    ref: getRootRef,
+    vkuiClass: classNames("Panel", platform === IOS && "Panel--ios", platform === VKCOM && "Panel--vkcom", // TODO v5.0.0 поправить под новую адаптивность
+    "Panel--sizeX-".concat(sizeX), centered && "Panel--centered")
   }), createScopedElement(Touch, {
     Component: TooltipContainer,
     vkuiClass: "Panel__in"

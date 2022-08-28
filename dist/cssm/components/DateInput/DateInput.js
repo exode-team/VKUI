@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "disableCalendar"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { format, isMatch, parse } from "../../lib/date";
@@ -117,6 +117,8 @@ export var DateInput = function DateInput(_ref) {
       onPrevMonth = _ref.onPrevMonth,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      _ref$disableCalendar = _ref.disableCalendar,
+      disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var daysRef = React.useRef(null);
@@ -243,7 +245,7 @@ export var DateInput = function DateInput(_ref) {
     onElementSelect: setFocusedElement,
     value: internalValue[4],
     "aria-label": changeMinutesAriaLabel
-  }))), open && createScopedElement(Popper, {
+  }))), open && !disableCalendar && createScopedElement(Popper, {
     targetRef: rootRef,
     offsetDistance: 8,
     placement: calendarPlacement

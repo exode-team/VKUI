@@ -39,7 +39,7 @@ var _usePlatform = require("../../hooks/usePlatform");
 
 var _Select = require("../Select/Select");
 
-var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline", "selectType"];
+var _excluded = ["style", "defaultValue", "align", "placeholder", "children", "className", "getRef", "getRootRef", "disabled", "sizeX", "sizeY", "multiline", "selectType", "status"];
 
 var NativeSelectComponent = function NativeSelectComponent(_ref) {
   var style = _ref.style,
@@ -57,6 +57,7 @@ var NativeSelectComponent = function NativeSelectComponent(_ref) {
       multiline = _ref.multiline,
       _ref$selectType = _ref.selectType,
       selectType = _ref$selectType === void 0 ? _Select.SelectType.default : _ref$selectType,
+      status = _ref.status,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -95,7 +96,8 @@ var NativeSelectComponent = function NativeSelectComponent(_ref) {
     style: style,
     getRootRef: getRootRef,
     disabled: disabled,
-    after: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null)
+    after: (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, null),
+    status: status
   }, (0, _jsxRuntime.createScopedElement)("select", (0, _extends2.default)({}, restProps, {
     disabled: disabled,
     vkuiClass: "Select__el",

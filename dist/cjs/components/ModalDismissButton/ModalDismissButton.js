@@ -17,10 +17,6 @@ var _icons = require("@vkontakte/icons");
 
 var _Tappable = require("../Tappable/Tappable");
 
-var _getClassName = require("../../helpers/getClassName");
-
-var _usePlatform = require("../../hooks/usePlatform");
-
 var _excluded = ["aria-label"];
 
 /**
@@ -30,9 +26,8 @@ var ModalDismissButton = function ModalDismissButton(_ref) {
   var _ref$ariaLabel = _ref["aria-label"],
       ariaLabel = _ref$ariaLabel === void 0 ? "Закрыть" : _ref$ariaLabel,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
-    vkuiClass: (0, _getClassName.getClassName)("ModalDismissButton", platform)
+    vkuiClass: "ModalDismissButton"
   }, restProps, {
     "aria-label": ariaLabel,
     activeMode: "ModalDismissButton--active",

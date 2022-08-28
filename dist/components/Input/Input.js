@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value", "caretPosition", "alwaysInFocus", "isFocus"];
+var _excluded = ["type", "align", "getRef", "className", "getRootRef", "sizeY", "style", "before", "after", "onInput", "value", "caretPosition", "alwaysInFocus", "isFocus", "status"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { useRef, useEffect } from 'react';
 import { classNames } from "../../lib/classNames";
@@ -24,6 +24,7 @@ var InputComponent = function InputComponent(_ref) {
       alwaysInFocus = _ref.alwaysInFocus,
       _ref$isFocus = _ref.isFocus,
       isFocus = _ref$isFocus === void 0 ? false : _ref$isFocus,
+      status = _ref.status,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var ref = useRef(null);
@@ -54,7 +55,8 @@ var InputComponent = function InputComponent(_ref) {
     getRootRef: getRootRef,
     before: before,
     after: after,
-    disabled: restProps.disabled
+    disabled: restProps.disabled,
+    status: status
   }, createScopedElement("input", _extends({}, restProps, {
     type: type,
     onInput: handleChange,

@@ -33,10 +33,6 @@ var _Avatar = require("../Avatar/Avatar");
 
 var _Caption = require("../Typography/Caption/Caption");
 
-var _usePlatform = require("../../hooks/usePlatform");
-
-var _getClassName = require("../../helpers/getClassName");
-
 var _warnOnce = require("../../lib/warnOnce");
 
 var _excluded = ["bannerData", "onClose", "isCloseButtonHidden"];
@@ -51,7 +47,6 @@ var PromoBanner = function PromoBanner(_ref) {
       onClose = _ref.onClose,
       isCloseButtonHidden = _ref.isCloseButtonHidden,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
   var ageRestrictions = bannerData.ageRestrictions != null ? parseInt(bannerData.ageRestrictions) : bannerData.ageRestriction;
 
   if (bannerData.ageRestriction && process.env.NODE_ENV === "development") {
@@ -77,7 +72,7 @@ var PromoBanner = function PromoBanner(_ref) {
     }
   }, [statsPixels.playbackStarted]);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
-    vkuiClass: (0, _getClassName.getClassName)("PromoBanner", platform)
+    vkuiClass: "PromoBanner"
   }, restProps), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "PromoBanner__head"
   }, (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {

@@ -17,8 +17,6 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var React = _interopRequireWildcard(require("react"));
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
 
 var _dom = require("../../lib/dom");
@@ -32,6 +30,8 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 var _isRefObject = require("../../lib/isRefObject");
 
 var _warnOnce = require("../../lib/warnOnce");
+
+var _platform = require("../../lib/platform");
 
 var _useEventListener = require("../../hooks/useEventListener");
 
@@ -95,16 +95,15 @@ var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref) {
       return toggleRef;
     }
 
-    var refObject = {
+    return {
       current: toggleRef
     };
-    return refObject;
   }, [toggleRef]);
   return (0, _jsxRuntime.createScopedElement)(_Popper.Popper, {
     targetRef: targetRef,
     offsetDistance: 0,
     placement: isPopupDirectionTop ? "top-end" : "bottom-end",
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ActionSheet", platform), "ActionSheet--desktop", "ActionSheet--sizeY-".concat(sizeY)),
+    vkuiClass: (0, _classNames.classNames)("ActionSheet", platform === _platform.Platform.IOS && "ActionSheet--ios", "ActionSheet--desktop", "ActionSheet--sizeY-".concat(sizeY)),
     className: className,
     style: style,
     getRef: elementRef,

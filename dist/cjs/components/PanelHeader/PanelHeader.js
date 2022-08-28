@@ -124,17 +124,8 @@ var PanelHeaderComponent = function PanelHeaderComponent(_ref2) {
     children: children
   };
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeader", platform), {
-      "PanelHeader--trnsp": transparent,
-      "PanelHeader--shadow": needShadow,
-      "PanelHeader--vis": visor,
-      "PanelHeader--sep": separator && visor,
-      "PanelHeader--vkapps": webviewType === _ConfigProviderContext.WebviewType.VKAPPS && !isInsideModal,
-      "PanelHeader--no-before": !before,
-      "PanelHeader--no-after": !after,
-      "PanelHeader--fixed": isFixed
-    }, "PanelHeader--sizeX-".concat(sizeX)),
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeader", platform), transparent && "PanelHeader--trnsp", needShadow && "PanelHeader--shadow", visor && "PanelHeader--vis", separator && visor && "PanelHeader--sep", webviewType === _ConfigProviderContext.WebviewType.VKAPPS && !isInsideModal && "PanelHeader--vkapps", !before && "PanelHeader--no-before", !after && "PanelHeader--no-after", isFixed && "PanelHeader--fixed", // TODO v5.0.0 поправить под новую адаптивность
+    "PanelHeader--sizeX-".concat(sizeX)),
     ref: isFixed ? getRootRef : getRef
   }), isFixed ? (0, _jsxRuntime.createScopedElement)(_FixedLayout.FixedLayout, {
     vkuiClass: "PanelHeader__fixed",

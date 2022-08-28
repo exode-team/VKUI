@@ -19,33 +19,25 @@ var React = _interopRequireWildcard(require("react"));
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _Tappable = require("../Tappable/Tappable");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
 var _utils = require("../../lib/utils");
 
+var _platform = require("../../lib/platform");
+
 var _Subhead = require("../Typography/Subhead/Subhead");
 
-var _Title = require("../Typography/Title/Title");
-
 var _Text = require("../Typography/Text/Text");
-
-var _platform = require("../../lib/platform");
 
 var _icons = require("@vkontakte/icons");
 
 var _ActionSheetContext = require("../ActionSheet/ActionSheetContext");
 
-var _Caption = require("../Typography/Caption/Caption");
-
-var _Headline = require("../Typography/Headline/Headline");
-
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick"];
+var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick", "multiline"];
 
 var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
   var children = _ref.children,
@@ -64,6 +56,8 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
       onClick = _ref.onClick,
       sizeY = _ref.sizeY,
       onImmediateClick = _ref.onImmediateClick,
+      _ref$multiline = _ref.multiline,
+      multiline = _ref$multiline === void 0 ? false : _ref$multiline,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -80,45 +74,27 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     Component = "label";
   }
 
-  var isCompact = (0, _utils.hasReactNode)(subtitle) || (0, _utils.hasReactNode)(meta) || selectable;
+  var isRich = (0, _utils.hasReactNode)(subtitle) || (0, _utils.hasReactNode)(meta) || selectable;
+  var isCentered = !isRich && !(0, _utils.hasReactNode)(before) && platform === _platform.Platform.IOS;
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     onClick: selectable ? onClick : onItemClick(onClick, onImmediateClick, Boolean(autoclose)),
-    activeMode: "ActionSheetItem--active" // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("ActionSheetItem", platform), "ActionSheetItem--".concat(mode), "ActionSheetItem--sizeY-".concat(sizeY), {
-      "ActionSheetItem--compact": isCompact,
-      "ActionSheetItem--desktop": isDesktop,
-      "ActionSheetItem--withSubtitle": (0, _utils.hasReactNode)(subtitle)
-    }),
+    activeMode: platform === _platform.Platform.IOS ? "ActionSheetItem--active" : undefined,
+    vkuiClass: (0, _classNames.classNames)("ActionSheetItem", platform === _platform.Platform.IOS && "ActionSheetItem--ios", "ActionSheetItem--".concat(mode), "ActionSheetItem--sizeY-".concat(sizeY), isRich && "ActionSheetItem--rich", isDesktop && "ActionSheetItem--desktop"),
     Component: Component
   }), (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "ActionSheetItem__before"
   }, before), (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "ActionSheetItem__container"
+    vkuiClass: (0, _classNames.classNames)("ActionSheetItem__container", !multiline && "ActionSheetItem--ellipsis")
   }, (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "ActionSheetItem__content"
-  }, sizeY === _withAdaptivity.SizeType.COMPACT ? (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _jsxRuntime.createScopedElement)(_Text.Text, {
+    vkuiClass: (0, _classNames.classNames)("ActionSheetItem__content", isCentered && "ActionSheetItem--centered")
+  }, (0, _jsxRuntime.createScopedElement)(_Text.Text, {
     weight: mode === "cancel" ? "2" : undefined,
     vkuiClass: "ActionSheetItem__children"
   }, children), (0, _utils.hasReactNode)(meta) && (0, _jsxRuntime.createScopedElement)(_Text.Text, {
     vkuiClass: "ActionSheetItem__meta"
-  }, meta)) : (0, _jsxRuntime.createScopedElement)(React.Fragment, null, platform === _platform.ANDROID ? (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
-    weight: mode === "cancel" ? "2" : "3"
-  }, children) : (0, _jsxRuntime.createScopedElement)(_Title.Title, {
-    weight: mode === "cancel" ? "2" : "3",
-    level: isCompact || (0, _utils.hasReactNode)(before) ? "3" : "2",
-    vkuiClass: "ActionSheetItem__children"
-  }, children), (0, _utils.hasReactNode)(meta) && (platform === _platform.ANDROID ? (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
-    weight: mode === "cancel" ? "2" : "3"
-  }, children) : (0, _jsxRuntime.createScopedElement)(_Title.Title, {
-    weight: "3",
-    level: isCompact || (0, _utils.hasReactNode)(before) ? "3" : "2",
-    vkuiClass: "ActionSheetItem__meta"
-  }, meta)))), (0, _utils.hasReactNode)(subtitle) && (sizeY === _withAdaptivity.SizeType.COMPACT ? (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+  }, meta)), (0, _utils.hasReactNode)(subtitle) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
     vkuiClass: "ActionSheetItem__subtitle"
-  }, subtitle) : (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
-    vkuiClass: "ActionSheetItem__subtitle"
-  }, subtitle))), selectable && (0, _jsxRuntime.createScopedElement)("div", {
+  }, subtitle)), selectable && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "ActionSheetItem__after"
   }, (0, _jsxRuntime.createScopedElement)("input", {
     type: "radio",
@@ -132,7 +108,7 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     disabled: restProps.disabled
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "ActionSheetItem__marker"
-  }, platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_icons.Icon24Done, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon16Done, null))));
+  }, (0, _jsxRuntime.createScopedElement)(_icons.Icon24CheckCircleOn, null))));
 };
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheetItem

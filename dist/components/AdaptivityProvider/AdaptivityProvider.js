@@ -11,11 +11,11 @@ export var SMALL_TABLET_SIZE = 768;
 export var MOBILE_SIZE = 320;
 export var MOBILE_LANDSCAPE_HEIGHT = 414;
 export var MEDIUM_HEIGHT = 720;
+
 /**
  * @see https://vkcom.github.io/VKUI/#/AdaptivityProvider
  */
-
-var AdaptivityProvider = function AdaptivityProvider(props) {
+export var AdaptivityProvider = function AdaptivityProvider(props) {
   var adaptivityRef = React.useRef(null);
 
   var _React$useState = React.useState({}),
@@ -144,6 +144,4 @@ function calculateAdaptivity(props, bridge, window) {
     deviceHasHover: deviceHasHover
   };
 }
-
-export { AdaptivityProvider };
 //# sourceMappingURL=AdaptivityProvider.js.map

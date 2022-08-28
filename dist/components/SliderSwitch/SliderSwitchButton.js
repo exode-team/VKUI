@@ -1,5 +1,4 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["active", "hovered", "children", "getRootRef"];
@@ -15,8 +14,6 @@ import { Text } from "../Typography/Text/Text";
  * @deprecated Этот компонент устарел и будет удален в 5.0.0.
  */
 export var SliderSwitchButton = function SliderSwitchButton(_ref) {
-  var _classNames;
-
   var active = _ref.active,
       hovered = _ref.hovered,
       children = _ref.children,
@@ -35,8 +32,7 @@ export var SliderSwitchButton = function SliderSwitchButton(_ref) {
   };
 
   return createScopedElement(Tappable, _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("SliderSwitch__button", platform), (_classNames = {}, _defineProperty(_classNames, "SliderSwitch__button--active", active), _defineProperty(_classNames, "SliderSwitch__button--hover", !active && hovered), _defineProperty(_classNames, "SliderSwitch__button--activeHover", active && hovered), _defineProperty(_classNames, "SliderSwitch__button--focus", focus && !hovered), _classNames)),
+    vkuiClass: classNames(getClassName("SliderSwitch__button", platform), active && "SliderSwitch__button--active", !active && hovered && "SliderSwitch__button--hover", active && hovered && "SliderSwitch__button--activeHover", focus && !hovered && "SliderSwitch__button--focus"),
     Component: "button",
     type: "button",
     getRootRef: getRootRef,

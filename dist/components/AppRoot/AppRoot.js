@@ -191,11 +191,8 @@ export var AppRoot = withAdaptivity(function (_ref) {
     globalClasses: !noLegacyClasses
   }, children)));
   return mode === "partial" ? content : createScopedElement("div", _extends({
-    ref: rootRef // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames("AppRoot", {
-      "AppRoot--no-mouse": !hasMouse
-    })
+    ref: rootRef,
+    vkuiClass: classNames("AppRoot", !hasMouse && "AppRoot--no-mouse")
   }, props), content);
 }, {
   sizeX: true,

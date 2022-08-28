@@ -3,7 +3,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["isActive", "editLabel", "doneLabel"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { PanelHeaderButton } from "../PanelHeaderButton/PanelHeaderButton";
-import { ANDROID, VKCOM } from "../../lib/platform";
+import { IOS } from "../../lib/platform";
 import { Icon28EditOutline, Icon28DoneOutline } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
 
@@ -24,6 +24,6 @@ export var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
   var platform = usePlatform();
   return createScopedElement(PanelHeaderButton, _extends({
     "aria-label": iOSText
-  }, restProps), platform === ANDROID || platform === VKCOM ? createScopedElement(AndroidIcon, null) : iOSText);
+  }, restProps), platform === IOS ? iOSText : createScopedElement(AndroidIcon, null));
 };
 //# sourceMappingURL=PanelHeaderEdit.js.map

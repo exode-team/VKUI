@@ -39,7 +39,7 @@ var PanelHeaderEdit = function PanelHeaderEdit(_ref) {
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, (0, _extends2.default)({
     "aria-label": iOSText
-  }, restProps), platform === _platform.ANDROID || platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(AndroidIcon, null) : iOSText);
+  }, restProps), platform === _platform.IOS ? iOSText : (0, _jsxRuntime.createScopedElement)(AndroidIcon, null));
 };
 
 exports.PanelHeaderEdit = PanelHeaderEdit;

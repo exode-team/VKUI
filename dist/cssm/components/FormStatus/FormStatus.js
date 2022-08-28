@@ -3,14 +3,15 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["mode", "header", "children", "dangerouslySetInnerHTML"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
-import { usePlatform } from "../../hooks/usePlatform";
 import { Headline } from "../Typography/Headline/Headline";
 import { Caption } from "../Typography/Caption/Caption";
 import { hasReactNode } from "../../lib/utils";
 import "./FormStatus.css";
 
+/* TODO: v5.0.0 удалить */
+
 /**
+ * @deprecated Этот компонент устарел и будет удален в v5.0.0. Используйте [`Banner`](#/Banner).
  * @see https://vkcom.github.io/VKUI/#/FormStatus
  */
 export var FormStatus = function FormStatus(_ref) {
@@ -20,9 +21,8 @@ export var FormStatus = function FormStatus(_ref) {
       dangerouslySetInnerHTML = _ref.dangerouslySetInnerHTML,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var platform = usePlatform();
   return createScopedElement("div", _extends({}, restProps, {
-    vkuiClass: classNames(getClassName("FormStatus", platform), "FormStatus--".concat(mode))
+    vkuiClass: classNames("FormStatus", "FormStatus--".concat(mode))
   }), hasReactNode(header) && createScopedElement(Headline, {
     weight: "2",
     vkuiClass: "FormStatus__header"

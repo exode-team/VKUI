@@ -96,13 +96,8 @@ var PanelHeaderButton = function PanelHeaderButton(_ref2) {
     hoverMode: hoverMode,
     Component: restProps.href ? "a" : "button",
     activeEffectDelay: 200,
-    activeMode: activeMode // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderButton", platform), {
-      "PanelHeaderButton--primary": primary,
-      "PanelHeaderButton--primitive": isPrimitive,
-      "PanelHeaderButton--notPrimitive": !isPrimitive && !isPrimitiveLabel
-    })
+    activeMode: activeMode,
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("PanelHeaderButton", platform), primary && "PanelHeaderButton--primary", isPrimitive && "PanelHeaderButton--primitive", !isPrimitive && !isPrimitiveLabel && "PanelHeaderButton--notPrimitive")
   }), isPrimitive ? (0, _jsxRuntime.createScopedElement)(ButtonTypography, {
     primary: primary
   }, children) : children, isPrimitiveLabel ? (0, _jsxRuntime.createScopedElement)(ButtonTypography, {

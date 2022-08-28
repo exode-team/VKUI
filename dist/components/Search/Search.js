@@ -7,7 +7,6 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { withPlatform } from "../../hoc/withPlatform";
-import { getClassName } from "../../helpers/getClassName";
 import { Icon16SearchOutline, Icon16Clear, Icon24Cancel } from "@vkontakte/icons";
 import { IOS, VKCOM, ANDROID } from "../../lib/platform";
 import { Touch } from "../Touch/Touch";
@@ -18,6 +17,7 @@ import { Headline } from "../Typography/Headline/Headline";
 import { Separator } from "../Separator/Separator";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useEnsuredControl } from "../../hooks/useEnsuredControl";
+import { useAdaptivity } from "../../hooks/useAdaptivity";
 
 var SearchPlaceholderTypography = function SearchPlaceholderTypography(_ref) {
   var platform = _ref.platform,
@@ -81,6 +81,9 @@ var SearchComponent = function SearchComponent(_ref2) {
       value = _useEnsuredControl2[0],
       onChange = _useEnsuredControl2[1];
 
+  var _useAdaptivity = useAdaptivity(),
+      sizeY = _useAdaptivity.sizeY;
+
   var onFocus = function onFocus(e) {
     setFocused(true);
     inputProps.onFocus && inputProps.onFocus(e);
@@ -113,13 +116,8 @@ var SearchComponent = function SearchComponent(_ref2) {
     onCancel();
   }, [inputRef, onCancel]);
   return createScopedElement("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("Search", platform), {
-      "Search--focused": isFocused,
-      "Search--has-value": !!value,
-      "Search--has-after": !!after,
-      "Search--has-icon": !!icon
-    }),
+    vkuiClass: classNames("Search", platform === VKCOM && "Search--vkcom", platform === IOS && "Search--ios", // TODO: V5 перенести на новую адаптивность
+    "Search--sizeY-".concat(sizeY), isFocused && "Search--focused", value && "Search--has-value", icon && "Search--has-after", after && "Search--has-icon"),
     className: className,
     style: style
   }, createScopedElement("div", {

@@ -31,7 +31,7 @@ var _utils = require("../../lib/utils");
 
 var _ActionSheetContext = require("./ActionSheetContext");
 
-var _Caption = require("../Typography/Caption/Caption");
+var _Footnote = require("../Typography/Footnote/Footnote");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
@@ -137,10 +137,10 @@ var ActionSheet = function ActionSheet(_ref) {
     style: isDesktop ? style : undefined
   }), ((0, _utils.hasReactNode)(header) || (0, _utils.hasReactNode)(text)) && (0, _jsxRuntime.createScopedElement)("header", {
     vkuiClass: "ActionSheet__header"
-  }, (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
-    weight: platform === _platform.IOS ? "1" : "2",
+  }, (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Footnote.Footnote, {
+    weight: "2",
     vkuiClass: "ActionSheet__title"
-  }, header), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
+  }, header), (0, _utils.hasReactNode)(text) && (0, _jsxRuntime.createScopedElement)(_Footnote.Footnote, {
     vkuiClass: "ActionSheet__text"
   }, text)), children, platform === _platform.IOS && !isDesktop && iosCloseItem));
 

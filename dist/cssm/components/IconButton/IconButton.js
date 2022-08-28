@@ -25,10 +25,11 @@ var IconButtonComponent = function IconButtonComponent(_ref) {
     warn("Свойство icon устарело и будет удалено в 5.0.0. Используйте children");
   }
 
-  return createScopedElement(Tappable, _extends({}, restProps, {
-    Component: restProps.href ? "a" : Component,
+  return createScopedElement(Tappable, _extends({
     activeEffectDelay: 200,
-    activeMode: "background",
+    activeMode: "background"
+  }, restProps, {
+    Component: restProps.href ? "a" : Component,
     vkuiClass: classNames("IconButton", "IconButton--sizeY-".concat(sizeY), platform === IOS && "IconButton--ios")
   }), icon || children);
 };

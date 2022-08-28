@@ -8,7 +8,6 @@ import { VKCOM } from "../../lib/platform";
 import { Separator } from "../Separator/Separator";
 import { PanelHeader } from "../PanelHeader/PanelHeader";
 import { classNames } from "../../lib/classNames";
-import { getClassName } from "../../helpers/getClassName";
 import "./ModalPageHeader.css";
 
 /**
@@ -22,10 +21,11 @@ export var ModalPageHeader = function ModalPageHeader(_ref) {
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
-  var hasSeparator = separator && platform === VKCOM;
+  var hasSeparator = separator && platform === VKCOM; // TODO v5.0.0 поправить под новую адаптивность
+
   var isDesktop = useAdaptivityIsDesktop();
   return createScopedElement("div", {
-    vkuiClass: classNames(getClassName("ModalPageHeader", platform), isDesktop && "ModalPageHeader--desktop"),
+    vkuiClass: classNames("ModalPageHeader", platform !== VKCOM && "ModalPageHeader--withGaps", isDesktop && "ModalPageHeader--desktop"),
     ref: getRef
   }, createScopedElement(PanelHeader, _extends({
     vkuiClass: "ModalPageHeader__in"

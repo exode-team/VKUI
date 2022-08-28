@@ -13,11 +13,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _usePlatform = require("../../hooks/usePlatform");
-
 var _classNames = require("../../lib/classNames");
-
-var _getClassName = require("../../helpers/getClassName");
 
 var _HorizontalScroll = require("../HorizontalScroll/HorizontalScroll");
 
@@ -47,7 +43,6 @@ var SubnavigationBar = function SubnavigationBar(_ref) {
       getScrollToRight = _ref$getScrollToRight === void 0 ? defaultScrollToRight : _ref$getScrollToRight,
       scrollAnimationDuration = _ref.scrollAnimationDuration,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var platform = (0, _usePlatform.usePlatform)();
   var ScrollWrapper;
   var scrollWrapperProps = {};
 
@@ -64,7 +59,7 @@ var SubnavigationBar = function SubnavigationBar(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SubnavigationBar", platform), "SubnavigationBar--".concat(mode))
+    vkuiClass: (0, _classNames.classNames)("SubnavigationBar", "SubnavigationBar--".concat(mode))
   }), (0, _jsxRuntime.createScopedElement)(ScrollWrapper, (0, _extends2.default)({
     vkuiClass: "SubnavigationBar__in"
   }, scrollWrapperProps), (0, _jsxRuntime.createScopedElement)("div", {

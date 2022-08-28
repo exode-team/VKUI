@@ -7,10 +7,10 @@ import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { ListContext } from "./ListContext";
 import "./List.css";
+
 /**
  * @see https://vkcom.github.io/VKUI/#/List
  */
-
 export var List = function List(_ref) {
   var children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);

@@ -10,7 +10,7 @@ import { ActionSheetDropdownDesktop } from "./ActionSheetDropdownDesktop";
 import { ActionSheetDropdown } from "./ActionSheetDropdown";
 import { hasReactNode, noop } from "../../lib/utils";
 import { ActionSheetContext } from "./ActionSheetContext";
-import { Caption } from "../Typography/Caption/Caption";
+import { Footnote } from "../Typography/Footnote/Footnote";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useTimeout } from "../../hooks/useTimeout";
 import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
@@ -110,10 +110,10 @@ export var ActionSheet = function ActionSheet(_ref) {
     style: isDesktop ? style : undefined
   }), (hasReactNode(header) || hasReactNode(text)) && createScopedElement("header", {
     vkuiClass: "ActionSheet__header"
-  }, hasReactNode(header) && createScopedElement(Caption, {
-    weight: platform === IOS ? "1" : "2",
+  }, hasReactNode(header) && createScopedElement(Footnote, {
+    weight: "2",
     vkuiClass: "ActionSheet__title"
-  }, header), hasReactNode(text) && createScopedElement(Caption, {
+  }, header), hasReactNode(text) && createScopedElement(Footnote, {
     vkuiClass: "ActionSheet__text"
   }, text)), children, platform === IOS && !isDesktop && iosCloseItem));
 

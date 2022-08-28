@@ -8,7 +8,7 @@ exports.getSupportedEvents = getSupportedEvents;
 exports.rubber = rubber;
 exports.touchEnabled = void 0;
 
-var _vkjs = require("@vkontakte/vkjs");
+var _dom = require("./dom");
 
 /*
  * Получает координату по оси абсцисс из touch- или mouse-события
@@ -39,7 +39,7 @@ var coordY = function coordY(e) {
 exports.coordY = coordY;
 
 var touchEnabled = function touchEnabled() {
-  return _vkjs.canUseDOM && "ontouchstart" in window;
+  return _dom.canUseDOM && "ontouchstart" in window;
 };
 /*
  * Возвращает массив поддерживаемых событий

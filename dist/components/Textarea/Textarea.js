@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows", "maxHeight"];
+var _excluded = ["defaultValue", "grow", "style", "onResize", "className", "getRootRef", "getRef", "sizeY", "rows", "maxHeight", "status"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -24,6 +24,7 @@ var TextareaComponent = function TextareaComponent(_ref) {
       _ref$rows = _ref.rows,
       rows = _ref$rows === void 0 ? 2 : _ref$rows,
       maxHeight = _ref.maxHeight,
+      status = _ref.status,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _useEnsuredControl = useEnsuredControl(restProps, {
@@ -55,7 +56,8 @@ var TextareaComponent = function TextareaComponent(_ref) {
     className: className,
     style: style,
     getRootRef: getRootRef,
-    disabled: restProps.disabled
+    disabled: restProps.disabled,
+    status: status
   }, createScopedElement("textarea", _extends({}, restProps, {
     style: {
       maxHeight: maxHeight

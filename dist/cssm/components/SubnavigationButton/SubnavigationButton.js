@@ -45,11 +45,8 @@ export var SubnavigationButton = function SubnavigationButton(_ref2) {
   var platform = usePlatform();
   return createScopedElement(Tappable, _extends({}, restProps, {
     hasActive: false,
-    focusVisibleMode: "outside" // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("SubnavigationButton", platform), "SubnavigationButton--".concat(size), {
-      "SubnavigationButton--selected": selected
-    }),
+    focusVisibleMode: "outside",
+    vkuiClass: classNames(getClassName("SubnavigationButton", platform), "SubnavigationButton--".concat(size), selected && "SubnavigationButton--selected"),
     "aria-label": getTitleFromChildren(children)
   }), createScopedElement("span", {
     vkuiClass: "SubnavigationButton__in"

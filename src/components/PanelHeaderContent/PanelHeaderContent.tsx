@@ -1,11 +1,12 @@
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
+import { classNames } from "../../lib/classNames";
 import { Tappable } from "../Tappable/Tappable";
 import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
+import { getClassName } from "../../helpers/getClassName";
 import { Caption } from "../Typography/Caption/Caption";
 import { Headline } from "../Typography/Headline/Headline";
-import { IOS, Platform } from "../../lib/platform";
+import { IOS, ANDROID, Platform } from "../../lib/platform";
 import { Text } from "../Typography/Text/Text";
 import { HasPlatform } from "../../types";
 import "./PanelHeaderContent.css";
@@ -82,7 +83,13 @@ export const PanelHeaderContent = ({
       {hasReactNode(before) && (
         <div vkuiClass="PanelHeaderContent__before">{before}</div>
       )}
-      <InComponent {...inProps} vkuiClass="PanelHeaderContent__in">
+      <InComponent
+        {...inProps}
+        vkuiClass={classNames(
+          "PanelHeaderContent__in",
+          !before && platform !== ANDROID && "PanelHeaderContent__in--centered"
+        )}
+      >
         {hasReactNode(status) && (
           <Caption vkuiClass="PanelHeaderContent__status">{status}</Caption>
         )}

@@ -1,5 +1,4 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
@@ -7,7 +6,7 @@ var _excluded = ["children", "Component", "onClick", "onKeyDown", "activeEffectD
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import mitt from "mitt";
-import { noop } from "@vkontakte/vkjs";
+import { noop } from "../../lib/utils";
 import { Touch } from "../Touch/Touch";
 import TouchRootContext from "../Touch/TouchContext";
 import { classNames } from "../../lib/classNames";
@@ -113,8 +112,6 @@ function useActivity(hasActive, stopDelay) {
 }
 
 var TappableComponent = function TappableComponent(_ref) {
-  var _classNames;
-
   var children = _ref.children,
       Component = _ref.Component,
       onClick = _ref.onClick,
@@ -282,13 +279,9 @@ var TappableComponent = function TappableComponent(_ref) {
 
     var activeDuration = duration - ACTIVE_DELAY;
     stop(activeDuration >= 100 ? 0 : activeEffectDelay - activeDuration);
-  } // eslint-disable-next-line vkui/no-object-expression-in-arguments
+  }
 
-
-  var classes = classNames("Tappable", platform === IOS && "Tappable--ios", "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, (_classNames = {
-    "Tappable--active": hasActive && active,
-    "Tappable--mouse": hasMouse
-  }, _defineProperty(_classNames, "Tappable--hover-".concat(hoverMode), hasHover && hovered && isPresetHoverMode), _defineProperty(_classNames, "Tappable--active-".concat(activeMode), hasActive && active && isPresetActiveMode), _defineProperty(_classNames, "Tappable--focus-visible", focusVisible), _classNames));
+  var classes = classNames("Tappable", platform === IOS && "Tappable--ios", "Tappable--sizeX-".concat(sizeX), hasHover && "Tappable--hasHover", hasActive && "Tappable--hasActive", hasHover && hovered && !isPresetHoverMode && hoverMode, hasActive && active && !isPresetActiveMode && activeMode, focusVisible && !isPresetFocusVisibleMode && focusVisibleMode, hasActive && active && "Tappable--active", hasMouse && "Tappable--mouse", hasHover && hovered && isPresetHoverMode && "Tappable--hover-".concat(hoverMode), hasActive && active && isPresetActiveMode && "Tappable--active-".concat(activeMode), focusVisible && "Tappable--focus-visible");
   var handlers = {
     onStart: callMultiple(onStart, props.onStart),
     onMove: callMultiple(onMove, props.onMove),

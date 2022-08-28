@@ -5,14 +5,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.animate = animate;
 
-var _vkjs = require("@vkontakte/vkjs");
+var _dom = require("./dom");
 
 function animate(_ref) {
   var duration = _ref.duration,
       timing = _ref.timing,
       draw = _ref.draw;
 
-  if (!_vkjs.canUseDOM) {
+  if (!_dom.canUseDOM) {
     return;
   }
 

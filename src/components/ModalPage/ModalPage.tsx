@@ -1,5 +1,4 @@
 import * as React from "react";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 import {
   ModalRootContext,
@@ -7,7 +6,7 @@ import {
 } from "../ModalRoot/ModalRootContext";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useOrientationChange } from "../../hooks/useOrientationChange";
-import { withAdaptivity, ViewWidth } from "../../hoc/withAdaptivity";
+import { withAdaptivity } from "../../hoc/withAdaptivity";
 import {
   AdaptivityContextInterface,
   AdaptivityProps,
@@ -29,6 +28,14 @@ export interface ModalPageProps
    * Шапка модальной страницы, `<ModalPageHeader />`
    */
   header?: React.ReactNode;
+  /**
+   * Задаёт контенту максимальную ширину.
+   *
+   * > ⚠️ **Заметки:**
+   * > - Для `viewWidth < SMALL_TABLET_SIZE` будет всегда `"s"`
+   * > - Для `platform === VKCOM` максимальная ширина зашита, её не изменить.
+   */
+  size?: "s" | "m" | "l";
   /**
    * Будет вызвано при начале открытия модалки.
    */
@@ -54,6 +61,10 @@ export interface ModalPageProps
    */
   dynamicContentHeight?: boolean;
   getModalContentRef?: React.Ref<HTMLDivElement>;
+  /**
+   * Скрывает кнопку закрытия (актуально для iOS, т.к. можно отрисовать кнопку закрытия внутри модалки)
+   */
+  hideCloseButton?: boolean;
 }
 
 const warn = warnOnce("ModalPage");
@@ -61,6 +72,7 @@ const warn = warnOnce("ModalPage");
 const ModalPageComponent = ({
   children,
   header,
+  size: sizeProp = "s",
   viewWidth,
   viewHeight,
   sizeX,
@@ -74,6 +86,7 @@ const ModalPageComponent = ({
   getModalContentRef,
   nav,
   id,
+  hideCloseButton = false,
   ...restProps
 }: ModalPageProps & AdaptivityContextInterface) => {
   const { updateModalHeight } = React.useContext(ModalRootContext);
@@ -88,8 +101,8 @@ const ModalPageComponent = ({
   ]);
 
   const isDesktop = useAdaptivityIsDesktop();
-  const canShowCloseBtn =
-    viewWidth >= ViewWidth.SMALL_TABLET || platform === Platform.VKCOM;
+  const isCloseButtonShown = !hideCloseButton && isDesktop;
+  const size = isDesktop ? sizeProp : "s";
 
   const modalContext = React.useContext(ModalRootContext);
   const { refs } = useModalRegistry(
@@ -101,13 +114,13 @@ const ModalPageComponent = ({
     <div
       {...restProps}
       id={id}
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
-        getClassName("ModalPage", platform),
-        `ModalPage--sizeX-${sizeX}`,
-        {
-          "ModalPage--desktop": isDesktop,
-        }
+        "ModalPage",
+        platform === Platform.IOS && "ModalPage--ios",
+        platform === Platform.VKCOM && "ModalPage--vkcom",
+        `ModalPage--sizeX-${sizeX}`, // TODO v5.0.0 поправить под новую адаптивность
+        isDesktop && "ModalPage--desktop",
+        size && `ModalPage--${size}`
       )}
     >
       <div vkuiClass="ModalPage__in-wrap" ref={refs.innerElement}>
@@ -127,7 +140,7 @@ const ModalPageComponent = ({
               <div vkuiClass="ModalPage__content-in">{children}</div>
             </div>
           </div>
-          {canShowCloseBtn && (
+          {isCloseButtonShown && (
             <ModalDismissButton onClick={onClose || modalContext.onClose} />
           )}
         </div>

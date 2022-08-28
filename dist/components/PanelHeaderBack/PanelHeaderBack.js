@@ -8,7 +8,6 @@ import { PanelHeaderButton } from "../PanelHeaderButton/PanelHeaderButton";
 import { ANDROID, VKCOM, IOS } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
-import { getClassName } from "../../helpers/getClassName";
 import { classNames } from "../../lib/classNames";
 
 /**
@@ -24,11 +23,8 @@ export var PanelHeaderBackComponent = function PanelHeaderBackComponent(_ref) {
   var platform = usePlatform();
   var showLabel = platform === VKCOM || platform === IOS && sizeX === SizeType.REGULAR;
   return createScopedElement(PanelHeaderButton, _extends({}, restProps, {
-    "aria-label": ariaLabel // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    ,
-    vkuiClass: classNames(getClassName("PanelHeaderBack", platform), {
-      "PanelHeaderBack--has-label": showLabel && !!label
-    }),
+    "aria-label": ariaLabel,
+    vkuiClass: classNames("PanelHeaderBack", platform === IOS && "PanelHeaderBack--ios", platform === VKCOM && "PanelHeaderBack--vkcom", showLabel && !!label && "PanelHeaderBack--has-label"),
     label: showLabel && label
   }), platform === ANDROID && createScopedElement(Icon28ArrowLeftOutline, null), platform === VKCOM && createScopedElement(Icon28ChevronLeftOutline, null), platform === IOS && createScopedElement(Icon28ChevronBack, null));
 };

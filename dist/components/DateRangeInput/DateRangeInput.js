@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeDayAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeStartDayAriaLabel", "changeStartMonthAriaLabel", "changeStartYearAriaLabel", "changeEndDayAriaLabel", "changeEndMonthAriaLabel", "changeEndYearAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "prevMonthIcon", "nextMonthIcon", "disableCalendar"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { format, isMatch, parse, isAfter } from "../../lib/date";
@@ -112,6 +112,8 @@ export var DateRangeInput = function DateRangeInput(_ref) {
       showCalendarAriaLabel = _ref$showCalendarAria === void 0 ? "Показать календарь" : _ref$showCalendarAria,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      _ref$disableCalendar = _ref.disableCalendar,
+      disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var daysStartRef = React.useRef(null);
@@ -264,7 +266,7 @@ export var DateRangeInput = function DateRangeInput(_ref) {
     onElementSelect: setFocusedElement,
     value: internalValue[5],
     "aria-label": changeEndYearAriaLabel
-  })), open && createScopedElement(Popper, {
+  })), open && !disableCalendar && createScopedElement(Popper, {
     targetRef: rootRef,
     offsetDistance: 8,
     placement: calendarPlacement

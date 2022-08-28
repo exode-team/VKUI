@@ -6,10 +6,10 @@ export declare const SMALL_TABLET_SIZE = 768;
 export declare const MOBILE_SIZE = 320;
 export declare const MOBILE_LANDSCAPE_HEIGHT = 414;
 export declare const MEDIUM_HEIGHT = 720;
+export interface AdaptivityProviderProps extends AdaptivityProps {
+    children?: React.ReactNode;
+}
 /**
  * @see https://vkcom.github.io/VKUI/#/AdaptivityProvider
  */
-declare const AdaptivityProvider: (props: AdaptivityProps & {
-    children?: React.ReactNode;
-}) => JSX.Element;
-export { AdaptivityProvider };
+export declare const AdaptivityProvider: (props: AdaptivityProviderProps) => JSX.Element;

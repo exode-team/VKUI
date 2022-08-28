@@ -13,8 +13,6 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
@@ -25,7 +23,7 @@ var _Tappable = require("../Tappable/Tappable");
 
 var _getClassName = require("../../helpers/getClassName");
 
-var _classNames2 = require("../../lib/classNames");
+var _classNames = require("../../lib/classNames");
 
 var _usePlatform = require("../../hooks/usePlatform");
 
@@ -37,8 +35,6 @@ var _excluded = ["active", "hovered", "children", "getRootRef"];
  * @deprecated Этот компонент устарел и будет удален в 5.0.0.
  */
 var SliderSwitchButton = function SliderSwitchButton(_ref) {
-  var _classNames;
-
   var active = _ref.active,
       hovered = _ref.hovered,
       children = _ref.children,
@@ -56,8 +52,7 @@ var SliderSwitchButton = function SliderSwitchButton(_ref) {
   };
 
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames2.classNames)((0, _getClassName.getClassName)("SliderSwitch__button", platform), (_classNames = {}, (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--active", active), (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--hover", !active && hovered), (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--activeHover", active && hovered), (0, _defineProperty2.default)(_classNames, "SliderSwitch__button--focus", focus && !hovered), _classNames)),
+    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SliderSwitch__button", platform), active && "SliderSwitch__button--active", !active && hovered && "SliderSwitch__button--hover", active && hovered && "SliderSwitch__button--activeHover", focus && !hovered && "SliderSwitch__button--focus"),
     Component: "button",
     type: "button",
     getRootRef: getRootRef,

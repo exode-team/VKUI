@@ -1,5 +1,4 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["children", "size", "showArrows", "withSpaces"];
@@ -84,8 +83,7 @@ export var CardScroll = function CardScroll(_ref) {
   }
 
   return createScopedElement("div", _extends({}, restProps, {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: classNames(getClassName("CardScroll", platform), "CardScroll--sizeX-".concat(sizeX), "CardScroll--".concat(size), _defineProperty({}, "CardScroll--withSpaces", withSpaces))
+    vkuiClass: classNames(getClassName("CardScroll", platform), "CardScroll--sizeX-".concat(sizeX), "CardScroll--".concat(size), withSpaces && "CardScroll--withSpaces")
   }), createScopedElement(HorizontalScroll, {
     getScrollToLeft: getScrollToLeft,
     getScrollToRight: getScrollToRight,

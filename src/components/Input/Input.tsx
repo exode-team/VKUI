@@ -32,6 +32,7 @@ const InputComponent = ({
   caretPosition,
   alwaysInFocus,
   isFocus = false,
+  status,
   ...restProps
 }: InputProps) => {
 
@@ -71,6 +72,7 @@ const InputComponent = ({
       before={before}
       after={after}
       disabled={restProps.disabled}
+      status={status}
     >
       <input {...restProps} type={type} onInput={handleChange} value={value} vkuiClass="Input__el" ref={ref || getRef} />
     </FormField>

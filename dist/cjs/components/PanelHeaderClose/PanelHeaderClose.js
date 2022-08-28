@@ -35,7 +35,7 @@ var PanelHeaderClose = function PanelHeaderClose(_ref) {
   var platform = (0, _usePlatform.usePlatform)();
   return (0, _jsxRuntime.createScopedElement)(_PanelHeaderButton.PanelHeaderButton, (0, _extends2.default)({
     "aria-label": (0, _utils.getTitleFromChildren)(children)
-  }, restProps), platform === _platform.ANDROID || platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_icons.Icon28CancelOutline, null) : children);
+  }, restProps), platform === _platform.IOS ? children : (0, _jsxRuntime.createScopedElement)(_icons.Icon28CancelOutline, null));
 };
 
 exports.PanelHeaderClose = PanelHeaderClose;

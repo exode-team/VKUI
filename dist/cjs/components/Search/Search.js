@@ -23,8 +23,6 @@ var _classNames = require("../../lib/classNames");
 
 var _withPlatform = require("../../hoc/withPlatform");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _icons = require("@vkontakte/icons");
 
 var _platform = require("../../lib/platform");
@@ -44,6 +42,8 @@ var _Separator = require("../Separator/Separator");
 var _useExternRef = require("../../hooks/useExternRef");
 
 var _useEnsuredControl3 = require("../../hooks/useEnsuredControl");
+
+var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _excluded = ["platform", "children"],
     _excluded2 = ["before", "className", "defaultValue", "placeholder", "after", "getRef", "platform", "icon", "onIconClick", "style", "autoComplete"];
@@ -109,6 +109,9 @@ var SearchComponent = function SearchComponent(_ref2) {
       value = _useEnsuredControl2[0],
       onChange = _useEnsuredControl2[1];
 
+  var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
+      sizeY = _useAdaptivity.sizeY;
+
   var onFocus = function onFocus(e) {
     setFocused(true);
     inputProps.onFocus && inputProps.onFocus(e);
@@ -141,13 +144,8 @@ var SearchComponent = function SearchComponent(_ref2) {
     onCancel();
   }, [inputRef, onCancel]);
   return (0, _jsxRuntime.createScopedElement)("div", {
-    // eslint-disable-next-line vkui/no-object-expression-in-arguments
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("Search", platform), {
-      "Search--focused": isFocused,
-      "Search--has-value": !!value,
-      "Search--has-after": !!after,
-      "Search--has-icon": !!icon
-    }),
+    vkuiClass: (0, _classNames.classNames)("Search", platform === _platform.VKCOM && "Search--vkcom", platform === _platform.IOS && "Search--ios", // TODO: V5 перенести на новую адаптивность
+    "Search--sizeY-".concat(sizeY), isFocused && "Search--focused", value && "Search--has-value", icon && "Search--has-after", after && "Search--has-icon"),
     className: className,
     style: style
   }, (0, _jsxRuntime.createScopedElement)("div", {
