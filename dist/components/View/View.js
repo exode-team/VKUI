@@ -153,8 +153,6 @@ export var View = function View(_ref) {
   var prevSwipeBackResult = usePrevious(swipeBackResult);
   var prevSwipeBackPrevPanel = usePrevious(swipeBackPrevPanel);
   var prevOnTransition = usePrevious(onTransition);
-  var hasPopout = !!popout;
-  var hasModal = !!modal;
   var panels = React.Children.toArray(children).filter(function (panel) {
     var panelId = getNavId(panel.props, warn);
     return panelId !== undefined && visiblePanels.includes(panelId) || panelId === swipeBackPrevPanel || panelId === swipeBackNextPanel;
@@ -333,9 +331,6 @@ export var View = function View(_ref) {
     popout && blurActiveElement(document);
   }, [document, popout]);
   React.useEffect(function () {
-    modal && blurActiveElement(document);
-  }, [document, modal]);
-  React.useEffect(function () {
     // Нужен переход
     if (prevActivePanel && prevActivePanel !== activePanelProp && !prevSwipingBack && !prevBrowserSwipe) {
       var firstLayerId = React.Children.toArray(children).map(function (panel) {
@@ -450,9 +445,9 @@ export var View = function View(_ref) {
     }, createScopedElement(NavTransitionProvider, {
       entering: panelId === nextPanel || panelId === swipeBackNextPanel
     }, panel)));
-  })), createScopedElement(AppRootPortal, null, hasPopout && createScopedElement("div", {
+  })), createScopedElement(AppRootPortal, null, !!popout && createScopedElement("div", {
     vkuiClass: "View__popout"
-  }, popout), hasModal && createScopedElement("div", {
+  }, popout), !!modal && createScopedElement("div", {
     vkuiClass: "View__modal"
   }, modal)));
 };

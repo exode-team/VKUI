@@ -189,8 +189,6 @@ var View = function View(_ref) {
   var prevSwipeBackResult = (0, _usePrevious.usePrevious)(swipeBackResult);
   var prevSwipeBackPrevPanel = (0, _usePrevious.usePrevious)(swipeBackPrevPanel);
   var prevOnTransition = (0, _usePrevious.usePrevious)(onTransition);
-  var hasPopout = !!popout;
-  var hasModal = !!modal;
   var panels = React.Children.toArray(children).filter(function (panel) {
     var panelId = (0, _getNavId.getNavId)(panel.props, warn);
     return panelId !== undefined && visiblePanels.includes(panelId) || panelId === swipeBackPrevPanel || panelId === swipeBackNextPanel;
@@ -369,9 +367,6 @@ var View = function View(_ref) {
     popout && (0, _dom.blurActiveElement)(document);
   }, [document, popout]);
   React.useEffect(function () {
-    modal && (0, _dom.blurActiveElement)(document);
-  }, [document, modal]);
-  React.useEffect(function () {
     // Нужен переход
     if (prevActivePanel && prevActivePanel !== activePanelProp && !prevSwipingBack && !prevBrowserSwipe) {
       var firstLayerId = React.Children.toArray(children).map(function (panel) {
@@ -486,9 +481,9 @@ var View = function View(_ref) {
     }, (0, _jsxRuntime.createScopedElement)(_NavTransitionContext.NavTransitionProvider, {
       entering: panelId === nextPanel || panelId === swipeBackNextPanel
     }, panel)));
-  })), (0, _jsxRuntime.createScopedElement)(_AppRootPortal.AppRootPortal, null, hasPopout && (0, _jsxRuntime.createScopedElement)("div", {
+  })), (0, _jsxRuntime.createScopedElement)(_AppRootPortal.AppRootPortal, null, !!popout && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "View__popout"
-  }, popout), hasModal && (0, _jsxRuntime.createScopedElement)("div", {
+  }, popout), !!modal && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "View__modal"
   }, modal)));
 };
