@@ -1,4 +1,4 @@
-import * as React from "react";
+/// <reference types="react" />
 import { PanelHeaderButtonProps } from "../PanelHeaderButton/PanelHeaderButton";
 export interface PanelHeaderEditProps extends PanelHeaderButtonProps {
     /**
@@ -17,4 +17,4 @@ export interface PanelHeaderEditProps extends PanelHeaderButtonProps {
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderEdit
  */
-export declare const PanelHeaderEdit: React.FunctionComponent<PanelHeaderEditProps>;
+export declare const PanelHeaderEdit: ({ isActive, editLabel, doneLabel, ...restProps }: PanelHeaderEditProps) => JSX.Element;

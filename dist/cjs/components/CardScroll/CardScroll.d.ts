@@ -12,4 +12,4 @@ export interface CardScrollProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/CardScroll
  */
-export declare const CardScroll: React.FC<CardScrollProps>;
+export declare const CardScroll: ({ children, size, showArrows, withSpaces, ...restProps }: CardScrollProps) => JSX.Element;

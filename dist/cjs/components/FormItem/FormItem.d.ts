@@ -14,4 +14,4 @@ export interface FormItemProps extends React.AllHTMLAttributes<HTMLElement>, Has
 /**
  * @see https://vkcom.github.io/VKUI/#/FormItem
  */
-export declare const FormItem: React.FC<FormItemProps>;
+export declare const FormItem: ({ children, top, bottom, status, Component, removable, onRemove, removePlaceholder, getRootRef, ...restProps }: FormItemProps) => JSX.Element;

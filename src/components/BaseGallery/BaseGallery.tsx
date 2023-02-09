@@ -42,7 +42,7 @@ export const BaseGallery = ({
   children,
   slideWidth = "100%",
   slideIndex = 0,
-  isDraggable = true,
+  isDraggable: isDraggableProp = true,
   onDragStart,
   onDragEnd,
   onChange,
@@ -52,6 +52,7 @@ export const BaseGallery = ({
   align = "left",
   showArrows,
   getRef,
+  arrowSize = "l",
   ...restProps
 }: BaseGalleryProps) => {
   const slidesStore = React.useRef<Record<string, HTMLDivElement | null>>({});
@@ -137,26 +138,30 @@ export const BaseGallery = ({
       ) ?? [];
 
     const localContainerWidth = rootRef.current?.offsetWidth ?? 0;
-    const localviewportOffsetWidth = viewportRef.current?.offsetWidth ?? 0;
+    const localViewportOffsetWidth = viewportRef.current?.offsetWidth ?? 0;
     const localLayerWidth = localSlides.reduce(
       (val: number, slide: GallerySlidesState) => slide.width + val,
       0
     );
+    const adjustShiftX =
+      localSlides.length <= layoutState.current.slides.length ||
+      layoutState.current.slides[slideIndex]?.coordX !==
+        localSlides[slideIndex]?.coordX;
 
     layoutState.current = {
       containerWidth: localContainerWidth,
-      viewportOffsetWidth: localviewportOffsetWidth,
+      viewportOffsetWidth: localViewportOffsetWidth,
       layerWidth: localLayerWidth,
       max: calcMax({
         slides: localSlides,
-        viewportOffsetWidth: localviewportOffsetWidth,
+        viewportOffsetWidth: localViewportOffsetWidth,
         isCenterWithCustomWidth,
       }),
       min: calcMin({
         containerWidth: localContainerWidth,
         layerWidth: localLayerWidth,
         slides: localSlides,
-        viewportOffsetWidth: localviewportOffsetWidth,
+        viewportOffsetWidth: localViewportOffsetWidth,
         isCenterWithCustomWidth,
         align,
       }),
@@ -166,7 +171,7 @@ export const BaseGallery = ({
 
     setShiftState((prevState) => ({
       ...prevState,
-      shiftX: calculateIndent(slideIndex),
+      shiftX: adjustShiftX ? calculateIndent(slideIndex) : prevState.shiftX,
       animation:
         options.animation ??
         prevState.shiftX === validateIndent(prevState.shiftX),
@@ -196,14 +201,14 @@ export const BaseGallery = ({
     }
   }, [slideIndex]);
 
-  const slideLeft = () => {
+  const slideLeft = (event: React.MouseEvent) => {
     onChange?.(slideIndex - 1);
-    onPrevClick?.();
+    onPrevClick?.(event);
   };
 
-  const slideRight = () => {
+  const slideRight = (event: React.MouseEvent) => {
     onChange?.(slideIndex + 1);
-    onNextClick?.();
+    onNextClick?.(event);
   };
 
   /*
@@ -252,7 +257,7 @@ export const BaseGallery = ({
   };
 
   const onMoveX = (e: TouchEvent) => {
-    if (isDraggable && !layoutState.current.isFullyVisible) {
+    if (isDraggableProp && !layoutState.current.isFullyVisible) {
       e.originalEvent.preventDefault();
 
       if (e.isSlideX) {
@@ -327,6 +332,8 @@ export const BaseGallery = ({
       // otherwise we need to check current slide index (align = right or align = center)
       (align !== "left" && slideIndex < layoutState.current.slides.length - 1));
 
+  const isDraggable = isDraggableProp && !layoutState.current.isFullyVisible;
+
   return (
     <div
       {...restProps}
@@ -334,6 +341,7 @@ export const BaseGallery = ({
         "Gallery",
         `Gallery--${align}`,
         shiftState.dragging && "Gallery--dragging",
+        isDraggable && "Gallery--draggable",
         slideWidth === "custom" && "Gallery--custom-width"
       )}
       ref={rootRef}
@@ -384,10 +392,18 @@ export const BaseGallery = ({
       )}
 
       {showArrows && hasMouse && canSlideLeft && (
-        <HorizontalScrollArrow direction="left" onClick={slideLeft} />
+        <HorizontalScrollArrow
+          direction="left"
+          onClick={slideLeft}
+          size={arrowSize}
+        />
       )}
       {showArrows && hasMouse && canSlideRight && (
-        <HorizontalScrollArrow direction="right" onClick={slideRight} />
+        <HorizontalScrollArrow
+          direction="right"
+          onClick={slideRight}
+          size={arrowSize}
+        />
       )}
     </div>
   );

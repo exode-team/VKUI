@@ -1,7 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
-import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["viewDate", "value", "weekStartsOn", "onDayChange", "isDaySelected", "isDayActive", "isDaySelectionEnd", "isDaySelectionStart", "onDayEnter", "onDayLeave", "isDayHinted", "isHintedDaySelectionStart", "isHintedDaySelectionEnd", "isDayFocused", "isDayDisabled", "size", "showNeighboringMonth"];
+var _excluded = ["viewDate", "value", "weekStartsOn", "onDayChange", "isDaySelected", "isDayActive", "isDaySelectionEnd", "isDaySelectionStart", "onDayEnter", "onDayLeave", "isDayHinted", "isHintedDaySelectionStart", "isHintedDaySelectionEnd", "isDayFocused", "isDayDisabled", "size", "showNeighboringMonth", "dayProps", "listenDayChangesForUpdate"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { isSameDay, isSameMonth } from "../../lib/date";
@@ -9,6 +8,7 @@ import { CalendarDay } from "../CalendarDay/CalendarDay";
 import { getDaysNames, getWeeks } from "../../lib/calendar";
 import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
 import { classNames } from "../../lib/classNames";
+import { useTodayDate } from "../../hooks/useTodayDate";
 import { Caption } from "../Typography/Caption/Caption";
 import "./CalendarDays.css";
 export var CalendarDays = function CalendarDays(_ref) {
@@ -30,15 +30,14 @@ export var CalendarDays = function CalendarDays(_ref) {
       size = _ref.size,
       _ref$showNeighboringM = _ref.showNeighboringMonth,
       showNeighboringMonth = _ref$showNeighboringM === void 0 ? false : _ref$showNeighboringM,
+      dayProps = _ref.dayProps,
+      _ref$listenDayChanges = _ref.listenDayChangesForUpdate,
+      listenDayChangesForUpdate = _ref$listenDayChanges === void 0 ? false : _ref$listenDayChanges,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var locale = React.useContext(LocaleProviderContext);
   var ref = React.useRef(null);
-
-  var _React$useState = React.useState(new Date()),
-      _React$useState2 = _slicedToArray(_React$useState, 1),
-      now = _React$useState2[0];
-
+  var now = useTodayDate(listenDayChangesForUpdate);
   var weeks = React.useMemo(function () {
     return getWeeks(viewDate, weekStartsOn);
   }, [weekStartsOn, viewDate]);
@@ -68,7 +67,7 @@ export var CalendarDays = function CalendarDays(_ref) {
       key: i
     }, week.map(function (day, i) {
       var sameMonth = isSameMonth(day, viewDate);
-      return createScopedElement(CalendarDay, {
+      return createScopedElement(CalendarDay, _extends({
         key: day.toISOString(),
         day: day,
         today: isSameDay(day, now),
@@ -87,7 +86,7 @@ export var CalendarDays = function CalendarDays(_ref) {
         hinted: isDayHinted === null || isDayHinted === void 0 ? void 0 : isDayHinted(day),
         sameMonth: sameMonth,
         size: size
-      });
+      }, dayProps));
     }));
   }));
 };

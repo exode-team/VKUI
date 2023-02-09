@@ -28,4 +28,4 @@ export interface TabsItemProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/TabsItem
  */
-export declare const TabsItem: ({ before, children, status, after, selected, ...restProps }: TabsItemProps) => JSX.Element;
+export declare const TabsItem: ({ before, children, status, after, selected, role, tabIndex: tabIndexProp, ...restProps }: TabsItemProps) => JSX.Element;

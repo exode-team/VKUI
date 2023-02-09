@@ -20,5 +20,5 @@ interface RemovableOwnProps extends React.AllHTMLAttributes<HTMLElement>, Remova
 /**
  * @see https://vkcom.github.io/VKUI/#/Removable
  */
-export declare const Removable: React.FC<RemovableOwnProps>;
+export declare const Removable: ({ getRootRef, children, onRemove, removePlaceholder, align, ...restProps }: RemovableOwnProps) => JSX.Element;
 export {};

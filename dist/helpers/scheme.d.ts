@@ -21,7 +21,7 @@ export declare enum Scheme {
     VKCOM_LIGHT = "vkcom_light",
     VKCOM_DARK = "vkcom_dark"
 }
-export declare type AppearanceScheme = AppearanceSchemeType | Scheme.VKCOM | Scheme.VKCOM_DARK | Scheme.VKCOM_LIGHT | "inherit";
+export declare type AppearanceScheme = AppearanceSchemeType | Scheme.DEPRECATED_CLIENT_LIGHT | Scheme.DEPRECATED_CLIENT_DARK | Scheme.VKCOM | Scheme.VKCOM_DARK | Scheme.VKCOM_LIGHT | "inherit";
 export declare enum Appearance {
     DARK = "dark",
     LIGHT = "light"

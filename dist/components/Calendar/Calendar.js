@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "prevMonthProps", "nextMonthProps", "dayProps", "listenDayChangesForUpdate"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { isSameMonth, isSameDay } from "../../lib/date";
@@ -48,6 +48,10 @@ export var Calendar = function Calendar(_ref) {
       onPrevMonth = _ref.onPrevMonth,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      prevMonthProps = _ref.prevMonthProps,
+      nextMonthProps = _ref.nextMonthProps,
+      dayProps = _ref.dayProps,
+      listenDayChangesForUpdate = _ref.listenDayChangesForUpdate,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var _useCalendar = useCalendar({
@@ -117,7 +121,9 @@ export var Calendar = function Calendar(_ref) {
     changeMonthAriaLabel: changeMonthAriaLabel,
     changeYearAriaLabel: changeYearAriaLabel,
     prevMonthIcon: prevMonthIcon,
-    nextMonthIcon: nextMonthIcon
+    nextMonthIcon: nextMonthIcon,
+    prevMonthProps: prevMonthProps,
+    nextMonthProps: nextMonthProps
   }), createScopedElement(CalendarDays, {
     viewDate: externalViewDate || viewDate,
     value: value,
@@ -133,7 +139,9 @@ export var Calendar = function Calendar(_ref) {
     isDayDisabled: isDayDisabled,
     onBlur: resetSelectedDay,
     showNeighboringMonth: showNeighboringMonth,
-    size: size
+    size: size,
+    dayProps: dayProps,
+    listenDayChangesForUpdate: listenDayChangesForUpdate
   }), enableTime && value && size !== "s" && createScopedElement("div", {
     vkuiClass: "Calendar__time"
   }, createScopedElement(CalendarTime, {

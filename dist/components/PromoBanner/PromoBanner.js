@@ -64,16 +64,18 @@ export var PromoBanner = function PromoBanner(_ref) {
     onClick: onClick,
     rel: "nofollow noopener noreferrer",
     target: "_blank",
-    before: createScopedElement(Avatar, {
+    before: bannerData.iconLink && createScopedElement(Avatar, {
       mode: "image",
       size: 48,
       src: bannerData.iconLink,
-      alt: bannerData.title
+      alt: bannerData.title,
+      "data-testid": process.env.NODE_ENV === "test" ? "avatar" : undefined
     }),
-    after: createScopedElement(Button, {
-      mode: "outline"
+    after: bannerData.ctaText && createScopedElement(Button, {
+      mode: "outline",
+      "data-testid": process.env.NODE_ENV === "test" ? "button-ctaText" : undefined
     }, bannerData.ctaText),
-    description: bannerData.domain
+    subtitle: bannerData.domain
   }, bannerData.title), currentPixel.length > 0 && createScopedElement("div", {
     vkuiClass: "PromoBanner__pixels"
   }, createScopedElement("img", {

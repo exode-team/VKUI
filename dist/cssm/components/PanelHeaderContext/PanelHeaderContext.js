@@ -51,8 +51,11 @@ export var PanelHeaderContext = function PanelHeaderContext(_ref) {
 
   useGlobalEventListener(document, "click", isDesktop && opened && !closing && function (event) {
     if (elementRef.current && !elementRef.current.contains(event.target)) {
+      event.stopPropagation();
       onClose();
     }
+  }, {
+    capture: true
   }); // fallback onAnimationEnd when animationend not supported
 
   var onAnimationEnd = function onAnimationEnd() {

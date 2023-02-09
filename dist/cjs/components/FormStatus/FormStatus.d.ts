@@ -5,6 +5,7 @@ export interface FormStatusProps extends React.HTMLAttributes<HTMLDivElement> {
     header?: React.ReactNode;
 }
 /**
+ * @deprecated Этот компонент устарел и будет удален в v5.0.0. Используйте [`Banner`](#/Banner).
  * @see https://vkcom.github.io/VKUI/#/FormStatus
  */
-export declare const FormStatus: React.FunctionComponent<FormStatusProps>;
+export declare const FormStatus: ({ mode, header, children, dangerouslySetInnerHTML, ...restProps }: FormStatusProps) => JSX.Element;

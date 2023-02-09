@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick", "multiline"];
+var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick", "multiline", "iconChecked"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -33,6 +33,10 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
       onImmediateClick = _ref.onImmediateClick,
       _ref$multiline = _ref.multiline,
       multiline = _ref$multiline === void 0 ? false : _ref$multiline,
+      _ref$iconChecked = _ref.iconChecked,
+      iconChecked = _ref$iconChecked === void 0 ? createScopedElement(Icon24CheckCircleOn, {
+    "aria-hidden": true
+  }) : _ref$iconChecked,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -84,7 +88,7 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     disabled: restProps.disabled
   }), createScopedElement("div", {
     vkuiClass: "ActionSheetItem__marker"
-  }, createScopedElement(Icon24CheckCircleOn, null))));
+  }, iconChecked)));
 };
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheetItem

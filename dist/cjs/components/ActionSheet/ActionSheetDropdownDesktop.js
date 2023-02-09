@@ -39,7 +39,7 @@ var _FocusTrap = require("../FocusTrap/FocusTrap");
 
 var _Popper = require("../Popper/Popper");
 
-var _excluded = ["children", "toggleRef", "closing", "popupDirection", "onClose", "className", "style"];
+var _excluded = ["children", "toggleRef", "closing", "popupDirection", "onClose", "className", "style", "popupOffsetDistance"];
 var warn = (0, _warnOnce.warnOnce)("ActionSheet");
 
 function getEl(ref) {
@@ -54,6 +54,8 @@ var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref) {
       onClose = _ref.onClose,
       className = _ref.className,
       style = _ref.style,
+      _ref$popupOffsetDista = _ref.popupOffsetDistance,
+      popupOffsetDistance = _ref$popupOffsetDista === void 0 ? 0 : _ref$popupOffsetDista,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useDOM = (0, _dom.useDOM)(),
@@ -101,7 +103,7 @@ var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref) {
   }, [toggleRef]);
   return (0, _jsxRuntime.createScopedElement)(_Popper.Popper, {
     targetRef: targetRef,
-    offsetDistance: 0,
+    offsetDistance: popupOffsetDistance,
     placement: isPopupDirectionTop ? "top-end" : "bottom-end",
     vkuiClass: (0, _classNames.classNames)("ActionSheet", platform === _platform.Platform.IOS && "ActionSheet--ios", "ActionSheet--desktop", "ActionSheet--sizeY-".concat(sizeY)),
     className: className,

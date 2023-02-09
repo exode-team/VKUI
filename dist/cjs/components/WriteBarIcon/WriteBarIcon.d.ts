@@ -18,4 +18,4 @@ export interface WriteBarIconProps extends React.ButtonHTMLAttributes<HTMLButton
 /**
  * @see https://vkcom.github.io/VKUI/#/WriteBarIcon
  */
-export declare const WriteBarIcon: React.FC<WriteBarIconProps>;
+export declare const WriteBarIcon: ({ mode, children, count, ...restProps }: WriteBarIconProps) => JSX.Element;

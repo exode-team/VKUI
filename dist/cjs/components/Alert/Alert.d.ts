@@ -22,4 +22,4 @@ export interface AlertProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * @see https://vkcom.github.io/VKUI/#/Alert
  */
-export declare const Alert: React.FC<AlertProps>;
+export declare const Alert: ({ actions, actionsLayout, children, className, style, text, header, onClose, dismissLabel, ...restProps }: AlertProps) => JSX.Element;

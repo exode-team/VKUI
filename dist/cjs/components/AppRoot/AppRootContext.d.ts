@@ -5,5 +5,6 @@ export interface AppRootContextInterface {
     embedded?: boolean;
     mode?: "partial" | "embedded" | "full";
     keyboardInput?: boolean;
+    disablePortal?: boolean;
 }
 export declare const AppRootContext: React.Context<AppRootContextInterface>;

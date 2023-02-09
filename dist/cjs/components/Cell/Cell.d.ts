@@ -1,4 +1,4 @@
-import * as React from "react";
+/// <reference types="react" />
 import { SimpleCellProps } from "../SimpleCell/SimpleCell";
 import { HasPlatform, HasRootRef } from "../../types";
 import { RemovableProps } from "../Removable/Removable";
@@ -47,4 +47,4 @@ export interface CellProps extends Omit<SimpleCellProps, "getRootRef">, HasPlatf
 /**
  * @see https://vkcom.github.io/VKUI/#/Cell
  */
-export declare const Cell: React.FC<CellProps>;
+export declare const Cell: ({ mode: propsMode, onRemove, removePlaceholder, onDragFinish, before, after, disabled, removable: deprecatedRemovable, draggable, selectable: deprecatedSelectable, Component, onChange, name, value, checked, defaultChecked, getRootRef, draggerLabel, className, style, ...restProps }: CellProps) => JSX.Element;

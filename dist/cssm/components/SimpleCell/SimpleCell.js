@@ -1,6 +1,6 @@
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _extends from "@babel/runtime/helpers/extends";
-var _excluded = ["badge", "before", "indicator", "children", "after", "description", "expandable", "multiline", "sizeY"];
+var _excluded = ["badge", "badgeBeforeTitle", "badgeAfterTitle", "badgeBeforeSubtitle", "badgeAfterSubtitle", "before", "indicator", "children", "after", "description", "expandable", "multiline", "sizeY", "subhead", "subtitle", "extraSubtitle"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
@@ -11,12 +11,13 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { hasReactNode } from "../../lib/utils";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
+import { Subhead } from "../Typography/Subhead/Subhead";
 import { Headline } from "../Typography/Headline/Headline";
 import { Footnote } from "../Typography/Footnote/Footnote";
 import { Caption } from "../Typography/Caption/Caption";
 import "./SimpleCell.css";
 
-var SimpleCellTypography = function SimpleCellTypography(props) {
+var SubtitleTypography = function SubtitleTypography(props) {
   var _useAdaptivity = useAdaptivity(),
       sizeY = _useAdaptivity.sizeY;
 
@@ -31,6 +32,11 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
 
 var SimpleCellComponent = function SimpleCellComponent(_ref) {
   var badge = _ref.badge,
+      badgeBeforeTitle = _ref.badgeBeforeTitle,
+      _ref$badgeAfterTitle = _ref.badgeAfterTitle,
+      badgeAfterTitle = _ref$badgeAfterTitle === void 0 ? badge : _ref$badgeAfterTitle,
+      badgeBeforeSubtitle = _ref.badgeBeforeSubtitle,
+      badgeAfterSubtitle = _ref.badgeAfterSubtitle,
       before = _ref.before,
       indicator = _ref.indicator,
       children = _ref.children,
@@ -39,6 +45,10 @@ var SimpleCellComponent = function SimpleCellComponent(_ref) {
       expandable = _ref.expandable,
       multiline = _ref.multiline,
       sizeY = _ref.sizeY,
+      subhead = _ref.subhead,
+      _ref$subtitle = _ref.subtitle,
+      subtitle = _ref$subtitle === void 0 ? description : _ref$subtitle,
+      extraSubtitle = _ref.extraSubtitle,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -47,19 +57,30 @@ var SimpleCellComponent = function SimpleCellComponent(_ref) {
     vkuiClass: classNames(getClassName("SimpleCell", platform), expandable && "SimpleCell--exp", multiline && "SimpleCell--mult", "SimpleCell--sizeY-".concat(sizeY))
   }), before, createScopedElement("div", {
     vkuiClass: "SimpleCell__main"
-  }, createScopedElement("div", {
+  }, subhead && createScopedElement(Subhead, {
+    Component: "span",
+    vkuiClass: "SimpleCell__text SimpleCell__subhead"
+  }, subhead), createScopedElement("div", {
     vkuiClass: "SimpleCell__content"
-  }, createScopedElement(Headline, {
+  }, badgeBeforeTitle && createScopedElement("span", {
+    vkuiClass: "SimpleCell__badge"
+  }, badgeBeforeTitle), createScopedElement(Headline, {
     Component: "span",
     vkuiClass: "SimpleCell__children",
     weight: "3"
-  }, children), hasReactNode(badge) && createScopedElement("span", {
+  }, children), hasReactNode(badgeAfterTitle) && createScopedElement("span", {
     vkuiClass: "SimpleCell__badge"
-  }, badge)), description && createScopedElement("div", {
+  }, badgeAfterTitle)), subtitle && createScopedElement("div", {
     vkuiClass: "SimpleCell__content"
-  }, createScopedElement(SimpleCellTypography, {
+  }, badgeBeforeSubtitle && createScopedElement("span", {
+    vkuiClass: "SimpleCell__badge"
+  }, badgeBeforeSubtitle), createScopedElement(SubtitleTypography, {
     vkuiClass: "SimpleCell__text SimpleCell__subtitle"
-  }, description))), hasReactNode(indicator) && createScopedElement(Headline, {
+  }, subtitle), badgeAfterSubtitle && createScopedElement("span", {
+    vkuiClass: "SimpleCell__badge"
+  }, badgeAfterSubtitle)), extraSubtitle && createScopedElement(SubtitleTypography, {
+    vkuiClass: "SimpleCell__text SimpleCell__extraSubtitle"
+  }, extraSubtitle)), hasReactNode(indicator) && createScopedElement(Headline, {
     Component: "span",
     weight: "3",
     vkuiClass: "SimpleCell__indicator"

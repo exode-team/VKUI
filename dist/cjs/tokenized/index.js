@@ -621,6 +621,12 @@ Object.defineProperty(exports, "SubnavigationBar", {
     return _SubnavigationBar.SubnavigationBar;
   }
 });
+Object.defineProperty(exports, "SubnavigationButton", {
+  enumerable: true,
+  get: function get() {
+    return _SubnavigationButton.SubnavigationButton;
+  }
+});
 Object.defineProperty(exports, "Switch", {
   enumerable: true,
   get: function get() {
@@ -919,6 +925,8 @@ var _TabbarItem = require("../components/TabbarItem/TabbarItem");
 var _Search = require("../components/Search/Search");
 
 var _Header = require("../components/Header/Header");
+
+var _SubnavigationButton = require("../components/SubnavigationButton/SubnavigationButton");
 
 var _Panel = require("../components/Panel/Panel");
 

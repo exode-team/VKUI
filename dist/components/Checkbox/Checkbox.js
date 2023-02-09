@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "onChange"];
+var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "hoverMode", "activeMode", "hasHover", "hasActive", "focusVisibleMode", "onChange"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { ACTIVE_EFFECT_DELAY, Tappable } from "../Tappable/Tappable";
@@ -30,6 +30,11 @@ export var Checkbox = function Checkbox(_ref) {
       indeterminate = _ref.indeterminate,
       defaultIndeterminate = _ref.defaultIndeterminate,
       sizeY = _ref.sizeY,
+      hoverMode = _ref.hoverMode,
+      activeMode = _ref.activeMode,
+      hasHover = _ref.hasHover,
+      hasActive = _ref.hasActive,
+      focusVisibleMode = _ref.focusVisibleMode,
       onChange = _ref.onChange,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
@@ -75,7 +80,12 @@ export var Checkbox = function Checkbox(_ref) {
     style: style,
     disabled: restProps.disabled,
     activeEffectDelay: platform === IOS ? 100 : ACTIVE_EFFECT_DELAY,
-    getRootRef: getRootRef
+    getRootRef: getRootRef,
+    hoverMode: hoverMode,
+    activeMode: activeMode,
+    hasHover: hasHover,
+    hasActive: hasActive,
+    focusVisibleMode: focusVisibleMode
   }, createScopedElement(VisuallyHiddenInput, _extends({}, restProps, {
     onChange: handleChange,
     type: "checkbox",

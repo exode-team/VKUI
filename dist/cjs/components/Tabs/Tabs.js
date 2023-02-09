@@ -27,7 +27,13 @@ var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _warnOnce = require("../../lib/warnOnce");
 
-var _excluded = ["children", "mode", "getRootRef", "sizeX"];
+var _useGlobalEventListener = require("../../hooks/useGlobalEventListener");
+
+var _dom = require("../../lib/dom");
+
+var _accessibility = require("../../lib/accessibility");
+
+var _excluded = ["children", "mode", "getRootRef", "sizeX", "role"];
 var warn = (0, _warnOnce.warnOnce)("Tabs");
 var TabsModeContext = /*#__PURE__*/React.createContext({
   mode: "default",
@@ -41,8 +47,16 @@ var TabsComponent = function TabsComponent(_ref) {
       mode = _ref$mode === void 0 ? "default" : _ref$mode,
       getRootRef = _ref.getRootRef,
       sizeX = _ref.sizeX,
+      _ref$role = _ref.role,
+      role = _ref$role === void 0 ? "tablist" : _ref$role,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
+
+  var _useDOM = (0, _dom.useDOM)(),
+      document = _useDOM.document;
+
+  var isTabFlow = role === "tablist";
+  var tabsRef = React.useRef(null);
 
   if ((mode === "buttons" || mode === "segmented") && process.env.NODE_ENV === "development") {
     var expectedValueText = mode === "buttons" ? "\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \"secondary\"" : "компонент SegmentedControl";
@@ -58,12 +72,122 @@ var TabsComponent = function TabsComponent(_ref) {
   }
 
   var withGaps = mode === "accent" || mode === "secondary";
+
+  var getTabEls = function getTabEls() {
+    if (!tabsRef.current) {
+      return [];
+    }
+
+    return Array.from( // eslint-disable-next-line no-restricted-properties
+    tabsRef.current.querySelectorAll("[role=tab]:not([disabled])"));
+  };
+
+  var handleDocumentKeydown = function handleDocumentKeydown(event) {
+    if (!document || !tabsRef.current || !isTabFlow) {
+      return;
+    }
+
+    var key = (0, _accessibility.pressedKey)(event);
+
+    switch (key) {
+      case "ArrowLeft":
+      case "ArrowRight":
+      case "End":
+      case "Home":
+        {
+          var tabEls = getTabEls();
+          var currentFocusedElIndex = tabEls.findIndex(function (el) {
+            return document.activeElement === el;
+          });
+
+          if (currentFocusedElIndex === -1) {
+            return;
+          }
+
+          var nextIndex = 0;
+
+          if (key === "Home") {
+            nextIndex = 0;
+          } else if (key === "End") {
+            nextIndex = tabEls.length - 1;
+          } else {
+            var offset = key === "ArrowRight" ? 1 : -1;
+            nextIndex = currentFocusedElIndex + offset;
+          }
+
+          var nextTabEl = tabEls[nextIndex];
+
+          if (nextTabEl) {
+            event.preventDefault();
+            nextTabEl.focus();
+          }
+
+          break;
+        }
+
+      /*
+       В JAWS и NVDA стрелка вниз активирует контент.
+       Это не прописано в стандартах, но по ссылке ниже это рекомендуется делать.
+       https://inclusive-components.design/tabbed-interfaces/
+      */
+
+      case "ArrowDown":
+        {
+          var _tabEls = getTabEls();
+
+          var currentFocusedEl = _tabEls.find(function (el) {
+            return document.activeElement === el;
+          });
+
+          if (!currentFocusedEl || currentFocusedEl.getAttribute("aria-selected") !== "true") {
+            return;
+          }
+
+          var relatedContentElId = currentFocusedEl.getAttribute("aria-controls");
+
+          if (!relatedContentElId) {
+            return;
+          } // eslint-disable-next-line no-restricted-properties
+
+
+          var relatedContentEl = document.getElementById(relatedContentElId);
+
+          if (!relatedContentEl) {
+            return;
+          }
+
+          event.preventDefault();
+          relatedContentEl.focus();
+          break;
+        }
+
+      case "Space":
+      case "Enter":
+        {
+          var _tabEls2 = getTabEls();
+
+          var _currentFocusedEl = _tabEls2.find(function (el) {
+            return document.activeElement === el;
+          });
+
+          if (_currentFocusedEl) {
+            _currentFocusedEl.click();
+          }
+        }
+    }
+  };
+
+  (0, _useGlobalEventListener.useGlobalEventListener)(document, "keydown", handleDocumentKeydown, {
+    capture: true
+  });
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     ref: getRootRef,
     vkuiClass: (0, _classNames.classNames)("Tabs", (platform === _platform.IOS || platform === _platform.VKCOM) && "Tabs--".concat(platform), "Tabs--".concat(mode), withGaps && "Tabs--withGaps", // TODO v5.0.0 новая адаптивность
-    "Tabs--sizeX-".concat(sizeX))
+    "Tabs--sizeX-".concat(sizeX)),
+    role: role
   }), (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "Tabs__in"
+    vkuiClass: "Tabs__in",
+    ref: tabsRef
   }, (0, _jsxRuntime.createScopedElement)(TabsModeContext.Provider, {
     value: {
       mode: mode,

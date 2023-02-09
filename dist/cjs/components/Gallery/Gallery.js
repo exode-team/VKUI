@@ -78,6 +78,8 @@ var Gallery = function Gallery(_ref) {
     if (onChange && safeSlideIndex !== slideIndex) {
       onChange(safeSlideIndex);
     }
+
+    setSlideIndex(safeSlideIndex);
   }, [onChange, safeSlideIndex, slideIndex]);
   return (0, _jsxRuntime.createScopedElement)(_BaseGallery.BaseGallery, (0, _extends2.default)({
     isDraggable: isDraggable

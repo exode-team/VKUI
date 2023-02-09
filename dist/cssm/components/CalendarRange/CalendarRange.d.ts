@@ -1,8 +1,9 @@
 import * as React from "react";
 import { CalendarHeaderProps } from "../CalendarHeader/CalendarHeader";
+import { CalendarDaysProps } from "../CalendarDays/CalendarDays";
 import { HasRootRef } from "../../types";
 import "./CalendarRange.css";
-export interface CalendarRangeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">, Pick<CalendarHeaderProps, "prevMonthAriaLabel" | "nextMonthAriaLabel" | "changeMonthAriaLabel" | "changeYearAriaLabel" | "prevMonthIcon" | "nextMonthIcon">, HasRootRef<HTMLDivElement> {
+export interface CalendarRangeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">, Pick<CalendarHeaderProps, "prevMonthAriaLabel" | "nextMonthAriaLabel" | "changeMonthAriaLabel" | "changeYearAriaLabel" | "prevMonthIcon" | "nextMonthIcon">, Pick<CalendarDaysProps, "listenDayChangesForUpdate">, HasRootRef<HTMLDivElement> {
     value?: Array<Date | null>;
     disablePast?: boolean;
     disableFuture?: boolean;
@@ -16,4 +17,4 @@ export interface CalendarRangeProps extends Omit<React.HTMLAttributes<HTMLDivEle
 /**
  * @see https://vkcom.github.io/VKUI/#/CalendarRange
  */
-export declare const CalendarRange: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, weekStartsOn, getRootRef, disablePickers, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, changeDayAriaLabel, prevMonthIcon, nextMonthIcon, ...props }: CalendarRangeProps) => JSX.Element;
+export declare const CalendarRange: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, weekStartsOn, getRootRef, disablePickers, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, changeDayAriaLabel, prevMonthIcon, nextMonthIcon, listenDayChangesForUpdate, ...props }: CalendarRangeProps) => JSX.Element;

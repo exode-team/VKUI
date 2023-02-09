@@ -34,3 +34,4 @@ export interface ConfigProviderContextInterface {
     hasNewTokens: boolean;
 }
 export declare const ConfigProviderContext: React.Context<ConfigProviderContextInterface>;
+export declare const useConfigProvider: () => ConfigProviderContextInterface;

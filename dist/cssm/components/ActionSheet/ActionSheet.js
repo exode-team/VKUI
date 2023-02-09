@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem", "popupDirection"];
+var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem", "popupDirection", "popupOffsetDistance"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { PopoutWrapper } from "../PopoutWrapper/PopoutWrapper";
@@ -32,6 +32,7 @@ export var ActionSheet = function ActionSheet(_ref) {
       iosCloseItem = _ref.iosCloseItem,
       _ref$popupDirection = _ref.popupDirection,
       popupDirection = _ref$popupDirection === void 0 ? "bottom" : _ref$popupDirection,
+      popupOffsetDistance = _ref.popupOffsetDistance,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var platform = usePlatform();
@@ -98,13 +99,16 @@ export var ActionSheet = function ActionSheet(_ref) {
     isDesktop: isDesktop
   });
   var DropdownComponent = isDesktop ? ActionSheetDropdownDesktop : ActionSheetDropdown;
+  var dropdownProps = isDesktop ? Object.assign(restProps, {
+    popupOffsetDistance: popupOffsetDistance,
+    popupDirection: popupDirection
+  }) : restProps;
   var actionSheet = createScopedElement(ActionSheetContext.Provider, {
     value: contextValue
   }, createScopedElement(DropdownComponent, _extends({
     closing: closing,
     timeout: timeout
-  }, restProps, {
-    popupDirection: popupDirection,
+  }, dropdownProps, {
     onClose: onClose,
     className: isDesktop ? className : undefined,
     style: isDesktop ? style : undefined

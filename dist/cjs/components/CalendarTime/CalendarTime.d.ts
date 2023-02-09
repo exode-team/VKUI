@@ -1,4 +1,4 @@
-import * as React from "react";
+/// <reference types="react" />
 import "./CalendarTime.css";
 export interface CalendarTimeProps {
     value: Date;
@@ -8,4 +8,4 @@ export interface CalendarTimeProps {
     onChange?(value: Date): void;
     onClose?(): void;
 }
-export declare const CalendarTime: React.FC<CalendarTimeProps>;
+export declare const CalendarTime: ({ value, doneButtonText, onChange, onClose, changeHoursAriaLabel, changeMinutesAriaLabel, }: CalendarTimeProps) => JSX.Element;

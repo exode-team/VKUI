@@ -137,7 +137,10 @@ var Dropdown = function Dropdown(_ref) {
     }
   };
 
-  (0, _useGlobalEventListener.useGlobalEventListener)(document, "click", handleOutsideClick);
+  (0, _useGlobalEventListener.useGlobalEventListener)(document, "click", handleOutsideClick, {
+    capture: true,
+    passive: true
+  });
   var targetEnterListener = (0, _useEventListener.useEventListener)("mouseenter", handleTargetEnter);
   var targetClickEvent = (0, _useEventListener.useEventListener)("click", handleTargetClick);
   var targetLeaveListener = (0, _useEventListener.useEventListener)("mouseleave", handleTargetLeave);

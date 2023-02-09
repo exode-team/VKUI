@@ -176,8 +176,7 @@ var SearchComponent = function SearchComponent(_ref2) {
   }, placeholder)), isFocused && platform === _platform.IOS && after && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Search__after-width"
   }, after))), (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "Search__after",
-    onClick: onCancel
+    vkuiClass: "Search__after"
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Search__icons"
   }, icon && (0, _jsxRuntime.createScopedElement)(_Touch.Touch, {
@@ -185,9 +184,11 @@ var SearchComponent = function SearchComponent(_ref2) {
     vkuiClass: "Search__icon"
   }, icon), !!value && (0, _jsxRuntime.createScopedElement)(_Touch.Touch, {
     onStart: onIconCancelClickStart,
+    onClick: onCancel,
     vkuiClass: "Search__icon"
   }, platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon16Clear, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24Cancel, null))), platform === _platform.IOS && after && (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "Search__after-in"
+    vkuiClass: "Search__after-in",
+    onClick: onCancel
   }, after))), platform === _platform.VKCOM && (0, _jsxRuntime.createScopedElement)(_Separator.Separator, {
     vkuiClass: "Search__separator",
     wide: true

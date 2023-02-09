@@ -35,7 +35,7 @@ var _classNames = require("../../lib/classNames");
 
 var _warnOnce = require("../../lib/warnOnce");
 
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "prevMonthProps", "nextMonthProps", "dayProps", "listenDayChangesForUpdate"];
 var warn = (0, _warnOnce.warnOnce)("Calendar");
 /**
  * @see https://vkcom.github.io/VKUI/#/Calendar
@@ -72,6 +72,10 @@ var Calendar = function Calendar(_ref) {
       onPrevMonth = _ref.onPrevMonth,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      prevMonthProps = _ref.prevMonthProps,
+      nextMonthProps = _ref.nextMonthProps,
+      dayProps = _ref.dayProps,
+      listenDayChangesForUpdate = _ref.listenDayChangesForUpdate,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useCalendar = (0, _useCalendar2.useCalendar)({
@@ -141,7 +145,9 @@ var Calendar = function Calendar(_ref) {
     changeMonthAriaLabel: changeMonthAriaLabel,
     changeYearAriaLabel: changeYearAriaLabel,
     prevMonthIcon: prevMonthIcon,
-    nextMonthIcon: nextMonthIcon
+    nextMonthIcon: nextMonthIcon,
+    prevMonthProps: prevMonthProps,
+    nextMonthProps: nextMonthProps
   }), (0, _jsxRuntime.createScopedElement)(_CalendarDays.CalendarDays, {
     viewDate: externalViewDate || viewDate,
     value: value,
@@ -157,7 +163,9 @@ var Calendar = function Calendar(_ref) {
     isDayDisabled: isDayDisabled,
     onBlur: resetSelectedDay,
     showNeighboringMonth: showNeighboringMonth,
-    size: size
+    size: size,
+    dayProps: dayProps,
+    listenDayChangesForUpdate: listenDayChangesForUpdate
   }), enableTime && value && size !== "s" && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Calendar__time"
   }, (0, _jsxRuntime.createScopedElement)(_CalendarTime.CalendarTime, {

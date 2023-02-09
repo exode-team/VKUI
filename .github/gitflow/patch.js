@@ -1,7 +1,11 @@
 const process = require("process");
 const { execSync } = require("child_process");
-const SemVer = require("semver/classes/semver");
-const { stableBranchName, remoteRepository, GhApi } = require("./utils.js");
+const {
+  stableBranchName,
+  remoteRepository,
+  GhApi,
+  SemVer,
+} = require("./utils.js");
 const pkg = require("../../package.json");
 
 const semVer = new SemVer(pkg.version);
@@ -38,7 +42,8 @@ try {
 1. Создайте новую ветку от стабильной и примените исправления используя cherry-pick
 
 \`\`\`bash
-git checkout -b patch/pr${pullNumber} ${stableBranchRef}
+git fetch origin ${stableBranchRef}
+git checkout -b patch/pr${pullNumber} origin/${stableBranchRef}
 git cherry-pick ${patchRefs}
 \`\`\`
 

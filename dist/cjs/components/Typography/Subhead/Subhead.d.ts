@@ -12,4 +12,4 @@ export interface SubheadProps extends React.AllHTMLAttributes<HTMLElement>, HasC
 /**
  * @see https://vkcom.github.io/VKUI/#/Subhead
  */
-export declare const Subhead: React.FC<SubheadProps>;
+export declare const Subhead: ({ children, weight, Component, ...restProps }: SubheadProps) => JSX.Element;

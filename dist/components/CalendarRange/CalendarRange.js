@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "prevMonthIcon", "nextMonthIcon", "listenDayChangesForUpdate"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { addMonths, isSameMonth, isSameDay, isBefore, isAfter, startOfDay, endOfDay, isWithinInterval } from "../../lib/date";
@@ -41,6 +41,7 @@ export var CalendarRange = function CalendarRange(_ref) {
       changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      listenDayChangesForUpdate = _ref.listenDayChangesForUpdate,
       props = _objectWithoutProperties(_ref, _excluded);
 
   var _useCalendar = useCalendar({
@@ -161,6 +162,7 @@ export var CalendarRange = function CalendarRange(_ref) {
     isHintedDaySelectionEnd: isHintedDaySelectionEnd,
     isHintedDaySelectionStart: isHintedDaySelectionStart,
     isDayDisabled: isDayDisabled,
+    listenDayChangesForUpdate: listenDayChangesForUpdate,
     "aria-label": changeDayAriaLabel
   })), createScopedElement("div", {
     vkuiClass: "CalendarRange__inner"
@@ -194,6 +196,7 @@ export var CalendarRange = function CalendarRange(_ref) {
     isHintedDaySelectionEnd: isHintedDaySelectionEnd,
     isHintedDaySelectionStart: isHintedDaySelectionStart,
     isDayDisabled: isDayDisabled,
+    listenDayChangesForUpdate: listenDayChangesForUpdate,
     tabIndex: 0,
     onBlur: resetSelectedDay
   })));

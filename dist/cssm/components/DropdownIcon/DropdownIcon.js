@@ -21,7 +21,8 @@ export var DropdownIcon = function DropdownIcon(_ref) {
   }
 
   return createScopedElement(Icon, _extends({
-    vkuiClass: classNames("DropdownIcon")
+    vkuiClass: classNames("DropdownIcon"),
+    "aria-hidden": true
   }, restProps));
 };
 //# sourceMappingURL=DropdownIcon.js.map

@@ -12,4 +12,4 @@ export interface TextProps extends React.AllHTMLAttributes<HTMLElement>, HasRoot
 /**
  * @see https://vkcom.github.io/VKUI/#/Text
  */
-export declare const Text: React.FC<TextProps>;
+export declare const Text: ({ children, weight, Component, getRootRef, ...restProps }: TextProps) => JSX.Element;

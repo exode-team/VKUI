@@ -29,7 +29,7 @@ var _calendar = require("../../lib/calendar");
 
 var _useCalendar2 = require("../../hooks/useCalendar");
 
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "prevMonthIcon", "nextMonthIcon"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "weekStartsOn", "getRootRef", "disablePickers", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "prevMonthIcon", "nextMonthIcon", "listenDayChangesForUpdate"];
 
 var getIsDaySelected = function getIsDaySelected(day, value) {
   if (!(value !== null && value !== void 0 && value[0]) || !value[1]) {
@@ -62,6 +62,7 @@ var CalendarRange = function CalendarRange(_ref) {
       changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
       prevMonthIcon = _ref.prevMonthIcon,
       nextMonthIcon = _ref.nextMonthIcon,
+      listenDayChangesForUpdate = _ref.listenDayChangesForUpdate,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useCalendar = (0, _useCalendar2.useCalendar)({
@@ -182,6 +183,7 @@ var CalendarRange = function CalendarRange(_ref) {
     isHintedDaySelectionEnd: isHintedDaySelectionEnd,
     isHintedDaySelectionStart: isHintedDaySelectionStart,
     isDayDisabled: isDayDisabled,
+    listenDayChangesForUpdate: listenDayChangesForUpdate,
     "aria-label": changeDayAriaLabel
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarRange__inner"
@@ -215,6 +217,7 @@ var CalendarRange = function CalendarRange(_ref) {
     isHintedDaySelectionEnd: isHintedDaySelectionEnd,
     isHintedDaySelectionStart: isHintedDaySelectionStart,
     isDayDisabled: isDayDisabled,
+    listenDayChangesForUpdate: listenDayChangesForUpdate,
     tabIndex: 0,
     onBlur: resetSelectedDay
   })));

@@ -11,8 +11,9 @@ export interface ConfigProviderProps extends Partial<ConfigProviderContextInterf
       Локаль ([список](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry))
      */
     locale?: string;
+    children?: React.ReactNode;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/ConfigProvider
  */
-export declare const ConfigProvider: React.FC<ConfigProviderProps>;
+export declare const ConfigProvider: (props: ConfigProviderProps) => JSX.Element;

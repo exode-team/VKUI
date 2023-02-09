@@ -2,6 +2,8 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -12,6 +14,8 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var React = _interopRequireWildcard(require("react"));
 
 var _classNames = require("../../lib/classNames");
 
@@ -37,14 +41,8 @@ var MiniInfoCell = function MiniInfoCell(_ref) {
       textLevel = _ref$textLevel === void 0 ? "secondary" : _ref$textLevel,
       children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var isClickable = !!restProps.onClick;
-  return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
-    Component: "div",
-    disabled: !isClickable,
-    role: isClickable ? "button" : undefined
-  }, restProps, {
-    vkuiClass: (0, _classNames.classNames)("MiniInfoCell", mode !== "base" && "MiniInfoCell--md-".concat(mode), textWrap !== "nowrap" && "MiniInfoCell--wr-".concat(textWrap), "MiniInfoCell--lvl-".concat(textLevel))
-  }), (0, _jsxRuntime.createScopedElement)("span", {
+  var cellClasses = (0, _classNames.classNames)("MiniInfoCell", mode !== "base" && "MiniInfoCell--md-".concat(mode), textWrap !== "nowrap" && "MiniInfoCell--wr-".concat(textWrap), "MiniInfoCell--lvl-".concat(textLevel));
+  var cellContent = (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "MiniInfoCell__icon"
   }, before), (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
     vkuiClass: "MiniInfoCell__content",
@@ -52,6 +50,14 @@ var MiniInfoCell = function MiniInfoCell(_ref) {
   }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "MiniInfoCell__after"
   }, after));
+  return restProps.onClick ? (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
+    Component: "div",
+    role: "button"
+  }, restProps, {
+    vkuiClass: cellClasses
+  }), cellContent) : (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
+    vkuiClass: cellClasses
+  }), cellContent);
 };
 
 exports.MiniInfoCell = MiniInfoCell;

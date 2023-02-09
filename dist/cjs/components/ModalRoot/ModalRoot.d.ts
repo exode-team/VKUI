@@ -24,5 +24,6 @@ export interface ModalRootProps extends HasPlatform {
      * @ignore
      */
     configProvider?: ConfigProviderContextInterface;
+    children?: React.ReactNode;
 }
-export declare const ModalRootTouch: React.FC<Pick<ModalRootProps, "configProvider" | "onOpen" | "onOpened" | "onClose" | "onClosed" | "activeModal">>;
+export declare const ModalRootTouch: React.FC<Pick<ModalRootProps, "children" | "onOpen" | "onOpened" | "onClose" | "onClosed" | "activeModal" | "configProvider">>;

@@ -8,4 +8,4 @@ export interface PanelHeaderContentProps extends React.HTMLAttributes<HTMLDivEle
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderContent
  */
-export declare const PanelHeaderContent: React.FunctionComponent<PanelHeaderContentProps>;
+export declare const PanelHeaderContent: ({ className, style, aside, status, before, children, onClick, ...restProps }: PanelHeaderContentProps) => JSX.Element;

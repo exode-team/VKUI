@@ -13,8 +13,6 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var React = _interopRequireWildcard(require("react"));
@@ -29,9 +27,11 @@ var _LocaleProviderContext = require("../LocaleProviderContext/LocaleProviderCon
 
 var _classNames = require("../../lib/classNames");
 
+var _useTodayDate = require("../../hooks/useTodayDate");
+
 var _Caption = require("../Typography/Caption/Caption");
 
-var _excluded = ["viewDate", "value", "weekStartsOn", "onDayChange", "isDaySelected", "isDayActive", "isDaySelectionEnd", "isDaySelectionStart", "onDayEnter", "onDayLeave", "isDayHinted", "isHintedDaySelectionStart", "isHintedDaySelectionEnd", "isDayFocused", "isDayDisabled", "size", "showNeighboringMonth"];
+var _excluded = ["viewDate", "value", "weekStartsOn", "onDayChange", "isDaySelected", "isDayActive", "isDaySelectionEnd", "isDaySelectionStart", "onDayEnter", "onDayLeave", "isDayHinted", "isHintedDaySelectionStart", "isHintedDaySelectionEnd", "isDayFocused", "isDayDisabled", "size", "showNeighboringMonth", "dayProps", "listenDayChangesForUpdate"];
 
 var CalendarDays = function CalendarDays(_ref) {
   var viewDate = _ref.viewDate,
@@ -52,14 +52,13 @@ var CalendarDays = function CalendarDays(_ref) {
       size = _ref.size,
       _ref$showNeighboringM = _ref.showNeighboringMonth,
       showNeighboringMonth = _ref$showNeighboringM === void 0 ? false : _ref$showNeighboringM,
+      dayProps = _ref.dayProps,
+      _ref$listenDayChanges = _ref.listenDayChangesForUpdate,
+      listenDayChangesForUpdate = _ref$listenDayChanges === void 0 ? false : _ref$listenDayChanges,
       props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var locale = React.useContext(_LocaleProviderContext.LocaleProviderContext);
   var ref = React.useRef(null);
-
-  var _React$useState = React.useState(new Date()),
-      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 1),
-      now = _React$useState2[0];
-
+  var now = (0, _useTodayDate.useTodayDate)(listenDayChangesForUpdate);
   var weeks = React.useMemo(function () {
     return (0, _calendar.getWeeks)(viewDate, weekStartsOn);
   }, [weekStartsOn, viewDate]);
@@ -89,7 +88,7 @@ var CalendarDays = function CalendarDays(_ref) {
       key: i
     }, week.map(function (day, i) {
       var sameMonth = (0, _date.isSameMonth)(day, viewDate);
-      return (0, _jsxRuntime.createScopedElement)(_CalendarDay.CalendarDay, {
+      return (0, _jsxRuntime.createScopedElement)(_CalendarDay.CalendarDay, (0, _extends2.default)({
         key: day.toISOString(),
         day: day,
         today: (0, _date.isSameDay)(day, now),
@@ -108,7 +107,7 @@ var CalendarDays = function CalendarDays(_ref) {
         hinted: isDayHinted === null || isDayHinted === void 0 ? void 0 : isDayHinted(day),
         sameMonth: sameMonth,
         size: size
-      });
+      }, dayProps));
     }));
   }));
 };

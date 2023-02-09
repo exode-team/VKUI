@@ -47,17 +47,29 @@ var WriteBarIcon = function WriteBarIcon(_ref) {
 
   switch (mode) {
     case "attach":
-      icon = platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon28AddCircleOutline, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon28AttachOutline, null);
+      icon = platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon28AddCircleOutline, {
+        "aria-hidden": true
+      }) : (0, _jsxRuntime.createScopedElement)(_icons.Icon28AttachOutline, {
+        "aria-hidden": true
+      });
       ariaLabel = "Прикрепить файл";
       break;
 
     case "send":
-      icon = platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon48WritebarSend, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24Send, null);
+      icon = platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon48WritebarSend, {
+        "aria-hidden": true
+      }) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24Send, {
+        "aria-hidden": true
+      });
       ariaLabel = "Отправить";
       break;
 
     case "done":
-      icon = platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon48WritebarDone, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon28CheckCircleOutline, null);
+      icon = platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(_icons.Icon48WritebarDone, {
+        "aria-hidden": true
+      }) : (0, _jsxRuntime.createScopedElement)(_icons.Icon28CheckCircleOutline, {
+        "aria-hidden": true
+      });
       ariaLabel = "Готово";
       break;
 

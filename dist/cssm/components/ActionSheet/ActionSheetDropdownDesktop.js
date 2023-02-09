@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "toggleRef", "closing", "popupDirection", "onClose", "className", "style"];
+var _excluded = ["children", "toggleRef", "closing", "popupDirection", "onClose", "className", "style", "popupOffsetDistance"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -29,6 +29,8 @@ export var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref
       onClose = _ref.onClose,
       className = _ref.className,
       style = _ref.style,
+      _ref$popupOffsetDista = _ref.popupOffsetDistance,
+      popupOffsetDistance = _ref$popupOffsetDista === void 0 ? 0 : _ref$popupOffsetDista,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var _useDOM = useDOM(),
@@ -76,7 +78,7 @@ export var ActionSheetDropdownDesktop = function ActionSheetDropdownDesktop(_ref
   }, [toggleRef]);
   return createScopedElement(Popper, {
     targetRef: targetRef,
-    offsetDistance: 0,
+    offsetDistance: popupOffsetDistance,
     placement: isPopupDirectionTop ? "top-end" : "bottom-end",
     vkuiClass: classNames("ActionSheet", platform === Platform.IOS && "ActionSheet--ios", "ActionSheet--desktop", "ActionSheet--sizeY-".concat(sizeY)),
     className: className,

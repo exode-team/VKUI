@@ -148,8 +148,7 @@ var SearchComponent = function SearchComponent(_ref2) {
   }, placeholder)), isFocused && platform === IOS && after && createScopedElement("div", {
     vkuiClass: "Search__after-width"
   }, after))), createScopedElement("div", {
-    vkuiClass: "Search__after",
-    onClick: onCancel
+    vkuiClass: "Search__after"
   }, createScopedElement("div", {
     vkuiClass: "Search__icons"
   }, icon && createScopedElement(Touch, {
@@ -157,9 +156,11 @@ var SearchComponent = function SearchComponent(_ref2) {
     vkuiClass: "Search__icon"
   }, icon), !!value && createScopedElement(Touch, {
     onStart: onIconCancelClickStart,
+    onClick: onCancel,
     vkuiClass: "Search__icon"
   }, platform === IOS ? createScopedElement(Icon16Clear, null) : createScopedElement(Icon24Cancel, null))), platform === IOS && after && createScopedElement("div", {
-    vkuiClass: "Search__after-in"
+    vkuiClass: "Search__after-in",
+    onClick: onCancel
   }, after))), platform === VKCOM && createScopedElement(Separator, {
     vkuiClass: "Search__separator",
     wide: true

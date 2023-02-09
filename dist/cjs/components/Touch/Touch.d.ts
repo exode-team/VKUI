@@ -48,5 +48,5 @@ export declare type DragHandler = (e: React.DragEvent<HTMLElement>) => void;
 /**
  * @see https://vkcom.github.io/VKUI/#/Touch
  */
-export declare const Touch: React.FC<TouchProps>;
+export declare const Touch: ({ onStart, onStartX, onStartY, onMove: _onMove, onMoveX, onMoveY, onLeave, onEnter, onEnd: _onEnd, onEndX, onEndY, onClickCapture, usePointerHover, slideThreshold, useCapture, Component, getRootRef, noSlideClick, stopPropagation, ...restProps }: TouchProps) => JSX.Element;
 export {};

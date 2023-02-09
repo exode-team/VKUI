@@ -232,6 +232,8 @@ export { PanelHeaderEdit } from "./components/PanelHeaderEdit/PanelHeaderEdit";
 export type { PanelHeaderEditProps } from "./components/PanelHeaderEdit/PanelHeaderEdit";
 export { ModalCardBase } from "./components/ModalCardBase/ModalCardBase";
 export type { ModalCardBaseProps } from "./components/ModalCardBase/ModalCardBase";
+export { VisuallyHiddenInput } from "./components/VisuallyHiddenInput/VisuallyHiddenInput";
+export type { VisuallyHiddenInputProps } from "./components/VisuallyHiddenInput/VisuallyHiddenInput";
 /**
  * Wrappers
  */
@@ -282,6 +284,7 @@ export { usePlatform } from "./hooks/usePlatform";
 export { useAdaptivity } from "./hooks/useAdaptivity";
 export { useAppearance } from "./hooks/useAppearance";
 export { usePagination } from "./hooks/usePagination";
+export { useTodayDate } from "./hooks/useTodayDate";
 export { useScrollLock } from "./components/AppRoot/ScrollContext";
 export { useNavTransition } from "./components/NavTransitionContext/NavTransitionContext";
 /**
@@ -298,6 +301,7 @@ export { ViewWidth, ViewHeight, SizeType, } from "./components/AdaptivityProvide
 export { calcInitialsAvatarColor } from "./helpers/avatar";
 export { Popper } from "./components/Popper/Popper";
 export type { PopperProps } from "./components/Popper/Popper";
+export { CustomScrollView } from "./components/CustomScrollView/CustomScrollView";
 /**
  * Types
  */

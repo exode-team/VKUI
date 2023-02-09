@@ -1,3 +1,6 @@
 import * as React from "react";
-import "./DropdownIcon.css";
-export declare const DropdownIcon: React.FC<React.HTMLAttributes<HTMLElement>>;
+import { VKontakteIconsBackwardsCompatibleElement } from "../../types";
+export interface DropdownIconProps extends React.HTMLAttributes<VKontakteIconsBackwardsCompatibleElement> {
+    opened?: boolean;
+}
+export declare const DropdownIcon: ({ opened, ...restProps }: DropdownIconProps) => JSX.Element;

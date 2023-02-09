@@ -68,11 +68,8 @@ export var WriteBar = function WriteBar(_ref) {
     vkuiClass: classNames("WriteBar", platform === IOS && "WriteBar--ios", shadow && "WriteBar--shadow"),
     className: className,
     style: style
-  }, createScopedElement("form", {
-    vkuiClass: "WriteBar__form",
-    onSubmit: function onSubmit(e) {
-      return e.preventDefault();
-    }
+  }, createScopedElement("div", {
+    vkuiClass: "WriteBar__form"
   }, hasReactNode(before) && createScopedElement("div", {
     vkuiClass: "WriteBar__before"
   }, before), createScopedElement("div", {

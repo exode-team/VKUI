@@ -234,6 +234,7 @@ export var Tooltip = function Tooltip(_ref2) {
       document = _useDOM.document;
 
   useGlobalEventListener(document, "click", isShown && onClose, {
+    capture: true,
     passive: true
   }); // NOTE: setting isShown to true used to trigger usePopper().forceUpdate()
 

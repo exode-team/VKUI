@@ -39,11 +39,11 @@ var CellCheckbox = function CellCheckbox(_ref) {
   }, (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({
     vkuiClass: "CellCheckbox__input",
     type: "checkbox"
-  }, restProps)), (0, _jsxRuntime.createScopedElement)(IconOff, {
+  }, restProps)), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "CellCheckbox__icon CellCheckbox__icon--off"
-  }), (0, _jsxRuntime.createScopedElement)(IconOn, {
+  }, (0, _jsxRuntime.createScopedElement)(IconOff, null)), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "CellCheckbox__icon CellCheckbox__icon--on"
-  }));
+  }, (0, _jsxRuntime.createScopedElement)(IconOn, null)));
 };
 
 exports.CellCheckbox = CellCheckbox;

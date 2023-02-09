@@ -14,7 +14,9 @@ export var InfoRow = function InfoRow(_ref) {
       children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  return createScopedElement(Headline, _extends({}, restProps, {
+  return createScopedElement(Headline, _extends({
+    Component: "span"
+  }, restProps, {
     vkuiClass: "InfoRow",
     weight: "3"
   }), hasReactNode(header) && createScopedElement(Subhead, {

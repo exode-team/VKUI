@@ -1,5 +1,7 @@
 import * as React from "react";
+import { TappableElementProps } from "../Tappable/Tappable";
 import "./CalendarHeader.css";
+declare type ArrowMonthProps = Omit<TappableElementProps, "onClick" | "aria-label">;
 export interface CalendarHeaderProps extends Pick<React.HTMLAttributes<HTMLDivElement>, "className"> {
     viewDate: Date;
     prevMonth?: boolean;
@@ -11,6 +13,8 @@ export interface CalendarHeaderProps extends Pick<React.HTMLAttributes<HTMLDivEl
     changeYearAriaLabel?: string;
     prevMonthIcon?: React.ReactNode;
     nextMonthIcon?: React.ReactNode;
+    prevMonthProps?: ArrowMonthProps;
+    nextMonthProps?: ArrowMonthProps;
     onChange(viewDate: Date): void;
     /**
      * Нажатие на кнопку переключения на следующий месяц.
@@ -21,4 +25,5 @@ export interface CalendarHeaderProps extends Pick<React.HTMLAttributes<HTMLDivEl
      */
     onPrevMonth?(): void;
 }
-export declare const CalendarHeader: ({ viewDate, onChange, prevMonth, nextMonth, disablePickers, onNextMonth, onPrevMonth, className, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, prevMonthIcon, nextMonthIcon, }: CalendarHeaderProps) => JSX.Element;
+export declare const CalendarHeader: ({ viewDate, onChange, prevMonth, nextMonth, disablePickers, onNextMonth, onPrevMonth, className, prevMonthProps, nextMonthProps, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, prevMonthIcon, nextMonthIcon, }: CalendarHeaderProps) => JSX.Element;
+export {};

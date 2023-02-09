@@ -1,6 +1,8 @@
 import * as React from "react";
+import { TappableElementProps } from "../Tappable/Tappable";
 import "./CalendarDay.css";
-export interface CalendarDayProps {
+export declare type CalendarDayElementProps = Omit<TappableElementProps, "onChange" | "size" | "disabled" | "selected">;
+export interface CalendarDayProps extends CalendarDayElementProps {
     day: Date;
     today?: boolean;
     selected?: boolean;
@@ -19,4 +21,4 @@ export interface CalendarDayProps {
     onEnter?(value: Date): void;
     onLeave?(value: Date): void;
 }
-export declare const CalendarDay: React.FC<CalendarDayProps>;
+export declare const CalendarDay: React.MemoExoticComponent<({ day, today, selected, onChange, hidden, disabled, active, selectionStart, selectionEnd, focused, onEnter, onLeave, hinted, hintedSelectionStart, hintedSelectionEnd, sameMonth, size, ...props }: CalendarDayProps) => JSX.Element>;

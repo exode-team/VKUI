@@ -26,4 +26,5 @@ export declare function subMonths(date: DirtyDate, month: number): Date;
 export declare function eachDayOfInterval(start: DirtyDate, end: DirtyDate): Date[];
 export declare function parse(input: string, format: string, referenceDate?: Date): Date;
 export declare function isMatch(input: string, format: string): boolean;
+export declare function getMillisecondsToTomorrow(date: DirtyDate): number;
 export {};

@@ -10,4 +10,4 @@ export interface HorizontalCellProps extends React.AnchorHTMLAttributes<HTMLElem
 /**
  * @see https://vkcom.github.io/VKUI/#/HorizontalCell
  */
-export declare const HorizontalCell: React.FC<HorizontalCellProps>;
+export declare const HorizontalCell: ({ className, header, style, subtitle, size, children, getRootRef, getRef, ...restProps }: HorizontalCellProps) => JSX.Element;

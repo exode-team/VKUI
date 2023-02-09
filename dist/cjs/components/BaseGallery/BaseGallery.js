@@ -39,7 +39,7 @@ var _useGlobalEventListener = require("../../hooks/useGlobalEventListener");
 
 var _helpers = require("./helpers");
 
-var _excluded = ["bullets", "getRootRef", "children", "slideWidth", "slideIndex", "isDraggable", "onDragStart", "onDragEnd", "onChange", "onPrevClick", "onNextClick", "onEnd", "align", "showArrows", "getRef"];
+var _excluded = ["bullets", "getRootRef", "children", "slideWidth", "slideIndex", "isDraggable", "onDragStart", "onDragEnd", "onChange", "onPrevClick", "onNextClick", "onEnd", "align", "showArrows", "getRef", "arrowSize"];
 var ANIMATION_DURATION = 0.24;
 var LAYOUT_DEFAULT_STATE = {
   containerWidth: 0,
@@ -59,7 +59,7 @@ var SHIFT_DEFAULT_STATE = {
 };
 
 var BaseGallery = function BaseGallery(_ref) {
-  var _layoutState$current$8;
+  var _layoutState$current$9;
 
   var _ref$bullets = _ref.bullets,
       bullets = _ref$bullets === void 0 ? false : _ref$bullets,
@@ -70,7 +70,7 @@ var BaseGallery = function BaseGallery(_ref) {
       _ref$slideIndex = _ref.slideIndex,
       slideIndex = _ref$slideIndex === void 0 ? 0 : _ref$slideIndex,
       _ref$isDraggable = _ref.isDraggable,
-      isDraggable = _ref$isDraggable === void 0 ? true : _ref$isDraggable,
+      isDraggableProp = _ref$isDraggable === void 0 ? true : _ref$isDraggable,
       onDragStart = _ref.onDragStart,
       onDragEnd = _ref.onDragEnd,
       onChange = _ref.onChange,
@@ -81,6 +81,8 @@ var BaseGallery = function BaseGallery(_ref) {
       align = _ref$align === void 0 ? "left" : _ref$align,
       showArrows = _ref.showArrows,
       getRef = _ref.getRef,
+      _ref$arrowSize = _ref.arrowSize,
+      arrowSize = _ref$arrowSize === void 0 ? "l" : _ref$arrowSize,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var slidesStore = React.useRef({});
   var layoutState = React.useRef(LAYOUT_DEFAULT_STATE);
@@ -167,7 +169,7 @@ var BaseGallery = function BaseGallery(_ref) {
   };
 
   var initializeSlides = function initializeSlides() {
-    var _React$Children$map, _rootRef$current$offs, _rootRef$current, _viewportRef$current$, _viewportRef$current;
+    var _React$Children$map, _rootRef$current$offs, _rootRef$current, _viewportRef$current$, _viewportRef$current, _layoutState$current$7, _localSlides$slideInd;
 
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var localSlides = (_React$Children$map = React.Children.map(children, function (_item, i) {
@@ -180,24 +182,25 @@ var BaseGallery = function BaseGallery(_ref) {
       };
     })) !== null && _React$Children$map !== void 0 ? _React$Children$map : [];
     var localContainerWidth = (_rootRef$current$offs = (_rootRef$current = rootRef.current) === null || _rootRef$current === void 0 ? void 0 : _rootRef$current.offsetWidth) !== null && _rootRef$current$offs !== void 0 ? _rootRef$current$offs : 0;
-    var localviewportOffsetWidth = (_viewportRef$current$ = (_viewportRef$current = viewportRef.current) === null || _viewportRef$current === void 0 ? void 0 : _viewportRef$current.offsetWidth) !== null && _viewportRef$current$ !== void 0 ? _viewportRef$current$ : 0;
+    var localViewportOffsetWidth = (_viewportRef$current$ = (_viewportRef$current = viewportRef.current) === null || _viewportRef$current === void 0 ? void 0 : _viewportRef$current.offsetWidth) !== null && _viewportRef$current$ !== void 0 ? _viewportRef$current$ : 0;
     var localLayerWidth = localSlides.reduce(function (val, slide) {
       return slide.width + val;
     }, 0);
+    var adjustShiftX = localSlides.length <= layoutState.current.slides.length || ((_layoutState$current$7 = layoutState.current.slides[slideIndex]) === null || _layoutState$current$7 === void 0 ? void 0 : _layoutState$current$7.coordX) !== ((_localSlides$slideInd = localSlides[slideIndex]) === null || _localSlides$slideInd === void 0 ? void 0 : _localSlides$slideInd.coordX);
     layoutState.current = {
       containerWidth: localContainerWidth,
-      viewportOffsetWidth: localviewportOffsetWidth,
+      viewportOffsetWidth: localViewportOffsetWidth,
       layerWidth: localLayerWidth,
       max: (0, _helpers.calcMax)({
         slides: localSlides,
-        viewportOffsetWidth: localviewportOffsetWidth,
+        viewportOffsetWidth: localViewportOffsetWidth,
         isCenterWithCustomWidth: isCenterWithCustomWidth
       }),
       min: (0, _helpers.calcMin)({
         containerWidth: localContainerWidth,
         layerWidth: localLayerWidth,
         slides: localSlides,
-        viewportOffsetWidth: localviewportOffsetWidth,
+        viewportOffsetWidth: localViewportOffsetWidth,
         isCenterWithCustomWidth: isCenterWithCustomWidth,
         align: align
       }),
@@ -208,7 +211,7 @@ var BaseGallery = function BaseGallery(_ref) {
       var _options$animation;
 
       return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, prevState), {}, {
-        shiftX: calculateIndent(slideIndex),
+        shiftX: adjustShiftX ? calculateIndent(slideIndex) : prevState.shiftX,
         animation: (_options$animation = options.animation) !== null && _options$animation !== void 0 ? _options$animation : prevState.shiftX === validateIndent(prevState.shiftX)
       });
     });
@@ -240,14 +243,14 @@ var BaseGallery = function BaseGallery(_ref) {
     }
   }, [slideIndex]);
 
-  var slideLeft = function slideLeft() {
+  var slideLeft = function slideLeft(event) {
     onChange === null || onChange === void 0 ? void 0 : onChange(slideIndex - 1);
-    onPrevClick === null || onPrevClick === void 0 ? void 0 : onPrevClick();
+    onPrevClick === null || onPrevClick === void 0 ? void 0 : onPrevClick(event);
   };
 
-  var slideRight = function slideRight() {
+  var slideRight = function slideRight(event) {
     onChange === null || onChange === void 0 ? void 0 : onChange(slideIndex + 1);
-    onNextClick === null || onNextClick === void 0 ? void 0 : onNextClick();
+    onNextClick === null || onNextClick === void 0 ? void 0 : onNextClick(event);
   };
   /*
    * Получает индекс слайда, к которому будет осуществлен переход
@@ -255,10 +258,10 @@ var BaseGallery = function BaseGallery(_ref) {
 
 
   var getTarget = function getTarget(e) {
-    var _layoutState$current$7;
+    var _layoutState$current$8;
 
     var expectDeltaX = shiftState.deltaX / e.duration * 240 * 0.6;
-    var shift = shiftState.shiftX + shiftState.deltaX + expectDeltaX - ((_layoutState$current$7 = layoutState.current.max) !== null && _layoutState$current$7 !== void 0 ? _layoutState$current$7 : 0);
+    var shift = shiftState.shiftX + shiftState.deltaX + expectDeltaX - ((_layoutState$current$8 = layoutState.current.max) !== null && _layoutState$current$8 !== void 0 ? _layoutState$current$8 : 0);
     var direction = shiftState.deltaX < 0 ? 1 : -1; // Находим ближайшую границу слайда к текущему отступу
 
     var targetIndex = layoutState.current.slides.reduce(function (val, item, index) {
@@ -289,7 +292,7 @@ var BaseGallery = function BaseGallery(_ref) {
   };
 
   var onMoveX = function onMoveX(e) {
-    if (isDraggable && !layoutState.current.isFullyVisible) {
+    if (isDraggableProp && !layoutState.current.isFullyVisible) {
       e.originalEvent.preventDefault();
 
       if (e.isSlideX) {
@@ -352,10 +355,11 @@ var BaseGallery = function BaseGallery(_ref) {
 
   var canSlideLeft = !layoutState.current.isFullyVisible && shiftState.shiftX < 0;
   var canSlideRight = !layoutState.current.isFullyVisible && ( // we can't move right when gallery layer fully scrolled right, if gallery aligned by left side
-  align === "left" && layoutState.current.containerWidth - shiftState.shiftX < ((_layoutState$current$8 = layoutState.current.layerWidth) !== null && _layoutState$current$8 !== void 0 ? _layoutState$current$8 : 0) || // otherwise we need to check current slide index (align = right or align = center)
+  align === "left" && layoutState.current.containerWidth - shiftState.shiftX < ((_layoutState$current$9 = layoutState.current.layerWidth) !== null && _layoutState$current$9 !== void 0 ? _layoutState$current$9 : 0) || // otherwise we need to check current slide index (align = right or align = center)
   align !== "left" && slideIndex < layoutState.current.slides.length - 1);
+  var isDraggable = isDraggableProp && !layoutState.current.isFullyVisible;
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
-    vkuiClass: (0, _classNames.classNames)("Gallery", "Gallery--".concat(align), shiftState.dragging && "Gallery--dragging", slideWidth === "custom" && "Gallery--custom-width"),
+    vkuiClass: (0, _classNames.classNames)("Gallery", "Gallery--".concat(align), shiftState.dragging && "Gallery--dragging", isDraggable && "Gallery--draggable", slideWidth === "custom" && "Gallery--custom-width"),
     ref: rootRef
   }), (0, _jsxRuntime.createScopedElement)(_Touch.Touch, {
     vkuiClass: "Gallery__viewport",
@@ -388,10 +392,12 @@ var BaseGallery = function BaseGallery(_ref) {
     });
   })), showArrows && hasMouse && canSlideLeft && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.HorizontalScrollArrow, {
     direction: "left",
-    onClick: slideLeft
+    onClick: slideLeft,
+    size: arrowSize
   }), showArrows && hasMouse && canSlideRight && (0, _jsxRuntime.createScopedElement)(_HorizontalScrollArrow.HorizontalScrollArrow, {
     direction: "right",
-    onClick: slideRight
+    onClick: slideRight,
+    size: arrowSize
   }));
 };
 

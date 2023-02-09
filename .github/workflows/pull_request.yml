@@ -2,6 +2,10 @@ name: "Pull Request"
 
 on: ["pull_request"]
 
+concurrency:
+  group: pr-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -25,6 +29,21 @@ jobs:
             test-results.json
   test_e2e:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        appearance: [dark, light]
+        browser: [chromium, firefox, webkit]
+        platform: [android, ios, vkcom]
+        exclude:
+          - platform: android
+            browser: firefox
+          - platform: android
+            browser: webkit
+          - platform: ios
+            browser: firefox
+          - platform: ios
+            browser: chromium
     steps:
       - uses: actions/checkout@v3
         with:
@@ -35,13 +54,17 @@ jobs:
         run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF && git checkout origin/$GITHUB_BASE_REF src/**/__image_snapshots__/*.png
       - uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
           cache: "yarn"
       - run: yarn install --frozen-lockfile --ignore-scripts
-      - name: Install browser for E2E
-        run: yarn --cwd node_modules/playwright-chromium run install
+      - name: Install deps for playwright
+        run: yarn playwright:install ${{ matrix.browser }}
       - name: FYI visual tests
         run: yarn test:e2e:ci
+        env:
+          APPEARANCE: ${{ matrix.appearance }}
+          BROWSER: ${{ matrix.browser }}
+          PLATFORM: ${{ matrix.platform }}
         continue-on-error: true
       - name: Upload test artifact
         uses: actions/upload-artifact@v3
@@ -92,20 +115,18 @@ jobs:
     if: ${{ (github.event.pull_request.base.repo.id == github.event.pull_request.head.repo.id) && (github.actor != 'dependabot[bot]') }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
       - name: Download styleguide artifact
         uses: actions/download-artifact@v3
         with:
           name: styleguide
-          path: tmp
+          path: pull/${{ github.event.pull_request.number }}
       - name: Publishing styleguide to GitHub pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.DEVTOOLS_GITHUB_TOKEN }}
-          COMMIT_MESSAGE: "Publish PR ${{ github.event.pull_request.number }}"
-          BRANCH: gh-pages
-          FOLDER: tmp
-          TARGET_FOLDER: pull/${{ github.event.pull_request.number }}
-          CLEAN: true
+          commit_message: "Publish PR ${{ github.event.pull_request.number }}"
+          branch: gh-pages
       - name: Find styleguide URL comment
         uses: peter-evans/find-comment@v2
         id: find_url_comment
@@ -127,7 +148,7 @@ jobs:
     needs:
       - test
       - test_e2e
-    if: always()
+    if: ${{ !cancelled() }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

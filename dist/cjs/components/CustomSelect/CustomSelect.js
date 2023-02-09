@@ -227,7 +227,10 @@ function CustomSelectComponent(props) {
     });
   }, [props.value]);
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
-    if (nativeSelectValue !== undefined) {
+    if (options.some(function (_ref2) {
+      var value = _ref2.value;
+      return nativeSelectValue === value;
+    })) {
       var _selectElRef$current;
 
       var _event = new Event("change", {
@@ -384,9 +387,9 @@ function CustomSelectComponent(props) {
     focusOptionByIndex(index);
   }, [focusOptionByIndex, focusedOptionIndex, options]);
   React.useEffect(function () {
-    var _ref2, _props$value4;
+    var _ref3, _props$value4;
 
-    var value = (_ref2 = (_props$value4 = props.value) !== null && _props$value4 !== void 0 ? _props$value4 : nativeSelectValue) !== null && _ref2 !== void 0 ? _ref2 : props.defaultValue;
+    var value = (_ref3 = (_props$value4 = props.value) !== null && _props$value4 !== void 0 ? _props$value4 : nativeSelectValue) !== null && _ref3 !== void 0 ? _ref3 : props.defaultValue;
     var options = searchable && inputValue !== undefined ? filter(optionsProp, inputValue, filterFn) : optionsProp;
     setOptions(options);
     setSelectedOptionIndex(findSelectedIndex(options, value));
@@ -580,6 +583,7 @@ function CustomSelectComponent(props) {
     onFocus: onFocus,
     onBlur: onBlur,
     vkuiClass: openedClassNames,
+    before: before,
     after: icon,
     selectType: selectType
   }), selected === null || selected === void 0 ? void 0 : selected.label), (0, _jsxRuntime.createScopedElement)("select", {

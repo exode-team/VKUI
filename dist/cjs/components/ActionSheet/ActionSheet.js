@@ -45,7 +45,7 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _ScrollContext = require("../AppRoot/ScrollContext");
 
-var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem", "popupDirection"];
+var _excluded = ["children", "className", "header", "text", "style", "iosCloseItem", "popupDirection", "popupOffsetDistance"];
 var warn = (0, _warnOnce.warnOnce)("ActionSheet");
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheet
@@ -60,6 +60,7 @@ var ActionSheet = function ActionSheet(_ref) {
       iosCloseItem = _ref.iosCloseItem,
       _ref$popupDirection = _ref.popupDirection,
       popupDirection = _ref$popupDirection === void 0 ? "bottom" : _ref$popupDirection,
+      popupOffsetDistance = _ref.popupOffsetDistance,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -125,13 +126,16 @@ var ActionSheet = function ActionSheet(_ref) {
     isDesktop: isDesktop
   });
   var DropdownComponent = isDesktop ? _ActionSheetDropdownDesktop.ActionSheetDropdownDesktop : _ActionSheetDropdown.ActionSheetDropdown;
+  var dropdownProps = isDesktop ? Object.assign(restProps, {
+    popupOffsetDistance: popupOffsetDistance,
+    popupDirection: popupDirection
+  }) : restProps;
   var actionSheet = (0, _jsxRuntime.createScopedElement)(_ActionSheetContext.ActionSheetContext.Provider, {
     value: contextValue
   }, (0, _jsxRuntime.createScopedElement)(DropdownComponent, (0, _extends2.default)({
     closing: closing,
     timeout: timeout
-  }, restProps, {
-    popupDirection: popupDirection,
+  }, dropdownProps, {
     onClose: onClose,
     className: isDesktop ? className : undefined,
     style: isDesktop ? style : undefined

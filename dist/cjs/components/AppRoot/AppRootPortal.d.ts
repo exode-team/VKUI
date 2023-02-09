@@ -1,5 +1,7 @@
 import * as React from "react";
-export declare const AppRootPortal: React.FC<React.PropsWithChildren<{
+export interface AppRootPortalProps {
     className?: string;
     forcePortal?: boolean;
-}>>;
+    children?: React.ReactNode;
+}
+export declare const AppRootPortal: ({ children, className, forcePortal, }: AppRootPortalProps) => JSX.Element;
