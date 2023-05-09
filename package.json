@@ -105,7 +105,7 @@
     "wait-port": "^1.0.0",
     "webpack": "^5.66.0",
     "webpack-cli": "^5.0.0",
-    "webpack-dev-server": "^4.9.2",
+    "webpack-dev-server": "^4.15.0",
     "webpack-merge": "^5.8.0",
     "yargs": "^17.5.1"
   },
