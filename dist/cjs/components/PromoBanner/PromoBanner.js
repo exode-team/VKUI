@@ -68,16 +68,14 @@ var PromoBanner = function PromoBanner(_ref) {
     onClick: onClick,
     rel: "nofollow noopener noreferrer",
     target: "_blank",
-    before: bannerData.iconLink && (0, _jsxRuntime.createScopedElement)(_Avatar.Avatar, {
+    before: (0, _jsxRuntime.createScopedElement)(_Avatar.Avatar, {
       mode: "image",
       size: 48,
       src: bannerData.iconLink,
-      alt: bannerData.title,
-      "data-testid": process.env.NODE_ENV === "test" ? "avatar" : undefined
+      alt: bannerData.title
     }),
-    after: bannerData.ctaText && (0, _jsxRuntime.createScopedElement)(_Button.Button, {
-      mode: "outline",
-      "data-testid": process.env.NODE_ENV === "test" ? "button-ctaText" : undefined
+    after: (0, _jsxRuntime.createScopedElement)(_Button.Button, {
+      mode: "outline"
     }, bannerData.ctaText),
     subtitle: bannerData.domain
   }, bannerData.title), currentPixel.length > 0 && (0, _jsxRuntime.createScopedElement)("div", {
