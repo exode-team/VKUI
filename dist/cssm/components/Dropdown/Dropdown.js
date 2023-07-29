@@ -114,7 +114,10 @@ export var Dropdown = function Dropdown(_ref) {
     }
   };
 
-  useGlobalEventListener(document, "click", handleOutsideClick);
+  useGlobalEventListener(document, "click", handleOutsideClick, {
+    capture: true,
+    passive: true
+  });
   var targetEnterListener = useEventListener("mouseenter", handleTargetEnter);
   var targetClickEvent = useEventListener("click", handleTargetClick);
   var targetLeaveListener = useEventListener("mouseleave", handleTargetLeave);

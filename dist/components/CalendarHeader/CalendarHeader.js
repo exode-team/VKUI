@@ -1,3 +1,4 @@
+import _extends from "@babel/runtime/helpers/extends";
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { setMonth, setYear, subMonths, addMonths } from "../../lib/date";
@@ -23,6 +24,8 @@ export var CalendarHeader = function CalendarHeader(_ref) {
       onNextMonth = _ref.onNextMonth,
       onPrevMonth = _ref.onPrevMonth,
       className = _ref.className,
+      prevMonthProps = _ref.prevMonthProps,
+      nextMonthProps = _ref.nextMonthProps,
       _ref$prevMonthAriaLab = _ref.prevMonthAriaLabel,
       prevMonthAriaLabel = _ref$prevMonthAriaLab === void 0 ? "Предыдущий месяц" : _ref$prevMonthAriaLab,
       _ref$nextMonthAriaLab = _ref.nextMonthAriaLabel,
@@ -75,11 +78,11 @@ export var CalendarHeader = function CalendarHeader(_ref) {
     className: className
   }, prevMonth && createScopedElement(AdaptivityProvider, {
     sizeX: SizeType.REGULAR
-  }, createScopedElement(Tappable, {
+  }, createScopedElement(Tappable, _extends({
     vkuiClass: classNames("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-prev"),
     onClick: onPrevMonth,
     "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatter.format(subMonths(viewDate, 1)))
-  }, prevMonthIcon)), disablePickers ? createScopedElement(Paragraph, {
+  }, prevMonthProps), prevMonthIcon)), disablePickers ? createScopedElement(Paragraph, {
     vkuiClass: "CalendarHeader__pickers",
     weight: "2"
   }, createScopedElement("span", {
@@ -116,10 +119,10 @@ export var CalendarHeader = function CalendarHeader(_ref) {
     "aria-label": changeYearAriaLabel
   })), nextMonth && createScopedElement(AdaptivityProvider, {
     sizeX: SizeType.REGULAR
-  }, createScopedElement(Tappable, {
+  }, createScopedElement(Tappable, _extends({
     vkuiClass: classNames("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-next"),
     onClick: onNextMonth,
     "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format(addMonths(viewDate, 1)))
-  }, nextMonthIcon)));
+  }, nextMonthProps), nextMonthIcon)));
 };
 //# sourceMappingURL=CalendarHeader.js.map

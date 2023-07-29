@@ -19,7 +19,7 @@ interface SliderSwitchState {
     hoveredOptionId: number;
 }
 /**
- * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](#/SegmentedControl).
+ * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](https://vkcom.github.io/VKUI/#/SegmentedControl).
  * @see https://vkcom.github.io/VKUI/#/SliderSwitch
  */
 declare class SliderSwitch extends React.Component<SliderSwitchProps, SliderSwitchState> {
@@ -32,7 +32,7 @@ declare class SliderSwitch extends React.Component<SliderSwitchProps, SliderSwit
     };
     firstButton: React.RefObject<HTMLDivElement>;
     secondButton: React.RefObject<HTMLDivElement>;
-    onSwitch: (value: string | number) => void;
+    onSwitch: (value: React.ReactText) => void;
     handleFirstClick: () => void;
     handleSecondClick: () => void;
     handleFirstHover: () => void;
@@ -40,7 +40,7 @@ declare class SliderSwitch extends React.Component<SliderSwitchProps, SliderSwit
     resetFocusedOption: () => void;
     switchByKey: (event: React.KeyboardEvent<Element>) => void;
     static getDerivedStateFromProps(nextProps: SliderSwitchProps, prevState: SliderSwitchState): {
-        activeValue: string | number;
+        activeValue: React.ReactText;
     } | null;
     componentDidMount(): void;
     render(): JSX.Element;

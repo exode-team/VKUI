@@ -18,8 +18,9 @@ export interface ModalRootProps extends AdaptivityProps {
      * Будет вызвано при окончательном закрытии активной модалки с её id
      */
     onClosed?(modalId: string): void;
+    children?: React.ReactNode;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/ModalRoot
  */
-export declare const ModalRoot: React.FC<Pick<ModalRootProps & AdaptivityContextInterface, "onOpen" | "onOpened" | "onClose" | "onClosed" | "activeModal"> & import("../AdaptivityProvider/AdaptivityContext").SizeProps>;
+export declare const ModalRoot: React.FC<Pick<ModalRootProps & AdaptivityContextInterface, "children" | "onOpen" | "onOpened" | "onClose" | "onClosed" | "activeModal"> & import("../AdaptivityProvider/AdaptivityContext").SizeProps>;

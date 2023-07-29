@@ -4,7 +4,7 @@ import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 var _excluded = ["option"],
-    _excluded2 = ["style", "onFocus", "onKeyDown", "className", "fetching", "renderOption", "emptyText", "getRef", "getRootRef", "disabled", "placeholder", "tabIndex", "getOptionValue", "getOptionLabel", "showSelected", "getNewOptionData", "renderChip", "popupDirection", "creatable", "filterFn", "inputValue", "creatableText", "closeAfterSelect", "onChangeStart", "before", "options"];
+    _excluded2 = ["style", "onFocus", "onKeyDown", "className", "fetching", "renderOption", "emptyText", "getRef", "getRootRef", "disabled", "placeholder", "tabIndex", "getOptionValue", "getOptionLabel", "showSelected", "getNewOptionData", "renderChip", "popupDirection", "creatable", "filterFn", "inputValue", "creatableText", "closeAfterSelect", "onChangeStart", "before", "options", "fixDropdownWidth", "forceDropdownPortal"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { DropdownIcon } from "../DropdownIcon/DropdownIcon";
@@ -76,6 +76,8 @@ export var ChipsSelect = function ChipsSelect(props) {
       onChangeStart = propsWithDefault.onChangeStart,
       before = propsWithDefault.before,
       options = propsWithDefault.options,
+      fixDropdownWidth = propsWithDefault.fixDropdownWidth,
+      forceDropdownPortal = propsWithDefault.forceDropdownPortal,
       restProps = _objectWithoutProperties(propsWithDefault, _excluded2);
 
   var _useDOM = useDOM(),
@@ -279,7 +281,7 @@ export var ChipsSelect = function ChipsSelect(props) {
     });
   };
 
-  return createScopedElement(FormField, {
+  return createScopedElement(React.Fragment, null, createScopedElement(FormField, {
     vkuiClass: classNames("ChipsSelect", opened && "Select--open", opened && (isPopperDirectionTop ? "Select--pop-up" : "Select--pop-down")),
     getRootRef: rootRef,
     style: style,
@@ -314,7 +316,7 @@ export var ChipsSelect = function ChipsSelect(props) {
     getRef: getRef,
     disabled: disabled,
     onInputChange: handleInputChange
-  })), opened && createScopedElement(CustomSelectDropdown, {
+  }))), opened && createScopedElement(CustomSelectDropdown, {
     targetRef: rootRef,
     placement: popupDirection,
     scrollBoxRef: scrollBoxRef,
@@ -322,7 +324,9 @@ export var ChipsSelect = function ChipsSelect(props) {
     onPlacementChange: onPlacementChange,
     onMouseLeave: onDropdownMouseLeave,
     fetching: fetching,
-    vkuiClass: "ChipsSelect__options"
+    vkuiClass: "ChipsSelect__options",
+    sameWidth: fixDropdownWidth,
+    forcePortal: forceDropdownPortal
   }, showCreatable && createScopedElement(CustomSelectOption, {
     hovered: focusedOptionIndex === 0,
     onMouseDown: addOptionFromInput,

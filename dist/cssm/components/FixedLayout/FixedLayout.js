@@ -43,7 +43,7 @@ export var FixedLayout = function FixedLayout(_ref) {
     return setWidth(colRef !== null && colRef !== void 0 && colRef.current ? "".concat(colRef.current.offsetWidth, "px") : undefined);
   };
 
-  React.useEffect(doResize, [colRef]);
+  React.useEffect(doResize, [colRef, platform]);
   useGlobalEventListener(window, "resize", doResize);
   return createScopedElement(TooltipContainer, _extends({}, restProps, {
     fixed: true,

@@ -59,6 +59,8 @@ export var Gallery = function Gallery(_ref) {
     if (onChange && safeSlideIndex !== slideIndex) {
       onChange(safeSlideIndex);
     }
+
+    setSlideIndex(safeSlideIndex);
   }, [onChange, safeSlideIndex, slideIndex]);
   return createScopedElement(BaseGallery, _extends({
     isDraggable: isDraggable

@@ -13,8 +13,6 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _useExternRef = require("../../hooks/useExternRef");
-
 var _excluded = ["getRef"];
 
 /**
@@ -26,10 +24,9 @@ var _excluded = ["getRef"];
 var VisuallyHiddenInput = function VisuallyHiddenInput(_ref) {
   var getRef = _ref.getRef,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  var inputRef = (0, _useExternRef.useExternRef)(getRef);
   return (0, _jsxRuntime.createScopedElement)("input", (0, _extends2.default)({}, restProps, {
     vkuiClass: "VisuallyHiddenInput",
-    ref: inputRef
+    ref: getRef
   }));
 };
 

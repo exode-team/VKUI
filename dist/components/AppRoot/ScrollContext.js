@@ -18,6 +18,14 @@ var clearDisableScrollStyle = function clearDisableScrollStyle(node) {
   });
 };
 
+var getPageYOffsetWithoutKeyboardHeight = function getPageYOffsetWithoutKeyboardHeight(window) {
+  // Note: здесь расчёт на то, что `clientHeight` равен `window.innerHeight`.
+  //  Это достигается тем, что тегу `html` задали`height: 100%` и у него нет отступов сверху и снизу. Если есть отступы,
+  //  то надо задать `box-sizing: border-box`, чтобы они не учитывались.
+  var diffOfClientHeightAndViewportHeight = window.document.documentElement.clientHeight - window.innerHeight;
+  return window.pageYOffset - diffOfClientHeightAndViewportHeight;
+};
+
 export var ScrollContext = /*#__PURE__*/React.createContext({
   getScroll: function getScroll() {
     return {
@@ -49,7 +57,7 @@ export var GlobalScrollController = function GlobalScrollController(_ref) {
   var getScroll = React.useCallback(function () {
     return {
       x: window.pageXOffset,
-      y: window.pageYOffset
+      y: getPageYOffsetWithoutKeyboardHeight(window)
     };
   }, [window]);
   var scrollTo = React.useCallback(function () {

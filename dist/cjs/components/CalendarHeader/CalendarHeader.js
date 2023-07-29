@@ -2,10 +2,14 @@
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.CalendarHeader = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
 var _jsxRuntime = require("../../lib/jsxRuntime");
 
@@ -45,6 +49,8 @@ var CalendarHeader = function CalendarHeader(_ref) {
       onNextMonth = _ref.onNextMonth,
       onPrevMonth = _ref.onPrevMonth,
       className = _ref.className,
+      prevMonthProps = _ref.prevMonthProps,
+      nextMonthProps = _ref.nextMonthProps,
       _ref$prevMonthAriaLab = _ref.prevMonthAriaLabel,
       prevMonthAriaLabel = _ref$prevMonthAriaLab === void 0 ? "Предыдущий месяц" : _ref$prevMonthAriaLab,
       _ref$nextMonthAriaLab = _ref.nextMonthAriaLabel,
@@ -97,11 +103,11 @@ var CalendarHeader = function CalendarHeader(_ref) {
     className: className
   }, prevMonth && (0, _jsxRuntime.createScopedElement)(_AdaptivityProvider.AdaptivityProvider, {
     sizeX: _withAdaptivity.SizeType.REGULAR
-  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-prev"),
     onClick: onPrevMonth,
     "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatter.format((0, _date.subMonths)(viewDate, 1)))
-  }, prevMonthIcon)), disablePickers ? (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
+  }, prevMonthProps), prevMonthIcon)), disablePickers ? (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
     vkuiClass: "CalendarHeader__pickers",
     weight: "2"
   }, (0, _jsxRuntime.createScopedElement)("span", {
@@ -138,11 +144,11 @@ var CalendarHeader = function CalendarHeader(_ref) {
     "aria-label": changeYearAriaLabel
   })), nextMonth && (0, _jsxRuntime.createScopedElement)(_AdaptivityProvider.AdaptivityProvider, {
     sizeX: _withAdaptivity.SizeType.REGULAR
-  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
+  }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-next"),
     onClick: onNextMonth,
     "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format((0, _date.addMonths)(viewDate, 1)))
-  }, nextMonthIcon)));
+  }, nextMonthProps), nextMonthIcon)));
 };
 
 exports.CalendarHeader = CalendarHeader;

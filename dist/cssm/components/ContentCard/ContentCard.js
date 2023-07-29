@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["subtitle", "header", "text", "caption", "className", "mode", "style", "getRootRef", "getRef", "maxHeight", "image", "src", "srcSet", "alt", "width", "height", "crossOrigin", "decoding", "loading", "referrerPolicy", "sizes", "useMap"];
+var _excluded = ["subtitle", "header", "text", "caption", "className", "mode", "style", "getRootRef", "getRef", "maxHeight", "image", "src", "srcSet", "alt", "width", "height", "crossOrigin", "decoding", "loading", "referrerPolicy", "sizes", "useMap", "hasHover", "hasActive"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { Card } from "../Card/Card";
 import { Caption } from "../Typography/Caption/Caption";
@@ -40,6 +40,10 @@ export var ContentCard = function ContentCard(_ref) {
       referrerPolicy = _ref.referrerPolicy,
       sizes = _ref.sizes,
       useMap = _ref.useMap,
+      _ref$hasHover = _ref.hasHover,
+      hasHover = _ref$hasHover === void 0 ? false : _ref$hasHover,
+      _ref$hasActive = _ref.hasActive,
+      hasActive = _ref$hasActive === void 0 ? false : _ref$hasActive,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
   var source = image || src;
@@ -56,8 +60,8 @@ export var ContentCard = function ContentCard(_ref) {
     className: className
   }, createScopedElement(Tappable, _extends({}, restProps, {
     disabled: restProps.disabled || !restProps.onClick && !restProps.href,
-    hasHover: false,
-    hasActive: false,
+    hasHover: hasHover,
+    hasActive: hasActive,
     vkuiClass: "ContentCard__tappable"
   }), (source || srcSet) && createScopedElement("img", {
     ref: getRef,

@@ -29,17 +29,29 @@ export var WriteBarIcon = function WriteBarIcon(_ref) {
 
   switch (mode) {
     case "attach":
-      icon = platform === IOS ? createScopedElement(Icon28AddCircleOutline, null) : createScopedElement(Icon28AttachOutline, null);
+      icon = platform === IOS ? createScopedElement(Icon28AddCircleOutline, {
+        "aria-hidden": true
+      }) : createScopedElement(Icon28AttachOutline, {
+        "aria-hidden": true
+      });
       ariaLabel = "Прикрепить файл";
       break;
 
     case "send":
-      icon = platform === IOS ? createScopedElement(Icon48WritebarSend, null) : createScopedElement(Icon24Send, null);
+      icon = platform === IOS ? createScopedElement(Icon48WritebarSend, {
+        "aria-hidden": true
+      }) : createScopedElement(Icon24Send, {
+        "aria-hidden": true
+      });
       ariaLabel = "Отправить";
       break;
 
     case "done":
-      icon = platform === IOS ? createScopedElement(Icon48WritebarDone, null) : createScopedElement(Icon28CheckCircleOutline, null);
+      icon = platform === IOS ? createScopedElement(Icon48WritebarDone, {
+        "aria-hidden": true
+      }) : createScopedElement(Icon28CheckCircleOutline, {
+        "aria-hidden": true
+      });
       ariaLabel = "Готово";
       break;
 

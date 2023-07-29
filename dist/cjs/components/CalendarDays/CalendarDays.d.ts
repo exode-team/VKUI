@@ -1,4 +1,5 @@
 import * as React from "react";
+import { CalendarDayElementProps } from "../CalendarDay/CalendarDay";
 import "./CalendarDays.css";
 export interface CalendarDaysProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
     value?: Date | Array<Date | null>;
@@ -6,6 +7,8 @@ export interface CalendarDaysProps extends Omit<React.HTMLAttributes<HTMLDivElem
     weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6;
     showNeighboringMonth?: boolean;
     size?: "s" | "m";
+    dayProps?: CalendarDayElementProps;
+    listenDayChangesForUpdate?: boolean;
     onDayChange(value: Date): void;
     isDayDisabled(value: Date): boolean;
     isDaySelectionStart(value: Date, dayOfWeek: number): boolean;
@@ -19,4 +22,4 @@ export interface CalendarDaysProps extends Omit<React.HTMLAttributes<HTMLDivElem
     onDayEnter?(value: Date): void;
     onDayLeave?(value: Date): void;
 }
-export declare const CalendarDays: React.FC<CalendarDaysProps>;
+export declare const CalendarDays: ({ viewDate, value, weekStartsOn, onDayChange, isDaySelected, isDayActive, isDaySelectionEnd, isDaySelectionStart, onDayEnter, onDayLeave, isDayHinted, isHintedDaySelectionStart, isHintedDaySelectionEnd, isDayFocused, isDayDisabled, size, showNeighboringMonth, dayProps, listenDayChangesForUpdate, ...props }: CalendarDaysProps) => JSX.Element;

@@ -1,9 +1,10 @@
 import * as React from "react";
 import { CalendarHeaderProps } from "../CalendarHeader/CalendarHeader";
+import { CalendarDaysProps } from "../CalendarDays/CalendarDays";
 import { CalendarTimeProps } from "../CalendarTime/CalendarTime";
 import { HasRootRef } from "../../types";
 import "./Calendar.css";
-export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">, Pick<CalendarTimeProps, "changeHoursAriaLabel" | "changeMinutesAriaLabel">, Pick<CalendarHeaderProps, "prevMonthAriaLabel" | "nextMonthAriaLabel" | "changeMonthAriaLabel" | "changeYearAriaLabel" | "onNextMonth" | "onPrevMonth" | "prevMonthIcon" | "nextMonthIcon">, HasRootRef<HTMLDivElement> {
+export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">, Pick<CalendarTimeProps, "changeHoursAriaLabel" | "changeMinutesAriaLabel">, Pick<CalendarHeaderProps, "prevMonthAriaLabel" | "nextMonthAriaLabel" | "changeMonthAriaLabel" | "changeYearAriaLabel" | "onNextMonth" | "onPrevMonth" | "prevMonthIcon" | "nextMonthIcon" | "prevMonthProps" | "nextMonthProps">, Pick<CalendarDaysProps, "dayProps" | "listenDayChangesForUpdate">, HasRootRef<HTMLDivElement> {
     value?: Date;
     disablePast?: boolean;
     disableFuture?: boolean;
@@ -30,4 +31,4 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 /**
  * @see https://vkcom.github.io/VKUI/#/Calendar
  */
-export declare const Calendar: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, enableTime, doneButtonText, weekStartsOn, getRootRef, disablePickers, changeHoursAriaLabel, changeMinutesAriaLabel, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, showNeighboringMonth, changeDayAriaLabel, size, viewDate: externalViewDate, onHeaderChange, onNextMonth, onPrevMonth, prevMonthIcon, nextMonthIcon, ...props }: CalendarProps) => JSX.Element;
+export declare const Calendar: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, enableTime, doneButtonText, weekStartsOn, getRootRef, disablePickers, changeHoursAriaLabel, changeMinutesAriaLabel, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, showNeighboringMonth, changeDayAriaLabel, size, viewDate: externalViewDate, onHeaderChange, onNextMonth, onPrevMonth, prevMonthIcon, nextMonthIcon, prevMonthProps, nextMonthProps, dayProps, listenDayChangesForUpdate, ...props }: CalendarProps) => JSX.Element;

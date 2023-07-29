@@ -2,6 +2,7 @@ import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["before", "after", "mode", "textWrap", "textLevel", "children"];
 import { createScopedElement } from "../../lib/jsxRuntime";
+import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { Paragraph } from "../Typography/Paragraph/Paragraph";
 import { Tappable } from "../Tappable/Tappable";
@@ -22,14 +23,8 @@ export var MiniInfoCell = function MiniInfoCell(_ref) {
       children = _ref.children,
       restProps = _objectWithoutProperties(_ref, _excluded);
 
-  var isClickable = !!restProps.onClick;
-  return createScopedElement(Tappable, _extends({
-    Component: "div",
-    disabled: !isClickable,
-    role: isClickable ? "button" : undefined
-  }, restProps, {
-    vkuiClass: classNames("MiniInfoCell", mode !== "base" && "MiniInfoCell--md-".concat(mode), textWrap !== "nowrap" && "MiniInfoCell--wr-".concat(textWrap), "MiniInfoCell--lvl-".concat(textLevel))
-  }), createScopedElement("span", {
+  var cellClasses = classNames("MiniInfoCell", mode !== "base" && "MiniInfoCell--md-".concat(mode), textWrap !== "nowrap" && "MiniInfoCell--wr-".concat(textWrap), "MiniInfoCell--lvl-".concat(textLevel));
+  var cellContent = createScopedElement(React.Fragment, null, createScopedElement("span", {
     vkuiClass: "MiniInfoCell__icon"
   }, before), createScopedElement(Paragraph, {
     vkuiClass: "MiniInfoCell__content",
@@ -37,5 +32,13 @@ export var MiniInfoCell = function MiniInfoCell(_ref) {
   }, children), hasReactNode(after) && createScopedElement("span", {
     vkuiClass: "MiniInfoCell__after"
   }, after));
+  return restProps.onClick ? createScopedElement(Tappable, _extends({
+    Component: "div",
+    role: "button"
+  }, restProps, {
+    vkuiClass: cellClasses
+  }), cellContent) : createScopedElement("div", _extends({}, restProps, {
+    vkuiClass: cellClasses
+  }), cellContent);
 };
 //# sourceMappingURL=MiniInfoCell.js.map

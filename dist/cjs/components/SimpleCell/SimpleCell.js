@@ -31,15 +31,17 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
+var _Subhead = require("../Typography/Subhead/Subhead");
+
 var _Headline = require("../Typography/Headline/Headline");
 
 var _Footnote = require("../Typography/Footnote/Footnote");
 
 var _Caption = require("../Typography/Caption/Caption");
 
-var _excluded = ["badge", "before", "indicator", "children", "after", "description", "expandable", "multiline", "sizeY"];
+var _excluded = ["badge", "badgeBeforeTitle", "badgeAfterTitle", "badgeBeforeSubtitle", "badgeAfterSubtitle", "before", "indicator", "children", "after", "description", "expandable", "multiline", "sizeY", "subhead", "subtitle", "extraSubtitle"];
 
-var SimpleCellTypography = function SimpleCellTypography(props) {
+var SubtitleTypography = function SubtitleTypography(props) {
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
       sizeY = _useAdaptivity.sizeY;
 
@@ -54,6 +56,11 @@ var SimpleCellTypography = function SimpleCellTypography(props) {
 
 var SimpleCellComponent = function SimpleCellComponent(_ref) {
   var badge = _ref.badge,
+      badgeBeforeTitle = _ref.badgeBeforeTitle,
+      _ref$badgeAfterTitle = _ref.badgeAfterTitle,
+      badgeAfterTitle = _ref$badgeAfterTitle === void 0 ? badge : _ref$badgeAfterTitle,
+      badgeBeforeSubtitle = _ref.badgeBeforeSubtitle,
+      badgeAfterSubtitle = _ref.badgeAfterSubtitle,
       before = _ref.before,
       indicator = _ref.indicator,
       children = _ref.children,
@@ -62,6 +69,10 @@ var SimpleCellComponent = function SimpleCellComponent(_ref) {
       expandable = _ref.expandable,
       multiline = _ref.multiline,
       sizeY = _ref.sizeY,
+      subhead = _ref.subhead,
+      _ref$subtitle = _ref.subtitle,
+      subtitle = _ref$subtitle === void 0 ? description : _ref$subtitle,
+      extraSubtitle = _ref.extraSubtitle,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -71,19 +82,30 @@ var SimpleCellComponent = function SimpleCellComponent(_ref) {
     vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SimpleCell", platform), expandable && "SimpleCell--exp", multiline && "SimpleCell--mult", "SimpleCell--sizeY-".concat(sizeY))
   }), before, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "SimpleCell__main"
-  }, (0, _jsxRuntime.createScopedElement)("div", {
+  }, subhead && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {
+    Component: "span",
+    vkuiClass: "SimpleCell__text SimpleCell__subhead"
+  }, subhead), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "SimpleCell__content"
-  }, (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
+  }, badgeBeforeTitle && (0, _jsxRuntime.createScopedElement)("span", {
+    vkuiClass: "SimpleCell__badge"
+  }, badgeBeforeTitle), (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     Component: "span",
     vkuiClass: "SimpleCell__children",
     weight: "3"
-  }, children), (0, _utils.hasReactNode)(badge) && (0, _jsxRuntime.createScopedElement)("span", {
+  }, children), (0, _utils.hasReactNode)(badgeAfterTitle) && (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "SimpleCell__badge"
-  }, badge)), description && (0, _jsxRuntime.createScopedElement)("div", {
+  }, badgeAfterTitle)), subtitle && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "SimpleCell__content"
-  }, (0, _jsxRuntime.createScopedElement)(SimpleCellTypography, {
+  }, badgeBeforeSubtitle && (0, _jsxRuntime.createScopedElement)("span", {
+    vkuiClass: "SimpleCell__badge"
+  }, badgeBeforeSubtitle), (0, _jsxRuntime.createScopedElement)(SubtitleTypography, {
     vkuiClass: "SimpleCell__text SimpleCell__subtitle"
-  }, description))), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
+  }, subtitle), badgeAfterSubtitle && (0, _jsxRuntime.createScopedElement)("span", {
+    vkuiClass: "SimpleCell__badge"
+  }, badgeAfterSubtitle)), extraSubtitle && (0, _jsxRuntime.createScopedElement)(SubtitleTypography, {
+    vkuiClass: "SimpleCell__text SimpleCell__extraSubtitle"
+  }, extraSubtitle)), (0, _utils.hasReactNode)(indicator) && (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     Component: "span",
     weight: "3",
     vkuiClass: "SimpleCell__indicator"

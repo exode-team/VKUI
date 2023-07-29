@@ -41,7 +41,7 @@ var _VisuallyHiddenInput = require("../VisuallyHiddenInput/VisuallyHiddenInput")
 
 var _warnOnce = require("../../lib/warnOnce");
 
-var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "onChange"];
+var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "hoverMode", "activeMode", "hasHover", "hasActive", "focusVisibleMode", "onChange"];
 var warn = (0, _warnOnce.warnOnce)("Checkbox");
 /**
  * @see https://vkcom.github.io/VKUI/#/Checkbox
@@ -57,6 +57,11 @@ var Checkbox = function Checkbox(_ref) {
       indeterminate = _ref.indeterminate,
       defaultIndeterminate = _ref.defaultIndeterminate,
       sizeY = _ref.sizeY,
+      hoverMode = _ref.hoverMode,
+      activeMode = _ref.activeMode,
+      hasHover = _ref.hasHover,
+      hasActive = _ref.hasActive,
+      focusVisibleMode = _ref.focusVisibleMode,
       onChange = _ref.onChange,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var inputRef = (0, _useExternRef.useExternRef)(getRef);
@@ -101,7 +106,12 @@ var Checkbox = function Checkbox(_ref) {
     style: style,
     disabled: restProps.disabled,
     activeEffectDelay: platform === _platform.IOS ? 100 : _Tappable.ACTIVE_EFFECT_DELAY,
-    getRootRef: getRootRef
+    getRootRef: getRootRef,
+    hoverMode: hoverMode,
+    activeMode: activeMode,
+    hasHover: hasHover,
+    hasActive: hasActive,
+    focusVisibleMode: focusVisibleMode
   }, (0, _jsxRuntime.createScopedElement)(_VisuallyHiddenInput.VisuallyHiddenInput, (0, _extends2.default)({}, restProps, {
     onChange: handleChange,
     type: "checkbox",

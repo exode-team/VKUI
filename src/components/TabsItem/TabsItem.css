@@ -106,7 +106,10 @@
 }
 
 .TabsItem--selected.TabsItem--accent .TabsItem__before {
-  color: var(--header_tint_alternate, var(--vkui--color_icon_accent_themed));
+  color: var(
+    --button_secondary_foreground,
+    var(--vkui--color_icon_accent_themed)
+  );
 }
 
 .TabsItem--selected.TabsItem--secondary .TabsItem__before {
@@ -129,7 +132,10 @@
 }
 
 .TabsItem--selected.TabsItem--accent .TabsItem__label {
-  color: var(--header_tint_alternate, var(--vkui--color_text_accent_themed));
+  color: var(
+    --button_secondary_foreground,
+    var(--vkui--color_text_accent_themed)
+  );
 }
 
 .TabsItem--selected.TabsItem--secondary .TabsItem__label {
@@ -149,6 +155,14 @@
 .TabsItem__after {
   margin-left: 6px;
   color: var(--header_tint_alternate, var(--vkui--color_icon_accent_themed));
+}
+
+/* TODO удалить блок в v5.0.0 */
+.TabsItem--selected.TabsItem--accent .TabsItem__after {
+  color: var(
+    --button_secondary_foreground,
+    var(--vkui--color_icon_accent_themed)
+  );
 }
 
 /* Элемент */

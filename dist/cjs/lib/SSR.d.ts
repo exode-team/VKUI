@@ -10,8 +10,9 @@ export declare const SSRContext: React.Context<SSRContextInterface>;
 export interface SSRWrapperProps {
     userAgent?: string;
     browserInfo?: BrowserInfo;
+    children?: React.ReactNode;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/SSR
  */
-export declare const SSRWrapper: React.FC<SSRWrapperProps>;
+export declare const SSRWrapper: ({ userAgent, browserInfo, children, }: SSRWrapperProps) => JSX.Element;

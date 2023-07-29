@@ -5,4 +5,4 @@ export declare type FooterProps = React.AllHTMLAttributes<HTMLElement> & HasComp
 /**
  * @see https://vkcom.github.io/VKUI/#/Footer
  */
-export declare const Footer: React.FC<FooterProps>;
+export declare const Footer: ({ children, ...restProps }: FooterProps) => JSX.Element;

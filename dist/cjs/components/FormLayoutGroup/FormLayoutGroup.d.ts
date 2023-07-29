@@ -8,8 +8,12 @@ export interface FormLayoutGroupProps extends React.HTMLAttributes<HTMLDivElemen
      * Только для режима horizontal. Дает возможность удалить всю группу `FormItem`.
      */
     removable?: boolean;
+    /**
+     * Только для режима horizontal. Дает возможность склеить несколько `FormItem`.
+     */
+    segmented?: boolean;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayoutGroup
  */
-export declare const FormLayoutGroup: React.FC<FormLayoutGroupProps>;
+export declare const FormLayoutGroup: ({ children, mode, removable, segmented, removePlaceholder, onRemove, getRootRef, ...restProps }: FormLayoutGroupProps) => JSX.Element;

@@ -9,4 +9,4 @@ export interface VisuallyHiddenInputProps extends React.InputHTMLAttributes<HTML
  * скрыть его визуально и оставить
  * доступным для ассистивных технологий.
  */
-export declare const VisuallyHiddenInput: React.FC<VisuallyHiddenInputProps>;
+export declare const VisuallyHiddenInput: ({ getRef, ...restProps }: VisuallyHiddenInputProps) => JSX.Element;

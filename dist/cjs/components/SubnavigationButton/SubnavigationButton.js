@@ -15,22 +15,20 @@ var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/h
 
 var _classNames = require("../../lib/classNames");
 
-var _getClassName = require("../../helpers/getClassName");
-
 var _utils = require("../../lib/utils");
+
+var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _Tappable = require("../Tappable/Tappable");
 
 var _icons = require("@vkontakte/icons");
-
-var _usePlatform = require("../../hooks/usePlatform");
 
 var _Caption = require("../Typography/Caption/Caption");
 
 var _Subhead = require("../Typography/Subhead/Subhead");
 
 var _excluded = ["textLevel"],
-    _excluded2 = ["size", "selected", "textLevel", "before", "after", "expandable", "children"];
+    _excluded2 = ["mode", "size", "selected", "textLevel", "before", "after", "expandable", "children"];
 
 var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref) {
   var textLevel = _ref.textLevel,
@@ -41,7 +39,7 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
   }
 
   return (0, _jsxRuntime.createScopedElement)(_Caption.Caption, (0, _extends2.default)({
-    level: textLevel === 2 ? "1" : "2"
+    level: textLevel === 2 ? "2" : "3"
   }, restProps));
 };
 /**
@@ -50,7 +48,9 @@ var SubnavigationButtonTypography = function SubnavigationButtonTypography(_ref)
 
 
 var SubnavigationButton = function SubnavigationButton(_ref2) {
-  var _ref2$size = _ref2.size,
+  var _ref2$mode = _ref2.mode,
+      mode = _ref2$mode === void 0 ? "primary" : _ref2$mode,
+      _ref2$size = _ref2.size,
       size = _ref2$size === void 0 ? "m" : _ref2$size,
       selected = _ref2.selected,
       _ref2$textLevel = _ref2.textLevel,
@@ -60,24 +60,28 @@ var SubnavigationButton = function SubnavigationButton(_ref2) {
       expandable = _ref2.expandable,
       children = _ref2.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded2);
-  var platform = (0, _usePlatform.usePlatform)();
+
+  var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
+      sizeY = _useAdaptivity.sizeY;
+
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     hasActive: false,
     focusVisibleMode: "outside",
-    vkuiClass: (0, _classNames.classNames)((0, _getClassName.getClassName)("SubnavigationButton", platform), "SubnavigationButton--".concat(size), selected && "SubnavigationButton--selected"),
+    vkuiClass: (0, _classNames.classNames)("SubnavigationButton", "SubnavigationButton--".concat(size), "SubnavigationButton--mode-".concat(mode), selected && "SubnavigationButton--selected", "SubnavigationButton--sizeY-".concat(sizeY)),
     "aria-label": (0, _utils.getTitleFromChildren)(children)
   }), (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "SubnavigationButton__in"
-  }, (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("span", {
+  }, before && (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "SubnavigationButton__before"
   }, before), (0, _jsxRuntime.createScopedElement)(SubnavigationButtonTypography, {
     textLevel: textLevel,
     vkuiClass: "SubnavigationButton__label",
     Component: "span"
-  }, children), (0, _utils.hasReactNode)(after) && (0, _jsxRuntime.createScopedElement)("span", {
+  }, children), after && (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "SubnavigationButton__after"
   }, after), expandable && (0, _jsxRuntime.createScopedElement)(_icons.Icon16Dropdown, {
-    vkuiClass: "SubnavigationButton__expandableIcon"
+    vkuiClass: "SubnavigationButton__expandableIcon",
+    "aria-hidden": true
   })));
 };
 

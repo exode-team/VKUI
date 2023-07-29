@@ -2,7 +2,8 @@ import * as React from "react";
 import { TappableProps } from "../Tappable/Tappable";
 import "./SubnavigationButton.css";
 export interface SubnavigationButtonProps extends Omit<TappableProps, "size"> {
-    size?: "m" | "l";
+    mode?: "primary" | "outline" | "tertiary";
+    size?: "s" | "m" | "l";
     selected?: boolean;
     /**
      * Размер шрифта. Этим свойством рекомендуется пользоваться, чтобы отрегулировать размер шрифта у кнопок в `<SubnavigationBar mode="fixed" />`
@@ -21,4 +22,4 @@ export interface SubnavigationButtonProps extends Omit<TappableProps, "size"> {
 /**
  * @see https://vkcom.github.io/VKUI/#/SubnavigationButton
  */
-export declare const SubnavigationButton: ({ size, selected, textLevel, before, after, expandable, children, ...restProps }: SubnavigationButtonProps) => JSX.Element;
+export declare const SubnavigationButton: ({ mode, size, selected, textLevel, before, after, expandable, children, ...restProps }: SubnavigationButtonProps) => JSX.Element;

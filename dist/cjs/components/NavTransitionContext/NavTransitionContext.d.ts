@@ -3,4 +3,4 @@ export interface TransitionContextProps {
     entering: boolean;
 }
 export declare const useNavTransition: () => TransitionContextProps;
-export declare const NavTransitionProvider: React.FC<TransitionContextProps>;
+export declare const NavTransitionProvider: ({ children, entering, }: React.PropsWithChildren<TransitionContextProps>) => JSX.Element;

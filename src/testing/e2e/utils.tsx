@@ -5,7 +5,7 @@ import { screenshot } from "@react-playwright";
 import { ConfigProvider } from "../../components/ConfigProvider/ConfigProvider";
 import { Panel } from "../../components/Panel/Panel";
 import { Platform } from "../../lib/platform";
-import { Scheme } from "../../helpers/scheme";
+import { Appearance } from "../../helpers/scheme";
 import {
   AdaptivityProvider,
   DESKTOP_SIZE,
@@ -22,6 +22,7 @@ import { View } from "../../components/View/View";
 import { AppRoot } from "../../components/AppRoot/AppRoot";
 import { Group } from "../../components/Group/Group";
 import { HasChildren } from "../../types";
+import { BrowserType } from "jest-playwright-preset";
 
 type AdaptivityFlag = boolean | "x" | "y";
 type PropDesc<Props> = { [K in keyof Props]?: Array<Props[K]> } & {
@@ -30,6 +31,11 @@ type PropDesc<Props> = { [K in keyof Props]?: Array<Props[K]> } & {
 type SizeProps = Pick<AdaptivityProps, "sizeX" | "sizeY">;
 type TestProps<Props> = Array<Props & SizeProps>;
 type CartesianOptions = { adaptive: boolean };
+
+export const APPEARANCE = (process.env.APPEARANCE ??
+  Appearance.LIGHT) as Appearance;
+export const BROWSER = (process.env.BROWSER ?? "chromium") as BrowserType;
+export const PLATFORM = (process.env.PLATFORM ?? "vkcom") as Platform;
 
 function getAdaptivity(adaptivity?: AdaptivityFlag) {
   const extra: PropDesc<SizeProps> = {};
@@ -108,10 +114,6 @@ function prettyProps(props: any) {
 type ScreenshotOptions = {
   matchScreenshot?: MatchImageSnapshotOptions;
   platforms?: Platform[];
-  // pass [BRIGHT_LIGHT, SPACE_GRAY] if component depends on appearance
-  mobileSchemes?: Array<Scheme.BRIGHT_LIGHT | Scheme.SPACE_GRAY>;
-  // pass [VKCOM_LIGHT, VKCOM_DARK] if component depends on appearance
-  vkcomSchemes?: Array<Scheme.VKCOM_LIGHT | Scheme.VKCOM_DARK>;
   adaptivity?: Partial<AdaptivityProps>;
   Wrapper?: ComponentType;
 };
@@ -148,66 +150,76 @@ export function describeScreenshotFuzz<Props>(
 ) {
   const {
     matchScreenshot,
-    platforms = Object.values(Platform),
-    mobileSchemes = [Scheme.BRIGHT_LIGHT],
-    vkcomSchemes = [Scheme.VKCOM_LIGHT],
+    platforms,
     adaptivity = {},
     Wrapper = AppWrapper,
   } = options;
-  platforms.forEach((platform) => {
-    describe(platform, () => {
-      const isVKCOM = platform === Platform.VKCOM;
 
-      let width: ViewWidth | "auto" = isVKCOM ? "auto" : MOBILE_SIZE;
-      if (adaptivity.viewWidth) {
-        width = getAdaptivePxWidth(adaptivity.viewWidth);
-      }
+  const describeConditional =
+    platforms && !platforms.includes(PLATFORM) ? describe.skip : describe;
 
-      const adaptivityProps: AdaptivityProps = Object.assign(
-        isVKCOM ? { sizeX: SizeType.COMPACT, sizeY: SizeType.COMPACT } : {},
-        adaptivity
-      );
+  describeConditional(PLATFORM, () => {
+    jest.setTimeout(40000);
 
-      const AdaptiveComponent = withAdaptivity(Component, {
-        sizeX: true,
-        sizeY: true,
-      });
+    const isVKCOM = PLATFORM === Platform.VKCOM;
 
-      (isVKCOM ? vkcomSchemes : mobileSchemes).forEach((scheme: Scheme) => {
-        it(`light${
-          adaptivityProps.viewWidth ? ` w_${adaptivityProps.viewWidth}` : ""
-        }`, async () => {
-          expect(
-            await screenshot(
-              <ConfigProvider scheme={scheme} platform={platform}>
-                <AdaptivityProvider {...adaptivityProps}>
-                  <div
-                    style={{
-                      width,
-                      maxWidth: DESKTOP_SIZE,
-                      position: "absolute",
-                      height: "auto",
-                    }}
-                  >
-                    <Wrapper>
-                      {multiCartesian(propSets, { adaptive: !isVKCOM }).map(
-                        (props, i) => (
-                          <Fragment key={i}>
-                            <div>{prettyProps(props)}</div>
-                            <div>
-                              <AdaptiveComponent {...props} />
-                            </div>
-                          </Fragment>
-                        )
-                      )}
-                    </Wrapper>
-                  </div>
-                </AdaptivityProvider>
-              </ConfigProvider>
-            )
-          ).toMatchImageSnapshot(matchScreenshot);
-        });
-      });
+    let width: ViewWidth | "auto" = isVKCOM ? "auto" : MOBILE_SIZE;
+    if (adaptivity.viewWidth) {
+      width = getAdaptivePxWidth(adaptivity.viewWidth);
+    }
+
+    const adaptivityProps: AdaptivityProps = Object.assign(
+      isVKCOM ? { sizeX: SizeType.COMPACT, sizeY: SizeType.COMPACT } : {},
+      adaptivity
+    );
+
+    const viewWidth = adaptivityProps.viewWidth
+      ? ` w_${adaptivityProps.viewWidth}`
+      : "";
+
+    const AdaptiveComponent = withAdaptivity(Component, {
+      sizeX: true,
+      sizeY: true,
+    });
+
+    it(`${BROWSER}-${APPEARANCE}${viewWidth}`, async () => {
+      expect(
+        await screenshot(
+          <ConfigProvider appearance={APPEARANCE} platform={PLATFORM}>
+            <AdaptivityProvider {...adaptivityProps}>
+              <div
+                style={{
+                  width,
+                  maxWidth: DESKTOP_SIZE,
+                  position: "absolute",
+                  height: "auto",
+                }}
+              >
+                <Wrapper>
+                  {multiCartesian(propSets, { adaptive: !isVKCOM }).map(
+                    (props, i) => (
+                      <Fragment key={i}>
+                        <div>{prettyProps(props)}</div>
+                        <div>
+                          <AdaptiveComponent {...props} />
+                        </div>
+                      </Fragment>
+                    )
+                  )}
+                </Wrapper>
+              </div>
+            </AdaptivityProvider>
+          </ConfigProvider>
+        )
+      ).toMatchImageSnapshot(matchScreenshot);
     });
   });
+}
+
+export function customSnapshotIdentifier({
+  defaultIdentifier,
+}: {
+  defaultIdentifier: string;
+}): string {
+  return `${BROWSER}-${APPEARANCE}-${PLATFORM}-${defaultIdentifier}`;
 }

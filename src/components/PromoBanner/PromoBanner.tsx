@@ -113,15 +113,31 @@ export const PromoBanner = ({
         rel="nofollow noopener noreferrer"
         target="_blank"
         before={
-          <Avatar
-            mode="image"
-            size={48}
-            src={bannerData.iconLink}
-            alt={bannerData.title}
-          />
+          bannerData.iconLink && (
+            <Avatar
+              mode="image"
+              size={48}
+              src={bannerData.iconLink}
+              alt={bannerData.title}
+              data-testid={
+                process.env.NODE_ENV === "test" ? "avatar" : undefined
+              }
+            />
+          )
         }
-        after={<Button mode="outline">{bannerData.ctaText}</Button>}
-        description={bannerData.domain}
+        after={
+          bannerData.ctaText && (
+            <Button
+              mode="outline"
+              data-testid={
+                process.env.NODE_ENV === "test" ? "button-ctaText" : undefined
+              }
+            >
+              {bannerData.ctaText}
+            </Button>
+          )
+        }
+        subtitle={bannerData.domain}
       >
         {bannerData.title}
       </SimpleCell>

@@ -6,4 +6,4 @@ export interface DivProps extends React.HTMLAttributes<HTMLDivElement>, HasRootR
 /**
  * @see https://vkcom.github.io/VKUI/#/Div
  */
-export declare const Div: React.FC<DivProps>;
+export declare const Div: ({ children, getRootRef, ...restProps }: DivProps) => JSX.Element;

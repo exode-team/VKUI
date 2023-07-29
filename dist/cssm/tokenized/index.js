@@ -99,6 +99,7 @@ export { Tabbar } from "../components/Tabbar/Tabbar";
 export { TabbarItem } from "../components/TabbarItem/TabbarItem";
 export { Search } from "../components/Search/Search";
 export { Header } from "../components/Header/Header";
+export { SubnavigationButton } from "../components/SubnavigationButton/SubnavigationButton";
 export { Panel } from "../components/Panel/Panel";
 export { PanelHeaderButton } from "../components/PanelHeaderButton/PanelHeaderButton";
 export { PanelHeader } from "../components/PanelHeader/PanelHeader";

@@ -220,4 +220,7 @@ export function parse(input, format) {
 export function isMatch(input, format) {
   return !isNaN(+parse(input, format));
 }
+export function getMillisecondsToTomorrow(date) {
+  return dayjs(endOfDay(date)).diff(dayjs(date), "ms");
+}
 //# sourceMappingURL=date.js.map

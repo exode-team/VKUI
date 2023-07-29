@@ -13,6 +13,7 @@ exports.endOfDay = endOfDay;
 exports.endOfMonth = endOfMonth;
 exports.endOfWeek = endOfWeek;
 exports.format = format;
+exports.getMillisecondsToTomorrow = getMillisecondsToTomorrow;
 exports.isAfter = isAfter;
 exports.isBefore = isBefore;
 exports.isFirstDayOfMonth = isFirstDayOfMonth;
@@ -282,5 +283,9 @@ function parse(input, format) {
 
 function isMatch(input, format) {
   return !isNaN(+parse(input, format));
+}
+
+function getMillisecondsToTomorrow(date) {
+  return (0, _dayjs.default)(endOfDay(date)).diff((0, _dayjs.default)(date), "ms");
 }
 //# sourceMappingURL=date.js.map

@@ -6,6 +6,7 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { useExternRef } from "../../hooks/useExternRef";
 import { useEventListener } from "../../hooks/useEventListener";
 import { useTrackerVisibility } from "./useTrackerVisibility";
+import { stopPropagation } from "../../lib/utils";
 import "./CustomScrollView.css";
 export var CustomScrollView = function CustomScrollView(_ref) {
   var className = _ref.className,
@@ -170,7 +171,8 @@ export var CustomScrollView = function CustomScrollView(_ref) {
     className: className
   }, createScopedElement("div", {
     vkuiClass: "CustomScrollView__barY",
-    ref: barY
+    ref: barY,
+    onClick: stopPropagation
   }, createScopedElement("div", {
     vkuiClass: classNames("CustomScrollView__trackerY", !trackerVisible && "CustomScrollView__trackerY--hidden"),
     onMouseEnter: autoHideScrollbar ? onTrackerMouseEnter : undefined,

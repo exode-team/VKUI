@@ -23,7 +23,7 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 
 var _FocusTrap = require("../FocusTrap/FocusTrap");
 
-var _excluded = ["children", "closing", "toggleRef", "popupDirection"];
+var _excluded = ["children", "closing", "toggleRef"];
 
 var stopPropagation = function stopPropagation(e) {
   return e.stopPropagation();
@@ -33,7 +33,6 @@ var ActionSheetDropdown = function ActionSheetDropdown(_ref) {
   var children = _ref.children,
       closing = _ref.closing,
       toggleRef = _ref.toggleRef,
-      popupDirection = _ref.popupDirection,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),

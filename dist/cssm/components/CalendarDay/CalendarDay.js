@@ -1,3 +1,6 @@
+import _extends from "@babel/runtime/helpers/extends";
+import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
+var _excluded = ["day", "today", "selected", "onChange", "hidden", "disabled", "active", "selectionStart", "selectionEnd", "focused", "onEnter", "onLeave", "hinted", "hintedSelectionStart", "hintedSelectionEnd", "sameMonth", "size"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -22,7 +25,9 @@ export var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
       hintedSelectionStart = _ref.hintedSelectionStart,
       hintedSelectionEnd = _ref.hintedSelectionEnd,
       sameMonth = _ref.sameMonth,
-      size = _ref.size;
+      size = _ref.size,
+      props = _objectWithoutProperties(_ref, _excluded);
+
   var locale = React.useContext(LocaleProviderContext);
   var ref = React.useRef(null);
   var onClick = React.useCallback(function () {
@@ -49,7 +54,7 @@ export var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     });
   }
 
-  return createScopedElement(Tappable, {
+  return createScopedElement(Tappable, _extends({
     vkuiClass: classNames("CalendarDay", "CalendarDay--size-".concat(size), today && "CalendarDay--today", selected && !disabled && "CalendarDay--selected", active && !disabled && "CalendarDay--active", selectionStart && "CalendarDay--selection-start", selectionEnd && "CalendarDay--selection-end", disabled && "CalendarDay--disabled", !sameMonth && "CalendarDay--not-same-month"),
     hoverMode: active ? "CalendarDay--active-hover" : "CalendarDay--hover",
     hasActive: false,
@@ -66,7 +71,7 @@ export var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     focusVisibleMode: active ? "outside" : "inside",
     onEnter: handleEnter,
     onLeave: handleLeave
-  }, createScopedElement("div", {
+  }, props), createScopedElement("div", {
     vkuiClass: classNames("CalendarDay__hinted", hinted && "CalendarDay__hinted--active", hintedSelectionStart && "CalendarDay__hinted--selection-start", hintedSelectionEnd && "CalendarDay__hinted--selection-end")
   }, createScopedElement("div", {
     vkuiClass: classNames("CalendarDay__inner", active && !disabled && "CalendarDay__inner--active")

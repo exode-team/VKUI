@@ -39,4 +39,4 @@ export interface MiniInfoCellProps extends React.HTMLAttributes<HTMLDivElement> 
 /**
  * @see https://vkcom.github.io/VKUI/#/MiniInfoCell
  */
-export declare const MiniInfoCell: React.FC<MiniInfoCellProps>;
+export declare const MiniInfoCell: ({ before, after, mode, textWrap, textLevel, children, ...restProps }: MiniInfoCellProps) => JSX.Element;

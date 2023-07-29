@@ -29,7 +29,7 @@ var _warnOnce = require("../../lib/warnOnce");
 
 var _classNames = require("../../lib/classNames");
 
-var _excluded = ["subtitle", "header", "text", "caption", "className", "mode", "style", "getRootRef", "getRef", "maxHeight", "image", "src", "srcSet", "alt", "width", "height", "crossOrigin", "decoding", "loading", "referrerPolicy", "sizes", "useMap"];
+var _excluded = ["subtitle", "header", "text", "caption", "className", "mode", "style", "getRootRef", "getRef", "maxHeight", "image", "src", "srcSet", "alt", "width", "height", "crossOrigin", "decoding", "loading", "referrerPolicy", "sizes", "useMap", "hasHover", "hasActive"];
 var warn = (0, _warnOnce.warnOnce)("ContentCard");
 /**
  * @see https://vkcom.github.io/VKUI/#/ContentCard
@@ -59,6 +59,10 @@ var ContentCard = function ContentCard(_ref) {
       referrerPolicy = _ref.referrerPolicy,
       sizes = _ref.sizes,
       useMap = _ref.useMap,
+      _ref$hasHover = _ref.hasHover,
+      hasHover = _ref$hasHover === void 0 ? false : _ref$hasHover,
+      _ref$hasActive = _ref.hasActive,
+      hasActive = _ref$hasActive === void 0 ? false : _ref$hasActive,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var source = image || src;
 
@@ -74,8 +78,8 @@ var ContentCard = function ContentCard(_ref) {
     className: className
   }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     disabled: restProps.disabled || !restProps.onClick && !restProps.href,
-    hasHover: false,
-    hasActive: false,
+    hasHover: hasHover,
+    hasActive: hasActive,
     vkuiClass: "ContentCard__tappable"
   }), (source || srcSet) && (0, _jsxRuntime.createScopedElement)("img", {
     ref: getRef,

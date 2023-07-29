@@ -1,3 +1,18 @@
+Все цвета, используемые в библиотеке, занесены в [css-custom-properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*).
+Чтобы использовать цвета в своем коде, достаточно посмотреть на список доступных цветов и применить их, используя
+синтаксис css-custom-properties:
+
+```css static
+.MyBlock {
+  background: var(--vkui--color_background_content);
+  color: var(--vkui--color_text_primary);
+}
+```
+
+Доступные цвета находятся [тут](https://unpkg.com/@vkontakte/vkui-tokens@4/themes/vkBase/cssVars/declarations/onlyVariables.css)
+
+## Платформы и темы
+
 В стили библиотеки встроены стили для 3 платформ:
 
 - `vkcom` — стиль сайта [vk.com](https://vk.com);
@@ -28,12 +43,12 @@ ReactDOM.render(
 для адаптации под разные платформы и темы. При желании разработчик может переопределить значения цветов:
 
 ```css
-:root {
+.purple_theme {
   --button_primary_background: purple;
 }
 ```
 
-Если подключить такой CSS после стилей библиотеки, то заливка всех `<Button mode="primary" />` станет фиолетовой.
+Если задать класс на часть приложения, то заливка `<Button mode="primary" />` станет фиолетовой.
 
 ## vkui-tokens
 

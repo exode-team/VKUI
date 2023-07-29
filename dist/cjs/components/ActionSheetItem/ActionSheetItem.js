@@ -37,7 +37,7 @@ var _ActionSheetContext = require("../ActionSheet/ActionSheetContext");
 
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
-var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick", "multiline"];
+var _excluded = ["children", "autoclose", "mode", "meta", "subtitle", "before", "selectable", "value", "name", "checked", "defaultChecked", "onChange", "onClick", "sizeY", "onImmediateClick", "multiline", "iconChecked"];
 
 var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
   var children = _ref.children,
@@ -58,6 +58,10 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
       onImmediateClick = _ref.onImmediateClick,
       _ref$multiline = _ref.multiline,
       multiline = _ref$multiline === void 0 ? false : _ref$multiline,
+      _ref$iconChecked = _ref.iconChecked,
+      iconChecked = _ref$iconChecked === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon24CheckCircleOn, {
+    "aria-hidden": true
+  }) : _ref$iconChecked,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
 
@@ -108,7 +112,7 @@ var ActionSheetItemComponent = function ActionSheetItemComponent(_ref) {
     disabled: restProps.disabled
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "ActionSheetItem__marker"
-  }, (0, _jsxRuntime.createScopedElement)(_icons.Icon24CheckCircleOn, null))));
+  }, iconChecked)));
 };
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheetItem

@@ -6,6 +6,11 @@ export var Keys;
   Keys["SPACE"] = "Space";
   Keys["TAB"] = "Tab";
   Keys["ESCAPE"] = "Escape";
+  Keys["HOME"] = "Home";
+  Keys["END"] = "End";
+  Keys["ARROW_LEFT"] = "ArrowLeft";
+  Keys["ARROW_RIGHT"] = "ArrowRight";
+  Keys["ARROW_DOWN"] = "ArrowDown";
 })(Keys || (Keys = {}));
 
 var ACCESSIBLE_KEYS = [{
@@ -24,6 +29,26 @@ var ACCESSIBLE_KEYS = [{
   code: Keys.ESCAPE,
   key: ["Escape"],
   keyCode: 27
+}, {
+  code: Keys.HOME,
+  key: ["Home"],
+  keyCode: 36
+}, {
+  code: Keys.END,
+  key: ["End"],
+  keyCode: 35
+}, {
+  code: Keys.ARROW_LEFT,
+  key: ["ArrowLeft"],
+  keyCode: 37
+}, {
+  code: Keys.ARROW_RIGHT,
+  key: ["ArrowRight"],
+  keyCode: 39
+}, {
+  code: Keys.ARROW_DOWN,
+  key: ["ArrowDown"],
+  keyCode: 40
 }];
 export function pressedKey(e) {
   var _ACCESSIBLE_KEYS$find;

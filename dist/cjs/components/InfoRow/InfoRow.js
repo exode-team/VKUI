@@ -28,7 +28,9 @@ var InfoRow = function InfoRow(_ref) {
   var header = _ref.header,
       children = _ref.children,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-  return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({}, restProps, {
+  return (0, _jsxRuntime.createScopedElement)(_Headline.Headline, (0, _extends2.default)({
+    Component: "span"
+  }, restProps, {
     vkuiClass: "InfoRow",
     weight: "3"
   }), (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {

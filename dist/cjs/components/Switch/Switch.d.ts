@@ -1,4 +1,4 @@
-import * as React from "react";
+/// <reference types="react" />
 import { HasRootRef } from "../../types";
 import { VisuallyHiddenInputProps } from "../VisuallyHiddenInput/VisuallyHiddenInput";
 import "./Switch.css";
@@ -7,4 +7,4 @@ export interface SwitchProps extends VisuallyHiddenInputProps, HasRootRef<HTMLLa
 /**
  * @see https://vkcom.github.io/VKUI/#/Switch
  */
-export declare const Switch: React.FC<SwitchProps>;
+export declare const Switch: ({ style, className, getRootRef, ...restProps }: SwitchProps) => JSX.Element;

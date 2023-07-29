@@ -36,6 +36,8 @@ export interface ChipsSelectProps<Option extends ChipOption> extends Omit<ChipsI
      * Закрытие выпадающего списка после выбора элемента
      */
     closeAfterSelect?: boolean;
+    fixDropdownWidth?: boolean;
+    forceDropdownPortal?: boolean;
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/ChipsSelect

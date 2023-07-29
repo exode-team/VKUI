@@ -23,6 +23,8 @@ var _useEventListener = require("../../hooks/useEventListener");
 
 var _useTrackerVisibility2 = require("./useTrackerVisibility");
 
+var _utils = require("../../lib/utils");
+
 var CustomScrollView = function CustomScrollView(_ref) {
   var className = _ref.className,
       children = _ref.children,
@@ -186,7 +188,8 @@ var CustomScrollView = function CustomScrollView(_ref) {
     className: className
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CustomScrollView__barY",
-    ref: barY
+    ref: barY,
+    onClick: _utils.stopPropagation
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: (0, _classNames.classNames)("CustomScrollView__trackerY", !trackerVisible && "CustomScrollView__trackerY--hidden"),
     onMouseEnter: autoHideScrollbar ? onTrackerMouseEnter : undefined,

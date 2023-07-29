@@ -65,7 +65,7 @@ var FixedLayout = function FixedLayout(_ref) {
     return setWidth(colRef !== null && colRef !== void 0 && colRef.current ? "".concat(colRef.current.offsetWidth, "px") : undefined);
   };
 
-  React.useEffect(doResize, [colRef]);
+  React.useEffect(doResize, [colRef, platform]);
   (0, _useGlobalEventListener.useGlobalEventListener)(window, "resize", doResize);
   return (0, _jsxRuntime.createScopedElement)(_TooltipContainer.TooltipContainer, (0, _extends2.default)({}, restProps, {
     fixed: true,

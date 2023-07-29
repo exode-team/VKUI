@@ -22,4 +22,4 @@ export interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement>, 
 /**
  * @see https://vkcom.github.io/VKUI/#/Placeholder
  */
-export declare const Placeholder: React.FC<PlaceholderProps>;
+export declare const Placeholder: ({ icon, header, action, children, stretched, getRootRef, ...restProps }: PlaceholderProps) => JSX.Element;

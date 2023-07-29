@@ -23,10 +23,10 @@ export var CellCheckbox = function CellCheckbox(_ref) {
   }, createScopedElement("input", _extends({
     vkuiClass: "CellCheckbox__input",
     type: "checkbox"
-  }, restProps)), createScopedElement(IconOff, {
+  }, restProps)), createScopedElement("span", {
     vkuiClass: "CellCheckbox__icon CellCheckbox__icon--off"
-  }), createScopedElement(IconOn, {
+  }, createScopedElement(IconOff, null)), createScopedElement("span", {
     vkuiClass: "CellCheckbox__icon CellCheckbox__icon--on"
-  }));
+  }, createScopedElement(IconOn, null)));
 };
 //# sourceMappingURL=CellCheckbox.js.map

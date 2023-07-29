@@ -38,7 +38,8 @@ var DropdownIcon = function DropdownIcon(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)(Icon, (0, _extends2.default)({
-    vkuiClass: (0, _classNames.classNames)("DropdownIcon")
+    vkuiClass: (0, _classNames.classNames)("DropdownIcon"),
+    "aria-hidden": true
   }, restProps));
 };
 

@@ -20,4 +20,4 @@ HasRootRef<HTMLElement>, HasComponent {
 /**
  * @see https://vkcom.github.io/VKUI/#/TabbarItem
  */
-export declare const TabbarItem: React.FunctionComponent<TabbarItemProps>;
+export declare const TabbarItem: ({ children, selected, label, indicator, text, href, Component, disabled, ...restProps }: TabbarItemProps) => JSX.Element;

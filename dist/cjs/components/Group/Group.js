@@ -31,11 +31,14 @@ var _utils = require("../../lib/utils");
 
 var _Caption = require("../Typography/Caption/Caption");
 
+var _warnOnce = require("../../lib/warnOnce");
+
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 
 var _ModalRootContext = require("../ModalRoot/ModalRootContext");
 
-var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "sizeX"];
+var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "padding", "sizeX", "tabIndex"];
+var warn = (0, _warnOnce.warnOnce)("TabsItem");
 
 var GroupComponent = function GroupComponent(_ref) {
   var header = _ref.header,
@@ -45,7 +48,10 @@ var GroupComponent = function GroupComponent(_ref) {
       separator = _ref$separator === void 0 ? "auto" : _ref$separator,
       getRootRef = _ref.getRootRef,
       mode = _ref.mode,
+      _ref$padding = _ref.padding,
+      padding = _ref$padding === void 0 ? "m" : _ref$padding,
       sizeX = _ref.sizeX,
+      tabIndexProp = _ref.tabIndex,
       restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
 
   var _React$useContext = React.useContext(_ModalRootContext.ModalRootContext),
@@ -58,6 +64,13 @@ var GroupComponent = function GroupComponent(_ref) {
     computedMode = sizeX === _withAdaptivity.SizeType.COMPACT || isInsideModal ? "plain" : "card";
   }
 
+  var isTabPanel = restProps.role === "tabpanel";
+
+  if (process.env.NODE_ENV === "development" && isTabPanel && (!restProps["aria-controls"] || !restProps["id"])) {
+    warn('При использовании роли "tabpanel" необходимо задать значение свойств "aria-controls" и "id"');
+  }
+
+  var tabIndex = isTabPanel && tabIndexProp === undefined ? 0 : tabIndexProp;
   var separatorElement = null;
 
   if (separator !== "hide") {
@@ -71,9 +84,10 @@ var GroupComponent = function GroupComponent(_ref) {
   }
 
   return (0, _jsxRuntime.createScopedElement)("section", (0, _extends2.default)({}, restProps, {
+    tabIndex: tabIndex,
     ref: getRootRef,
     vkuiClass: (0, _classNames.classNames)("Group", platform === _platform.IOS && "Group--ios", // TODO v5.0.0 Новая адаптивность
-    "Group--sizeX-".concat(sizeX), "Group--".concat(computedMode))
+    "Group--sizeX-".concat(sizeX), "Group--".concat(computedMode), "Group--padding-".concat(padding))
   }), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Group__inner"
   }, header, children, (0, _utils.hasReactNode)(description) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {

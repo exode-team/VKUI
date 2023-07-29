@@ -5,6 +5,25 @@ const { reactDocgenTypescript } = require("./propsParser.config");
 const baseConfig = {
   title: "VKUI styleguide",
   styleguideDir: path.join(__dirname, `../${argv.dist || "styleguide-build"}`),
+  template: {
+    head: {
+      links: [
+        {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "anonymous",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap",
+        },
+      ],
+    },
+  },
   styleguideComponents: {
     PlaygroundRenderer: path.join(
       __dirname,
@@ -68,7 +87,7 @@ const baseConfig = {
   styles: {
     Pre: {
       pre: {
-        fontFamily: '"JetBrainsMono", monospace',
+        fontFamily: '"JetBrains Mono", monospace',
         borderRadius: "8px",
         fontSize: 14,
         lineHeight: "24px",
@@ -76,7 +95,7 @@ const baseConfig = {
     },
     Editor: {
       root: {
-        fontFamily: '"JetBrainsMono", monospace',
+        fontFamily: '"JetBrains Mono", monospace',
         fontSize: 14,
         lineHeight: "24px",
         "& textarea": {
@@ -345,17 +364,14 @@ const baseConfig = {
           content: "./pages/design.md",
         },
         {
-          title: "Кастомизация",
+          title: "Цвета и кастомизация",
           name: "Customize",
           content: "./pages/customize.md",
         },
       ],
     },
   ],
-  require: [
-    path.resolve(__dirname, "./setup.js"),
-    path.resolve(__dirname, "./setup.css"),
-  ],
+  require: [path.resolve(__dirname, "./setup.js")],
   webpackConfig: require("./webpack.config"),
 };
 

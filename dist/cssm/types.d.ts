@@ -35,3 +35,9 @@ export interface Version {
     minor?: number;
     patch?: number;
 }
+/**
+ * В зависимости от версии `getRootRef`
+ * иконок `@vkontakte/icons` возвращает
+ * `HTMLDivElement` (v1) или `SVGSVGElement` (v2)
+ */
+export declare type VKontakteIconsBackwardsCompatibleElement = HTMLDivElement | SVGSVGElement;

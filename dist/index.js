@@ -132,6 +132,7 @@ export { PanelHeaderBack } from "./components/PanelHeaderBack/PanelHeaderBack";
 export { PanelHeaderSubmit } from "./components/PanelHeaderSubmit/PanelHeaderSubmit";
 export { PanelHeaderEdit } from "./components/PanelHeaderEdit/PanelHeaderEdit";
 export { ModalCardBase } from "./components/ModalCardBase/ModalCardBase";
+export { VisuallyHiddenInput } from "./components/VisuallyHiddenInput/VisuallyHiddenInput";
 
 /**
  * Wrappers
@@ -175,6 +176,7 @@ export { usePlatform } from "./hooks/usePlatform";
 export { useAdaptivity } from "./hooks/useAdaptivity";
 export { useAppearance } from "./hooks/useAppearance";
 export { usePagination } from "./hooks/usePagination";
+export { useTodayDate } from "./hooks/useTodayDate";
 export { useScrollLock } from "./components/AppRoot/ScrollContext";
 export { useNavTransition } from "./components/NavTransitionContext/NavTransitionContext";
 /**
@@ -190,4 +192,8 @@ export { getClassName } from "./helpers/getClassName";
 export { ViewWidth, ViewHeight, SizeType } from "./components/AdaptivityProvider/AdaptivityContext";
 export { calcInitialsAvatarColor } from "./helpers/avatar";
 export { Popper } from "./components/Popper/Popper";
+export { CustomScrollView } from "./components/CustomScrollView/CustomScrollView";
+/**
+ * Types
+ */
 //# sourceMappingURL=index.js.map

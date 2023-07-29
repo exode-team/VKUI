@@ -88,11 +88,8 @@ var WriteBar = function WriteBar(_ref) {
     vkuiClass: (0, _classNames.classNames)("WriteBar", platform === _platform.IOS && "WriteBar--ios", shadow && "WriteBar--shadow"),
     className: className,
     style: style
-  }, (0, _jsxRuntime.createScopedElement)("form", {
-    vkuiClass: "WriteBar__form",
-    onSubmit: function onSubmit(e) {
-      return e.preventDefault();
-    }
+  }, (0, _jsxRuntime.createScopedElement)("div", {
+    vkuiClass: "WriteBar__form"
   }, (0, _utils.hasReactNode)(before) && (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "WriteBar__before"
   }, before), (0, _jsxRuntime.createScopedElement)("div", {

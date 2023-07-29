@@ -178,7 +178,7 @@ describe("CustomSelect", () => {
     expect(screen.getByTestId("target")).toHaveFocus(); // now target is Input
 
     fireEvent.change(screen.getByTestId("target"), { target: { value: "Mi" } });
-    expect((screen.getByTestId("target") as HTMLInputElement).value).toBe("Mi");
+    expect(screen.getByTestId<HTMLInputElement>("target").value).toBe("Mi");
     fireEvent.keyDown(screen.getByTestId("target"), {
       key: "ArrowUp",
       code: "ArrowUp",
@@ -430,5 +430,24 @@ describe("CustomSelect", () => {
     expect(
       document.querySelector(".CustomSelectOption--hover")?.textContent
     ).toEqual("Bob");
+  });
+
+  // https://github.com/VKCOM/VKUI/issues/4066
+  it("invalid value does not call onChange", () => {
+    const onChange = jest.fn();
+
+    render(
+      <CustomSelect
+        data-testid="target"
+        value="invalid"
+        onChange={onChange}
+        options={[
+          { value: "0", label: "Mike" },
+          { value: "1", label: "Josh" },
+        ]}
+      />
+    );
+
+    expect(onChange).toBeCalledTimes(0);
   });
 });
