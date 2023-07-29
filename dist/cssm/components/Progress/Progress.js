@@ -5,16 +5,15 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import "./Progress.css";
 var PROGRESS_MIN_VALUE = 0;
 var PROGRESS_MAX_VALUE = 100;
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Progress
  */
-
 export var Progress = function Progress(_ref) {
   var _ref$value = _ref.value,
-      value = _ref$value === void 0 ? 0 : _ref$value,
-      getRootRef = _ref.getRootRef,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    value = _ref$value === void 0 ? 0 : _ref$value,
+    getRootRef = _ref.getRootRef,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var progress = Math.max(PROGRESS_MIN_VALUE, Math.min(value, PROGRESS_MAX_VALUE));
   return createScopedElement("div", _extends({
     "aria-valuenow": value

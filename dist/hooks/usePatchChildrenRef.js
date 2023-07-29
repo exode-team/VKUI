@@ -2,11 +2,9 @@ import _defineProperty from "@babel/runtime/helpers/defineProperty";
 import * as React from "react";
 import { useExternRef } from "./useExternRef";
 import { warnOnce } from "../lib/warnOnce";
-
 var isDOMTypeElement = function isDOMTypeElement(element) {
   return typeof element.type === "string";
 };
-
 var warn = warnOnce("usePatchChildrenRef");
 export var usePatchChildrenRef = function usePatchChildrenRef(children) {
   var childRef = /*#__PURE__*/React.isValidElement(children) && (isDOMTypeElement(children) ? children.ref : children.props.getRootRef);

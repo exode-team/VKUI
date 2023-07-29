@@ -11,10 +11,9 @@ import { IOS } from "../../../lib/platform";
 import { Touch } from "../../Touch/Touch";
 export var CellDragger = function CellDragger(_ref) {
   var onDragStart = _ref.onDragStart,
-      onDragMove = _ref.onDragMove,
-      onDragEnd = _ref.onDragEnd,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    onDragMove = _ref.onDragMove,
+    onDragEnd = _ref.onDragEnd,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var onClick = React.useCallback(function (e) {
     e.preventDefault();

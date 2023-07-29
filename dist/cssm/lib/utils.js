@@ -2,8 +2,9 @@ import * as React from "react";
 // Является ли переданное значение числовым
 export function isNumeric(value) {
   return !isNaN(parseFloat(value)) && isFinite(value);
-} // Является ли переданное значение функцией
+}
 
+// Является ли переданное значение функцией
 export function isFunction(value) {
   return typeof value === "function";
 }
@@ -13,7 +14,6 @@ export function debounce(fn, delay) {
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     clearTimeout(timeout);
     timeout = setTimeout(function () {
       return fn.apply(void 0, args);
@@ -22,11 +22,9 @@ export function debounce(fn, delay) {
 }
 export function leadingZero(val) {
   var strVal = val.toFixed();
-
   if (strVal.length === 1) {
     return "0" + strVal;
   }
-
   return strVal;
 }
 export function hasReactNode(value) {
@@ -48,23 +46,21 @@ export function multiRef() {
   for (var _len2 = arguments.length, refs = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
     refs[_key2] = arguments[_key2];
   }
-
   var current = null;
   return {
     get current() {
       return current;
     },
-
     set current(element) {
       current = element;
       refs.forEach(function (ref) {
         return ref && setRef(element, ref);
       });
     }
-
   };
-} // eslint-disable-next-line
+}
 
+// eslint-disable-next-line
 export var noop = function noop() {};
 export function getTitleFromChildren(children) {
   var label = "";

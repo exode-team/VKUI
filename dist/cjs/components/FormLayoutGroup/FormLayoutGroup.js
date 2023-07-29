@@ -1,59 +1,41 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.FormLayoutGroup = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _getClassName = require("../../helpers/getClassName");
-
 var _classNames = require("../../lib/classNames");
-
 var _utils = require("../../lib/utils");
-
 var _useExternRef = require("../../hooks/useExternRef");
-
 var _usePlatform = require("../../hooks/usePlatform");
-
 var _Removable = require("../Removable/Removable");
-
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
-
 var _excluded = ["children", "mode", "removable", "segmented", "removePlaceholder", "onRemove", "getRootRef"];
-
 /**
  * @see https://vkcom.github.io/VKUI/#/FormLayoutGroup
  */
 var FormLayoutGroup = function FormLayoutGroup(_ref) {
   var children = _ref.children,
-      _ref$mode = _ref.mode,
-      mode = _ref$mode === void 0 ? "vertical" : _ref$mode,
-      removable = _ref.removable,
-      segmented = _ref.segmented,
-      _ref$removePlaceholde = _ref.removePlaceholder,
-      removePlaceholder = _ref$removePlaceholde === void 0 ? "Удалить" : _ref$removePlaceholde,
-      _ref$onRemove = _ref.onRemove,
-      _onRemove = _ref$onRemove === void 0 ? _utils.noop : _ref$onRemove,
-      getRootRef = _ref.getRootRef,
-      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-
+    _ref$mode = _ref.mode,
+    mode = _ref$mode === void 0 ? "vertical" : _ref$mode,
+    removable = _ref.removable,
+    segmented = _ref.segmented,
+    _ref$removePlaceholde = _ref.removePlaceholder,
+    removePlaceholder = _ref$removePlaceholde === void 0 ? "Удалить" : _ref$removePlaceholde,
+    _ref$onRemove = _ref.onRemove,
+    _onRemove = _ref$onRemove === void 0 ? _utils.noop : _ref$onRemove,
+    getRootRef = _ref.getRootRef,
+    restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var isRemovable = removable && mode === "horizontal";
   var isSegmented = segmented && mode === "horizontal";
   var rootEl = (0, _useExternRef.useExternRef)(getRootRef);
@@ -75,6 +57,5 @@ var FormLayoutGroup = function FormLayoutGroup(_ref) {
     "aria-hidden": true
   })));
 };
-
 exports.FormLayoutGroup = FormLayoutGroup;
 //# sourceMappingURL=FormLayoutGroup.js.map

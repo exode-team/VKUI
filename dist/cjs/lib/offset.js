@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getOffsetRect = getOffsetRect;
-
 function getOffsetRect(elem) {
   var box = elem === null || elem === void 0 ? void 0 : elem.getBoundingClientRect();
   return {

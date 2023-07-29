@@ -7,32 +7,26 @@ import { callMultiple } from "../../lib/callMultiple";
 import { stopPropagation } from "../../lib/utils";
 import { classNames } from "../../lib/classNames";
 var MASK_SYMBOL = String.fromCharCode(0x2007);
-
 function getMaskElements(length) {
   var result = [];
-
   for (var _index = 0; _index < length; _index += 1) {
     result.push(createScopedElement("span", {
       key: _index,
       vkuiClass: "InputLike__mask"
     }, MASK_SYMBOL));
   }
-
   return result;
 }
-
 export var InputLike = function InputLike(_ref) {
   var _value$length;
-
   var value = _ref.value,
-      length = _ref.length,
-      index = _ref.index,
-      onElementSelect = _ref.onElementSelect,
-      onClick = _ref.onClick,
-      onFocus = _ref.onFocus,
-      getRootRef = _ref.getRootRef,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    length = _ref.length,
+    index = _ref.index,
+    onElementSelect = _ref.onElementSelect,
+    onClick = _ref.onClick,
+    onFocus = _ref.onFocus,
+    getRootRef = _ref.getRootRef,
+    props = _objectWithoutProperties(_ref, _excluded);
   var handleElementSelect = React.useCallback(function (event) {
     stopPropagation(event);
     onElementSelect === null || onElementSelect === void 0 ? void 0 : onElementSelect(index);

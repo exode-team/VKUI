@@ -10,48 +10,40 @@ import { useTimeout } from "../../hooks/useTimeout";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useGlobalEventListener } from "../../hooks/useGlobalEventListener";
 import { useDOM } from "../../lib/dom";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/PopoutWrapper
  */
 export var PopoutWrapper = function PopoutWrapper(_ref) {
   var _ref$alignY = _ref.alignY,
-      alignY = _ref$alignY === void 0 ? "center" : _ref$alignY,
-      _ref$alignX = _ref.alignX,
-      alignX = _ref$alignX === void 0 ? "center" : _ref$alignX,
-      _ref$closing = _ref.closing,
-      closing = _ref$closing === void 0 ? false : _ref$closing,
-      _ref$hasMask = _ref.hasMask,
-      hasMask = _ref$hasMask === void 0 ? true : _ref$hasMask,
-      _ref$fixed = _ref.fixed,
-      fixed = _ref$fixed === void 0 ? true : _ref$fixed,
-      children = _ref.children,
-      onClick = _ref.onClick,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    alignY = _ref$alignY === void 0 ? "center" : _ref$alignY,
+    _ref$alignX = _ref.alignX,
+    alignX = _ref$alignX === void 0 ? "center" : _ref$alignX,
+    _ref$closing = _ref.closing,
+    closing = _ref$closing === void 0 ? false : _ref$closing,
+    _ref$hasMask = _ref.hasMask,
+    hasMask = _ref$hasMask === void 0 ? true : _ref$hasMask,
+    _ref$fixed = _ref.fixed,
+    fixed = _ref$fixed === void 0 ? true : _ref$fixed,
+    children = _ref.children,
+    onClick = _ref.onClick,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
-
   var _React$useState = React.useState(!hasMask),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      opened = _React$useState2[0],
-      setOpened = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    opened = _React$useState2[0],
+    setOpened = _React$useState2[1];
   var elRef = React.useRef(null);
-
   var onFadeInEnd = function onFadeInEnd(e) {
     if (!e || e.animationName === "vkui-animation-full-fade-in") {
       setOpened(true);
     }
   };
-
   var animationFinishFallback = useTimeout(onFadeInEnd, platform === IOS ? 300 : 200);
   React.useEffect(function () {
     !opened && animationFinishFallback.set();
   }, [animationFinishFallback, opened]);
-
   var _useDOM = useDOM(),
-      window = _useDOM.window;
-
+    window = _useDOM.window;
   useGlobalEventListener(window, "touchmove", function (e) {
     return e.preventDefault();
   }, {

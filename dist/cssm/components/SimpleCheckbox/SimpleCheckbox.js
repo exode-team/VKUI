@@ -16,29 +16,25 @@ import { warnOnce } from "../../lib/warnOnce";
 import "./SimpleCheckbox.css";
 var warn = warnOnce("SimpleCheckbox");
 var IS_DEV = process.env.NODE_ENV === "development";
-
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`Checkbox`](https://vkcom.github.io/VKUI/#/Checkbox).
  * @see https://vkcom.github.io/VKUI/#/SimpleCheckbox
  */
 export var SimpleCheckbox = function SimpleCheckbox(_ref) {
   var className = _ref.className,
-      style = _ref.style,
-      getRootRef = _ref.getRootRef,
-      getRef = _ref.getRef,
-      indeterminate = _ref.indeterminate,
-      defaultIndeterminate = _ref.defaultIndeterminate,
-      onChange = _ref.onChange,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    style = _ref.style,
+    getRootRef = _ref.getRootRef,
+    getRef = _ref.getRef,
+    indeterminate = _ref.indeterminate,
+    defaultIndeterminate = _ref.defaultIndeterminate,
+    onChange = _ref.onChange,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var platform = usePlatform();
   var inputRef = useExternRef(getRef);
   React.useEffect(function () {
     var indeterminateValue = indeterminate === undefined ? defaultIndeterminate : indeterminate;
-
     if (inputRef.current) {
       inputRef.current.indeterminate = Boolean(indeterminateValue);
     }
@@ -47,28 +43,22 @@ export var SimpleCheckbox = function SimpleCheckbox(_ref) {
     if (defaultIndeterminate !== undefined && indeterminate === undefined && restProps.checked === undefined && inputRef.current) {
       inputRef.current.indeterminate = false;
     }
-
     if (indeterminate !== undefined && inputRef.current) {
       inputRef.current.indeterminate = indeterminate;
     }
-
     onChange && onChange(event);
   }, [defaultIndeterminate, indeterminate, restProps.checked, onChange, inputRef]);
-
   if (IS_DEV) {
     if (defaultIndeterminate && restProps.defaultChecked) {
       warn("defaultIndeterminate и defaultChecked не могут быть true одновременно", "error");
     }
-
     if (indeterminate && restProps.checked) {
       warn("indeterminate и checked не могут быть true одновременно", "error");
     }
-
     if (restProps.defaultChecked && restProps.checked) {
       warn("defaultChecked и checked не могут быть true одновременно", "error");
     }
   }
-
   return createScopedElement(Tappable, {
     Component: "label",
     vkuiClass: classNames(getClassName("SimpleCheckbox", platform), "SimpleCheckbox--sizeY-".concat(sizeY)),

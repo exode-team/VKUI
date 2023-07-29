@@ -11,10 +11,10 @@ export var ModalRootContext = /*#__PURE__*/React.createContext({
   },
   isInsideModal: false
 });
+
 /**
  * All referenced elements must be static
  */
-
 export function useModalRegistry(id, type) {
   var modalContext = React.useContext(ModalRootContext);
   var elements = React.useRef({}).current;
@@ -23,8 +23,8 @@ export function useModalRegistry(id, type) {
       modalContext.registerModal(_objectSpread(_objectSpread({}, elements), {}, {
         type: type,
         id: id
-      })); // unset refs on  unmount to prevent leak
-
+      }));
+      // unset refs on  unmount to prevent leak
       var reset = Object.keys(elements).reduce(function (acc, k) {
         return _objectSpread(_objectSpread({}, acc), {}, _defineProperty({}, k, null));
       }, {
@@ -35,7 +35,6 @@ export function useModalRegistry(id, type) {
         return modalContext.registerModal(reset);
       };
     }
-
     return undefined;
   }, []);
   var refs = React.useRef({

@@ -16,26 +16,24 @@ import { Icon24Dismiss } from "@vkontakte/icons";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import "./ModalCardBase.css";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/ModalCardBase
  */
 export var ModalCardBase = withAdaptivity(function (_ref) {
   var getRootRef = _ref.getRootRef,
-      icon = _ref.icon,
-      header = _ref.header,
-      subheader = _ref.subheader,
-      children = _ref.children,
-      actions = _ref.actions,
-      actionsLayout = _ref.actionsLayout,
-      viewWidth = _ref.viewWidth,
-      hasMouse = _ref.hasMouse,
-      viewHeight = _ref.viewHeight,
-      onClose = _ref.onClose,
-      _ref$dismissLabel = _ref.dismissLabel,
-      dismissLabel = _ref$dismissLabel === void 0 ? "Скрыть" : _ref$dismissLabel,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    icon = _ref.icon,
+    header = _ref.header,
+    subheader = _ref.subheader,
+    children = _ref.children,
+    actions = _ref.actions,
+    actionsLayout = _ref.actionsLayout,
+    viewWidth = _ref.viewWidth,
+    hasMouse = _ref.hasMouse,
+    viewHeight = _ref.viewHeight,
+    onClose = _ref.onClose,
+    _ref$dismissLabel = _ref.dismissLabel,
+    dismissLabel = _ref$dismissLabel === void 0 ? "Скрыть" : _ref$dismissLabel,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var isDesktop = useAdaptivityIsDesktop();
   var isSoftwareKeyboardOpened = useKeyboard().isOpened;

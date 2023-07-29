@@ -3,9 +3,9 @@ var masksCreated = [];
 export function createMasks(document) {
   if (!canUseDOM || !document || masksCreated.includes(document)) {
     return;
-  } // eslint-disable-next-line no-restricted-globals
+  }
 
-
+  // eslint-disable-next-line no-restricted-globals
   var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svgElement.setAttributeNS(null, "id", "__SVG_MASKS_NODE__");
   svgElement.setAttributeNS(null, "width", "0");

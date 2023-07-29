@@ -17,33 +17,31 @@ import { VisuallyHiddenInput } from "../VisuallyHiddenInput/VisuallyHiddenInput"
 import { warnOnce } from "../../lib/warnOnce";
 import "./Checkbox.css";
 var warn = warnOnce("Checkbox");
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Checkbox
  */
-
 export var Checkbox = function Checkbox(_ref) {
   var children = _ref.children,
-      className = _ref.className,
-      style = _ref.style,
-      getRootRef = _ref.getRootRef,
-      getRef = _ref.getRef,
-      description = _ref.description,
-      indeterminate = _ref.indeterminate,
-      defaultIndeterminate = _ref.defaultIndeterminate,
-      sizeY = _ref.sizeY,
-      hoverMode = _ref.hoverMode,
-      activeMode = _ref.activeMode,
-      hasHover = _ref.hasHover,
-      hasActive = _ref.hasActive,
-      focusVisibleMode = _ref.focusVisibleMode,
-      onChange = _ref.onChange,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    className = _ref.className,
+    style = _ref.style,
+    getRootRef = _ref.getRootRef,
+    getRef = _ref.getRef,
+    description = _ref.description,
+    indeterminate = _ref.indeterminate,
+    defaultIndeterminate = _ref.defaultIndeterminate,
+    sizeY = _ref.sizeY,
+    hoverMode = _ref.hoverMode,
+    activeMode = _ref.activeMode,
+    hasHover = _ref.hasHover,
+    hasActive = _ref.hasActive,
+    focusVisibleMode = _ref.focusVisibleMode,
+    onChange = _ref.onChange,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var inputRef = useExternRef(getRef);
   var platform = usePlatform();
   React.useEffect(function () {
     var indeterminateValue = indeterminate === undefined ? defaultIndeterminate : indeterminate;
-
     if (inputRef.current) {
       inputRef.current.indeterminate = Boolean(indeterminateValue);
     }
@@ -52,28 +50,22 @@ export var Checkbox = function Checkbox(_ref) {
     if (defaultIndeterminate !== undefined && indeterminate === undefined && restProps.checked === undefined && inputRef.current) {
       inputRef.current.indeterminate = false;
     }
-
     if (indeterminate !== undefined && inputRef.current) {
       inputRef.current.indeterminate = indeterminate;
     }
-
     onChange && onChange(event);
   }, [defaultIndeterminate, indeterminate, restProps.checked, onChange, inputRef]);
-
   if (process.env.NODE_ENV === "development") {
     if (defaultIndeterminate && restProps.defaultChecked) {
       warn("defaultIndeterminate и defaultChecked не могут быть true одновременно", "error");
     }
-
     if (indeterminate && restProps.checked) {
       warn("indeterminate и checked не могут быть true одновременно", "error");
     }
-
     if (restProps.defaultChecked && restProps.checked) {
       warn("defaultChecked и checked не могут быть true одновременно", "error");
     }
   }
-
   return createScopedElement(Tappable, {
     Component: "label",
     vkuiClass: classNames("Checkbox", "Checkbox--sizeY-".concat(sizeY), !(hasReactNode(children) || hasReactNode(description)) && "Checkbox--simple"),
@@ -118,8 +110,9 @@ export var Checkbox = function Checkbox(_ref) {
   }, children), hasReactNode(description) && createScopedElement(Caption, {
     vkuiClass: "Checkbox__description"
   }, description)));
-}; // eslint-disable-next-line import/no-default-export
+};
 
+// eslint-disable-next-line import/no-default-export
 export default withAdaptivity(Checkbox, {
   sizeY: true
 });

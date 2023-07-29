@@ -5,34 +5,25 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.System = void 0;
 exports.computeBrowserInfo = computeBrowserInfo;
-
 var _vkjs = require("@vkontakte/vkjs");
-
 var System;
 exports.System = System;
-
 (function (System) {
   System["IOS"] = "ios";
   System["UNKNOWN"] = "";
 })(System || (exports.System = System = {}));
-
 var memoized = {};
-
 function computeBrowserInfo() {
   var userAgent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-
   if (memoized[userAgent]) {
     return memoized[userAgent];
   }
-
   var systemVersion = null;
   var system = System.UNKNOWN;
-
   var _detectIOS = (0, _vkjs.detectIOS)(userAgent),
-      isIOS = _detectIOS.isIOS,
-      iosMajor = _detectIOS.iosMajor,
-      iosMinor = _detectIOS.iosMinor;
-
+    isIOS = _detectIOS.isIOS,
+    iosMajor = _detectIOS.iosMajor,
+    iosMinor = _detectIOS.iosMinor;
   if (isIOS) {
     system = System.IOS;
     systemVersion = {
@@ -40,7 +31,6 @@ function computeBrowserInfo() {
       minor: iosMinor
     };
   }
-
   var browserInfo = {
     userAgent: userAgent,
     system: system,

@@ -19,57 +19,45 @@ import { warnOnce } from "../../lib/warnOnce";
 import { useScrollLock } from "../AppRoot/ScrollContext";
 import "./ActionSheet.css";
 var warn = warnOnce("ActionSheet");
+
 /**
  * @see https://vkcom.github.io/VKUI/#/ActionSheet
  */
-
 export var ActionSheet = function ActionSheet(_ref) {
   var children = _ref.children,
-      className = _ref.className,
-      header = _ref.header,
-      text = _ref.text,
-      style = _ref.style,
-      iosCloseItem = _ref.iosCloseItem,
-      _ref$popupDirection = _ref.popupDirection,
-      popupDirection = _ref$popupDirection === void 0 ? "bottom" : _ref$popupDirection,
-      popupOffsetDistance = _ref.popupOffsetDistance,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    className = _ref.className,
+    header = _ref.header,
+    text = _ref.text,
+    style = _ref.style,
+    iosCloseItem = _ref.iosCloseItem,
+    _ref$popupDirection = _ref.popupDirection,
+    popupDirection = _ref$popupDirection === void 0 ? "bottom" : _ref$popupDirection,
+    popupOffsetDistance = _ref.popupOffsetDistance,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
-
   var _React$useState = React.useState(false),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      closing = _React$useState2[0],
-      setClosing = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    closing = _React$useState2[0],
+    setClosing = _React$useState2[1];
   var onClose = function onClose() {
     return setClosing(true);
   };
-
   var _action = React.useRef(noop);
-
   var afterClose = function afterClose() {
     var _restProps$onClose;
-
     (_restProps$onClose = restProps.onClose) === null || _restProps$onClose === void 0 ? void 0 : _restProps$onClose.call(restProps);
-
     _action.current();
-
     _action.current = noop;
   };
-
   if (process.env.NODE_ENV === "development" && !restProps.onClose) {
     warn("\u0411\u0435\u0437 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430 \"onClose\" \u043D\u0435\u043B\u044C\u0437\u044F \u0437\u0430\u043A\u0440\u044B\u0442\u044C ActionSheet \u043F\u043E \u043A\u043B\u0438\u043A\u0443 \u0432\u043D\u0435 \u043A\u043E\u043C\u043F\u043E\u043D\u0435\u043D\u0442\u0430", "error");
   }
-
   var isDesktop = useAdaptivityIsDesktop();
   useScrollLock(!isDesktop);
   var timeout = platform === IOS ? 300 : 200;
-
   if (isDesktop) {
     timeout = 0;
   }
-
   var fallbackTransitionFinish = useTimeout(afterClose, timeout);
   React.useEffect(function () {
     if (closing) {
@@ -82,12 +70,10 @@ export var ActionSheet = function ActionSheet(_ref) {
     return function (event) {
       event.persist();
       immediateAction && immediateAction(event);
-
       if (autoclose) {
         _action.current = function () {
           return action && action(event);
         };
-
         setClosing(true);
       } else {
         action && action(event);
@@ -120,11 +106,9 @@ export var ActionSheet = function ActionSheet(_ref) {
   }, header), hasReactNode(text) && createScopedElement(Footnote, {
     vkuiClass: "ActionSheet__text"
   }, text)), children, platform === IOS && !isDesktop && iosCloseItem));
-
   if (isDesktop) {
     return actionSheet;
   }
-
   return createScopedElement(PopoutWrapper, {
     closing: closing,
     alignY: "bottom",

@@ -1,66 +1,49 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Pagination = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _icons = require("@vkontakte/icons");
-
 var _classNames = require("../../lib/classNames");
-
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
-
 var _usePagination = require("../../hooks/usePagination");
-
 var _Tappable = require("../Tappable/Tappable");
-
 var _Button = require("../Button/Button");
-
 var _excluded = ["currentPage", "siblingCount", "boundaryCount", "totalPages", "disabled", "getPageAriaLabel", "prevButtonAriaLabel", "nextButtonAriaLabel", "getRootRef", "onChange"];
-
 function getPageAriaLabelDefault(page, isCurrent) {
   return isCurrent ? "".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430") : "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 ".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443");
 }
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Pagination
  */
 var Pagination = function Pagination(_ref) {
   var _ref$currentPage = _ref.currentPage,
-      currentPage = _ref$currentPage === void 0 ? 1 : _ref$currentPage,
-      _ref$siblingCount = _ref.siblingCount,
-      siblingCount = _ref$siblingCount === void 0 ? 1 : _ref$siblingCount,
-      _ref$boundaryCount = _ref.boundaryCount,
-      boundaryCount = _ref$boundaryCount === void 0 ? 1 : _ref$boundaryCount,
-      _ref$totalPages = _ref.totalPages,
-      totalPages = _ref$totalPages === void 0 ? 1 : _ref$totalPages,
-      disabled = _ref.disabled,
-      _ref$getPageAriaLabel = _ref.getPageAriaLabel,
-      getPageAriaLabel = _ref$getPageAriaLabel === void 0 ? getPageAriaLabelDefault : _ref$getPageAriaLabel,
-      _ref$prevButtonAriaLa = _ref.prevButtonAriaLabel,
-      prevButtonAriaLabel = _ref$prevButtonAriaLa === void 0 ? "Перейти на предыдущую страницу" : _ref$prevButtonAriaLa,
-      _ref$nextButtonAriaLa = _ref.nextButtonAriaLabel,
-      nextButtonAriaLabel = _ref$nextButtonAriaLa === void 0 ? "Перейти на следующую страницу" : _ref$nextButtonAriaLa,
-      getRootRef = _ref.getRootRef,
-      onChange = _ref.onChange,
-      resetProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
-
+    currentPage = _ref$currentPage === void 0 ? 1 : _ref$currentPage,
+    _ref$siblingCount = _ref.siblingCount,
+    siblingCount = _ref$siblingCount === void 0 ? 1 : _ref$siblingCount,
+    _ref$boundaryCount = _ref.boundaryCount,
+    boundaryCount = _ref$boundaryCount === void 0 ? 1 : _ref$boundaryCount,
+    _ref$totalPages = _ref.totalPages,
+    totalPages = _ref$totalPages === void 0 ? 1 : _ref$totalPages,
+    disabled = _ref.disabled,
+    _ref$getPageAriaLabel = _ref.getPageAriaLabel,
+    getPageAriaLabel = _ref$getPageAriaLabel === void 0 ? getPageAriaLabelDefault : _ref$getPageAriaLabel,
+    _ref$prevButtonAriaLa = _ref.prevButtonAriaLabel,
+    prevButtonAriaLabel = _ref$prevButtonAriaLa === void 0 ? "Перейти на предыдущую страницу" : _ref$prevButtonAriaLa,
+    _ref$nextButtonAriaLa = _ref.nextButtonAriaLabel,
+    nextButtonAriaLabel = _ref$nextButtonAriaLa === void 0 ? "Перейти на следующую страницу" : _ref$nextButtonAriaLa,
+    getRootRef = _ref.getRootRef,
+    onChange = _ref.onChange,
+    resetProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var pages = (0, _usePagination.usePagination)({
     currentPage: currentPage,
     totalPages: totalPages,
@@ -92,11 +75,9 @@ var Pagination = function Pagination(_ref) {
         }, (0, _jsxRuntime.createScopedElement)("div", {
           vkuiClass: (0, _classNames.classNames)("Pagination__page", "Pagination__page--type-ellipsis", "Pagination__page--sizeY-".concat(sizeY), disabled && "Pagination__page--disabled")
         }, "..."));
-
       default:
         {
           var _isCurrent = page === currentPage;
-
           return (0, _jsxRuntime.createScopedElement)("li", {
             key: page
           }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
@@ -150,6 +131,5 @@ var Pagination = function Pagination(_ref) {
     onClick: handleNextClick
   }))));
 };
-
 exports.Pagination = Pagination;
 //# sourceMappingURL=Pagination.js.map

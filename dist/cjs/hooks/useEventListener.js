@@ -1,24 +1,16 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.useEventListener = useEventListener;
-
 var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread2"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _utils = require("../lib/utils");
-
 var _dom = require("../lib/dom");
-
 var _useIsomorphicLayoutEffect = require("../lib/useIsomorphicLayoutEffect");
-
 function useEventListener(event, _cb, _options) {
   var cbRef = React.useRef(_cb);
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
@@ -36,16 +28,12 @@ function useEventListener(event, _cb, _options) {
     if (!_dom.canUseDOM) {
       return;
     }
-
     remove();
-
     if (!el) {
       return;
     }
-
     var options = (0, _objectSpread2.default)({}, _options);
     el.addEventListener(event, cb, options);
-
     detach.current = function () {
       return el.removeEventListener(event, cb, options);
     };

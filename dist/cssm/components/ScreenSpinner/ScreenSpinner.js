@@ -10,22 +10,20 @@ import { PopoutWrapper } from "../PopoutWrapper/PopoutWrapper";
 import { useScrollLock } from "../AppRoot/ScrollContext";
 import { classNames } from "../../lib/classNames";
 import "./ScreenSpinner.css";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/ScreenSpinner
  */
 export var ScreenSpinner = function ScreenSpinner(_ref) {
   var style = _ref.style,
-      className = _ref.className,
-      _ref$state = _ref.state,
-      state = _ref$state === void 0 ? "loading" : _ref$state,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? "large" : _ref$size,
-      _ref$ariaLabel = _ref["aria-label"],
-      ariaLabel = _ref$ariaLabel === void 0 ? "Пожалуйста, подождите..." : _ref$ariaLabel,
-      onClick = _ref.onClick,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    className = _ref.className,
+    _ref$state = _ref.state,
+    state = _ref$state === void 0 ? "loading" : _ref$state,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "large" : _ref$size,
+    _ref$ariaLabel = _ref["aria-label"],
+    ariaLabel = _ref$ariaLabel === void 0 ? "Пожалуйста, подождите..." : _ref$ariaLabel,
+    onClick = _ref.onClick,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var hideSpinner = state === "done" || state === "error";
   var Icon = {
     loading: function loading() {

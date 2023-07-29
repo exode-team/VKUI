@@ -15,41 +15,36 @@ import { Subhead } from "../Typography/Subhead/Subhead";
 import { Headline } from "../Typography/Headline/Headline";
 import { Footnote } from "../Typography/Footnote/Footnote";
 import { Caption } from "../Typography/Caption/Caption";
-
 var SubtitleTypography = function SubtitleTypography(props) {
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   if (sizeY === SizeType.COMPACT) {
     return createScopedElement(Caption, _extends({
       level: "2"
     }, props));
   }
-
   return createScopedElement(Footnote, props);
 };
-
 var SimpleCellComponent = function SimpleCellComponent(_ref) {
   var badge = _ref.badge,
-      badgeBeforeTitle = _ref.badgeBeforeTitle,
-      _ref$badgeAfterTitle = _ref.badgeAfterTitle,
-      badgeAfterTitle = _ref$badgeAfterTitle === void 0 ? badge : _ref$badgeAfterTitle,
-      badgeBeforeSubtitle = _ref.badgeBeforeSubtitle,
-      badgeAfterSubtitle = _ref.badgeAfterSubtitle,
-      before = _ref.before,
-      indicator = _ref.indicator,
-      children = _ref.children,
-      after = _ref.after,
-      description = _ref.description,
-      expandable = _ref.expandable,
-      multiline = _ref.multiline,
-      sizeY = _ref.sizeY,
-      subhead = _ref.subhead,
-      _ref$subtitle = _ref.subtitle,
-      subtitle = _ref$subtitle === void 0 ? description : _ref$subtitle,
-      extraSubtitle = _ref.extraSubtitle,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    badgeBeforeTitle = _ref.badgeBeforeTitle,
+    _ref$badgeAfterTitle = _ref.badgeAfterTitle,
+    badgeAfterTitle = _ref$badgeAfterTitle === void 0 ? badge : _ref$badgeAfterTitle,
+    badgeBeforeSubtitle = _ref.badgeBeforeSubtitle,
+    badgeAfterSubtitle = _ref.badgeAfterSubtitle,
+    before = _ref.before,
+    indicator = _ref.indicator,
+    children = _ref.children,
+    after = _ref.after,
+    description = _ref.description,
+    expandable = _ref.expandable,
+    multiline = _ref.multiline,
+    sizeY = _ref.sizeY,
+    subhead = _ref.subhead,
+    _ref$subtitle = _ref.subtitle,
+    subtitle = _ref$subtitle === void 0 ? description : _ref$subtitle,
+    extraSubtitle = _ref.extraSubtitle,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var hasAfter = hasReactNode(after) || expandable && platform === IOS;
   return createScopedElement(Tappable, _extends({}, restProps, {
@@ -87,11 +82,10 @@ var SimpleCellComponent = function SimpleCellComponent(_ref) {
     vkuiClass: "SimpleCell__after"
   }, after, expandable && platform === IOS && createScopedElement(Icon24Chevron, null)));
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/SimpleCell
  */
-
-
 export var SimpleCell = withAdaptivity(SimpleCellComponent, {
   sizeY: true
 });

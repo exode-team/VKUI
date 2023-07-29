@@ -8,20 +8,16 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { FocusTrap } from "../FocusTrap/FocusTrap";
 import "./ActionSheet.css";
-
 var stopPropagation = function stopPropagation(e) {
   return e.stopPropagation();
 };
-
 export var ActionSheetDropdown = function ActionSheetDropdown(_ref) {
   var children = _ref.children,
-      closing = _ref.closing,
-      toggleRef = _ref.toggleRef,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    closing = _ref.closing,
+    toggleRef = _ref.toggleRef,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var platform = usePlatform();
   return createScopedElement(FocusTrap, _extends({}, restProps, {
     onClick: stopPropagation,

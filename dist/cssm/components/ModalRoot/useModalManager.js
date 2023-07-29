@@ -9,20 +9,17 @@ import { warnOnce } from "../../lib/warnOnce";
 import { getNavId } from "../../lib/getNavId";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { noop, isFunction } from "../../lib/utils";
-
 function getModals(children) {
   return React.Children.toArray(children);
 }
-
 var warn = warnOnce("ModalRoot");
 export function modalTransitionReducer(state, action) {
   if (action.type === "setActive" && action.id !== state.activeModal) {
-    var nextModal = action.id; // preserve exiting modal if switching mid-transition
-
+    var nextModal = action.id;
+    // preserve exiting modal if switching mid-transition
     var prevModal = state.exitingModal || state.activeModal;
     var history = state.history ? _toConsumableArray(state.history) : [];
     var isBack = Boolean(nextModal && history.includes(nextModal));
-
     if (nextModal === null) {
       history = [];
     } else if (isBack) {
@@ -30,7 +27,6 @@ export function modalTransitionReducer(state, action) {
     } else {
       history.push(nextModal);
     }
-
     return {
       activeModal: nextModal,
       // not entering yet
@@ -40,27 +36,24 @@ export function modalTransitionReducer(state, action) {
       isBack: isBack
     };
   }
-
   if (action.type === "entered" && action.id === state.enteringModal) {
     return _objectSpread(_objectSpread({}, state), {}, {
       enteringModal: null
     });
   }
-
   if (action.type === "exited" && action.id === state.exitingModal) {
     return _objectSpread(_objectSpread({}, state), {}, {
       exitingModal: null
     });
   }
-
   if (action.type === "inited" && action.id === state.activeModal) {
     return _objectSpread(_objectSpread({}, state), {}, {
       enteringModal: action.id
     });
   }
-
   return state;
 }
+
 /**
  * Реализует переход модалок. При смене activeModal m1 -> m2:
  * 1. activeModal: m1, exitingModal: null, enteringModal: null, триггер перехода
@@ -73,7 +66,6 @@ export function modalTransitionReducer(state, action) {
  *   4b. enteringModal переходит в null после завершения анимации
  * 5. activeModal: m2, exitingModal: null, enteringModal: null, переход закончен
  */
-
 export function useModalManager(activeModal, children) {
   var onOpen = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : noop;
   var onOpened = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : noop;
@@ -91,43 +83,41 @@ export function useModalManager(activeModal, children) {
     state.onOpened = Modal.props.onOpened;
     state.onClose = Modal.props.onClose;
     state.onClosed = Modal.props.onClosed;
-    state.dynamicContentHeight = !!modalProps.dynamicContentHeight; // ModalPage props
-
+    state.dynamicContentHeight = !!modalProps.dynamicContentHeight;
+    // ModalPage props
     if (typeof modalProps.settlingHeight === "number") {
       state.settlingHeight = modalProps.settlingHeight;
     }
-
     if (state.id !== null) {
       modalsState[state.id] = state;
     }
   });
   var isMissing = activeModal && !modalsState[activeModal];
   var safeActiveModal = isMissing ? null : activeModal;
-
   var _React$useReducer = React.useReducer(modalTransitionReducer, {
-    activeModal: safeActiveModal,
-    enteringModal: null,
-    exitingModal: null,
-    history: safeActiveModal ? [safeActiveModal] : [],
-    isBack: false
-  }),
-      _React$useReducer2 = _slicedToArray(_React$useReducer, 2),
-      transitionState = _React$useReducer2[0],
-      dispatchTransition = _React$useReducer2[1]; // Map props to state, render activeModal for init
+      activeModal: safeActiveModal,
+      enteringModal: null,
+      exitingModal: null,
+      history: safeActiveModal ? [safeActiveModal] : [],
+      isBack: false
+    }),
+    _React$useReducer2 = _slicedToArray(_React$useReducer, 2),
+    transitionState = _React$useReducer2[0],
+    dispatchTransition = _React$useReducer2[1];
 
-
+  // Map props to state, render activeModal for init
   useIsomorphicLayoutEffect(function () {
     // ignore non-existent activeModal
     if (process.env.NODE_ENV === "development" && isMissing) {
       warn("\u041F\u0435\u0440\u0435\u0445\u043E\u0434 \u043D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u0435\u043D - \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u043E\u0435 \u043E\u043A\u043D\u043E (\u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430) ".concat(activeModal, " \u043D\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442"), "error");
     }
-
     dispatchTransition({
       type: "setActive",
       id: safeActiveModal !== null && safeActiveModal !== void 0 ? safeActiveModal : null
     });
-  }, [activeModal]); // Init activeModal & set enteringModal
+  }, [activeModal]);
 
+  // Init activeModal & set enteringModal
   useIsomorphicLayoutEffect(function () {
     if (transitionState.activeModal) {
       initModal(modalsState[transitionState.activeModal]);
@@ -137,24 +127,19 @@ export function useModalManager(activeModal, children) {
       });
     }
   }, [transitionState.activeModal]);
-
   var isCard = function isCard(id) {
     var _modalsState$id;
-
     return id != null && ((_modalsState$id = modalsState[id]) === null || _modalsState$id === void 0 ? void 0 : _modalsState$id.type) === ModalType.CARD;
   };
-
   var onEntered = React.useCallback(function (id) {
     if (id) {
       var modalState = modalsState[id];
-
       if (isFunction(modalState.onOpened)) {
         modalState.onOpened();
       } else if (isFunction(onOpened)) {
         onOpened(id);
       }
     }
-
     dispatchTransition({
       type: "entered",
       id: id
@@ -163,14 +148,12 @@ export function useModalManager(activeModal, children) {
   var onExited = React.useCallback(function (id) {
     if (id) {
       var modalState = modalsState[id];
-
       if (isFunction(modalState.onClosed)) {
         modalState.onClosed();
       } else if (isFunction(onClosed)) {
         onClosed(id);
       }
     }
-
     dispatchTransition({
       type: "exited",
       id: id
@@ -180,10 +163,8 @@ export function useModalManager(activeModal, children) {
   var getModalState = React.useCallback(function (id) {
     return modalsState[id];
   }, [modalsState]);
-
   function onEnter() {
     var modalState = transitionState.activeModal && modalsState[transitionState.activeModal];
-
     if (modalState) {
       if (isFunction(modalState.onOpen)) {
         modalState.onOpen();
@@ -192,10 +173,8 @@ export function useModalManager(activeModal, children) {
       }
     }
   }
-
   function onExit() {
     var modalState = transitionState.activeModal && modalsState[transitionState.activeModal];
-
     if (modalState) {
       if (isFunction(modalState.onClose)) {
         modalState.onClose();
@@ -204,7 +183,6 @@ export function useModalManager(activeModal, children) {
       }
     }
   }
-
   return _objectSpread(_objectSpread({
     onEnter: onEnter,
     onEntered: onEntered,

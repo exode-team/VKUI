@@ -29,86 +29,62 @@ import { warnOnce } from "../../lib/warnOnce";
 import { swipeBackExcluded } from "./utils";
 var warn = warnOnce("ViewInfinite");
 var SwipeBackResults;
-
 (function (SwipeBackResults) {
   SwipeBackResults[SwipeBackResults["fail"] = 1] = "fail";
   SwipeBackResults[SwipeBackResults["success"] = 2] = "success";
 })(SwipeBackResults || (SwipeBackResults = {}));
-
 var scrollsCache = {};
-
 var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
   _inherits(ViewInfiniteComponent, _React$Component);
-
   var _super = _createSuper(ViewInfiniteComponent);
-
   function ViewInfiniteComponent(props) {
     var _this;
-
     _classCallCheck(this, ViewInfiniteComponent);
-
     _this = _super.call(this, props);
-
     _defineProperty(_assertThisInitialized(_this), "scrolls", scrollsCache[getNavId(_this.props, warn)] || {});
-
     _defineProperty(_assertThisInitialized(_this), "transitionFinishTimeout", undefined);
-
     _defineProperty(_assertThisInitialized(_this), "animationFinishTimeout", undefined);
-
     _defineProperty(_assertThisInitialized(_this), "panelNodes", {});
-
     _defineProperty(_assertThisInitialized(_this), "transitionEndHandler", function (e) {
       if ((!e || ["vkui-animation-ios-next-forward", "vkui-animation-ios-prev-back", "vkui-animation-view-next-forward", "vkui-animation-view-prev-back"].includes(e.animationName)) && _this.state.prevPanel !== null) {
         _this.flushTransition(_this.state.prevPanel, Boolean(_this.state.isBack));
       }
     });
-
     _defineProperty(_assertThisInitialized(_this), "swipingBackTransitionEndHandler", function (e) {
       // indexOf because of vendor prefixes in old browsers
       if (!e || e.propertyName.includes("transform") && e.target === _this.pickPanel(_this.state.swipeBackNextPanel)) {
         switch (_this.state.swipeBackResult) {
           case SwipeBackResults.fail:
             _this.onSwipeBackCancel();
-
             break;
-
           case SwipeBackResults.success:
             _this.onSwipeBackSuccess();
-
         }
       }
     });
-
     _defineProperty(_assertThisInitialized(_this), "onMoveX", function (e) {
       if (swipeBackExcluded(e) || !_this.window) {
         return;
       }
-
       var _this$props = _this.props,
-          platform = _this$props.platform,
-          configProvider = _this$props.configProvider;
-
+        platform = _this$props.platform,
+        configProvider = _this$props.configProvider;
       if (platform === IOS && !(configProvider !== null && configProvider !== void 0 && configProvider.isWebView) && (e.startX <= 70 || e.startX >= _this.window.innerWidth - 70) && !_this.state.browserSwipe) {
         _this.setState({
           browserSwipe: true
         });
       }
-
       if (platform === IOS && configProvider !== null && configProvider !== void 0 && configProvider.isWebView && _this.props.onSwipeBack) {
         var _this$props$history$l, _this$props$history;
-
         if (_this.state.animated && e.startX <= 70) {
           return;
         }
-
         if (e.startX <= 70 && !_this.state.swipingBack && ((_this$props$history$l = (_this$props$history = _this.props.history) === null || _this$props$history === void 0 ? void 0 : _this$props$history.length) !== null && _this$props$history$l !== void 0 ? _this$props$history$l : 0) > 1) {
           if (_this.state.activePanel !== null) {
             var _this$props$scroll;
-
             var prevScrolls = _this.scrolls[_this.state.activePanel] || [];
             _this.scrolls = _objectSpread(_objectSpread({}, _this.scrolls), {}, _defineProperty({}, _this.state.activePanel, [].concat(_toConsumableArray(prevScrolls), [(_this$props$scroll = _this.props.scroll) === null || _this$props$scroll === void 0 ? void 0 : _this$props$scroll.getScroll().y])));
           }
-
           _this.setState({
             swipingBack: true,
             swipebackStartX: e.startX,
@@ -116,10 +92,8 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
             swipeBackNextPanel: _this.props.history.slice(-2)[0]
           });
         }
-
         if (_this.state.swipingBack) {
           var swipeBackShift;
-
           if (e.shiftX < 0) {
             swipeBackShift = 0;
           } else if (e.shiftX > _this.window.innerWidth - _this.state.swipebackStartX) {
@@ -127,18 +101,15 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
           } else {
             swipeBackShift = e.shiftX;
           }
-
           _this.setState({
             swipeBackShift: swipeBackShift
           });
         }
       }
     });
-
     _defineProperty(_assertThisInitialized(_this), "onEnd", function (e) {
       if (_this.state.swipingBack && _this.window) {
         var speed = _this.state.swipeBackShift / e.duration * 1000;
-
         if (_this.state.swipeBackShift === 0) {
           _this.onSwipeBackCancel();
         } else if (_this.state.swipeBackShift >= _this.window.innerWidth) {
@@ -154,7 +125,6 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
         }
       }
     });
-
     _this.state = {
       animated: false,
       visiblePanels: [props.activePanel],
@@ -172,7 +142,6 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
     };
     return _this;
   }
-
   _createClass(ViewInfiniteComponent, [{
     key: "document",
     get: function get() {
@@ -192,11 +161,9 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       var id = getNavId(this.props);
-
       if (id) {
         scrollsCache[id] = this.scrolls;
       }
-
       if (this.animationFinishTimeout) {
         clearTimeout(this.animationFinishTimeout);
       }
@@ -205,15 +172,13 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
       var _this2 = this;
-
       this.props.popout && !prevProps.popout && this.blurActiveElement();
-      this.props.modal && !prevProps.modal && this.blurActiveElement(); // Нужен переход
+      this.props.modal && !prevProps.modal && this.blurActiveElement();
 
+      // Нужен переход
       if (prevProps.activePanel !== this.props.activePanel && !prevState.swipingBack && !prevState.browserSwipe) {
         var _this$props$scroll2;
-
         var isBack = false;
-
         if (this.props.isBackCheck) {
           isBack = this.props.isBackCheck({
             from: prevProps.activePanel,
@@ -227,14 +192,10 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
           });
           isBack = firstLayerId === this.props.activePanel;
         }
-
         this.blurActiveElement();
         var prevScrolls = this.scrolls[prevProps.activePanel] || [];
-
         var scrolls = _objectSpread(_objectSpread({}, this.scrolls), {}, _defineProperty({}, prevProps.activePanel, [].concat(_toConsumableArray(prevScrolls), [(_this$props$scroll2 = this.props.scroll) === null || _this$props$scroll2 === void 0 ? void 0 : _this$props$scroll2.getScroll().y])));
-
         this.scrolls = scrolls;
-
         if (this.shouldDisableTransitionMotion()) {
           this.flushTransition(prevProps.activePanel, isBack);
         } else {
@@ -245,38 +206,33 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
             activePanel: null,
             animated: true,
             isBack: isBack
-          }); // Фолбек анимации перехода
+          });
 
+          // Фолбек анимации перехода
           if (!animationEvent.supported) {
             if (this.animationFinishTimeout) {
               clearTimeout(this.animationFinishTimeout);
             }
-
             this.animationFinishTimeout = setTimeout(this.transitionEndHandler, this.props.platform === ANDROID || this.props.platform === VKCOM ? 300 : 600);
           }
         }
-      } // Закончилась анимация свайпа назад
+      }
 
-
+      // Закончилась анимация свайпа назад
       if (prevProps.activePanel !== this.props.activePanel && prevState.swipingBack) {
         var nextPanel = this.state.swipeBackNextPanel;
         var prevPanel = this.state.swipeBackPrevPanel;
         var scrollPosition = undefined;
         this.scrolls = _objectSpread({}, this.scrolls);
-
         if (prevPanel !== null) {
           var prevPanelScrolls = _toConsumableArray(this.scrolls[prevPanel] || []).slice(0, -1);
-
           this.scrolls[prevPanel] = prevPanelScrolls;
         }
-
         if (nextPanel !== null) {
           var newPanelScrolls = _toConsumableArray(this.scrolls[nextPanel] || []);
-
           scrollPosition = newPanelScrolls.pop();
           this.scrolls[nextPanel] = newPanelScrolls;
         }
-
         this.setState({
           swipeBackPrevPanel: null,
           swipeBackNextPanel: null,
@@ -288,7 +244,6 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
           visiblePanels: [nextPanel]
         }, function () {
           var _this2$props$scroll;
-
           (_this2$props$scroll = _this2.props.scroll) === null || _this2$props$scroll === void 0 ? void 0 : _this2$props$scroll.scrollTo(0, scrollPosition);
           prevProps.onTransition && prevProps.onTransition({
             isBack: true,
@@ -296,31 +251,28 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
             to: nextPanel
           });
         });
-      } // Начался свайп назад
+      }
 
-
+      // Начался свайп назад
       if (!prevState.swipingBack && this.state.swipingBack) {
         this.props.onSwipeBackStart && this.props.onSwipeBackStart();
-      } // Началась анимация завершения свайпа назад.
+      }
 
-
+      // Началась анимация завершения свайпа назад.
       if (!prevState.swipeBackResult && this.state.swipeBackResult) {
         this.waitTransitionFinish(this.pickPanel(this.state.swipeBackNextPanel), this.swipingBackTransitionEndHandler);
-      } // Если свайп назад отменился (когда пользователь недостаточно сильно свайпнул)
+      }
 
-
+      // Если свайп назад отменился (когда пользователь недостаточно сильно свайпнул)
       if (prevState.swipeBackResult === SwipeBackResults.fail && !this.state.swipeBackResult && this.state.activePanel !== null) {
         var _this$props$scroll3;
-
         var _newPanelScrolls = _toConsumableArray(this.scrolls[this.state.activePanel] || []);
-
         var _scrollPosition = _newPanelScrolls.pop();
-
         this.scrolls = _objectSpread(_objectSpread({}, this.scrolls), {}, _defineProperty({}, this.state.activePanel, _newPanelScrolls));
         (_this$props$scroll3 = this.props.scroll) === null || _this$props$scroll3 === void 0 ? void 0 : _this$props$scroll3.scrollTo(0, _scrollPosition);
-      } // Закончился Safari свайп
+      }
 
-
+      // Закончился Safari свайп
       if (prevProps.activePanel !== this.props.activePanel && this.state.browserSwipe) {
         this.setState({
           browserSwipe: false,
@@ -336,7 +288,6 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
     key: "shouldDisableTransitionMotion",
     value: function shouldDisableTransitionMotion() {
       var _this$props$configPro, _this$props$splitCol;
-
       return ((_this$props$configPro = this.props.configProvider) === null || _this$props$configPro === void 0 ? void 0 : _this$props$configPro.transitionMotionEnabled) === false || !((_this$props$splitCol = this.props.splitCol) !== null && _this$props$splitCol !== void 0 && _this$props$splitCol.animate);
     }
   }, {
@@ -349,7 +300,6 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
         if (this.transitionFinishTimeout) {
           clearTimeout(this.transitionFinishTimeout);
         }
-
         this.transitionFinishTimeout = setTimeout(eventHandler, this.props.platform === ANDROID || this.props.platform === VKCOM ? 300 : 600);
       }
     }
@@ -357,7 +307,6 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
     key: "blurActiveElement",
     value: function blurActiveElement() {
       var _this$document;
-
       if (typeof this.window !== "undefined" && (_this$document = this.document) !== null && _this$document !== void 0 && _this$document.activeElement) {
         this.document.activeElement.blur();
       }
@@ -368,28 +317,20 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
       if (id === null) {
         return undefined;
       }
-
       return this.panelNodes[id];
     }
   }, {
     key: "flushTransition",
     value: function flushTransition(prevPanel, isBack) {
       var _this3 = this;
-
       var activePanel = this.props.activePanel;
-
       var prevPanelScrolls = _toConsumableArray(this.scrolls[prevPanel] || []).slice(0, -1);
-
       var newPanelScrolls = _toConsumableArray(this.scrolls[activePanel] || []);
-
       var scrollPosition = isBack ? newPanelScrolls.pop() : 0;
-
       if (isBack) {
         var _objectSpread5;
-
         this.scrolls = _objectSpread(_objectSpread({}, this.scrolls), {}, (_objectSpread5 = {}, _defineProperty(_objectSpread5, prevPanel, prevPanelScrolls), _defineProperty(_objectSpread5, activePanel, newPanelScrolls), _objectSpread5));
       }
-
       this.setState({
         prevPanel: null,
         nextPanel: null,
@@ -399,7 +340,6 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
         isBack: undefined
       }, function () {
         var _this3$props$scroll;
-
         (_this3$props$scroll = _this3.props.scroll) === null || _this3$props$scroll === void 0 ? void 0 : _this3$props$scroll.scrollTo(0, isBack ? scrollPosition : 0);
         _this3.props.onTransition && _this3.props.onTransition({
           isBack: isBack,
@@ -432,31 +372,25 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
       if (!canUseDOM || !this.window) {
         return {};
       }
-
       var isPrev = panelId === this.state.swipeBackPrevPanel;
       var isNext = panelId === this.state.swipeBackNextPanel;
-
       if (!isPrev && !isNext || this.state.swipeBackResult) {
         return {};
       }
-
       var prevPanelTranslate = "".concat(this.state.swipeBackShift, "px");
       var nextPanelTranslate = "".concat(-50 + this.state.swipeBackShift * 100 / this.window.innerWidth / 2, "%");
       var prevPanelShadow = 0.3 * (this.window.innerWidth - this.state.swipeBackShift) / this.window.innerWidth;
-
       if (this.state.swipeBackResult) {
         return isPrev ? {
           boxShadow: "-2px 0 12px rgba(0, 0, 0, ".concat(prevPanelShadow, ")")
         } : {};
       }
-
       if (isNext) {
         return {
           transform: "translate3d(".concat(nextPanelTranslate, ", 0, 0)"),
           WebkitTransform: "translate3d(".concat(nextPanelTranslate, ", 0, 0)")
         };
       }
-
       if (isPrev) {
         return {
           transform: "translate3d(".concat(prevPanelTranslate, ", 0, 0)"),
@@ -464,44 +398,41 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
           boxShadow: "-2px 0 12px rgba(0, 0, 0, ".concat(prevPanelShadow, ")")
         };
       }
-
       return {};
     }
   }, {
     key: "render",
     value: function render() {
       var _this4 = this;
-
       var _this$props2 = this.props,
-          popout = _this$props2.popout,
-          modal = _this$props2.modal,
-          platform = _this$props2.platform,
-          _1 = _this$props2.activePanel,
-          splitCol = _this$props2.splitCol,
-          configProvider = _this$props2.configProvider,
-          history = _this$props2.history,
-          id = _this$props2.id,
-          nav = _this$props2.nav,
-          onTransition = _this$props2.onTransition,
-          onSwipeBack = _this$props2.onSwipeBack,
-          onSwipeBackStart = _this$props2.onSwipeBackStart,
-          onSwipeBackCancel = _this$props2.onSwipeBackCancel,
-          window = _this$props2.window,
-          document = _this$props2.document,
-          scroll = _this$props2.scroll,
-          isBackCheck = _this$props2.isBackCheck,
-          restProps = _objectWithoutProperties(_this$props2, _excluded);
-
+        popout = _this$props2.popout,
+        modal = _this$props2.modal,
+        platform = _this$props2.platform,
+        _1 = _this$props2.activePanel,
+        splitCol = _this$props2.splitCol,
+        configProvider = _this$props2.configProvider,
+        history = _this$props2.history,
+        id = _this$props2.id,
+        nav = _this$props2.nav,
+        onTransition = _this$props2.onTransition,
+        onSwipeBack = _this$props2.onSwipeBack,
+        onSwipeBackStart = _this$props2.onSwipeBackStart,
+        onSwipeBackCancel = _this$props2.onSwipeBackCancel,
+        window = _this$props2.window,
+        document = _this$props2.document,
+        scroll = _this$props2.scroll,
+        isBackCheck = _this$props2.isBackCheck,
+        restProps = _objectWithoutProperties(_this$props2, _excluded);
       var _this$state = this.state,
-          prevPanel = _this$state.prevPanel,
-          nextPanel = _this$state.nextPanel,
-          activePanel = _this$state.activePanel,
-          isBack = _this$state.isBack,
-          animated = _this$state.animated,
-          swipeBackPrevPanel = _this$state.swipeBackPrevPanel,
-          swipeBackNextPanel = _this$state.swipeBackNextPanel,
-          swipeBackResult = _this$state.swipeBackResult,
-          swipingBack = _this$state.swipingBack;
+        prevPanel = _this$state.prevPanel,
+        nextPanel = _this$state.nextPanel,
+        activePanel = _this$state.activePanel,
+        isBack = _this$state.isBack,
+        animated = _this$state.animated,
+        swipeBackPrevPanel = _this$state.swipeBackPrevPanel,
+        swipeBackNextPanel = _this$state.swipeBackNextPanel,
+        swipeBackResult = _this$state.swipeBackResult,
+        swipingBack = _this$state.swipingBack;
       var hasPopout = !!popout;
       var hasModal = !!modal;
       var panels = this.panels.filter(function (panel) {
@@ -511,15 +442,12 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
         var panelId = getNavId(panel.props, warn);
         var isPrevPanel = panelId === prevPanel || panelId === swipeBackPrevPanel;
         var isNextPanel = panelId === nextPanel || panelId === swipeBackNextPanel;
-
         if (isNextPanel) {
           return swipingBack || _this4.state.isBack ? -1 : 1;
         }
-
         if (isPrevPanel) {
           return swipingBack || _this4.state.isBack ? 1 : -1;
         }
-
         return 0;
       });
       var disableAnimation = this.shouldDisableTransitionMotion();
@@ -566,13 +494,10 @@ var ViewInfiniteComponent = /*#__PURE__*/function (_React$Component) {
       }, modal)));
     }
   }]);
-
   return ViewInfiniteComponent;
 }(React.Component);
-
 _defineProperty(ViewInfiniteComponent, "defaultProps", {
   history: []
 });
-
 export var ViewInfinite = withContext(withContext(withContext(withPlatform(withDOM(ViewInfiniteComponent)), SplitColContext, "splitCol"), ConfigProviderContext, "configProvider"), ScrollContext, "scroll");
 //# sourceMappingURL=ViewInfinite.js.map

@@ -14,38 +14,38 @@ import { Paragraph } from "../Typography/Paragraph/Paragraph";
 import { AdaptivityProvider } from "../AdaptivityProvider/AdaptivityProvider";
 export var CalendarHeader = function CalendarHeader(_ref) {
   var viewDate = _ref.viewDate,
-      onChange = _ref.onChange,
-      _ref$prevMonth = _ref.prevMonth,
-      prevMonth = _ref$prevMonth === void 0 ? true : _ref$prevMonth,
-      _ref$nextMonth = _ref.nextMonth,
-      nextMonth = _ref$nextMonth === void 0 ? true : _ref$nextMonth,
-      _ref$disablePickers = _ref.disablePickers,
-      disablePickers = _ref$disablePickers === void 0 ? false : _ref$disablePickers,
-      onNextMonth = _ref.onNextMonth,
-      onPrevMonth = _ref.onPrevMonth,
-      className = _ref.className,
-      prevMonthProps = _ref.prevMonthProps,
-      nextMonthProps = _ref.nextMonthProps,
-      _ref$prevMonthAriaLab = _ref.prevMonthAriaLabel,
-      prevMonthAriaLabel = _ref$prevMonthAriaLab === void 0 ? "Предыдущий месяц" : _ref$prevMonthAriaLab,
-      _ref$nextMonthAriaLab = _ref.nextMonthAriaLabel,
-      nextMonthAriaLabel = _ref$nextMonthAriaLab === void 0 ? "Следующий месяц" : _ref$nextMonthAriaLab,
-      _ref$changeMonthAriaL = _ref.changeMonthAriaLabel,
-      changeMonthAriaLabel = _ref$changeMonthAriaL === void 0 ? "Изменить месяц" : _ref$changeMonthAriaL,
-      _ref$changeYearAriaLa = _ref.changeYearAriaLabel,
-      changeYearAriaLabel = _ref$changeYearAriaLa === void 0 ? "Изменить год" : _ref$changeYearAriaLa,
-      _ref$prevMonthIcon = _ref.prevMonthIcon,
-      prevMonthIcon = _ref$prevMonthIcon === void 0 ? createScopedElement(Icon20ChevronLeftOutline, {
-    vkuiClass: "CalendarHeader__nav-icon--accent",
-    width: 30,
-    height: 30
-  }) : _ref$prevMonthIcon,
-      _ref$nextMonthIcon = _ref.nextMonthIcon,
-      nextMonthIcon = _ref$nextMonthIcon === void 0 ? createScopedElement(Icon20ChevronRightOutline, {
-    vkuiClass: "CalendarHeader__nav-icon--accent",
-    width: 30,
-    height: 30
-  }) : _ref$nextMonthIcon;
+    onChange = _ref.onChange,
+    _ref$prevMonth = _ref.prevMonth,
+    prevMonth = _ref$prevMonth === void 0 ? true : _ref$prevMonth,
+    _ref$nextMonth = _ref.nextMonth,
+    nextMonth = _ref$nextMonth === void 0 ? true : _ref$nextMonth,
+    _ref$disablePickers = _ref.disablePickers,
+    disablePickers = _ref$disablePickers === void 0 ? false : _ref$disablePickers,
+    onNextMonth = _ref.onNextMonth,
+    onPrevMonth = _ref.onPrevMonth,
+    className = _ref.className,
+    prevMonthProps = _ref.prevMonthProps,
+    nextMonthProps = _ref.nextMonthProps,
+    _ref$prevMonthAriaLab = _ref.prevMonthAriaLabel,
+    prevMonthAriaLabel = _ref$prevMonthAriaLab === void 0 ? "Предыдущий месяц" : _ref$prevMonthAriaLab,
+    _ref$nextMonthAriaLab = _ref.nextMonthAriaLabel,
+    nextMonthAriaLabel = _ref$nextMonthAriaLab === void 0 ? "Следующий месяц" : _ref$nextMonthAriaLab,
+    _ref$changeMonthAriaL = _ref.changeMonthAriaLabel,
+    changeMonthAriaLabel = _ref$changeMonthAriaL === void 0 ? "Изменить месяц" : _ref$changeMonthAriaL,
+    _ref$changeYearAriaLa = _ref.changeYearAriaLabel,
+    changeYearAriaLabel = _ref$changeYearAriaLa === void 0 ? "Изменить год" : _ref$changeYearAriaLa,
+    _ref$prevMonthIcon = _ref.prevMonthIcon,
+    prevMonthIcon = _ref$prevMonthIcon === void 0 ? createScopedElement(Icon20ChevronLeftOutline, {
+      vkuiClass: "CalendarHeader__nav-icon--accent",
+      width: 30,
+      height: 30
+    }) : _ref$prevMonthIcon,
+    _ref$nextMonthIcon = _ref.nextMonthIcon,
+    nextMonthIcon = _ref$nextMonthIcon === void 0 ? createScopedElement(Icon20ChevronRightOutline, {
+      vkuiClass: "CalendarHeader__nav-icon--accent",
+      width: 30,
+      height: 30
+    }) : _ref$nextMonthIcon;
   var locale = React.useContext(LocaleProviderContext);
   var onMonthsChange = React.useCallback(function (event) {
     return onChange(setMonth(viewDate, Number(event.target.value)));
@@ -56,7 +56,7 @@ export var CalendarHeader = function CalendarHeader(_ref) {
   var months = React.useMemo(function () {
     return getMonths(locale).map(function (_ref2) {
       var value = _ref2.value,
-          label = _ref2.label;
+        label = _ref2.label;
       return {
         value: value,
         label: createScopedElement("span", {

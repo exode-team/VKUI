@@ -3,8 +3,8 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import "./PopperArrow.css";
 export var PopperArrow = function PopperArrow(_ref) {
   var style = _ref.style,
-      attributes = _ref.attributes,
-      arrowClassName = _ref.arrowClassName;
+    attributes = _ref.attributes,
+    arrowClassName = _ref.arrowClassName;
   return createScopedElement("div", _extends({
     style: style
   }, attributes, {

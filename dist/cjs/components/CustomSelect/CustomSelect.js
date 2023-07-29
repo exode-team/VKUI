@@ -1,91 +1,59 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.CustomSelect = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _SelectMimicry = require("../SelectMimicry/SelectMimicry");
-
 var _utils = require("../../lib/utils");
-
 var _classNames = require("../../lib/classNames");
-
 var _withAdaptivity = require("../../hoc/withAdaptivity");
-
 var _CustomSelectOption = require("../CustomSelectOption/CustomSelectOption");
-
 var _Input = require("../Input/Input");
-
 var _DropdownIcon = require("../DropdownIcon/DropdownIcon");
-
 var _Caption = require("../Typography/Caption/Caption");
-
 var _warnOnce = require("../../lib/warnOnce");
-
 var _select = require("../../lib/select");
-
 var _CustomSelectDropdown = require("../CustomSelectDropdown/CustomSelectDropdown");
-
 var _Select = require("../Select/Select");
-
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
-
 var _excluded = ["option"],
-    _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
-
+  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
 var findIndexAfter = function findIndexAfter() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var startIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
-
   if (startIndex >= options.length - 1) {
     return -1;
   }
-
   return options.findIndex(function (option, i) {
     return i > startIndex && !option.disabled;
   });
 };
-
 var findIndexBefore = function findIndexBefore() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var endIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : options.length;
   var result = -1;
-
   if (endIndex <= 0) {
     return result;
   }
-
   for (var i = endIndex - 1; i >= 0; i--) {
     var _option = options[i];
-
     if (!_option.disabled) {
       result = i;
       break;
     }
   }
-
   return result;
 };
-
 var warn = (0, _warnOnce.warnOnce)("CustomSelect");
-
 var checkOptionsValueType = function checkOptionsValueType(options) {
   if (new Set(options.map(function (item) {
     return (0, _typeof2.default)(item.value);
@@ -93,136 +61,115 @@ var checkOptionsValueType = function checkOptionsValueType(options) {
     warn("Некоторые значения ваших опций имеют разные типы. onChange всегда возвращает строковый тип.", "error");
   }
 };
-
 function defaultRenderOptionFn(_ref) {
   var option = _ref.option,
-      props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+    props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   return (0, _jsxRuntime.createScopedElement)(_CustomSelectOption.CustomSelectOption, props);
 }
-
 var handleOptionDown = function handleOptionDown(e) {
   e.preventDefault();
 };
-
 function findSelectedIndex(options, value) {
   var _options$findIndex;
-
   return (_options$findIndex = options.findIndex(function (item) {
     value = typeof item.value === "number" ? Number(value) : value;
     return item.value === value;
   })) !== null && _options$findIndex !== void 0 ? _options$findIndex : -1;
 }
-
 var filter = function filter(options, inputValue, filterFn) {
   return typeof filterFn === "function" ? options.filter(function (option) {
     return filterFn(inputValue, option);
   }) : options;
 };
-
 var defaultOptions = [];
-
 function CustomSelectComponent(props) {
   var _props$value, _props$value2;
-
   var _React$useState = React.useState(false),
-      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
-      opened = _React$useState2[0],
-      setOpened = _React$useState2[1];
-
+    _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+    opened = _React$useState2[0],
+    setOpened = _React$useState2[1];
   var before = props.before,
-      name = props.name,
-      className = props.className,
-      getRef = props.getRef,
-      getRootRef = props.getRootRef,
-      popupDirection = props.popupDirection,
-      sizeY = props.sizeY,
-      platform = props.platform,
-      style = props.style,
-      onChange = props.onChange,
-      children = props.children,
-      onInputChangeProp = props.onInputChange,
-      renderDropdown = props.renderDropdown,
-      onOpen = props.onOpen,
-      onClose = props.onClose,
-      fetching = props.fetching,
-      forceDropdownPortal = props.forceDropdownPortal,
-      _props$selectType = props.selectType,
-      selectType = _props$selectType === void 0 ? _Select.SelectType.default : _props$selectType,
-      autoHideScrollbar = props.autoHideScrollbar,
-      autoHideScrollbarDelay = props.autoHideScrollbarDelay,
-      _props$searchable = props.searchable,
-      searchable = _props$searchable === void 0 ? false : _props$searchable,
-      _props$renderOption = props.renderOption,
-      renderOptionProp = _props$renderOption === void 0 ? defaultRenderOptionFn : _props$renderOption,
-      _props$options = props.options,
-      optionsProp = _props$options === void 0 ? defaultOptions : _props$options,
-      _props$emptyText = props.emptyText,
-      emptyText = _props$emptyText === void 0 ? "Ничего не найдено" : _props$emptyText,
-      _props$filterFn = props.filterFn,
-      filterFn = _props$filterFn === void 0 ? _select.defaultFilterFn : _props$filterFn,
-      _props$icon = props.icon,
-      icon = _props$icon === void 0 ? (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, {
-    opened: opened
-  }) : _props$icon,
-      _props$dropdownOffset = props.dropdownOffsetDistance,
-      dropdownOffsetDistance = _props$dropdownOffset === void 0 ? 0 : _props$dropdownOffset,
-      _props$fixDropdownWid = props.fixDropdownWidth,
-      fixDropdownWidth = _props$fixDropdownWid === void 0 ? true : _props$fixDropdownWid,
-      restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
-
+    name = props.name,
+    className = props.className,
+    getRef = props.getRef,
+    getRootRef = props.getRootRef,
+    popupDirection = props.popupDirection,
+    sizeY = props.sizeY,
+    platform = props.platform,
+    style = props.style,
+    onChange = props.onChange,
+    children = props.children,
+    onInputChangeProp = props.onInputChange,
+    renderDropdown = props.renderDropdown,
+    onOpen = props.onOpen,
+    onClose = props.onClose,
+    fetching = props.fetching,
+    forceDropdownPortal = props.forceDropdownPortal,
+    _props$selectType = props.selectType,
+    selectType = _props$selectType === void 0 ? _Select.SelectType.default : _props$selectType,
+    autoHideScrollbar = props.autoHideScrollbar,
+    autoHideScrollbarDelay = props.autoHideScrollbarDelay,
+    _props$searchable = props.searchable,
+    searchable = _props$searchable === void 0 ? false : _props$searchable,
+    _props$renderOption = props.renderOption,
+    renderOptionProp = _props$renderOption === void 0 ? defaultRenderOptionFn : _props$renderOption,
+    _props$options = props.options,
+    optionsProp = _props$options === void 0 ? defaultOptions : _props$options,
+    _props$emptyText = props.emptyText,
+    emptyText = _props$emptyText === void 0 ? "Ничего не найдено" : _props$emptyText,
+    _props$filterFn = props.filterFn,
+    filterFn = _props$filterFn === void 0 ? _select.defaultFilterFn : _props$filterFn,
+    _props$icon = props.icon,
+    icon = _props$icon === void 0 ? (0, _jsxRuntime.createScopedElement)(_DropdownIcon.DropdownIcon, {
+      opened: opened
+    }) : _props$icon,
+    _props$dropdownOffset = props.dropdownOffsetDistance,
+    dropdownOffsetDistance = _props$dropdownOffset === void 0 ? 0 : _props$dropdownOffset,
+    _props$fixDropdownWid = props.fixDropdownWidth,
+    fixDropdownWidth = _props$fixDropdownWid === void 0 ? true : _props$fixDropdownWid,
+    restProps = (0, _objectWithoutProperties2.default)(props, _excluded2);
   if (process.env.NODE_ENV === "development") {
     checkOptionsValueType(optionsProp);
   }
-
   var containerRef = React.useRef(null);
   var scrollBoxRef = React.useRef(null);
   var selectElRef = React.useRef(null);
-
   var _React$useState3 = React.useState(-1),
-      _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
-      focusedOptionIndex = _React$useState4[0],
-      setFocusedOptionIndex = _React$useState4[1];
-
+    _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
+    focusedOptionIndex = _React$useState4[0],
+    setFocusedOptionIndex = _React$useState4[1];
   var _React$useState5 = React.useState(props.value !== undefined),
-      _React$useState6 = (0, _slicedToArray2.default)(_React$useState5, 2),
-      isControlledOutside = _React$useState6[0],
-      setIsControlledOutside = _React$useState6[1];
-
+    _React$useState6 = (0, _slicedToArray2.default)(_React$useState5, 2),
+    isControlledOutside = _React$useState6[0],
+    setIsControlledOutside = _React$useState6[1];
   var _React$useState7 = React.useState(""),
-      _React$useState8 = (0, _slicedToArray2.default)(_React$useState7, 2),
-      inputValue = _React$useState8[0],
-      setInputValue = _React$useState8[1];
-
+    _React$useState8 = (0, _slicedToArray2.default)(_React$useState7, 2),
+    inputValue = _React$useState8[0],
+    setInputValue = _React$useState8[1];
   var _React$useState9 = React.useState((_props$value = props.value) !== null && _props$value !== void 0 ? _props$value : props.defaultValue),
-      _React$useState10 = (0, _slicedToArray2.default)(_React$useState9, 2),
-      nativeSelectValue = _React$useState10[0],
-      setNativeSelectValue = _React$useState10[1];
-
+    _React$useState10 = (0, _slicedToArray2.default)(_React$useState9, 2),
+    nativeSelectValue = _React$useState10[0],
+    setNativeSelectValue = _React$useState10[1];
   var _React$useState11 = React.useState(""),
-      _React$useState12 = (0, _slicedToArray2.default)(_React$useState11, 2),
-      keyboardInput = _React$useState12[0],
-      setKeyboardInput = _React$useState12[1];
-
+    _React$useState12 = (0, _slicedToArray2.default)(_React$useState11, 2),
+    keyboardInput = _React$useState12[0],
+    setKeyboardInput = _React$useState12[1];
   var _React$useState13 = React.useState(undefined),
-      _React$useState14 = (0, _slicedToArray2.default)(_React$useState13, 2),
-      popperPlacement = _React$useState14[0],
-      setPopperPlacement = _React$useState14[1];
-
+    _React$useState14 = (0, _slicedToArray2.default)(_React$useState13, 2),
+    popperPlacement = _React$useState14[0],
+    setPopperPlacement = _React$useState14[1];
   var _React$useState15 = React.useState(optionsProp),
-      _React$useState16 = (0, _slicedToArray2.default)(_React$useState15, 2),
-      options = _React$useState16[0],
-      setOptions = _React$useState16[1];
-
+    _React$useState16 = (0, _slicedToArray2.default)(_React$useState15, 2),
+    options = _React$useState16[0],
+    setOptions = _React$useState16[1];
   var _React$useState17 = React.useState(findSelectedIndex(optionsProp, (_props$value2 = props.value) !== null && _props$value2 !== void 0 ? _props$value2 : props.defaultValue)),
-      _React$useState18 = (0, _slicedToArray2.default)(_React$useState17, 2),
-      selectedOptionIndex = _React$useState18[0],
-      setSelectedOptionIndex = _React$useState18[1];
-
+    _React$useState18 = (0, _slicedToArray2.default)(_React$useState17, 2),
+    selectedOptionIndex = _React$useState18[0],
+    setSelectedOptionIndex = _React$useState18[1];
   React.useEffect(function () {
     setIsControlledOutside(props.value !== undefined);
     setNativeSelectValue(function (nativeSelectValue) {
       var _props$value3;
-
       return (_props$value3 = props.value) !== null && _props$value3 !== void 0 ? _props$value3 : nativeSelectValue;
     });
   }, [props.value]);
@@ -232,11 +179,9 @@ function CustomSelectComponent(props) {
       return nativeSelectValue === value;
     })) {
       var _selectElRef$current;
-
       var _event = new Event("change", {
         bubbles: true
       });
-
       (_selectElRef$current = selectElRef.current) === null || _selectElRef$current === void 0 ? void 0 : _selectElRef$current.dispatchEvent(_event);
     }
   }, [nativeSelectValue]);
@@ -244,7 +189,6 @@ function CustomSelectComponent(props) {
     if (!options.length) {
       return null;
     }
-
     return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : undefined;
   }, [options, selectedOptionIndex]);
   var openedClassNames = React.useMemo(function () {
@@ -257,16 +201,13 @@ function CustomSelectComponent(props) {
     var center = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     var dropdown = scrollBoxRef.current;
     var item = dropdown ? dropdown.children[index] : null;
-
     if (!item || !dropdown) {
       return;
     }
-
     var dropdownHeight = dropdown.offsetHeight;
     var scrollTop = dropdown.scrollTop;
     var itemTop = item.offsetTop;
     var itemHeight = item.offsetHeight;
-
     if (center) {
       dropdown.scrollTop = itemTop - dropdownHeight / 2 + itemHeight / 2;
     } else if (itemTop + itemHeight > dropdownHeight + scrollTop) {
@@ -277,29 +218,23 @@ function CustomSelectComponent(props) {
   }, []);
   var isValidIndex = React.useCallback(function (index) {
     var _options$length;
-
     return index >= 0 && index < ((_options$length = options.length) !== null && _options$length !== void 0 ? _options$length : 0);
   }, [options.length]);
   var focusOptionByIndex = React.useCallback(function (index) {
     var _options$length2;
-
     var scrollTo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
     if (index === undefined || index < 0 || index > ((_options$length2 = options.length) !== null && _options$length2 !== void 0 ? _options$length2 : 0) - 1) {
       return;
     }
-
     var option = options[index];
-
     if (option !== null && option !== void 0 && option.disabled) {
       return;
     }
-
     if (scrollTo) {
       scrollToElement(index);
-    } // Это оптимизация, прежде всего, под `onMouseOver`
+    }
 
-
+    // Это оптимизация, прежде всего, под `onMouseOver`
     setFocusedOptionIndex(function (focusedOptionIndex) {
       return focusedOptionIndex !== index ? index : focusedOptionIndex;
     });
@@ -312,11 +247,9 @@ function CustomSelectComponent(props) {
     var optionIndex = options.findIndex(function (option) {
       return (0, _utils.getTitleFromChildren)(option.label).toLowerCase().includes(fullInput);
     });
-
     if (optionIndex !== undefined && optionIndex > -1) {
       focusOptionByIndex(optionIndex);
     }
-
     setKeyboardInput(fullInput);
   }, [focusOptionByIndex, keyboardInput, options]);
   var close = React.useCallback(function () {
@@ -337,7 +270,6 @@ function CustomSelectComponent(props) {
   var open = React.useCallback(function () {
     setOpened(true);
     setFocusedOptionIndex(selectedOptionIndex);
-
     if (typeof onOpen === "function") {
       onOpen();
     }
@@ -349,7 +281,6 @@ function CustomSelectComponent(props) {
   }, [isValidIndex, opened, scrollToElement, selectedOptionIndex]);
   var onBlur = React.useCallback(function () {
     var _selectElRef$current2;
-
     close();
     var event = new Event("blur");
     (_selectElRef$current2 = selectElRef.current) === null || _selectElRef$current2 === void 0 ? void 0 : _selectElRef$current2.dispatchEvent(event);
@@ -359,7 +290,6 @@ function CustomSelectComponent(props) {
   }, []);
   var onFocus = React.useCallback(function () {
     var _selectElRef$current3;
-
     var event = new Event("focus");
     (_selectElRef$current3 = selectElRef.current) === null || _selectElRef$current3 === void 0 ? void 0 : _selectElRef$current3.dispatchEvent(event);
   }, []);
@@ -375,7 +305,6 @@ function CustomSelectComponent(props) {
   }, [resetKeyboardInput]);
   var focusOption = React.useCallback(function (type) {
     var index = focusedOptionIndex;
-
     if (type === "next") {
       var nextIndex = findIndexAfter(options, index);
       index = nextIndex === -1 ? findIndexAfter(options) : nextIndex; // Следующий за index или первый валидный до index
@@ -388,51 +317,43 @@ function CustomSelectComponent(props) {
   }, [focusOptionByIndex, focusedOptionIndex, options]);
   React.useEffect(function () {
     var _ref3, _props$value4;
-
     var value = (_ref3 = (_props$value4 = props.value) !== null && _props$value4 !== void 0 ? _props$value4 : nativeSelectValue) !== null && _ref3 !== void 0 ? _ref3 : props.defaultValue;
     var options = searchable && inputValue !== undefined ? filter(optionsProp, inputValue, filterFn) : optionsProp;
     setOptions(options);
     setSelectedOptionIndex(findSelectedIndex(options, value));
   }, [filterFn, inputValue, nativeSelectValue, optionsProp, props.defaultValue, props.value, searchable]);
+
   /**
    * Нужен для правильного поведения обработчика onClick на select. Фильтрует клики, которые были сделаны по
    * выпадающему списку.
    */
-
   var onLabelClick = React.useCallback(function (e) {
     var _scrollBoxRef$current;
-
     if ((_scrollBoxRef$current = scrollBoxRef.current) !== null && _scrollBoxRef$current !== void 0 && _scrollBoxRef$current.contains(e.target)) {
       e.preventDefault();
     }
   }, []);
   var onNativeSelectChange = React.useCallback(function (e) {
     var newSelectedOptionIndex = findSelectedIndex(options, e.currentTarget.value);
-
     if (selectedOptionIndex !== newSelectedOptionIndex) {
       if (!isControlledOutside) {
         setSelectedOptionIndex(newSelectedOptionIndex);
       }
-
       onChange === null || onChange === void 0 ? void 0 : onChange(e);
     }
   }, [isControlledOutside, onChange, options, selectedOptionIndex]);
   var onInputKeyDown = React.useCallback(function (event) {
     ["ArrowUp", "ArrowDown", "Escape", "Enter"].includes(event.key) && areOptionsShown() && event.preventDefault();
-
     switch (event.key) {
       case "ArrowUp":
         areOptionsShown() && focusOption("prev");
         break;
-
       case "ArrowDown":
         areOptionsShown() && focusOption("next");
         break;
-
       case "Escape":
         close();
         break;
-
       case "Enter":
         areOptionsShown() && selectFocused();
         break;
@@ -441,22 +362,18 @@ function CustomSelectComponent(props) {
   var onInputChange = React.useCallback(function (e) {
     if (onInputChangeProp) {
       var _options = onInputChangeProp(e, optionsProp);
-
       if (_options) {
         if (process.env.NODE_ENV === "development") {
           warn("Этот метод фильтрации устарел. Возвращаемое значение onInputChange будет " + "проигнорировано в v5.0.0. Для фильтрации обновляйте props.options самостоятельно или используйте свойство filterFn.");
         }
-
         setOptions(_options);
         setSelectedOptionIndex(findSelectedIndex(_options, nativeSelectValue));
       }
     } else {
       var _options2 = filter(optionsProp, e.target.value, filterFn);
-
       setOptions(_options2);
       setSelectedOptionIndex(findSelectedIndex(_options2, nativeSelectValue));
     }
-
     setInputValue(e.target.value);
   }, [filterFn, nativeSelectValue, onInputChangeProp, optionsProp]);
   var handleKeyDownSelect = React.useCallback(function (event) {
@@ -464,9 +381,7 @@ function CustomSelectComponent(props) {
       onKeyboardInput(event.key);
       return;
     }
-
     ["ArrowUp", "ArrowDown", "Escape", "Enter"].includes(event.key) && areOptionsShown() && event.preventDefault();
-
     switch (event.key) {
       case "ArrowUp":
         if (opened) {
@@ -474,22 +389,17 @@ function CustomSelectComponent(props) {
         } else {
           open();
         }
-
         break;
-
       case "ArrowDown":
         if (opened) {
           areOptionsShown() && focusOption("next");
         } else {
           open();
         }
-
         break;
-
       case "Escape":
         close();
         break;
-
       case "Enter":
       case "Spacebar":
       case " ":
@@ -498,23 +408,19 @@ function CustomSelectComponent(props) {
         } else {
           open();
         }
-
         break;
     }
   }, [areOptionsShown, close, focusOption, onKeyboardInput, open, opened, selectFocused]);
   var handleOptionClick = React.useCallback(function (e) {
     var _e$currentTarget$pare;
-
     var index = Array.prototype.indexOf.call((_e$currentTarget$pare = e.currentTarget.parentNode) === null || _e$currentTarget$pare === void 0 ? void 0 : _e$currentTarget$pare.children, e.currentTarget);
     var option = options[index];
-
     if (option && !option.disabled) {
       selectFocused();
     }
   }, [options, selectFocused]);
   var handleOptionHover = React.useCallback(function (e) {
     var _e$currentTarget$pare2;
-
     focusOptionByIndex(Array.prototype.indexOf.call((_e$currentTarget$pare2 = e.currentTarget.parentNode) === null || _e$currentTarget$pare2 === void 0 ? void 0 : _e$currentTarget$pare2.children, e.currentTarget), false);
   }, [focusOptionByIndex]);
   var renderOption = React.useCallback(function (option, index) {
@@ -545,7 +451,6 @@ function CustomSelectComponent(props) {
     var defaultDropdownContent = (options === null || options === void 0 ? void 0 : options.length) > 0 ? options.map(renderOption) : (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
       vkuiClass: "CustomSelect__empty"
     }, emptyText);
-
     if (typeof renderDropdown === "function") {
       return renderDropdown({
         defaultDropdownContent: defaultDropdownContent
@@ -566,7 +471,8 @@ function CustomSelectComponent(props) {
     vkuiClass: openedClassNames,
     value: inputValue,
     onKeyDown: onInputKeyDown,
-    onChange: onInputChange // TODO Ожидается, что клик поймает нативный select, но его перехватывает Input. К сожалению, это приводит к конфликтам типизации.
+    onChange: onInputChange
+    // TODO Ожидается, что клик поймает нативный select, но его перехватывает Input. К сожалению, это приводит к конфликтам типизации.
     // TODO Нужно перестать пытаться превратить CustomSelect в select. Тогда эта проблема уйдёт.
     // @ts-ignore
     ,
@@ -616,11 +522,10 @@ function CustomSelectComponent(props) {
     observableRefs: scrollBoxRef
   }, resolvedContent));
 }
+
 /**
  * @see https://vkcom.github.io/VKUI/#/CustomSelect
  */
-
-
 var CustomSelect = (0, _withAdaptivity.withAdaptivity)(CustomSelectComponent, {
   sizeY: true
 });

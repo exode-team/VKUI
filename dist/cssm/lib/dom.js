@@ -3,7 +3,6 @@ import { createScopedElement } from "./jsxRuntime";
 import * as React from "react";
 import { canUseDOM } from "@vkontakte/vkjs";
 export { canUseDOM, canUseEventListeners, onDOMLoaded } from "@vkontakte/vkjs";
-
 /* eslint-disable no-restricted-globals */
 export var getDOM = function getDOM() {
   return {
@@ -22,7 +21,6 @@ export function withDOM(Component) {
     var dom = useDOM();
     return createScopedElement(Component, _extends({}, props, dom));
   };
-
   return WithDOM;
 }
 export function blurActiveElement(document) {

@@ -1,41 +1,31 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.RichCell = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var _classNames = require("../../lib/classNames");
-
 var _Tappable = require("../Tappable/Tappable");
-
 var _Subhead = require("../Typography/Subhead/Subhead");
-
 var _withAdaptivity = require("../../hoc/withAdaptivity");
-
 var _excluded = ["subhead", "children", "text", "caption", "before", "after", "afterCaption", "bottom", "actions", "multiline", "sizeY"];
-
 var RichCellComponent = function RichCellComponent(_ref) {
   var subhead = _ref.subhead,
-      children = _ref.children,
-      text = _ref.text,
-      caption = _ref.caption,
-      before = _ref.before,
-      after = _ref.after,
-      afterCaption = _ref.afterCaption,
-      bottom = _ref.bottom,
-      actions = _ref.actions,
-      multiline = _ref.multiline,
-      sizeY = _ref.sizeY,
-      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+    children = _ref.children,
+    text = _ref.text,
+    caption = _ref.caption,
+    before = _ref.before,
+    after = _ref.after,
+    afterCaption = _ref.afterCaption,
+    bottom = _ref.bottom,
+    actions = _ref.actions,
+    multiline = _ref.multiline,
+    sizeY = _ref.sizeY,
+    restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({}, restProps, {
     vkuiClass: (0, _classNames.classNames)("RichCell", !multiline && "RichCell--text-ellipsis", "RichCell--sizeY-".concat(sizeY))
   }), before && (0, _jsxRuntime.createScopedElement)("div", {
@@ -68,11 +58,10 @@ var RichCellComponent = function RichCellComponent(_ref) {
     vkuiClass: "RichCell__actions"
   }, actions)));
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/RichCell
  */
-
-
 var RichCell = (0, _withAdaptivity.withAdaptivity)(RichCellComponent, {
   sizeY: true
 });

@@ -12,69 +12,61 @@ import { Tappable } from "../Tappable/Tappable";
 import "./Avatar.css";
 export var AVATAR_DEFAULT_SIZE = 48;
 export var AVATAR_DEFAULT_SHADOW = true;
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Avatar
  */
-
 export var Avatar = function Avatar(_ref) {
   var alt = _ref.alt,
-      crossOrigin = _ref.crossOrigin,
-      decoding = _ref.decoding,
-      height = _ref.height,
-      loading = _ref.loading,
-      referrerPolicy = _ref.referrerPolicy,
-      sizes = _ref.sizes,
-      src = _ref.src,
-      srcSet = _ref.srcSet,
-      useMap = _ref.useMap,
-      width = _ref.width,
-      getRef = _ref.getRef,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? AVATAR_DEFAULT_SIZE : _ref$size,
-      _ref$shadow = _ref.shadow,
-      shadow = _ref$shadow === void 0 ? AVATAR_DEFAULT_SHADOW : _ref$shadow,
-      _ref$mode = _ref.mode,
-      mode = _ref$mode === void 0 ? "default" : _ref$mode,
-      className = _ref.className,
-      children = _ref.children,
-      getRootRef = _ref.getRootRef,
-      style = _ref.style,
-      ariaLabel = _ref["aria-label"],
-      badge = _ref.badge,
-      overlayIcon = _ref.overlayIcon,
-      _ref$overlayMode = _ref.overlayMode,
-      overlayMode = _ref$overlayMode === void 0 ? "light" : _ref$overlayMode,
-      passedOverlayAction = _ref.overlayAction,
-      onClick = _ref.onClick,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    crossOrigin = _ref.crossOrigin,
+    decoding = _ref.decoding,
+    height = _ref.height,
+    loading = _ref.loading,
+    referrerPolicy = _ref.referrerPolicy,
+    sizes = _ref.sizes,
+    src = _ref.src,
+    srcSet = _ref.srcSet,
+    useMap = _ref.useMap,
+    width = _ref.width,
+    getRef = _ref.getRef,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? AVATAR_DEFAULT_SIZE : _ref$size,
+    _ref$shadow = _ref.shadow,
+    shadow = _ref$shadow === void 0 ? AVATAR_DEFAULT_SHADOW : _ref$shadow,
+    _ref$mode = _ref.mode,
+    mode = _ref$mode === void 0 ? "default" : _ref$mode,
+    className = _ref.className,
+    children = _ref.children,
+    getRootRef = _ref.getRootRef,
+    style = _ref.style,
+    ariaLabel = _ref["aria-label"],
+    badge = _ref.badge,
+    overlayIcon = _ref.overlayIcon,
+    _ref$overlayMode = _ref.overlayMode,
+    overlayMode = _ref$overlayMode === void 0 ? "light" : _ref$overlayMode,
+    passedOverlayAction = _ref.overlayAction,
+    onClick = _ref.onClick,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var _useAdaptivity = useAdaptivity(),
-      hasMouse = _useAdaptivity.hasMouse;
-
+    hasMouse = _useAdaptivity.hasMouse;
   var _React$useState = React.useState(false),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      failedImage = _React$useState2[0],
-      setFailedImage = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    failedImage = _React$useState2[0],
+    setFailedImage = _React$useState2[1];
   var overlayAction = passedOverlayAction !== null && passedOverlayAction !== void 0 ? passedOverlayAction : hasMouse ? "hover" : "always";
-
   var onImageError = function onImageError() {
     setFailedImage(true);
   };
-
   var onImageLoad = function onImageLoad() {
     setFailedImage(false);
   };
-
   var borderRadius = "50%";
-
   switch (mode) {
     case "image":
       size < 64 && (borderRadius = 4);
       size >= 64 && size < 96 && (borderRadius = 6);
       size >= 96 && (borderRadius = 8);
       break;
-
     case "app":
       size <= 40 && (borderRadius = 8);
       size > 40 && size < 56 && (borderRadius = 10);
@@ -82,11 +74,9 @@ export var Avatar = function Avatar(_ref) {
       size >= 64 && size < 84 && (borderRadius = 16);
       size >= 84 && (borderRadius = 18);
       break;
-
     default:
       break;
   }
-
   var hasSrc = src || srcSet;
   return createScopedElement("div", _extends({}, restProps, {
     vkuiClass: classNames("Avatar", "Avatar--type-".concat(mode), "Avatar--sz-".concat(size), shadow && "Avatar--shadow", failedImage && "Avatar--failed"),

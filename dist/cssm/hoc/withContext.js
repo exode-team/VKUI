@@ -7,7 +7,6 @@ export function withContext(Component, Ctx, prop) {
     var context = React.useContext(Ctx);
     return createScopedElement(Component, _extends({}, props, _defineProperty({}, prop, context)));
   }
-
   return WithContext;
 }
 //# sourceMappingURL=withContext.js.map

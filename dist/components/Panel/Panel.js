@@ -8,19 +8,17 @@ import { TooltipContainer } from "../Tooltip/TooltipContainer";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { IOS, VKCOM } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Panel
  */
 export var Panel = withAdaptivity(function (_ref) {
   var _ref$centered = _ref.centered,
-      centered = _ref$centered === void 0 ? false : _ref$centered,
-      children = _ref.children,
-      getRootRef = _ref.getRootRef,
-      sizeX = _ref.sizeX,
-      nav = _ref.nav,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    centered = _ref$centered === void 0 ? false : _ref$centered,
+    children = _ref.children,
+    getRootRef = _ref.getRootRef,
+    sizeX = _ref.sizeX,
+    nav = _ref.nav,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   return createScopedElement("div", _extends({}, restProps, {
     ref: getRootRef,

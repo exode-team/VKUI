@@ -1,7 +1,6 @@
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
 import "./FocusVisible.css";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/FocusVisible
  */

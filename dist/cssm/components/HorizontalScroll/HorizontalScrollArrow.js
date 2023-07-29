@@ -10,20 +10,17 @@ import { Tappable } from "../Tappable/Tappable";
 import "./HorizontalScrollArrow.css";
 export var HorizontalScrollArrow = function HorizontalScrollArrow(_ref) {
   var _ref$size = _ref.size,
-      size = _ref$size === void 0 ? "l" : _ref$size,
-      direction = _ref.direction,
-      onClick = _ref.onClick,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    size = _ref$size === void 0 ? "l" : _ref$size,
+    direction = _ref.direction,
+    onClick = _ref.onClick,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var ArrowIcon;
-
   if (size === "m") {
     ArrowIcon = direction === "left" ? Icon16ChevronLeft : Icon16Chevron;
   } else {
     ArrowIcon = direction === "left" ? Icon24ChevronCompactLeft : Icon24Chevron;
   }
-
   return createScopedElement(Tappable, _extends({}, restProps, {
     Component: "button",
     hasHover: false,

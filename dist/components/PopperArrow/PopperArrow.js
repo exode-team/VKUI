@@ -2,8 +2,8 @@ import _extends from "@babel/runtime/helpers/extends";
 import { createScopedElement } from "../../lib/jsxRuntime";
 export var PopperArrow = function PopperArrow(_ref) {
   var style = _ref.style,
-      attributes = _ref.attributes,
-      arrowClassName = _ref.arrowClassName;
+    attributes = _ref.attributes,
+    arrowClassName = _ref.arrowClassName;
   return createScopedElement("div", _extends({
     style: style
   }, attributes, {

@@ -1,9 +1,7 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -26,24 +24,17 @@ Object.defineProperty(exports, "ViewWidth", {
   }
 });
 exports.withAdaptivity = withAdaptivity;
-
 var _jsxRuntime = require("../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _AdaptivityContext = require("../components/AdaptivityProvider/AdaptivityContext");
-
 function withAdaptivity(TargetComponent, config) {
   var AdaptivityConsumer = function AdaptivityConsumer(props) {
     var context = React.useContext(_AdaptivityContext.AdaptivityContext);
     var update = false;
-
     if (props.sizeX || props.sizeY) {
       update = true;
     }
-
     var sizeX = props.sizeX || context.sizeX;
     var sizeY = props.sizeY || context.sizeY;
     var viewWidth = context.viewWidth;
@@ -58,7 +49,6 @@ function withAdaptivity(TargetComponent, config) {
     config.hasMouse ? adaptivityProps.hasMouse = hasMouse : undefined;
     config.deviceHasHover ? adaptivityProps.deviceHasHover = deviceHasHover : undefined;
     var target = (0, _jsxRuntime.createScopedElement)(TargetComponent, (0, _extends2.default)({}, props, adaptivityProps));
-
     if (update) {
       return (0, _jsxRuntime.createScopedElement)(_AdaptivityContext.AdaptivityContext.Provider, {
         value: {
@@ -71,10 +61,8 @@ function withAdaptivity(TargetComponent, config) {
         }
       }, target);
     }
-
     return target;
   };
-
   return AdaptivityConsumer;
 }
 //# sourceMappingURL=withAdaptivity.js.map

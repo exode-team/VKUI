@@ -10,17 +10,15 @@ import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity, SizeType } from "../../hoc/withAdaptivity";
 import { classNames } from "../../lib/classNames";
 import "./PanelHeaderBack.css";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderBack
  */
 export var PanelHeaderBackComponent = function PanelHeaderBackComponent(_ref) {
   var label = _ref.label,
-      sizeX = _ref.sizeX,
-      _ref$ariaLabel = _ref["aria-label"],
-      ariaLabel = _ref$ariaLabel === void 0 ? "Назад" : _ref$ariaLabel,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    sizeX = _ref.sizeX,
+    _ref$ariaLabel = _ref["aria-label"],
+    ariaLabel = _ref$ariaLabel === void 0 ? "Назад" : _ref$ariaLabel,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var showLabel = platform === VKCOM || platform === IOS && sizeX === SizeType.REGULAR;
   return createScopedElement(PanelHeaderButton, _extends({}, restProps, {

@@ -4,17 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createMasks = createMasks;
-
 var _dom = require("../../lib/dom");
-
 var masksCreated = [];
-
 function createMasks(document) {
   if (!_dom.canUseDOM || !document || masksCreated.includes(document)) {
     return;
-  } // eslint-disable-next-line no-restricted-globals
+  }
 
-
+  // eslint-disable-next-line no-restricted-globals
   var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svgElement.setAttributeNS(null, "id", "__SVG_MASKS_NODE__");
   svgElement.setAttributeNS(null, "width", "0");

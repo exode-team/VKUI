@@ -8,26 +8,25 @@ export var SSRContext = /*#__PURE__*/React.createContext({
   userAgent: "",
   browserInfo: undefined
 });
-
 /**
  * @see https://vkcom.github.io/VKUI/#/SSR
  */
 export var SSRWrapper = function SSRWrapper(_ref) {
   var userAgent = _ref.userAgent,
-      browserInfo = _ref.browserInfo,
-      children = _ref.children;
-
+    browserInfo = _ref.browserInfo,
+    children = _ref.children;
   if (!browserInfo && userAgent) {
     browserInfo = computeBrowserInfo(userAgent);
-  } // TODO: Каждый раз создаётся новый объект для контекста - плохо
+  }
 
-
+  // TODO: Каждый раз создаётся новый объект для контекста - плохо
   var contextValue = {
     platform: platform(browserInfo),
     browserInfo: browserInfo,
     userAgent: userAgent
-  }; // TODO: move to state, and update in effect?
+  };
 
+  // TODO: move to state, and update in effect?
   var dom = getDOM();
   return createScopedElement(SSRContext.Provider, {
     value: contextValue

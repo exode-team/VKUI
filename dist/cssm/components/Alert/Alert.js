@@ -2,7 +2,7 @@ import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _extends from "@babel/runtime/helpers/extends";
 var _excluded = ["action", "onItemClick"],
-    _excluded2 = ["actions", "actionsLayout", "children", "className", "style", "text", "header", "onClose", "dismissLabel"];
+  _excluded2 = ["actions", "actionsLayout", "children", "className", "style", "text", "header", "onClose", "dismissLabel"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Tappable } from "../Tappable/Tappable";
@@ -22,10 +22,8 @@ import { useWaitTransitionFinish } from "../../hooks/useWaitTransitionFinish";
 import { usePlatform } from "../../hooks/usePlatform";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import "./Alert.css";
-
 var AlertHeader = function AlertHeader(props) {
   var platform = usePlatform();
-
   switch (platform) {
     case IOS:
       return createScopedElement(Title, _extends({
@@ -33,7 +31,6 @@ var AlertHeader = function AlertHeader(props) {
         weight: "1",
         level: "3"
       }, props));
-
     default:
       return createScopedElement(Title, _extends({
         vkuiClass: "Alert__header",
@@ -42,22 +39,18 @@ var AlertHeader = function AlertHeader(props) {
       }, props));
   }
 };
-
 var AlertText = function AlertText(props) {
   var platform = usePlatform();
-
   switch (platform) {
     case VKCOM:
       return createScopedElement(Caption, _extends({
         vkuiClass: "Alert__text"
       }, props));
-
     case IOS:
       return createScopedElement(Caption, _extends({
         vkuiClass: "Alert__text",
         level: "2"
       }, props));
-
     default:
       return createScopedElement(Text, _extends({
         Component: "span",
@@ -66,24 +59,19 @@ var AlertText = function AlertText(props) {
       }, props));
   }
 };
-
 var AlertAction = function AlertAction(_ref) {
   var action = _ref.action,
-      onItemClick = _ref.onItemClick,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    onItemClick = _ref.onItemClick,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
-
   var _useAdaptivity = useAdaptivity(),
-      viewWidth = _useAdaptivity.viewWidth;
-
+    viewWidth = _useAdaptivity.viewWidth;
   var handleItemClick = React.useCallback(function () {
     return onItemClick(action);
   }, [onItemClick, action]);
-
   if (platform === IOS) {
     var _action$Component = action.Component,
-        Component = _action$Component === void 0 ? "button" : _action$Component;
+      Component = _action$Component === void 0 ? "button" : _action$Component;
     return createScopedElement(Tappable, _extends({
       Component: action.href ? "a" : Component,
       vkuiClass: classNames("Alert__action", "Alert__action--".concat(action.mode)),
@@ -92,17 +80,15 @@ var AlertAction = function AlertAction(_ref) {
       target: action.target
     }, restProps), action.title);
   }
+  var mode = "tertiary";
 
-  var mode = "tertiary"; // TODO v5.0.0 поправить под новую адаптивность
-
+  // TODO v5.0.0 поправить под новую адаптивность
   if (viewWidth === ViewWidth.DESKTOP && action.mode === "destructive") {
     mode = "destructive";
   }
-
   if (platform === VKCOM) {
     mode = action.mode === "cancel" ? "secondary" : "primary";
   }
-
   return createScopedElement(Button, {
     vkuiClass: classNames("Alert__button", "Alert__button--".concat(action.mode)),
     mode: mode,
@@ -113,39 +99,33 @@ var AlertAction = function AlertAction(_ref) {
     target: action.target
   }, action.title);
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Alert
  */
-
-
 export var Alert = function Alert(_ref2) {
   var _ref2$actions = _ref2.actions,
-      actions = _ref2$actions === void 0 ? [] : _ref2$actions,
-      _ref2$actionsLayout = _ref2.actionsLayout,
-      actionsLayout = _ref2$actionsLayout === void 0 ? "horizontal" : _ref2$actionsLayout,
-      children = _ref2.children,
-      className = _ref2.className,
-      style = _ref2.style,
-      text = _ref2.text,
-      header = _ref2.header,
-      onClose = _ref2.onClose,
-      _ref2$dismissLabel = _ref2.dismissLabel,
-      dismissLabel = _ref2$dismissLabel === void 0 ? "Закрыть предупреждение" : _ref2$dismissLabel,
-      restProps = _objectWithoutProperties(_ref2, _excluded2);
-
+    actions = _ref2$actions === void 0 ? [] : _ref2$actions,
+    _ref2$actionsLayout = _ref2.actionsLayout,
+    actionsLayout = _ref2$actionsLayout === void 0 ? "horizontal" : _ref2$actionsLayout,
+    children = _ref2.children,
+    className = _ref2.className,
+    style = _ref2.style,
+    text = _ref2.text,
+    header = _ref2.header,
+    onClose = _ref2.onClose,
+    _ref2$dismissLabel = _ref2.dismissLabel,
+    dismissLabel = _ref2$dismissLabel === void 0 ? "Закрыть предупреждение" : _ref2$dismissLabel,
+    restProps = _objectWithoutProperties(_ref2, _excluded2);
   var platform = usePlatform();
-
   var _useAdaptivity2 = useAdaptivity(),
-      viewWidth = _useAdaptivity2.viewWidth;
-
+    viewWidth = _useAdaptivity2.viewWidth;
   var _useWaitTransitionFin = useWaitTransitionFinish(),
-      waitTransitionFinish = _useWaitTransitionFin.waitTransitionFinish;
-
+    waitTransitionFinish = _useWaitTransitionFin.waitTransitionFinish;
   var _React$useState = React.useState(false),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      closing = _React$useState2[0],
-      setClosing = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    closing = _React$useState2[0],
+    setClosing = _React$useState2[1];
   var elementRef = React.useRef(null);
   var resolvedActionsLayout = platform === VKCOM ? "horizontal" : actionsLayout;
   var canShowCloseButton = platform !== IOS && viewWidth >= ViewWidth.SMALL_TABLET;
@@ -162,8 +142,7 @@ export var Alert = function Alert(_ref2) {
   }, [elementRef, waitTransitionFinish, onClose, timeout]);
   var onItemClick = React.useCallback(function (item) {
     var action = item.action,
-        autoclose = item.autoclose;
-
+      autoclose = item.autoclose;
     if (autoclose) {
       setClosing(true);
       waitTransitionFinish(elementRef.current, function (e) {

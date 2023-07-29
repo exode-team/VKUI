@@ -7,15 +7,14 @@ import { Icon28DoneOutline } from "@vkontakte/icons";
 import { IOS } from "../../lib/platform";
 import { usePlatform } from "../../hooks/usePlatform";
 import { getTitleFromChildren } from "../../lib/utils";
+
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderSubmit
  */
-
 export var PanelHeaderSubmit = function PanelHeaderSubmit(_ref) {
   var _ref$children = _ref.children,
-      children = _ref$children === void 0 ? "Готово" : _ref$children,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    children = _ref$children === void 0 ? "Готово" : _ref$children,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   return createScopedElement(PanelHeaderButton, _extends({
     "aria-label": getTitleFromChildren(children),

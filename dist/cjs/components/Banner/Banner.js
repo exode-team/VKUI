@@ -1,68 +1,49 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Banner = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _classNames = require("../../lib/classNames");
-
 var _usePlatform = require("../../hooks/usePlatform");
-
 var _platform = require("../../lib/platform");
-
 var _utils = require("../../lib/utils");
-
 var _icons = require("@vkontakte/icons");
-
 var _Tappable = require("../Tappable/Tappable");
-
 var _IconButton = require("../IconButton/IconButton");
-
 var _Headline = require("../Typography/Headline/Headline");
-
 var _Subhead = require("../Typography/Subhead/Subhead");
-
 var _Text = require("../Typography/Text/Text");
-
 var _Title = require("../Typography/Title/Title");
-
 var _excluded = ["mode", "imageTheme", "size", "before", "asideMode", "header", "subheader", "text", "children", "background", "actions", "onDismiss", "dismissLabel"];
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Banner
  */
 var Banner = function Banner(_ref) {
   var _ref$mode = _ref.mode,
-      mode = _ref$mode === void 0 ? "tint" : _ref$mode,
-      _ref$imageTheme = _ref.imageTheme,
-      imageTheme = _ref$imageTheme === void 0 ? "dark" : _ref$imageTheme,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? "s" : _ref$size,
-      before = _ref.before,
-      asideMode = _ref.asideMode,
-      header = _ref.header,
-      subheader = _ref.subheader,
-      text = _ref.text,
-      children = _ref.children,
-      background = _ref.background,
-      actions = _ref.actions,
-      onDismiss = _ref.onDismiss,
-      _ref$dismissLabel = _ref.dismissLabel,
-      dismissLabel = _ref$dismissLabel === void 0 ? "Скрыть" : _ref$dismissLabel,
-      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+    mode = _ref$mode === void 0 ? "tint" : _ref$mode,
+    _ref$imageTheme = _ref.imageTheme,
+    imageTheme = _ref$imageTheme === void 0 ? "dark" : _ref$imageTheme,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "s" : _ref$size,
+    before = _ref.before,
+    asideMode = _ref.asideMode,
+    header = _ref.header,
+    subheader = _ref.subheader,
+    text = _ref.text,
+    children = _ref.children,
+    background = _ref.background,
+    actions = _ref.actions,
+    onDismiss = _ref.onDismiss,
+    _ref$dismissLabel = _ref.dismissLabel,
+    dismissLabel = _ref$dismissLabel === void 0 ? "Скрыть" : _ref$dismissLabel,
+    restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var HeaderTypography = size === "m" ? _Title.Title : _Headline.Headline;
   var SubheaderTypography = size === "m" ? _Text.Text : _Subhead.Subhead;
@@ -107,6 +88,5 @@ var Banner = function Banner(_ref) {
     hasActive: false
   }, platform === _platform.IOS ? (0, _jsxRuntime.createScopedElement)(IconDismissIOS, null) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24Cancel, null)))));
 };
-
 exports.Banner = Banner;
 //# sourceMappingURL=Banner.js.map

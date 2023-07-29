@@ -10,9 +10,8 @@ import { ANDROID } from "../../../lib/platform";
 import "./CellCheckbox.css";
 export var CellCheckbox = function CellCheckbox(_ref) {
   var className = _ref.className,
-      style = _ref.style,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    style = _ref.style,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var IconOff = platform === ANDROID ? Icon24CheckBoxOff : Icon24CheckCircleOff;
   var IconOn = platform === ANDROID ? Icon24CheckBoxOn : Icon24CheckCircleOn;

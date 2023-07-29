@@ -1,6 +1,8 @@
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _typeof from "@babel/runtime/helpers/typeof";
-import dayjs from "dayjs"; // Using date-fns-like type for migration
+import dayjs from "dayjs";
+
+// Using date-fns-like type for migration
 
 export function startOfDay(date) {
   return dayjs(date).startOf("day").toDate();
@@ -85,8 +87,9 @@ export function addMonths(date, month) {
 }
 export function subMonths(date, month) {
   return dayjs(date).subtract(month, "month").toDate();
-} // Rip off date-fns
+}
 
+// Rip off date-fns
 export function eachDayOfInterval(start, end) {
   var dates = [];
   var startDate = dayjs(start).toDate();
@@ -94,19 +97,16 @@ export function eachDayOfInterval(start, end) {
   var endTime = endDate.getTime();
   var currentDate = startDate;
   currentDate.setHours(0, 0, 0, 0);
-
   while (currentDate.getTime() <= endTime) {
     dates.push(new Date(currentDate.getTime()));
     currentDate.setDate(currentDate.getDate() + 1);
     currentDate.setHours(0, 0, 0, 0);
   }
-
   return dates;
 }
 export function parse(input, format) {
   var referenceDate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date();
   var match2 = /^\d\d/; // 00 - 99
-
   var match4 = /^\d{4}/; // 0000 - 9999
 
   var entries = [["YYYY", match4, function (val) {
@@ -142,79 +142,63 @@ export function parse(input, format) {
   var lastNonFormatting = "";
   var lastFormatIndex = 0;
   var found = false;
-
   var _loop = function _loop() {
     var match = superRegExp.exec(format);
-
     if (!match) {
       return "break";
     }
-
     var length = match[0].length;
     var atIndex = superRegExp.lastIndex - length;
     var item = entries.find(function (item) {
       return item[0] === match[0];
     });
-
     if (!item) {
       return {
         v: new Date("")
       };
     }
-
     lastNonFormatting = format.slice(lastFormatIndex, atIndex);
     lastFormatIndex = superRegExp.lastIndex;
-
     if (input.slice(prevInputIndex, prevInputIndex + lastNonFormatting.length) !== lastNonFormatting) {
       return {
         v: new Date("")
       };
     }
-
     var value = input.slice(prevInputIndex + lastNonFormatting.length).match(item[1]);
-
     if (!value) {
       return {
         v: new Date("")
       };
     }
-
     prevInputIndex = prevInputIndex + lastNonFormatting.length + value[0].length;
-
     var _item$ = item[2](value[0]),
-        _item$2 = _slicedToArray(_item$, 3),
-        key = _item$2[0],
-        newValue = _item$2[1],
-        okay = _item$2[2];
-
+      _item$2 = _slicedToArray(_item$, 3),
+      key = _item$2[0],
+      newValue = _item$2[1],
+      okay = _item$2[2];
     if (!okay) {
       return {
         v: new Date("")
       };
     }
-
     store[key] = newValue;
     found = true;
   };
-
   while (true) {
     var _ret = _loop();
-
     if (_ret === "break") break;
     if (_typeof(_ret) === "object") return _ret.v;
   }
-
   if (!found) {
     return new Date("");
   }
+  var date = new Date(store.Y, store.M, store.D, store.h, store.m, store.s, store.ms);
 
-  var date = new Date(store.Y, store.M, store.D, store.h, store.m, store.s, store.ms); // Since days of months are dynamic, they can't be validated in entries,
+  // Since days of months are dynamic, they can't be validated in entries,
   // so we check it here, in the finalized date
-
   if (date.getMonth() !== store.M || date.getDate() !== store.D) {
     return new Date("");
   }
-
   return date;
 }
 export function isMatch(input, format) {

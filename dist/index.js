@@ -1,5 +1,4 @@
 import "./lib/polyfills";
-
 /**
  * Layout
  */
@@ -17,7 +16,6 @@ export { Tabbar } from "./components/Tabbar/Tabbar";
 export { TabbarItem } from "./components/TabbarItem/TabbarItem";
 export { HorizontalScroll } from "./components/HorizontalScroll/HorizontalScroll";
 export { FixedLayout } from "./components/FixedLayout/FixedLayout";
-
 /**
  * Popouts
  */
@@ -28,7 +26,6 @@ export { ActionSheetItem } from "./components/ActionSheetItem/ActionSheetItem";
 export { ActionSheetDefaultIosCloseItem } from "./components/ActionSheet/ActionSheetDefaultIosCloseItem";
 export { ScreenSpinner } from "./components/ScreenSpinner/ScreenSpinner";
 export { Snackbar } from "./components/Snackbar/Snackbar";
-
 /**
  * Modals
  */
@@ -39,7 +36,6 @@ export { ModalPage } from "./components/ModalPage/ModalPage";
 export { ModalPageHeader } from "./components/ModalPageHeader/ModalPageHeader";
 export { ModalCard } from "./components/ModalCard/ModalCard";
 export { ModalDismissButton } from "./components/ModalDismissButton/ModalDismissButton";
-
 /**
  * Blocks
  */
@@ -87,7 +83,6 @@ export { WriteBarIcon } from "./components/WriteBarIcon/WriteBarIcon";
 export { SubnavigationBar } from "./components/SubnavigationBar/SubnavigationBar";
 export { SubnavigationButton } from "./components/SubnavigationButton/SubnavigationButton";
 export { Pagination } from "./components/Pagination/Pagination";
-
 /**
  * Forms
  */
@@ -119,7 +114,6 @@ export { Calendar } from "./components/Calendar/Calendar";
 export { CalendarRange } from "./components/CalendarRange/CalendarRange";
 export { DateInput } from "./components/DateInput/DateInput";
 export { DateRangeInput } from "./components/DateRangeInput/DateRangeInput";
-
 /**
  * Helpers
  */
@@ -133,7 +127,6 @@ export { PanelHeaderSubmit } from "./components/PanelHeaderSubmit/PanelHeaderSub
 export { PanelHeaderEdit } from "./components/PanelHeaderEdit/PanelHeaderEdit";
 export { ModalCardBase } from "./components/ModalCardBase/ModalCardBase";
 export { VisuallyHiddenInput } from "./components/VisuallyHiddenInput/VisuallyHiddenInput";
-
 /**
  * Wrappers
  */
@@ -144,12 +137,11 @@ export { ConfigProviderContext, WebviewType } from "./components/ConfigProvider/
 export { AppearanceProvider } from "./components/AppearanceProvider/AppearanceProvider";
 export { Scheme, Appearance } from "./helpers/scheme";
 export { LocaleProviderContext } from "./components/LocaleProviderContext/LocaleProviderContext";
+
 /**
  * Advertisement
  */
-
 export { PromoBanner } from "./components/PromoBanner/PromoBanner";
-
 /**
  * Typography
  */
@@ -160,17 +152,16 @@ export { Paragraph } from "./components/Typography/Paragraph/Paragraph";
 export { Subhead } from "./components/Typography/Subhead/Subhead";
 export { Footnote } from "./components/Typography/Footnote/Footnote";
 export { Caption } from "./components/Typography/Caption/Caption";
-
 /**
  * HOCs
  */
 export { withInsets } from "./hoc/withInsets";
 export { withPlatform } from "./hoc/withPlatform";
 export { withAdaptivity } from "./hoc/withAdaptivity";
+
 /**
  * Hooks
  */
-
 export { useInsets } from "./hooks/useInsets";
 export { usePlatform } from "./hooks/usePlatform";
 export { useAdaptivity } from "./hooks/useAdaptivity";
@@ -179,10 +170,10 @@ export { usePagination } from "./hooks/usePagination";
 export { useTodayDate } from "./hooks/useTodayDate";
 export { useScrollLock } from "./components/AppRoot/ScrollContext";
 export { useNavTransition } from "./components/NavTransitionContext/NavTransitionContext";
+
 /**
  * Utils
  */
-
 export { classNamesString as classNames } from "./lib/classNames";
 export { animate } from "./lib/animate";
 export { removeObjectKeys } from "./lib/removeObjectKeys";
@@ -193,6 +184,7 @@ export { ViewWidth, ViewHeight, SizeType } from "./components/AdaptivityProvider
 export { calcInitialsAvatarColor } from "./helpers/avatar";
 export { Popper } from "./components/Popper/Popper";
 export { CustomScrollView } from "./components/CustomScrollView/CustomScrollView";
+
 /**
  * Types
  */

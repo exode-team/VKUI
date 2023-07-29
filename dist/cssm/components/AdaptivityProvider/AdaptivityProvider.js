@@ -11,47 +11,38 @@ export var SMALL_TABLET_SIZE = 768;
 export var MOBILE_SIZE = 320;
 export var MOBILE_LANDSCAPE_HEIGHT = 414;
 export var MEDIUM_HEIGHT = 720;
-
 /**
  * @see https://vkcom.github.io/VKUI/#/AdaptivityProvider
  */
 export var AdaptivityProvider = function AdaptivityProvider(props) {
   var adaptivityRef = React.useRef(null);
-
   var _React$useState = React.useState({}),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      updateAdaptivity = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    updateAdaptivity = _React$useState2[1];
   var bridge = useBridgeAdaptivity();
-
   var _useDOM = useDOM(),
-      window = _useDOM.window;
-
+    window = _useDOM.window;
   if (!adaptivityRef.current) {
     adaptivityRef.current = calculateAdaptivity(props, bridge, window);
   }
-
   React.useEffect(function () {
     function onResize() {
       if (adaptivityRef.current === null) {
         return;
       }
-
       var calculated = calculateAdaptivity(props, bridge, window);
       var _adaptivityRef$curren = adaptivityRef.current,
-          viewWidth = _adaptivityRef$curren.viewWidth,
-          viewHeight = _adaptivityRef$curren.viewHeight,
-          sizeX = _adaptivityRef$curren.sizeX,
-          sizeY = _adaptivityRef$curren.sizeY,
-          hasMouse = _adaptivityRef$curren.hasMouse,
-          deviceHasHover = _adaptivityRef$curren.deviceHasHover;
-
+        viewWidth = _adaptivityRef$curren.viewWidth,
+        viewHeight = _adaptivityRef$curren.viewHeight,
+        sizeX = _adaptivityRef$curren.sizeX,
+        sizeY = _adaptivityRef$curren.sizeY,
+        hasMouse = _adaptivityRef$curren.hasMouse,
+        deviceHasHover = _adaptivityRef$curren.deviceHasHover;
       if (viewWidth !== calculated.viewWidth || viewHeight !== calculated.viewHeight || sizeX !== calculated.sizeX || sizeY !== calculated.sizeY || hasMouse !== calculated.hasMouse || deviceHasHover !== calculated.deviceHasHover) {
         adaptivityRef.current = calculated;
         updateAdaptivity({});
       }
     }
-
     onResize();
     window.addEventListener("resize", onResize, false);
     return function () {
@@ -62,11 +53,9 @@ export var AdaptivityProvider = function AdaptivityProvider(props) {
     value: adaptivityRef.current
   }, props.children);
 };
-
 function calculateAdaptivity(props, bridge, window) {
   var windowWidth = 0;
   var windowHeight = 0;
-
   if (bridge.type === "adaptive") {
     windowWidth = bridge.viewportWidth;
     windowHeight = bridge.viewportHeight;
@@ -74,14 +63,12 @@ function calculateAdaptivity(props, bridge, window) {
     windowWidth = window.innerWidth;
     windowHeight = window.innerHeight;
   }
-
   var viewWidth = ViewWidth.SMALL_MOBILE;
   var viewHeight = ViewHeight.SMALL;
   var sizeY = SizeType.REGULAR;
   var sizeX = SizeType.REGULAR;
   var hasMouse = _hasMouse;
   var deviceHasHover = _hasHover;
-
   if (windowWidth >= DESKTOP_SIZE) {
     viewWidth = ViewWidth.DESKTOP;
   } else if (windowWidth >= TABLET_SIZE) {
@@ -93,7 +80,6 @@ function calculateAdaptivity(props, bridge, window) {
   } else {
     viewWidth = ViewWidth.SMALL_MOBILE;
   }
-
   if (windowHeight >= MEDIUM_HEIGHT) {
     viewHeight = ViewHeight.MEDIUM;
   } else if (windowHeight > MOBILE_LANDSCAPE_HEIGHT) {
@@ -101,40 +87,32 @@ function calculateAdaptivity(props, bridge, window) {
   } else {
     viewHeight = ViewHeight.EXTRA_SMALL;
   }
-
   if (!bridge.type) {
     var _props$hasMouse, _props$deviceHasHover;
-
     props.viewWidth && (viewWidth = props.viewWidth);
     props.viewHeight && (viewHeight = props.viewHeight);
     hasMouse = (_props$hasMouse = props.hasMouse) !== null && _props$hasMouse !== void 0 ? _props$hasMouse : hasMouse;
     deviceHasHover = (_props$deviceHasHover = props.deviceHasHover) !== null && _props$deviceHasHover !== void 0 ? _props$deviceHasHover : deviceHasHover;
   }
-
   if (viewWidth <= ViewWidth.MOBILE) {
     sizeX = SizeType.COMPACT;
   }
-
   if (viewWidth >= ViewWidth.SMALL_TABLET && hasMouse || viewHeight <= ViewHeight.EXTRA_SMALL) {
     sizeY = SizeType.COMPACT;
   }
-
   if (!bridge.type) {
     props.sizeX && (sizeX = props.sizeX);
     props.sizeY && (sizeY = props.sizeY);
   }
-
   if (bridge.type === "force_mobile" || bridge.type === "force_mobile_compact") {
     viewWidth = ViewWidth.MOBILE;
     sizeX = SizeType.COMPACT;
-
     if (bridge.type === "force_mobile_compact") {
       sizeY = SizeType.COMPACT;
     } else {
       sizeY = SizeType.REGULAR;
     }
   }
-
   return {
     viewWidth: viewWidth,
     viewHeight: viewHeight,

@@ -12,20 +12,18 @@ import { warnOnce } from "../../lib/warnOnce";
 import { hasReactNode } from "../../lib/utils";
 var warn = warnOnce("WriteBarIcon");
 var IS_DEV = process.env.NODE_ENV === "development";
+
 /**
  * @see https://vkcom.github.io/VKUI/#/WriteBarIcon
  */
-
 export var WriteBarIcon = function WriteBarIcon(_ref) {
   var mode = _ref.mode,
-      children = _ref.children,
-      count = _ref.count,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    children = _ref.children,
+    count = _ref.count,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var icon;
   var ariaLabel = undefined;
-
   switch (mode) {
     case "attach":
       icon = platform === IOS ? createScopedElement(Icon28AddCircleOutline, {
@@ -35,7 +33,6 @@ export var WriteBarIcon = function WriteBarIcon(_ref) {
       });
       ariaLabel = "Прикрепить файл";
       break;
-
     case "send":
       icon = platform === IOS ? createScopedElement(Icon48WritebarSend, {
         "aria-hidden": true
@@ -44,7 +41,6 @@ export var WriteBarIcon = function WriteBarIcon(_ref) {
       });
       ariaLabel = "Отправить";
       break;
-
     case "done":
       icon = platform === IOS ? createScopedElement(Icon48WritebarDone, {
         "aria-hidden": true
@@ -53,15 +49,12 @@ export var WriteBarIcon = function WriteBarIcon(_ref) {
       });
       ariaLabel = "Готово";
       break;
-
     default:
       break;
   }
-
   if (IS_DEV && !restProps["aria-label"] && !ariaLabel) {
     warn("a11y: У WriteBarIcon нет aria-label. Кнопка будет недоступной для части пользователей.", "error");
   }
-
   return createScopedElement(Tappable, _extends({
     "aria-label": ariaLabel
   }, restProps, {

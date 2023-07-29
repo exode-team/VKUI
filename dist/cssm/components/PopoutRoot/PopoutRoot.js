@@ -10,17 +10,15 @@ import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 import "./PopoutRoot.css";
 export var PopoutRootComponent = function PopoutRootComponent(_ref) {
   var popout = _ref.popout,
-      modal = _ref.modal,
-      viewWidth = _ref.viewWidth,
-      viewHeight = _ref.viewHeight,
-      hasMouse = _ref.hasMouse,
-      children = _ref.children,
-      getRootRef = _ref.getRootRef,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    modal = _ref.modal,
+    viewWidth = _ref.viewWidth,
+    viewHeight = _ref.viewHeight,
+    hasMouse = _ref.hasMouse,
+    children = _ref.children,
+    getRootRef = _ref.getRootRef,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var _useDOM = useDOM(),
-      document = _useDOM.document;
-
+    document = _useDOM.document;
   var isDesktop = useAdaptivityIsDesktop();
   React.useEffect(function () {
     popout && blurActiveElement(document);

@@ -7,14 +7,12 @@ var transitionEvent = {
   supported: false,
   name: null
 };
-
 if (canUseDOM && !isTesting) {
   if (typeof AnimationEvent !== "undefined") {
     animationEvent.supported = true;
   } else if (typeof WebKitAnimationEvent !== "undefined") {
     animationEvent.supported = true;
   }
-
   if (typeof TransitionEvent !== "undefined") {
     transitionEvent.supported = true;
     transitionEvent.name = "transitionend";
@@ -23,6 +21,5 @@ if (canUseDOM && !isTesting) {
     transitionEvent.name = "webkitTransitionEnd";
   }
 }
-
 export { animationEvent, transitionEvent };
 //# sourceMappingURL=supportEvents.js.map

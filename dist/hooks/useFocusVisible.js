@@ -3,13 +3,11 @@ import { useContext, useState, useCallback } from "react";
 import { AppRootContext } from "../components/AppRoot/AppRootContext";
 export function useFocusVisible() {
   var _useState = useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      isFocused = _useState2[0],
-      setIsFocused = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    isFocused = _useState2[0],
+    setIsFocused = _useState2[1];
   var _useContext = useContext(AppRootContext),
-      keyboardInput = _useContext.keyboardInput;
-
+    keyboardInput = _useContext.keyboardInput;
   var onFocus = useCallback(function (event) {
     event.stopPropagation();
     setIsFocused(true);

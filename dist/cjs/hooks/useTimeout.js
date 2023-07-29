@@ -1,18 +1,13 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.useTimeout = useTimeout;
-
 var React = _interopRequireWildcard(require("react"));
-
 var _useIsomorphicLayoutEffect = require("../lib/useIsomorphicLayoutEffect");
-
 var _dom = require("../lib/dom");
-
 function useTimeout(cb, duration) {
   var options = React.useRef({
     cb: cb,
@@ -31,7 +26,6 @@ function useTimeout(cb, duration) {
   var set = React.useCallback(function () {
     var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : options.current.duration;
     clear();
-
     if (_dom.canUseDOM) {
       timeout.current = setTimeout(function () {
         var cb = options.current.cb;

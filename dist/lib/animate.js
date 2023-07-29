@@ -1,4 +1,5 @@
 import { canUseDOM } from "./dom";
+
 /**
  * Функция для js анимации
  * @param {number} duration
@@ -9,24 +10,19 @@ import { canUseDOM } from "./dom";
 
 export function animate(_ref) {
   var duration = _ref.duration,
-      timing = _ref.timing,
-      draw = _ref.draw;
-
+    timing = _ref.timing,
+    draw = _ref.draw;
   if (!canUseDOM) {
     return;
   }
-
   var start = performance.now();
   requestAnimationFrame(function animate(time) {
     var timeFraction = (time - start) / duration;
-
     if (timeFraction > 1) {
       timeFraction = 1;
     }
-
     var progress = timing(timeFraction);
     draw(progress);
-
     if (timeFraction < 1) {
       requestAnimationFrame(animate);
     }

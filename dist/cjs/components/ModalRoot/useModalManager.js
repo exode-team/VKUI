@@ -1,52 +1,35 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.modalTransitionReducer = modalTransitionReducer;
 exports.useModalManager = useModalManager;
 exports.withModalManager = withModalManager;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread2"));
-
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _types = require("./types");
-
 var _warnOnce = require("../../lib/warnOnce");
-
 var _getNavId = require("../../lib/getNavId");
-
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
-
 var _utils = require("../../lib/utils");
-
 function getModals(children) {
   return React.Children.toArray(children);
 }
-
 var warn = (0, _warnOnce.warnOnce)("ModalRoot");
-
 function modalTransitionReducer(state, action) {
   if (action.type === "setActive" && action.id !== state.activeModal) {
-    var nextModal = action.id; // preserve exiting modal if switching mid-transition
-
+    var nextModal = action.id;
+    // preserve exiting modal if switching mid-transition
     var prevModal = state.exitingModal || state.activeModal;
     var history = state.history ? (0, _toConsumableArray2.default)(state.history) : [];
     var isBack = Boolean(nextModal && history.includes(nextModal));
-
     if (nextModal === null) {
       history = [];
     } else if (isBack) {
@@ -54,7 +37,6 @@ function modalTransitionReducer(state, action) {
     } else {
       history.push(nextModal);
     }
-
     return {
       activeModal: nextModal,
       // not entering yet
@@ -64,27 +46,24 @@ function modalTransitionReducer(state, action) {
       isBack: isBack
     };
   }
-
   if (action.type === "entered" && action.id === state.enteringModal) {
     return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, state), {}, {
       enteringModal: null
     });
   }
-
   if (action.type === "exited" && action.id === state.exitingModal) {
     return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, state), {}, {
       exitingModal: null
     });
   }
-
   if (action.type === "inited" && action.id === state.activeModal) {
     return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, state), {}, {
       enteringModal: action.id
     });
   }
-
   return state;
 }
+
 /**
  * Реализует переход модалок. При смене activeModal m1 -> m2:
  * 1. activeModal: m1, exitingModal: null, enteringModal: null, триггер перехода
@@ -97,8 +76,6 @@ function modalTransitionReducer(state, action) {
  *   4b. enteringModal переходит в null после завершения анимации
  * 5. activeModal: m2, exitingModal: null, enteringModal: null, переход закончен
  */
-
-
 function useModalManager(activeModal, children) {
   var onOpen = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _utils.noop;
   var onOpened = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _utils.noop;
@@ -116,43 +93,41 @@ function useModalManager(activeModal, children) {
     state.onOpened = Modal.props.onOpened;
     state.onClose = Modal.props.onClose;
     state.onClosed = Modal.props.onClosed;
-    state.dynamicContentHeight = !!modalProps.dynamicContentHeight; // ModalPage props
-
+    state.dynamicContentHeight = !!modalProps.dynamicContentHeight;
+    // ModalPage props
     if (typeof modalProps.settlingHeight === "number") {
       state.settlingHeight = modalProps.settlingHeight;
     }
-
     if (state.id !== null) {
       modalsState[state.id] = state;
     }
   });
   var isMissing = activeModal && !modalsState[activeModal];
   var safeActiveModal = isMissing ? null : activeModal;
-
   var _React$useReducer = React.useReducer(modalTransitionReducer, {
-    activeModal: safeActiveModal,
-    enteringModal: null,
-    exitingModal: null,
-    history: safeActiveModal ? [safeActiveModal] : [],
-    isBack: false
-  }),
-      _React$useReducer2 = (0, _slicedToArray2.default)(_React$useReducer, 2),
-      transitionState = _React$useReducer2[0],
-      dispatchTransition = _React$useReducer2[1]; // Map props to state, render activeModal for init
+      activeModal: safeActiveModal,
+      enteringModal: null,
+      exitingModal: null,
+      history: safeActiveModal ? [safeActiveModal] : [],
+      isBack: false
+    }),
+    _React$useReducer2 = (0, _slicedToArray2.default)(_React$useReducer, 2),
+    transitionState = _React$useReducer2[0],
+    dispatchTransition = _React$useReducer2[1];
 
-
+  // Map props to state, render activeModal for init
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     // ignore non-existent activeModal
     if (process.env.NODE_ENV === "development" && isMissing) {
       warn("\u041F\u0435\u0440\u0435\u0445\u043E\u0434 \u043D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u0435\u043D - \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u043E\u0435 \u043E\u043A\u043D\u043E (\u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430) ".concat(activeModal, " \u043D\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442"), "error");
     }
-
     dispatchTransition({
       type: "setActive",
       id: safeActiveModal !== null && safeActiveModal !== void 0 ? safeActiveModal : null
     });
-  }, [activeModal]); // Init activeModal & set enteringModal
+  }, [activeModal]);
 
+  // Init activeModal & set enteringModal
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (transitionState.activeModal) {
       initModal(modalsState[transitionState.activeModal]);
@@ -162,24 +137,19 @@ function useModalManager(activeModal, children) {
       });
     }
   }, [transitionState.activeModal]);
-
   var isCard = function isCard(id) {
     var _modalsState$id;
-
     return id != null && ((_modalsState$id = modalsState[id]) === null || _modalsState$id === void 0 ? void 0 : _modalsState$id.type) === _types.ModalType.CARD;
   };
-
   var onEntered = React.useCallback(function (id) {
     if (id) {
       var modalState = modalsState[id];
-
       if ((0, _utils.isFunction)(modalState.onOpened)) {
         modalState.onOpened();
       } else if ((0, _utils.isFunction)(onOpened)) {
         onOpened(id);
       }
     }
-
     dispatchTransition({
       type: "entered",
       id: id
@@ -188,14 +158,12 @@ function useModalManager(activeModal, children) {
   var onExited = React.useCallback(function (id) {
     if (id) {
       var modalState = modalsState[id];
-
       if ((0, _utils.isFunction)(modalState.onClosed)) {
         modalState.onClosed();
       } else if ((0, _utils.isFunction)(onClosed)) {
         onClosed(id);
       }
     }
-
     dispatchTransition({
       type: "exited",
       id: id
@@ -205,10 +173,8 @@ function useModalManager(activeModal, children) {
   var getModalState = React.useCallback(function (id) {
     return modalsState[id];
   }, [modalsState]);
-
   function onEnter() {
     var modalState = transitionState.activeModal && modalsState[transitionState.activeModal];
-
     if (modalState) {
       if ((0, _utils.isFunction)(modalState.onOpen)) {
         modalState.onOpen();
@@ -217,10 +183,8 @@ function useModalManager(activeModal, children) {
       }
     }
   }
-
   function onExit() {
     var modalState = transitionState.activeModal && modalsState[transitionState.activeModal];
-
     if (modalState) {
       if ((0, _utils.isFunction)(modalState.onClose)) {
         modalState.onClose();
@@ -229,7 +193,6 @@ function useModalManager(activeModal, children) {
       }
     }
   }
-
   return (0, _objectSpread2.default)((0, _objectSpread2.default)({
     onEnter: onEnter,
     onEntered: onEntered,
@@ -240,7 +203,6 @@ function useModalManager(activeModal, children) {
     getModalState: getModalState
   });
 }
-
 function withModalManager() {
   var initModal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _utils.noop;
   return function (Wrapped) {

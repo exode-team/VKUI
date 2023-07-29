@@ -13,25 +13,22 @@ var COLORS_NUMBER_TO_TEXT_MAP = {
   5: "l-blue",
   6: "violet"
 };
-
 function getInitialsFontSize(avatarSize) {
   var calculatedFontSize = Math.ceil(avatarSize * 0.36);
   var evenFix = calculatedFontSize % 2;
   return calculatedFontSize + evenFix;
 }
+
 /**
  * @see https://vkcom.github.io/VKUI/#/InitialsAvatar
  */
-
-
 export var InitialsAvatar = function InitialsAvatar(_ref) {
   var _ref$size = _ref.size,
-      size = _ref$size === void 0 ? AVATAR_DEFAULT_SIZE : _ref$size,
-      children = _ref.children,
-      gradientColor = _ref.gradientColor,
-      style = _ref.style,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    size = _ref$size === void 0 ? AVATAR_DEFAULT_SIZE : _ref$size,
+    children = _ref.children,
+    gradientColor = _ref.gradientColor,
+    style = _ref.style,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var gradientName = typeof gradientColor === "string" ? gradientColor : gradientColor && COLORS_NUMBER_TO_TEXT_MAP[gradientColor];
   return createScopedElement(Avatar, _extends({}, restProps, {
     style: _objectSpread(_objectSpread({}, style), {}, {

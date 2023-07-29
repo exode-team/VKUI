@@ -12,27 +12,23 @@ import { Subhead } from "../Typography/Subhead/Subhead";
 import { createMasks } from "./masks";
 import { useDOM } from "../../lib/dom";
 import "./UsersStack.css";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/UsersStack
  */
 export var UsersStack = function UsersStack(props) {
   var platform = usePlatform();
-
   var _props$photos = props.photos,
-      photos = _props$photos === void 0 ? [] : _props$photos,
-      _props$visibleCount = props.visibleCount,
-      visibleCount = _props$visibleCount === void 0 ? 3 : _props$visibleCount,
-      _props$size = props.size,
-      size = _props$size === void 0 ? 's' : _props$size,
-      _props$layout = props.layout,
-      layout = _props$layout === void 0 ? 'horizontal' : _props$layout,
-      children = props.children,
-      restProps = _objectWithoutProperties(props, _excluded);
-
+    photos = _props$photos === void 0 ? [] : _props$photos,
+    _props$visibleCount = props.visibleCount,
+    visibleCount = _props$visibleCount === void 0 ? 3 : _props$visibleCount,
+    _props$size = props.size,
+    size = _props$size === void 0 ? 's' : _props$size,
+    _props$layout = props.layout,
+    layout = _props$layout === void 0 ? 'horizontal' : _props$layout,
+    children = props.children,
+    restProps = _objectWithoutProperties(props, _excluded);
   var _useDOM = useDOM(),
-      document = _useDOM.document;
-
+    document = _useDOM.document;
   useIsomorphicLayoutEffect(function () {
     createMasks(document);
   }, [document]);
@@ -44,11 +40,9 @@ export var UsersStack = function UsersStack(props) {
     s: 24,
     m: 32
   };
-
   var getClipPath = function getClipPath(index) {
     return index === 0 ? '' : "url(#users_stack_mask_".concat(parseSize[size], "_left)");
   };
-
   return createScopedElement("div", _extends({}, restProps, {
     // eslint-disable-next-line vkui/no-object-expression-in-arguments
     vkuiClass: classNames(getClassName('UsersStack', platform), "UsersStack--size-".concat(size), "UsersStack--l-".concat(layout), {
@@ -73,5 +67,7 @@ export var UsersStack = function UsersStack(props) {
     Component: "span",
     vkuiClass: "UsersStack__text"
   }, children));
-}; // eslint-disable-next-line import/no-default-export
+};
+
+// eslint-disable-next-line import/no-default-export
 //# sourceMappingURL=UsersStack.js.map

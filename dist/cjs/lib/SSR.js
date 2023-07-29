@@ -1,48 +1,40 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SSRWrapper = exports.SSRContext = void 0;
-
 var _jsxRuntime = require("./jsxRuntime");
-
 var React = _interopRequireWildcard(require("react"));
-
 var _platform = require("./platform");
-
 var _browser = require("./browser");
-
 var _dom = require("../lib/dom");
-
 var SSRContext = /*#__PURE__*/React.createContext({
   platform: null,
   userAgent: "",
   browserInfo: undefined
 });
 exports.SSRContext = SSRContext;
-
 /**
  * @see https://vkcom.github.io/VKUI/#/SSR
  */
 var SSRWrapper = function SSRWrapper(_ref) {
   var userAgent = _ref.userAgent,
-      browserInfo = _ref.browserInfo,
-      children = _ref.children;
-
+    browserInfo = _ref.browserInfo,
+    children = _ref.children;
   if (!browserInfo && userAgent) {
     browserInfo = (0, _browser.computeBrowserInfo)(userAgent);
-  } // TODO: Каждый раз создаётся новый объект для контекста - плохо
+  }
 
-
+  // TODO: Каждый раз создаётся новый объект для контекста - плохо
   var contextValue = {
     platform: (0, _platform.platform)(browserInfo),
     browserInfo: browserInfo,
     userAgent: userAgent
-  }; // TODO: move to state, and update in effect?
+  };
 
+  // TODO: move to state, and update in effect?
   var dom = (0, _dom.getDOM)();
   return (0, _jsxRuntime.createScopedElement)(SSRContext.Provider, {
     value: contextValue
@@ -50,6 +42,5 @@ var SSRWrapper = function SSRWrapper(_ref) {
     value: dom
   }, children));
 };
-
 exports.SSRWrapper = SSRWrapper;
 //# sourceMappingURL=SSR.js.map

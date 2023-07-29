@@ -939,298 +939,151 @@ Object.defineProperty(exports, "withPlatform", {
     return _withPlatform.withPlatform;
   }
 });
-
 require("./lib/polyfills");
-
 var _Root = require("./components/Root/Root");
-
 var _View = require("./components/View/View");
-
 var _Panel = require("./components/Panel/Panel");
-
 var _PanelHeaderButton = require("./components/PanelHeaderButton/PanelHeaderButton");
-
 var _PanelHeader = require("./components/PanelHeader/PanelHeader");
-
 var _PanelHeaderContent = require("./components/PanelHeaderContent/PanelHeaderContent");
-
 var _PanelHeaderContext = require("./components/PanelHeaderContext/PanelHeaderContext");
-
 var _SplitLayout = require("./components/SplitLayout/SplitLayout");
-
 var _SplitCol = require("./components/SplitCol/SplitCol");
-
 var _Epic = require("./components/Epic/Epic");
-
 var _Tabbar = require("./components/Tabbar/Tabbar");
-
 var _TabbarItem = require("./components/TabbarItem/TabbarItem");
-
 var _HorizontalScroll = require("./components/HorizontalScroll/HorizontalScroll");
-
 var _FixedLayout = require("./components/FixedLayout/FixedLayout");
-
 var _PopoutWrapper = require("./components/PopoutWrapper/PopoutWrapper");
-
 var _Alert = require("./components/Alert/Alert");
-
 var _ActionSheet = require("./components/ActionSheet/ActionSheet");
-
 var _ActionSheetItem = require("./components/ActionSheetItem/ActionSheetItem");
-
 var _ActionSheetDefaultIosCloseItem = require("./components/ActionSheet/ActionSheetDefaultIosCloseItem");
-
 var _ScreenSpinner = require("./components/ScreenSpinner/ScreenSpinner");
-
 var _Snackbar = require("./components/Snackbar/Snackbar");
-
 var _ModalRootAdaptive = require("./components/ModalRoot/ModalRootAdaptive");
-
 var _withModalRootContext = require("./components/ModalRoot/withModalRootContext");
-
 var _ModalRootContext = require("./components/ModalRoot/ModalRootContext");
-
 var _ModalPage = require("./components/ModalPage/ModalPage");
-
 var _ModalPageHeader = require("./components/ModalPageHeader/ModalPageHeader");
-
 var _ModalCard = require("./components/ModalCard/ModalCard");
-
 var _ModalDismissButton = require("./components/ModalDismissButton/ModalDismissButton");
-
 var _Badge = require("./components/Badge/Badge");
-
 var _ButtonGroup = require("./components/ButtonGroup/ButtonGroup");
-
 var _Button = require("./components/Button/Button");
-
 var _IconButton = require("./components/IconButton/IconButton");
-
 var _Card = require("./components/Card/Card");
-
 var _CardGrid = require("./components/CardGrid/CardGrid");
-
 var _CardScroll = require("./components/CardScroll/CardScroll");
-
 var _ContentCard = require("./components/ContentCard/ContentCard");
-
 var _CellButton = require("./components/CellButton/CellButton");
-
 var _Header = require("./components/Header/Header");
-
 var _Group = require("./components/Group/Group");
-
 var _Gradient = require("./components/Gradient/Gradient");
-
 var _List = require("./components/List/List");
-
 var _Cell = require("./components/Cell/Cell");
-
 var _RichCell = require("./components/RichCell/RichCell");
-
 var _SimpleCell = require("./components/SimpleCell/SimpleCell");
-
 var _HorizontalCell = require("./components/HorizontalCell/HorizontalCell");
-
 var _Footer = require("./components/Footer/Footer");
-
 var _InfoRow = require("./components/InfoRow/InfoRow");
-
 var _Gallery = require("./components/Gallery/Gallery");
-
 var _Avatar = require("./components/Avatar/Avatar");
-
 var _GridAvatar = require("./components/GridAvatar/GridAvatar");
-
 var _InitialsAvatar = require("./components/InitialsAvatar/InitialsAvatar");
-
 var _Progress = require("./components/Progress/Progress");
-
 var _Search = require("./components/Search/Search");
-
 var _Tabs = require("./components/Tabs/Tabs");
-
 var _TabsItem = require("./components/TabsItem/TabsItem");
-
 var _Spinner = require("./components/Spinner/Spinner");
-
 var _PullToRefresh = require("./components/PullToRefresh/PullToRefresh");
-
 var _Link = require("./components/Link/Link");
-
 var _Tooltip = require("./components/Tooltip/Tooltip");
-
 var _TooltipContainer = require("./components/Tooltip/TooltipContainer");
-
 var _Counter = require("./components/Counter/Counter");
-
 var _UsersStack = require("./components/UsersStack/UsersStack");
-
 var _Separator = require("./components/Separator/Separator");
-
 var _Spacing = require("./components/Spacing/Spacing");
-
 var _Placeholder = require("./components/Placeholder/Placeholder");
-
 var _Banner = require("./components/Banner/Banner");
-
 var _MiniInfoCell = require("./components/MiniInfoCell/MiniInfoCell");
-
 var _WriteBar = require("./components/WriteBar/WriteBar");
-
 var _WriteBarIcon = require("./components/WriteBarIcon/WriteBarIcon");
-
 var _SubnavigationBar = require("./components/SubnavigationBar/SubnavigationBar");
-
 var _SubnavigationButton = require("./components/SubnavigationButton/SubnavigationButton");
-
 var _Pagination = require("./components/Pagination/Pagination");
-
 var _FormLayout = require("./components/FormLayout/FormLayout");
-
 var _FormItem = require("./components/FormItem/FormItem");
-
 var _FormField = require("./components/FormField/FormField");
-
 var _FormLayoutGroup = require("./components/FormLayoutGroup/FormLayoutGroup");
-
 var _FormStatus = require("./components/FormStatus/FormStatus");
-
 var _Switch = require("./components/Switch/Switch");
-
 var _File = require("./components/File/File");
-
 var _Input = require("./components/Input/Input");
-
 var _Chip = require("./components/Chip/Chip");
-
 var _ChipsInput = require("./components/ChipsInput/ChipsInput");
-
 var _Slider = require("./components/Slider/Slider");
-
 var _RangeSlider = require("./components/RangeSlider/RangeSlider");
-
 var _Textarea = require("./components/Textarea/Textarea");
-
 var _Radio = require("./components/Radio/Radio");
-
 var _RadioGroup = require("./components/RadioGroup/RadioGroup");
-
 var _Checkbox = require("./components/Checkbox/Checkbox");
-
 var _Select = require("./components/Select/Select");
-
 var _SelectMimicry = require("./components/SelectMimicry/SelectMimicry");
-
 var _NativeSelect = require("./components/NativeSelect/NativeSelect");
-
 var _CustomSelect = require("./components/CustomSelect/CustomSelect");
-
 var _CustomSelectOption = require("./components/CustomSelectOption/CustomSelectOption");
-
 var _DatePicker = require("./components/DatePicker/DatePicker");
-
 var _SliderSwitch = require("./components/SliderSwitch/SliderSwitch");
-
 var _SegmentedControl = require("./components/SegmentedControl/SegmentedControl");
-
 var _Calendar = require("./components/Calendar/Calendar");
-
 var _CalendarRange = require("./components/CalendarRange/CalendarRange");
-
 var _DateInput = require("./components/DateInput/DateInput");
-
 var _DateRangeInput = require("./components/DateRangeInput/DateRangeInput");
-
 var _Div = require("./components/Div/Div");
-
 var _Tappable = require("./components/Tappable/Tappable");
-
 var _Touch = require("./components/Touch/Touch");
-
 var _PanelSpinner = require("./components/PanelSpinner/PanelSpinner");
-
 var _PanelHeaderClose = require("./components/PanelHeaderClose/PanelHeaderClose");
-
 var _PanelHeaderBack = require("./components/PanelHeaderBack/PanelHeaderBack");
-
 var _PanelHeaderSubmit = require("./components/PanelHeaderSubmit/PanelHeaderSubmit");
-
 var _PanelHeaderEdit = require("./components/PanelHeaderEdit/PanelHeaderEdit");
-
 var _ModalCardBase = require("./components/ModalCardBase/ModalCardBase");
-
 var _VisuallyHiddenInput = require("./components/VisuallyHiddenInput/VisuallyHiddenInput");
-
 var _AppRoot = require("./components/AppRoot/AppRoot");
-
 var _AdaptivityProvider = require("./components/AdaptivityProvider/AdaptivityProvider");
-
 var _ConfigProvider = require("./components/ConfigProvider/ConfigProvider");
-
 var _ConfigProviderContext = require("./components/ConfigProvider/ConfigProviderContext");
-
 var _AppearanceProvider = require("./components/AppearanceProvider/AppearanceProvider");
-
 var _scheme = require("./helpers/scheme");
-
 var _LocaleProviderContext = require("./components/LocaleProviderContext/LocaleProviderContext");
-
 var _PromoBanner = require("./components/PromoBanner/PromoBanner");
-
 var _Title = require("./components/Typography/Title/Title");
-
 var _Headline = require("./components/Typography/Headline/Headline");
-
 var _Text = require("./components/Typography/Text/Text");
-
 var _Paragraph = require("./components/Typography/Paragraph/Paragraph");
-
 var _Subhead = require("./components/Typography/Subhead/Subhead");
-
 var _Footnote = require("./components/Typography/Footnote/Footnote");
-
 var _Caption = require("./components/Typography/Caption/Caption");
-
 var _withInsets = require("./hoc/withInsets");
-
 var _withPlatform = require("./hoc/withPlatform");
-
 var _withAdaptivity = require("./hoc/withAdaptivity");
-
 var _useInsets = require("./hooks/useInsets");
-
 var _usePlatform = require("./hooks/usePlatform");
-
 var _useAdaptivity = require("./hooks/useAdaptivity");
-
 var _useAppearance = require("./hooks/useAppearance");
-
 var _usePagination = require("./hooks/usePagination");
-
 var _useTodayDate = require("./hooks/useTodayDate");
-
 var _ScrollContext = require("./components/AppRoot/ScrollContext");
-
 var _NavTransitionContext = require("./components/NavTransitionContext/NavTransitionContext");
-
 var _classNames = require("./lib/classNames");
-
 var _animate = require("./lib/animate");
-
 var _removeObjectKeys = require("./lib/removeObjectKeys");
-
 var _SSR = require("./lib/SSR");
-
 var _platform = require("./lib/platform");
-
 var _getClassName = require("./helpers/getClassName");
-
 var _AdaptivityContext = require("./components/AdaptivityProvider/AdaptivityContext");
-
 var _avatar = require("./helpers/avatar");
-
 var _Popper = require("./components/Popper/Popper");
-
 var _CustomScrollView = require("./components/CustomScrollView/CustomScrollView");
 //# sourceMappingURL=index.js.map

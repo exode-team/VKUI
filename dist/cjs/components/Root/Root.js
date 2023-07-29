@@ -1,106 +1,75 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Root = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _classNames = require("../../lib/classNames");
-
 var _platform = require("../../lib/platform");
-
 var _ConfigProviderContext = require("../ConfigProvider/ConfigProviderContext");
-
 var _SplitCol = require("../SplitCol/SplitCol");
-
 var _AppRootPortal = require("../AppRoot/AppRootPortal");
-
 var _ScrollContext = require("../AppRoot/ScrollContext");
-
 var _NavTransitionContext = require("../NavTransitionContext/NavTransitionContext");
-
 var _getNavId = require("../../lib/getNavId");
-
 var _warnOnce = require("../../lib/warnOnce");
-
 var _dom = require("../../lib/dom");
-
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
-
 var _useTimeout = require("../../hooks/useTimeout");
-
 var _usePlatform = require("../../hooks/usePlatform");
-
 var _excluded = ["popout", "modal", "children", "activeView", "onTransition", "nav"];
 var warn = (0, _warnOnce.warnOnce)("Root");
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Root
  */
-
 var Root = function Root(_ref) {
   var _ref$popout = _ref.popout,
-      popout = _ref$popout === void 0 ? null : _ref$popout,
-      modal = _ref.modal,
-      children = _ref.children,
-      _activeView = _ref.activeView,
-      onTransition = _ref.onTransition,
-      nav = _ref.nav,
-      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+    popout = _ref$popout === void 0 ? null : _ref$popout,
+    modal = _ref.modal,
+    children = _ref.children,
+    _activeView = _ref.activeView,
+    onTransition = _ref.onTransition,
+    nav = _ref.nav,
+    restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var scroll = React.useContext(_ScrollContext.ScrollContext);
   var platform = (0, _usePlatform.usePlatform)();
-
   var _useDOM = (0, _dom.useDOM)(),
-      document = _useDOM.document;
-
+    document = _useDOM.document;
   var scrolls = React.useRef({}).current;
   var viewNodes = React.useRef({}).current;
-
   var _React$useContext = React.useContext(_ConfigProviderContext.ConfigProviderContext),
-      _React$useContext$tra = _React$useContext.transitionMotionEnabled,
-      transitionMotionEnabled = _React$useContext$tra === void 0 ? true : _React$useContext$tra;
-
+    _React$useContext$tra = _React$useContext.transitionMotionEnabled,
+    transitionMotionEnabled = _React$useContext$tra === void 0 ? true : _React$useContext$tra;
   var _React$useContext2 = React.useContext(_SplitCol.SplitColContext),
-      animate = _React$useContext2.animate;
-
+    animate = _React$useContext2.animate;
   var disableAnimation = !transitionMotionEnabled || !animate;
   var views = React.Children.toArray(children);
-
   var _React$useState = React.useState({
-    activeView: _activeView,
-    transition: false
-  }),
-      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
-      _React$useState2$ = _React$useState2[0],
-      prevView = _React$useState2$.prevView,
-      activeView = _React$useState2$.activeView,
-      transition = _React$useState2$.transition,
-      isBack = _React$useState2$.isBack,
-      _setState = _React$useState2[1];
-
+      activeView: _activeView,
+      transition: false
+    }),
+    _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+    _React$useState2$ = _React$useState2[0],
+    prevView = _React$useState2$.prevView,
+    activeView = _React$useState2$.activeView,
+    transition = _React$useState2$.transition,
+    isBack = _React$useState2$.isBack,
+    _setState = _React$useState2[1];
   var transitionTo = function transitionTo(panel) {
     if (panel !== activeView) {
       var viewIds = views.map(function (view) {
         return (0, _getNavId.getNavId)(view.props, warn);
       });
-
       var _isBack = viewIds.indexOf(panel) < viewIds.indexOf(activeView);
-
       scrolls[activeView] = scroll.getScroll().y;
-
       _setState({
         activeView: panel,
         prevView: activeView,
@@ -109,7 +78,6 @@ var Root = function Root(_ref) {
       });
     }
   };
-
   var finishTransition = React.useCallback(function () {
     return _setState({
       activeView: activeView,
@@ -120,8 +88,9 @@ var Root = function Root(_ref) {
   }, [activeView, isBack, prevView]);
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     document.activeElement.blur();
-  }, [!!popout, activeView]); // Нужен переход
+  }, [!!popout, activeView]);
 
+  // Нужен переход
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     return transitionTo(_activeView);
   }, [_activeView]);
@@ -142,32 +111,25 @@ var Root = function Root(_ref) {
       fallbackTransition.clear();
       return;
     }
-
     fallbackTransition.set();
   }, [fallbackTransition, transition]);
-
   var onAnimationEnd = function onAnimationEnd(e) {
     if (["vkui-root-android-animation-hide-back", "vkui-root-android-animation-show-forward", "vkui-root-ios-animation-hide-back", "vkui-root-ios-animation-show-forward"].includes(e.animationName)) {
       finishTransition();
     }
   };
-
   if (process.env.NODE_ENV === "development") {
     popout && warn("Свойство popout устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
     modal && warn("Свойство modal устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
   }
-
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     vkuiClass: (0, _classNames.classNames)("Root", platform === _platform.IOS && "Root--ios", transition && "Root--transition")
   }), views.map(function (view) {
     var _scrolls$viewId;
-
     var viewId = (0, _getNavId.getNavId)(view.props, warn);
-
     if (viewId !== activeView && !(transition && viewId === prevView)) {
       return null;
     }
-
     var isTransitionTarget = transition && viewId === (isBack ? prevView : activeView);
     var compensateScroll = transition && (viewId === prevView || isBack && viewId === activeView);
     return (0, _jsxRuntime.createScopedElement)("div", {
@@ -191,6 +153,5 @@ var Root = function Root(_ref) {
     vkuiClass: "Root__modal"
   }, modal)));
 };
-
 exports.Root = Root;
 //# sourceMappingURL=Root.js.map

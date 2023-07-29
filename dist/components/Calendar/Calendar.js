@@ -13,91 +13,83 @@ import { useCalendar } from "../../hooks/useCalendar";
 import { classNames } from "../../lib/classNames";
 import { warnOnce } from "../../lib/warnOnce";
 var warn = warnOnce("Calendar");
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Calendar
  */
-
 export var Calendar = function Calendar(_ref) {
   var value = _ref.value,
-      onChange = _ref.onChange,
-      disablePast = _ref.disablePast,
-      disableFuture = _ref.disableFuture,
-      shouldDisableDate = _ref.shouldDisableDate,
-      onClose = _ref.onClose,
-      _ref$enableTime = _ref.enableTime,
-      enableTime = _ref$enableTime === void 0 ? false : _ref$enableTime,
-      doneButtonText = _ref.doneButtonText,
-      _ref$weekStartsOn = _ref.weekStartsOn,
-      weekStartsOn = _ref$weekStartsOn === void 0 ? 1 : _ref$weekStartsOn,
-      getRootRef = _ref.getRootRef,
-      disablePickers = _ref.disablePickers,
-      changeHoursAriaLabel = _ref.changeHoursAriaLabel,
-      changeMinutesAriaLabel = _ref.changeMinutesAriaLabel,
-      prevMonthAriaLabel = _ref.prevMonthAriaLabel,
-      nextMonthAriaLabel = _ref.nextMonthAriaLabel,
-      changeMonthAriaLabel = _ref.changeMonthAriaLabel,
-      changeYearAriaLabel = _ref.changeYearAriaLabel,
-      showNeighboringMonth = _ref.showNeighboringMonth,
-      _ref$changeDayAriaLab = _ref.changeDayAriaLabel,
-      changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? "m" : _ref$size,
-      externalViewDate = _ref.viewDate,
-      onHeaderChange = _ref.onHeaderChange,
-      onNextMonth = _ref.onNextMonth,
-      onPrevMonth = _ref.onPrevMonth,
-      prevMonthIcon = _ref.prevMonthIcon,
-      nextMonthIcon = _ref.nextMonthIcon,
-      prevMonthProps = _ref.prevMonthProps,
-      nextMonthProps = _ref.nextMonthProps,
-      dayProps = _ref.dayProps,
-      listenDayChangesForUpdate = _ref.listenDayChangesForUpdate,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    onChange = _ref.onChange,
+    disablePast = _ref.disablePast,
+    disableFuture = _ref.disableFuture,
+    shouldDisableDate = _ref.shouldDisableDate,
+    onClose = _ref.onClose,
+    _ref$enableTime = _ref.enableTime,
+    enableTime = _ref$enableTime === void 0 ? false : _ref$enableTime,
+    doneButtonText = _ref.doneButtonText,
+    _ref$weekStartsOn = _ref.weekStartsOn,
+    weekStartsOn = _ref$weekStartsOn === void 0 ? 1 : _ref$weekStartsOn,
+    getRootRef = _ref.getRootRef,
+    disablePickers = _ref.disablePickers,
+    changeHoursAriaLabel = _ref.changeHoursAriaLabel,
+    changeMinutesAriaLabel = _ref.changeMinutesAriaLabel,
+    prevMonthAriaLabel = _ref.prevMonthAriaLabel,
+    nextMonthAriaLabel = _ref.nextMonthAriaLabel,
+    changeMonthAriaLabel = _ref.changeMonthAriaLabel,
+    changeYearAriaLabel = _ref.changeYearAriaLabel,
+    showNeighboringMonth = _ref.showNeighboringMonth,
+    _ref$changeDayAriaLab = _ref.changeDayAriaLabel,
+    changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "m" : _ref$size,
+    externalViewDate = _ref.viewDate,
+    onHeaderChange = _ref.onHeaderChange,
+    onNextMonth = _ref.onNextMonth,
+    onPrevMonth = _ref.onPrevMonth,
+    prevMonthIcon = _ref.prevMonthIcon,
+    nextMonthIcon = _ref.nextMonthIcon,
+    prevMonthProps = _ref.prevMonthProps,
+    nextMonthProps = _ref.nextMonthProps,
+    dayProps = _ref.dayProps,
+    listenDayChangesForUpdate = _ref.listenDayChangesForUpdate,
+    props = _objectWithoutProperties(_ref, _excluded);
   var _useCalendar = useCalendar({
-    value: value,
-    disableFuture: disableFuture,
-    disablePast: disablePast,
-    shouldDisableDate: shouldDisableDate,
-    onHeaderChange: onHeaderChange,
-    onNextMonth: onNextMonth,
-    onPrevMonth: onPrevMonth
-  }),
-      viewDate = _useCalendar.viewDate,
-      setViewDate = _useCalendar.setViewDate,
-      setPrevMonth = _useCalendar.setPrevMonth,
-      setNextMonth = _useCalendar.setNextMonth,
-      focusedDay = _useCalendar.focusedDay,
-      setFocusedDay = _useCalendar.setFocusedDay,
-      isDayFocused = _useCalendar.isDayFocused,
-      isDayDisabled = _useCalendar.isDayDisabled,
-      resetSelectedDay = _useCalendar.resetSelectedDay;
-
+      value: value,
+      disableFuture: disableFuture,
+      disablePast: disablePast,
+      shouldDisableDate: shouldDisableDate,
+      onHeaderChange: onHeaderChange,
+      onNextMonth: onNextMonth,
+      onPrevMonth: onPrevMonth
+    }),
+    viewDate = _useCalendar.viewDate,
+    setViewDate = _useCalendar.setViewDate,
+    setPrevMonth = _useCalendar.setPrevMonth,
+    setNextMonth = _useCalendar.setNextMonth,
+    focusedDay = _useCalendar.focusedDay,
+    setFocusedDay = _useCalendar.setFocusedDay,
+    isDayFocused = _useCalendar.isDayFocused,
+    isDayDisabled = _useCalendar.isDayDisabled,
+    resetSelectedDay = _useCalendar.resetSelectedDay;
   useIsomorphicLayoutEffect(function () {
     if (value) {
       setViewDate(value);
     }
   }, [value]);
-
   if (process.env.NODE_ENV === "development" && !disablePickers && size === "s") {
     warn("Нельзя включить селекты выбора месяца/года, если размер календаря 's'", "error");
   }
-
   if (process.env.NODE_ENV === "development" && enableTime && size === "s") {
     warn("Нельзя включить выбор времени, если размер календаря 's'", "error");
   }
-
   var handleKeyDown = React.useCallback(function (event) {
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
       event.preventDefault();
     }
-
     var newFocusedDay = navigateDate(focusedDay !== null && focusedDay !== void 0 ? focusedDay : value, event.key);
-
     if (newFocusedDay && !isSameMonth(newFocusedDay, viewDate)) {
       setViewDate(newFocusedDay);
     }
-
     setFocusedDay(newFocusedDay);
   }, [focusedDay, setFocusedDay, setViewDate, value, viewDate]);
   var onDayChange = React.useCallback(function (date) {

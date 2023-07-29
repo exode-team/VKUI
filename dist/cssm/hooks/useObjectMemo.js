@@ -6,11 +6,9 @@ export function objectEquals(o1, o2) {
 }
 export function useObjectMemo(object) {
   var cache = React.useRef(object);
-
   if (!objectEquals(cache.current, object)) {
     cache.current = object;
   }
-
   return cache.current;
 }
 //# sourceMappingURL=useObjectMemo.js.map

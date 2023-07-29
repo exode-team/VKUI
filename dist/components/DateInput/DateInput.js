@@ -16,46 +16,37 @@ import { InputLike } from "../InputLike/InputLike";
 import { InputLikeDivider } from "../InputLike/InputLikeDivider";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { callMultiple } from "../../lib/callMultiple";
-
 var elementsConfig = function elementsConfig(index) {
   var length = 2;
   var min = 1;
   var max = 0;
-
   switch (index) {
     case 0:
       max = 31;
       break;
-
     case 1:
       max = 12;
       break;
-
     case 2:
       max = 2100;
       min = 1900;
       length = 4;
       break;
-
     case 3:
       max = 23;
       break;
-
     case 4:
       max = 59;
       break;
   }
-
   return {
     length: length,
     min: min,
     max: max
   };
 };
-
 var getInternalValue = function getInternalValue(value) {
   var newValue = ["", "", "", "", ""];
-
   if (value) {
     newValue[0] = String(value.getDate()).padStart(2, "0");
     newValue[1] = String(value.getMonth() + 1).padStart(2, "0");
@@ -63,63 +54,60 @@ var getInternalValue = function getInternalValue(value) {
     newValue[3] = String(value.getHours()).padStart(2, "0");
     newValue[4] = String(value.getMinutes()).padStart(2, "0");
   }
-
   return newValue;
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/DateInput
  */
-
-
 export var DateInput = function DateInput(_ref) {
   var enableTime = _ref.enableTime,
-      shouldDisableDate = _ref.shouldDisableDate,
-      disableFuture = _ref.disableFuture,
-      disablePast = _ref.disablePast,
-      value = _ref.value,
-      onChange = _ref.onChange,
-      _ref$calendarPlacemen = _ref.calendarPlacement,
-      calendarPlacement = _ref$calendarPlacemen === void 0 ? "bottom-start" : _ref$calendarPlacemen,
-      style = _ref.style,
-      className = _ref.className,
-      doneButtonText = _ref.doneButtonText,
-      _ref$closeOnChange = _ref.closeOnChange,
-      closeOnChange = _ref$closeOnChange === void 0 ? true : _ref$closeOnChange,
-      disablePickers = _ref.disablePickers,
-      getRootRef = _ref.getRootRef,
-      name = _ref.name,
-      autoFocus = _ref.autoFocus,
-      disabled = _ref.disabled,
-      onClick = _ref.onClick,
-      onFocus = _ref.onFocus,
-      prevMonthAriaLabel = _ref.prevMonthAriaLabel,
-      nextMonthAriaLabel = _ref.nextMonthAriaLabel,
-      showNeighboringMonth = _ref.showNeighboringMonth,
-      size = _ref.size,
-      _ref$changeMonthAriaL = _ref.changeMonthAriaLabel,
-      changeMonthAriaLabel = _ref$changeMonthAriaL === void 0 ? "Изменить месяц" : _ref$changeMonthAriaL,
-      _ref$changeYearAriaLa = _ref.changeYearAriaLabel,
-      changeYearAriaLabel = _ref$changeYearAriaLa === void 0 ? "Изменить год" : _ref$changeYearAriaLa,
-      _ref$changeDayAriaLab = _ref.changeDayAriaLabel,
-      changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
-      _ref$changeHoursAriaL = _ref.changeHoursAriaLabel,
-      changeHoursAriaLabel = _ref$changeHoursAriaL === void 0 ? "Изменить час" : _ref$changeHoursAriaL,
-      _ref$changeMinutesAri = _ref.changeMinutesAriaLabel,
-      changeMinutesAriaLabel = _ref$changeMinutesAri === void 0 ? "Изменить минуту" : _ref$changeMinutesAri,
-      _ref$clearFieldAriaLa = _ref.clearFieldAriaLabel,
-      clearFieldAriaLabel = _ref$clearFieldAriaLa === void 0 ? "Очистить поле" : _ref$clearFieldAriaLa,
-      _ref$showCalendarAria = _ref.showCalendarAriaLabel,
-      showCalendarAriaLabel = _ref$showCalendarAria === void 0 ? "Показать календарь" : _ref$showCalendarAria,
-      viewDate = _ref.viewDate,
-      onHeaderChange = _ref.onHeaderChange,
-      onNextMonth = _ref.onNextMonth,
-      onPrevMonth = _ref.onPrevMonth,
-      prevMonthIcon = _ref.prevMonthIcon,
-      nextMonthIcon = _ref.nextMonthIcon,
-      _ref$disableCalendar = _ref.disableCalendar,
-      disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    shouldDisableDate = _ref.shouldDisableDate,
+    disableFuture = _ref.disableFuture,
+    disablePast = _ref.disablePast,
+    value = _ref.value,
+    onChange = _ref.onChange,
+    _ref$calendarPlacemen = _ref.calendarPlacement,
+    calendarPlacement = _ref$calendarPlacemen === void 0 ? "bottom-start" : _ref$calendarPlacemen,
+    style = _ref.style,
+    className = _ref.className,
+    doneButtonText = _ref.doneButtonText,
+    _ref$closeOnChange = _ref.closeOnChange,
+    closeOnChange = _ref$closeOnChange === void 0 ? true : _ref$closeOnChange,
+    disablePickers = _ref.disablePickers,
+    getRootRef = _ref.getRootRef,
+    name = _ref.name,
+    autoFocus = _ref.autoFocus,
+    disabled = _ref.disabled,
+    onClick = _ref.onClick,
+    onFocus = _ref.onFocus,
+    prevMonthAriaLabel = _ref.prevMonthAriaLabel,
+    nextMonthAriaLabel = _ref.nextMonthAriaLabel,
+    showNeighboringMonth = _ref.showNeighboringMonth,
+    size = _ref.size,
+    _ref$changeMonthAriaL = _ref.changeMonthAriaLabel,
+    changeMonthAriaLabel = _ref$changeMonthAriaL === void 0 ? "Изменить месяц" : _ref$changeMonthAriaL,
+    _ref$changeYearAriaLa = _ref.changeYearAriaLabel,
+    changeYearAriaLabel = _ref$changeYearAriaLa === void 0 ? "Изменить год" : _ref$changeYearAriaLa,
+    _ref$changeDayAriaLab = _ref.changeDayAriaLabel,
+    changeDayAriaLabel = _ref$changeDayAriaLab === void 0 ? "Изменить день" : _ref$changeDayAriaLab,
+    _ref$changeHoursAriaL = _ref.changeHoursAriaLabel,
+    changeHoursAriaLabel = _ref$changeHoursAriaL === void 0 ? "Изменить час" : _ref$changeHoursAriaL,
+    _ref$changeMinutesAri = _ref.changeMinutesAriaLabel,
+    changeMinutesAriaLabel = _ref$changeMinutesAri === void 0 ? "Изменить минуту" : _ref$changeMinutesAri,
+    _ref$clearFieldAriaLa = _ref.clearFieldAriaLabel,
+    clearFieldAriaLabel = _ref$clearFieldAriaLa === void 0 ? "Очистить поле" : _ref$clearFieldAriaLa,
+    _ref$showCalendarAria = _ref.showCalendarAriaLabel,
+    showCalendarAriaLabel = _ref$showCalendarAria === void 0 ? "Показать календарь" : _ref$showCalendarAria,
+    viewDate = _ref.viewDate,
+    onHeaderChange = _ref.onHeaderChange,
+    onNextMonth = _ref.onNextMonth,
+    onPrevMonth = _ref.onPrevMonth,
+    prevMonthIcon = _ref.prevMonthIcon,
+    nextMonthIcon = _ref.nextMonthIcon,
+    _ref$disableCalendar = _ref.disableCalendar,
+    disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
+    props = _objectWithoutProperties(_ref, _excluded);
   var daysRef = React.useRef(null);
   var monthsRef = React.useRef(null);
   var yearsRef = React.useRef(null);
@@ -132,15 +120,12 @@ export var DateInput = function DateInput(_ref) {
         return;
       }
     }
-
     var formattedValue = "".concat(internalValue[0], ".").concat(internalValue[1], ".").concat(internalValue[2]);
     var mask = "DD.MM.YYYY";
-
     if (enableTime) {
       formattedValue += " ".concat(internalValue[3], ":").concat(internalValue[4]);
       mask += " HH:mm";
     }
-
     if (isMatch(formattedValue, mask)) {
       onChange === null || onChange === void 0 ? void 0 : onChange(parse(formattedValue, mask, value !== null && value !== void 0 ? value : new Date()));
     }
@@ -148,36 +133,32 @@ export var DateInput = function DateInput(_ref) {
   var refs = React.useMemo(function () {
     return [daysRef, monthsRef, yearsRef, hoursRef, minutesRef];
   }, [daysRef, monthsRef, yearsRef, hoursRef, minutesRef]);
-
   var _useDateInput = useDateInput({
-    maxElement: maxElement,
-    refs: refs,
-    autoFocus: autoFocus,
-    disabled: disabled,
-    elementsConfig: elementsConfig,
-    onChange: onChange,
-    onInternalValueChange: onInternalValueChange,
-    getInternalValue: getInternalValue,
-    value: value
-  }),
-      rootRef = _useDateInput.rootRef,
-      calendarRef = _useDateInput.calendarRef,
-      open = _useDateInput.open,
-      openCalendar = _useDateInput.openCalendar,
-      closeCalendar = _useDateInput.closeCalendar,
-      internalValue = _useDateInput.internalValue,
-      handleKeyDown = _useDateInput.handleKeyDown,
-      setFocusedElement = _useDateInput.setFocusedElement,
-      handleFieldEnter = _useDateInput.handleFieldEnter,
-      clear = _useDateInput.clear,
-      removeFocusFromField = _useDateInput.removeFocusFromField;
-
+      maxElement: maxElement,
+      refs: refs,
+      autoFocus: autoFocus,
+      disabled: disabled,
+      elementsConfig: elementsConfig,
+      onChange: onChange,
+      onInternalValueChange: onInternalValueChange,
+      getInternalValue: getInternalValue,
+      value: value
+    }),
+    rootRef = _useDateInput.rootRef,
+    calendarRef = _useDateInput.calendarRef,
+    open = _useDateInput.open,
+    openCalendar = _useDateInput.openCalendar,
+    closeCalendar = _useDateInput.closeCalendar,
+    internalValue = _useDateInput.internalValue,
+    handleKeyDown = _useDateInput.handleKeyDown,
+    setFocusedElement = _useDateInput.setFocusedElement,
+    handleFieldEnter = _useDateInput.handleFieldEnter,
+    clear = _useDateInput.clear,
+    removeFocusFromField = _useDateInput.removeFocusFromField;
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var onCalendarChange = React.useCallback(function (value) {
     onChange === null || onChange === void 0 ? void 0 : onChange(value);
-
     if (closeOnChange && !enableTime) {
       removeFocusFromField();
     }

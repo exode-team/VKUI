@@ -8,7 +8,6 @@ export function withInsets(Component) {
       insets: insets
     }));
   }
-
   return WithInsets;
 }
 //# sourceMappingURL=withInsets.js.map

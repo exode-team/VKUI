@@ -9,21 +9,17 @@ import { withAdaptivity } from "../../hoc/withAdaptivity";
 import { IOS } from "../../lib/platform";
 import { warnOnce } from "../../lib/warnOnce";
 var warn = warnOnce("IconButton");
-
 var IconButtonComponent = function IconButtonComponent(_ref) {
   var icon = _ref.icon,
-      sizeY = _ref.sizeY,
-      children = _ref.children,
-      _ref$Component = _ref.Component,
-      Component = _ref$Component === void 0 ? "button" : _ref$Component,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    sizeY = _ref.sizeY,
+    children = _ref.children,
+    _ref$Component = _ref.Component,
+    Component = _ref$Component === void 0 ? "button" : _ref$Component,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
-
   if (icon && process.env.NODE_ENV === "development") {
     warn("Свойство icon устарело и будет удалено в 5.0.0. Используйте children");
   }
-
   return createScopedElement(Tappable, _extends({
     activeEffectDelay: 200,
     activeMode: "background"
@@ -32,11 +28,10 @@ var IconButtonComponent = function IconButtonComponent(_ref) {
     vkuiClass: classNames("IconButton", "IconButton--sizeY-".concat(sizeY), platform === IOS && "IconButton--ios")
   }), icon || children);
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/IconButton
  */
-
-
 export var IconButton = withAdaptivity(IconButtonComponent, {
   sizeY: true
 });

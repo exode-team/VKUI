@@ -12,46 +12,43 @@ import { warnOnce } from "../../lib/warnOnce";
 import { classNames } from "../../lib/classNames";
 import "./ContentCard.css";
 var warn = warnOnce("ContentCard");
+
 /**
  * @see https://vkcom.github.io/VKUI/#/ContentCard
  */
-
 export var ContentCard = function ContentCard(_ref) {
   var subtitle = _ref.subtitle,
-      header = _ref.header,
-      text = _ref.text,
-      caption = _ref.caption,
-      className = _ref.className,
-      _ref$mode = _ref.mode,
-      mode = _ref$mode === void 0 ? "shadow" : _ref$mode,
-      style = _ref.style,
-      getRootRef = _ref.getRootRef,
-      getRef = _ref.getRef,
-      maxHeight = _ref.maxHeight,
-      image = _ref.image,
-      src = _ref.src,
-      srcSet = _ref.srcSet,
-      alt = _ref.alt,
-      width = _ref.width,
-      height = _ref.height,
-      crossOrigin = _ref.crossOrigin,
-      decoding = _ref.decoding,
-      loading = _ref.loading,
-      referrerPolicy = _ref.referrerPolicy,
-      sizes = _ref.sizes,
-      useMap = _ref.useMap,
-      _ref$hasHover = _ref.hasHover,
-      hasHover = _ref$hasHover === void 0 ? false : _ref$hasHover,
-      _ref$hasActive = _ref.hasActive,
-      hasActive = _ref$hasActive === void 0 ? false : _ref$hasActive,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    header = _ref.header,
+    text = _ref.text,
+    caption = _ref.caption,
+    className = _ref.className,
+    _ref$mode = _ref.mode,
+    mode = _ref$mode === void 0 ? "shadow" : _ref$mode,
+    style = _ref.style,
+    getRootRef = _ref.getRootRef,
+    getRef = _ref.getRef,
+    maxHeight = _ref.maxHeight,
+    image = _ref.image,
+    src = _ref.src,
+    srcSet = _ref.srcSet,
+    alt = _ref.alt,
+    width = _ref.width,
+    height = _ref.height,
+    crossOrigin = _ref.crossOrigin,
+    decoding = _ref.decoding,
+    loading = _ref.loading,
+    referrerPolicy = _ref.referrerPolicy,
+    sizes = _ref.sizes,
+    useMap = _ref.useMap,
+    _ref$hasHover = _ref.hasHover,
+    hasHover = _ref$hasHover === void 0 ? false : _ref$hasHover,
+    _ref$hasActive = _ref.hasActive,
+    hasActive = _ref$hasActive === void 0 ? false : _ref$hasActive,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var source = image || src;
-
   if (image && process.env.NODE_ENV === "development") {
     warn("Свойство image устарело и будет удалено в 5.0.0. Используйте src");
   }
-
   return createScopedElement(Card, {
     mode: mode,
     getRootRef: getRootRef,

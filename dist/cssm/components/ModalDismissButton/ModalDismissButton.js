@@ -5,15 +5,13 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import { Icon20Cancel } from "@vkontakte/icons";
 import { Tappable } from "../Tappable/Tappable";
 import "./ModalDismissButton.css";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/ModalDismissButton
  */
 export var ModalDismissButton = function ModalDismissButton(_ref) {
   var _ref$ariaLabel = _ref["aria-label"],
-      ariaLabel = _ref$ariaLabel === void 0 ? "Закрыть" : _ref$ariaLabel,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    ariaLabel = _ref$ariaLabel === void 0 ? "Закрыть" : _ref$ariaLabel,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement(Tappable, _extends({
     vkuiClass: "ModalDismissButton"
   }, restProps, {

@@ -11,24 +11,20 @@ import { FocusVisible } from "../../FocusVisible/FocusVisible";
 import { Text } from "../../Typography/Text/Text";
 import { Caption } from "../../Typography/Caption/Caption";
 import { VisuallyHiddenInput } from "../../VisuallyHiddenInput/VisuallyHiddenInput";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/SegmentedControl
  */
 export var SegmentedControlOption = function SegmentedControlOption(_ref) {
   var className = _ref.className,
-      style = _ref.style,
-      children = _ref.children,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    style = _ref.style,
+    children = _ref.children,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var _useFocusVisible = useFocusVisible(),
-      focusVisible = _useFocusVisible.focusVisible,
-      onBlur = _useFocusVisible.onBlur,
-      onFocus = _useFocusVisible.onFocus;
-
+    focusVisible = _useFocusVisible.focusVisible,
+    onBlur = _useFocusVisible.onBlur,
+    onFocus = _useFocusVisible.onFocus;
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   return createScopedElement("label", {
     className: className,
     style: style,

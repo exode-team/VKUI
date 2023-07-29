@@ -1,40 +1,24 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Radio = void 0;
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _Tappable = require("../Tappable/Tappable");
-
 var _classNames = require("../../lib/classNames");
-
 var _platform = require("../../lib/platform");
-
 var _usePlatform = require("../../hooks/usePlatform");
-
 var _withAdaptivity = require("../../hoc/withAdaptivity");
-
 var _utils = require("../../lib/utils");
-
 var _VisuallyHiddenInput = require("../VisuallyHiddenInput/VisuallyHiddenInput");
-
 var _Caption = require("../Typography/Caption/Caption");
-
 var _Headline = require("../Typography/Headline/Headline");
-
 var _Text = require("../Typography/Text/Text");
-
 var _excluded = ["children", "description", "style", "className", "getRootRef", "sizeY"];
-
 var RadioIcon = function RadioIcon(props) {
   return (0, _jsxRuntime.createScopedElement)("svg", (0, _extends2.default)({
     xmlns: "http://www.w3.org/2000/svg",
@@ -55,15 +39,14 @@ var RadioIcon = function RadioIcon(props) {
     fill: "currentColor"
   }));
 };
-
 var RadioComponent = function RadioComponent(_ref) {
   var children = _ref.children,
-      description = _ref.description,
-      style = _ref.style,
-      className = _ref.className,
-      getRootRef = _ref.getRootRef,
-      sizeY = _ref.sizeY,
-      restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+    description = _ref.description,
+    style = _ref.style,
+    className = _ref.className,
+    getRootRef = _ref.getRootRef,
+    sizeY = _ref.sizeY,
+    restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var RadioTypography = platform === _platform.VKCOM || sizeY === _withAdaptivity.SizeType.COMPACT ? _Text.Text : _Headline.Headline;
   return (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, {
@@ -90,11 +73,10 @@ var RadioComponent = function RadioComponent(_ref) {
     vkuiClass: "Radio__description"
   }, description))));
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Radio
  */
-
-
 var Radio = (0, _withAdaptivity.withAdaptivity)(RadioComponent, {
   sizeY: true
 });

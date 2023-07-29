@@ -7,7 +7,6 @@ import { Headline } from "../Typography/Headline/Headline";
 import { Caption } from "../Typography/Caption/Caption";
 import { hasReactNode } from "../../lib/utils";
 import "./FormStatus.css";
-
 /* TODO: v5.0.0 удалить */
 
 /**
@@ -16,11 +15,10 @@ import "./FormStatus.css";
  */
 export var FormStatus = function FormStatus(_ref) {
   var mode = _ref.mode,
-      header = _ref.header,
-      children = _ref.children,
-      dangerouslySetInnerHTML = _ref.dangerouslySetInnerHTML,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    header = _ref.header,
+    children = _ref.children,
+    dangerouslySetInnerHTML = _ref.dangerouslySetInnerHTML,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement("div", _extends({}, restProps, {
     vkuiClass: classNames("FormStatus", "FormStatus--".concat(mode))
   }), hasReactNode(header) && createScopedElement(Headline, {

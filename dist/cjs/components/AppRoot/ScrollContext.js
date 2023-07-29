@@ -1,30 +1,19 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.useScrollLockEffect = exports.useScrollLock = exports.useScroll = exports.ScrollContext = exports.GlobalScrollController = exports.ElementScrollController = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _utils = require("../../lib/utils");
-
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
-
 var _math = require("../../helpers/math");
-
 var _dom = require("../../lib/dom");
-
 var _useAdaptivity = require("../../hooks/useAdaptivity");
-
 var clearDisableScrollStyle = function clearDisableScrollStyle(node) {
   Object.assign(node.style, {
     position: "",
@@ -35,7 +24,6 @@ var clearDisableScrollStyle = function clearDisableScrollStyle(node) {
     overflowX: ""
   });
 };
-
 var getPageYOffsetWithoutKeyboardHeight = function getPageYOffsetWithoutKeyboardHeight(window) {
   // Note: здесь расчёт на то, что `clientHeight` равен `window.innerHeight`.
   //  Это достигается тем, что тегу `html` задали`height: 100%` и у него нет отступов сверху и снизу. Если есть отступы,
@@ -43,7 +31,6 @@ var getPageYOffsetWithoutKeyboardHeight = function getPageYOffsetWithoutKeyboard
   var diffOfClientHeightAndViewportHeight = window.document.documentElement.clientHeight - window.innerHeight;
   return window.pageYOffset - diffOfClientHeightAndViewportHeight;
 };
-
 var ScrollContext = /*#__PURE__*/React.createContext({
   getScroll: function getScroll() {
     return {
@@ -57,25 +44,19 @@ var ScrollContext = /*#__PURE__*/React.createContext({
   disableScrollLock: _utils.noop
 });
 exports.ScrollContext = ScrollContext;
-
 var useScroll = function useScroll() {
   return React.useContext(ScrollContext);
 };
-
 exports.useScroll = useScroll;
-
 var GlobalScrollController = function GlobalScrollController(_ref) {
   var children = _ref.children;
-
   var _useDOM = (0, _dom.useDOM)(),
-      window = _useDOM.window,
-      document = _useDOM.document;
-
+    window = _useDOM.window,
+    document = _useDOM.document;
   var _React$useState = React.useState(false),
-      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
-      isScrollLock = _React$useState2[0],
-      setScrollLock = _React$useState2[1];
-
+    _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+    isScrollLock = _React$useState2[0],
+    setScrollLock = _React$useState2[1];
   var beforeScrollLockFnSetRef = React.useRef(new Set());
   var getScroll = React.useCallback(function () {
     return {
@@ -128,22 +109,17 @@ var GlobalScrollController = function GlobalScrollController(_ref) {
     value: scrollController
   }, children);
 };
-
 exports.GlobalScrollController = GlobalScrollController;
-
 var ElementScrollController = function ElementScrollController(_ref2) {
   var elRef = _ref2.elRef,
-      children = _ref2.children;
-
+    children = _ref2.children;
   var _React$useState3 = React.useState(false),
-      _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
-      isScrollLock = _React$useState4[0],
-      setScrollLock = _React$useState4[1];
-
+    _React$useState4 = (0, _slicedToArray2.default)(_React$useState3, 2),
+    isScrollLock = _React$useState4[0],
+    setScrollLock = _React$useState4[1];
   var beforeScrollLockFnSetRef = React.useRef(new Set());
   var getScroll = React.useCallback(function () {
     var _elRef$current$scroll, _elRef$current, _elRef$current$scroll2, _elRef$current2;
-
     return {
       x: (_elRef$current$scroll = (_elRef$current = elRef.current) === null || _elRef$current === void 0 ? void 0 : _elRef$current.scrollLeft) !== null && _elRef$current$scroll !== void 0 ? _elRef$current$scroll : 0,
       y: (_elRef$current$scroll2 = (_elRef$current2 = elRef.current) === null || _elRef$current2 === void 0 ? void 0 : _elRef$current2.scrollTop) !== null && _elRef$current$scroll2 !== void 0 ? _elRef$current$scroll2 : 0
@@ -152,17 +128,15 @@ var ElementScrollController = function ElementScrollController(_ref2) {
   var scrollTo = React.useCallback(function () {
     var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-    var el = elRef.current; // Some iOS versions do not normalize scroll — do it manually.
-
+    var el = elRef.current;
+    // Some iOS versions do not normalize scroll — do it manually.
     el === null || el === void 0 ? void 0 : el.scrollTo(x ? (0, _math.clamp)(x, 0, el.scrollWidth - el.clientWidth) : 0, y ? (0, _math.clamp)(y, 0, el.scrollHeight - el.clientHeight) : 0);
   }, [elRef]);
   var enableScrollLock = React.useCallback(function () {
     var el = elRef.current;
-
     if (!el) {
       return;
     }
-
     beforeScrollLockFnSetRef.current.forEach(function (fn) {
       fn();
     });
@@ -182,11 +156,9 @@ var ElementScrollController = function ElementScrollController(_ref2) {
   }, [elRef]);
   var disableScrollLock = React.useCallback(function () {
     var el = elRef.current;
-
     if (!el) {
       return;
     }
-
     var scrollY = el.style.top;
     var scrollX = el.style.left;
     clearDisableScrollStyle(el);
@@ -207,57 +179,51 @@ var ElementScrollController = function ElementScrollController(_ref2) {
     value: scrollController
   }, children);
 };
+
 /**
  * Вызывает функцию effect, до блокировки прокрутки
  * @param effect функция, которая может возвращать функцию очистки
  * @param deps effect обновится только при изменении значений в списке.
  */
-
-
 exports.ElementScrollController = ElementScrollController;
-
 var useScrollLockEffect = function useScrollLockEffect(effect, deps) {
   var destructorRef = React.useRef(_utils.noop);
-
   var _useScroll = useScroll(),
-      isScrollLock = _useScroll.isScrollLock,
-      beforeScrollLockFnSetRef = _useScroll.beforeScrollLockFnSetRef; // Изменяем effectCallback только при изменении deps
+    isScrollLock = _useScroll.isScrollLock,
+    beforeScrollLockFnSetRef = _useScroll.beforeScrollLockFnSetRef;
 
-
+  // Изменяем effectCallback только при изменении deps
   var effectCallback = React.useCallback(function () {
-    destructorRef.current = effect(); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps); // Добавляем effectCallback в список функций, которые необходимо вызвать
-  // до блокировки
+    destructorRef.current = effect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 
+  // Добавляем effectCallback в список функций, которые необходимо вызвать
+  // до блокировки
   React.useEffect(function () {
     var beforeSet = beforeScrollLockFnSetRef === null || beforeScrollLockFnSetRef === void 0 ? void 0 : beforeScrollLockFnSetRef.current;
-
     if (!beforeSet) {
       return _utils.noop;
     }
-
     beforeSet.add(effectCallback);
     return function () {
       beforeSet.delete(effectCallback);
     };
-  }, [beforeScrollLockFnSetRef, effectCallback]); // Вызываем сбрасывающую функцию, после отключения блокировки
+  }, [beforeScrollLockFnSetRef, effectCallback]);
 
+  // Вызываем сбрасывающую функцию, после отключения блокировки
   React.useEffect(function () {
     if (!isScrollLock && destructorRef.current) {
       destructorRef.current();
     }
   }, [isScrollLock]);
 };
-
 exports.useScrollLockEffect = useScrollLockEffect;
-
 var useScrollLock = function useScrollLock() {
   var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-
   var _useScroll2 = useScroll(),
-      enableScrollLock = _useScroll2.enableScrollLock,
-      disableScrollLock = _useScroll2.disableScrollLock;
-
+    enableScrollLock = _useScroll2.enableScrollLock,
+    disableScrollLock = _useScroll2.disableScrollLock;
   var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
   enabled = !isDesktop ? enabled : false;
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
@@ -265,10 +231,8 @@ var useScrollLock = function useScrollLock() {
       enableScrollLock();
       return disableScrollLock;
     }
-
     return _utils.noop;
   }, [enableScrollLock, disableScrollLock, enabled]);
 };
-
 exports.useScrollLock = useScrollLock;
 //# sourceMappingURL=ScrollContext.js.map

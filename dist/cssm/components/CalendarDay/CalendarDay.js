@@ -10,24 +10,23 @@ import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderCo
 import "./CalendarDay.css";
 export var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
   var day = _ref.day,
-      today = _ref.today,
-      selected = _ref.selected,
-      onChange = _ref.onChange,
-      hidden = _ref.hidden,
-      disabled = _ref.disabled,
-      active = _ref.active,
-      selectionStart = _ref.selectionStart,
-      selectionEnd = _ref.selectionEnd,
-      focused = _ref.focused,
-      onEnter = _ref.onEnter,
-      onLeave = _ref.onLeave,
-      hinted = _ref.hinted,
-      hintedSelectionStart = _ref.hintedSelectionStart,
-      hintedSelectionEnd = _ref.hintedSelectionEnd,
-      sameMonth = _ref.sameMonth,
-      size = _ref.size,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    today = _ref.today,
+    selected = _ref.selected,
+    onChange = _ref.onChange,
+    hidden = _ref.hidden,
+    disabled = _ref.disabled,
+    active = _ref.active,
+    selectionStart = _ref.selectionStart,
+    selectionEnd = _ref.selectionEnd,
+    focused = _ref.focused,
+    onEnter = _ref.onEnter,
+    onLeave = _ref.onLeave,
+    hinted = _ref.hinted,
+    hintedSelectionStart = _ref.hintedSelectionStart,
+    hintedSelectionEnd = _ref.hintedSelectionEnd,
+    sameMonth = _ref.sameMonth,
+    size = _ref.size,
+    props = _objectWithoutProperties(_ref, _excluded);
   var locale = React.useContext(LocaleProviderContext);
   var ref = React.useRef(null);
   var onClick = React.useCallback(function () {
@@ -47,13 +46,11 @@ export var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
       ref.current.focus();
     }
   }, [focused]);
-
   if (hidden) {
     return createScopedElement("div", {
       vkuiClass: "CalendarDay__hidden"
     });
   }
-
   return createScopedElement(Tappable, _extends({
     vkuiClass: classNames("CalendarDay", "CalendarDay--size-".concat(size), today && "CalendarDay--today", selected && !disabled && "CalendarDay--selected", active && !disabled && "CalendarDay--active", selectionStart && "CalendarDay--selection-start", selectionEnd && "CalendarDay--selection-end", disabled && "CalendarDay--disabled", !sameMonth && "CalendarDay--not-same-month"),
     hoverMode: active ? "CalendarDay--active-hover" : "CalendarDay--hover",

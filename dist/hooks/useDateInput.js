@@ -6,43 +6,35 @@ import { useGlobalEventListener } from "./useGlobalEventListener";
 import { useDOM } from "../lib/dom";
 export function useDateInput(_ref) {
   var maxElement = _ref.maxElement,
-      refs = _ref.refs,
-      autoFocus = _ref.autoFocus,
-      disabled = _ref.disabled,
-      elementsConfig = _ref.elementsConfig,
-      onChange = _ref.onChange,
-      onInternalValueChange = _ref.onInternalValueChange,
-      getInternalValue = _ref.getInternalValue,
-      value = _ref.value;
-
+    refs = _ref.refs,
+    autoFocus = _ref.autoFocus,
+    disabled = _ref.disabled,
+    elementsConfig = _ref.elementsConfig,
+    onChange = _ref.onChange,
+    onInternalValueChange = _ref.onInternalValueChange,
+    getInternalValue = _ref.getInternalValue,
+    value = _ref.value;
   var _useDOM = useDOM(),
-      document = _useDOM.document;
-
+    document = _useDOM.document;
   var _useBooleanState = useBooleanState(false),
-      open = _useBooleanState.value,
-      openCalendar = _useBooleanState.setTrue,
-      closeCalendar = _useBooleanState.setFalse;
-
+    open = _useBooleanState.value,
+    openCalendar = _useBooleanState.setTrue,
+    closeCalendar = _useBooleanState.setFalse;
   var rootRef = React.useRef(null);
   var calendarRef = React.useRef(null);
-
   var _React$useState = React.useState([]),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      internalValue = _React$useState2[0],
-      setInternalValue = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    internalValue = _React$useState2[0],
+    setInternalValue = _React$useState2[1];
   var _React$useState3 = React.useState(null),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      focusedElement = _React$useState4[0],
-      setFocusedElement = _React$useState4[1];
-
+    _React$useState4 = _slicedToArray(_React$useState3, 2),
+    focusedElement = _React$useState4[0],
+    setFocusedElement = _React$useState4[1];
   var _useDOM2 = useDOM(),
-      window = _useDOM2.window;
-
+    window = _useDOM2.window;
   var removeFocusFromField = React.useCallback(function () {
     if (open) {
       var _getSelection;
-
       setFocusedElement(null);
       closeCalendar();
       (_getSelection = window.getSelection()) === null || _getSelection === void 0 ? void 0 : _getSelection.removeAllRanges();
@@ -51,7 +43,6 @@ export function useDateInput(_ref) {
   }, [closeCalendar, getInternalValue, open, value, window]);
   var handleClickOutside = React.useCallback(function (e) {
     var _rootRef$current, _calendarRef$current;
-
     if (!((_rootRef$current = rootRef.current) !== null && _rootRef$current !== void 0 && _rootRef$current.contains(e.target)) && !((_calendarRef$current = calendarRef.current) !== null && _calendarRef$current !== void 0 && _calendarRef$current.contains(e.target))) {
       removeFocusFromField();
     }
@@ -74,10 +65,8 @@ export function useDateInput(_ref) {
     if (disabled || focusedElement === null) {
       return;
     }
-
     var range = window.document.createRange();
     var element = refs[focusedElement].current;
-
     if (element) {
       element.focus();
       openCalendar();
@@ -100,17 +89,13 @@ export function useDateInput(_ref) {
     if (focusedElement === null) {
       return;
     }
-
     var _value = _toConsumableArray(internalValue);
-
     var config = elementsConfig(focusedElement);
-
     if (/^\d+$/.test(e.key)) {
       if (_value[focusedElement].length >= config.length) {
         _value[focusedElement] = e.key;
       } else {
         _value[focusedElement] += e.key;
-
         if (_value[focusedElement].length >= config.length && focusedElement < maxElement) {
           setFocusedElement(focusedElement + 1);
         }
@@ -126,7 +111,6 @@ export function useDateInput(_ref) {
       _value[focusedElement] = String(currentValue <= config.min ? config.max : currentValue - 1).padStart(config.length, "0");
     } else if (e.key === "ArrowUp" || e.key === "Up") {
       var _currentValue = Number(_value[focusedElement]);
-
       _value[focusedElement] = String(_currentValue >= config.max ? config.min : _currentValue + 1).padStart(config.length, "0");
     } else if (e.key === "Enter" || e.key === "Tab" && focusedElement === maxElement || e.key === "Tab" && e.shiftKey && focusedElement === 0) {
       removeFocusFromField();
@@ -140,7 +124,6 @@ export function useDateInput(_ref) {
     } else {
       return;
     }
-
     e.preventDefault();
     setInternalValue(_value);
     onInternalValueChange(_value);

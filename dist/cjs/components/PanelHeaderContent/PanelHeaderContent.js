@@ -1,53 +1,35 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PanelHeaderContent = void 0;
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread2"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _classNames = require("../../lib/classNames");
-
 var _Tappable = require("../Tappable/Tappable");
-
 var _usePlatform = require("../../hooks/usePlatform");
-
 var _utils = require("../../lib/utils");
-
 var _getClassName = require("../../helpers/getClassName");
-
 var _Caption = require("../Typography/Caption/Caption");
-
 var _Headline = require("../Typography/Headline/Headline");
-
 var _platform = require("../../lib/platform");
-
 var _Text = require("../Typography/Text/Text");
-
 var _excluded = ["className", "style", "aside", "status", "before", "children", "onClick"];
-
 var PanelHeaderChildren = function PanelHeaderChildren(_ref) {
   var platform = _ref.platform,
-      hasStatus = _ref.hasStatus,
-      hasBefore = _ref.hasBefore,
-      children = _ref.children;
-
+    hasStatus = _ref.hasStatus,
+    hasBefore = _ref.hasBefore,
+    children = _ref.children;
   if (platform === _platform.Platform.VKCOM) {
     return (0, _jsxRuntime.createScopedElement)(_Text.Text, {
       Component: "div",
       weight: "2"
     }, children);
   }
-
   return hasStatus || hasBefore ? (0, _jsxRuntime.createScopedElement)(_Headline.Headline, {
     Component: "div",
     weight: "2"
@@ -55,20 +37,19 @@ var PanelHeaderChildren = function PanelHeaderChildren(_ref) {
     vkuiClass: "PanelHeaderContent__children-in"
   }, children);
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelHeaderContent
  */
-
-
 var PanelHeaderContent = function PanelHeaderContent(_ref2) {
   var className = _ref2.className,
-      style = _ref2.style,
-      aside = _ref2.aside,
-      status = _ref2.status,
-      before = _ref2.before,
-      children = _ref2.children,
-      onClick = _ref2.onClick,
-      restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded);
+    style = _ref2.style,
+    aside = _ref2.aside,
+    status = _ref2.status,
+    before = _ref2.before,
+    children = _ref2.children,
+    onClick = _ref2.onClick,
+    restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded);
   var InComponent = onClick ? _Tappable.Tappable : "div";
   var rootProps = onClick ? {} : restProps;
   var platform = (0, _usePlatform.usePlatform)();
@@ -100,6 +81,5 @@ var PanelHeaderContent = function PanelHeaderContent(_ref2) {
     vkuiClass: "PanelHeaderContent__width"
   })));
 };
-
 exports.PanelHeaderContent = PanelHeaderContent;
 //# sourceMappingURL=PanelHeaderContent.js.map

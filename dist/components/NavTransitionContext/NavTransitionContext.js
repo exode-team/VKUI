@@ -9,7 +9,7 @@ export var useNavTransition = function useNavTransition() {
 };
 export var NavTransitionProvider = function NavTransitionProvider(_ref) {
   var children = _ref.children,
-      entering = _ref.entering;
+    entering = _ref.entering;
   var parentContext = useNavTransition();
   var contextValue = useObjectMemo({
     entering: parentContext.entering || entering

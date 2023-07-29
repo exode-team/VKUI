@@ -5,16 +5,14 @@ var _excluded = ["height", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Spinner } from "../Spinner/Spinner";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/PanelSpinner
  */
 export var PanelSpinner = /*#__PURE__*/React.memo(function (_ref) {
   var _ref$height = _ref.height,
-      height = _ref$height === void 0 ? 96 : _ref$height,
-      style = _ref.style,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    height = _ref$height === void 0 ? 96 : _ref$height,
+    style = _ref.style,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement(Spinner, _extends({
     size: "regular"
   }, restProps, {

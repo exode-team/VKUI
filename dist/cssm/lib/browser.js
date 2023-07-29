@@ -1,27 +1,21 @@
 import { detectIOS } from "@vkontakte/vkjs";
 export var System;
-
 (function (System) {
   System["IOS"] = "ios";
   System["UNKNOWN"] = "";
 })(System || (System = {}));
-
 var memoized = {};
 export function computeBrowserInfo() {
   var userAgent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-
   if (memoized[userAgent]) {
     return memoized[userAgent];
   }
-
   var systemVersion = null;
   var system = System.UNKNOWN;
-
   var _detectIOS = detectIOS(userAgent),
-      isIOS = _detectIOS.isIOS,
-      iosMajor = _detectIOS.iosMajor,
-      iosMinor = _detectIOS.iosMinor;
-
+    isIOS = _detectIOS.isIOS,
+    iosMajor = _detectIOS.iosMajor,
+    iosMinor = _detectIOS.iosMinor;
   if (isIOS) {
     system = System.IOS;
     systemVersion = {
@@ -29,7 +23,6 @@ export function computeBrowserInfo() {
       minor: iosMinor
     };
   }
-
   var browserInfo = {
     userAgent: userAgent,
     system: system,

@@ -20,17 +20,12 @@ export function useEventListener(event, _cb, _options) {
     if (!canUseDOM) {
       return;
     }
-
     remove();
-
     if (!el) {
       return;
     }
-
     var options = _objectSpread({}, _options);
-
     el.addEventListener(event, cb, options);
-
     detach.current = function () {
       return el.removeEventListener(event, cb, options);
     };

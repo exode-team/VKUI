@@ -13,28 +13,27 @@ import { Caption } from "../Typography/Caption/Caption";
 import "./CalendarDays.css";
 export var CalendarDays = function CalendarDays(_ref) {
   var viewDate = _ref.viewDate,
-      value = _ref.value,
-      weekStartsOn = _ref.weekStartsOn,
-      onDayChange = _ref.onDayChange,
-      isDaySelected = _ref.isDaySelected,
-      isDayActive = _ref.isDayActive,
-      isDaySelectionEnd = _ref.isDaySelectionEnd,
-      isDaySelectionStart = _ref.isDaySelectionStart,
-      onDayEnter = _ref.onDayEnter,
-      onDayLeave = _ref.onDayLeave,
-      isDayHinted = _ref.isDayHinted,
-      isHintedDaySelectionStart = _ref.isHintedDaySelectionStart,
-      isHintedDaySelectionEnd = _ref.isHintedDaySelectionEnd,
-      isDayFocused = _ref.isDayFocused,
-      isDayDisabled = _ref.isDayDisabled,
-      size = _ref.size,
-      _ref$showNeighboringM = _ref.showNeighboringMonth,
-      showNeighboringMonth = _ref$showNeighboringM === void 0 ? false : _ref$showNeighboringM,
-      dayProps = _ref.dayProps,
-      _ref$listenDayChanges = _ref.listenDayChangesForUpdate,
-      listenDayChangesForUpdate = _ref$listenDayChanges === void 0 ? false : _ref$listenDayChanges,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    value = _ref.value,
+    weekStartsOn = _ref.weekStartsOn,
+    onDayChange = _ref.onDayChange,
+    isDaySelected = _ref.isDaySelected,
+    isDayActive = _ref.isDayActive,
+    isDaySelectionEnd = _ref.isDaySelectionEnd,
+    isDaySelectionStart = _ref.isDaySelectionStart,
+    onDayEnter = _ref.onDayEnter,
+    onDayLeave = _ref.onDayLeave,
+    isDayHinted = _ref.isDayHinted,
+    isHintedDaySelectionStart = _ref.isHintedDaySelectionStart,
+    isHintedDaySelectionEnd = _ref.isHintedDaySelectionEnd,
+    isDayFocused = _ref.isDayFocused,
+    isDayDisabled = _ref.isDayDisabled,
+    size = _ref.size,
+    _ref$showNeighboringM = _ref.showNeighboringMonth,
+    showNeighboringMonth = _ref$showNeighboringM === void 0 ? false : _ref$showNeighboringM,
+    dayProps = _ref.dayProps,
+    _ref$listenDayChanges = _ref.listenDayChangesForUpdate,
+    listenDayChangesForUpdate = _ref$listenDayChanges === void 0 ? false : _ref$listenDayChanges,
+    props = _objectWithoutProperties(_ref, _excluded);
   var locale = React.useContext(LocaleProviderContext);
   var ref = React.useRef(null);
   var now = useTodayDate(listenDayChangesForUpdate);
@@ -46,7 +45,6 @@ export var CalendarDays = function CalendarDays(_ref) {
   }, [locale, now, weekStartsOn]);
   var handleDayChange = React.useCallback(function (date) {
     var _ref$current;
-
     onDayChange(date);
     (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus();
   }, [onDayChange]);

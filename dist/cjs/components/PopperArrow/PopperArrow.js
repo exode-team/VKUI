@@ -1,20 +1,16 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PopperArrow = void 0;
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var PopperArrow = function PopperArrow(_ref) {
   var style = _ref.style,
-      attributes = _ref.attributes,
-      arrowClassName = _ref.arrowClassName;
+    attributes = _ref.attributes,
+    arrowClassName = _ref.arrowClassName;
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
     style: style
   }, attributes, {
@@ -35,6 +31,5 @@ var PopperArrow = function PopperArrow(_ref) {
     fill: "currentColor"
   })));
 };
-
 exports.PopperArrow = PopperArrow;
 //# sourceMappingURL=PopperArrow.js.map

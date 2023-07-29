@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.calcInitialsAvatarColor = calcInitialsAvatarColor;
-
 /**
  * Вычисляет цвет InitialsAvatar на основании переданного идентификатора объекта
  */

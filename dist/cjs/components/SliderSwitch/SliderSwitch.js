@@ -1,66 +1,44 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SliderSwitch = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-
 var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
 var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
-
 var _createSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/createSuper"));
-
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _SliderSwitchButton = require("./SliderSwitchButton");
-
 var _classNames = require("../../lib/classNames");
-
 var _warnOnce = require("../../lib/warnOnce");
-
 var _excluded = ["name", "options", "activeValue", "onSwitch"];
 var warn = (0, _warnOnce.warnOnce)("SliderSwitch");
+
 /**
  * @deprecated Этот компонент устарел и будет удален в 5.0.0. Используйте [`SegmentedControl`](https://vkcom.github.io/VKUI/#/SegmentedControl).
  * @see https://vkcom.github.io/VKUI/#/SliderSwitch
  */
-
 var SliderSwitch = /*#__PURE__*/function (_React$Component) {
   (0, _inherits2.default)(SliderSwitch, _React$Component);
-
   var _super = (0, _createSuper2.default)(SliderSwitch);
-
   function SliderSwitch(props) {
     var _props$activeValue;
-
     var _this;
-
     (0, _classCallCheck2.default)(this, SliderSwitch);
     _this = _super.call(this, props);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "firstButton", void 0);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "secondButton", void 0);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onSwitch", function (value) {
       var onSwitch = _this.props.onSwitch;
-
       _this.setState(function () {
         return {
           activeValue: value
@@ -72,13 +50,11 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleFirstClick", function () {
       var options = _this.props.options;
       var value = options[0].value;
-
       _this.onSwitch(value);
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleSecondClick", function () {
       var options = _this.props.options;
       var value = options[1].value;
-
       _this.onSwitch(value);
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleFirstHover", function () {
@@ -104,29 +80,23 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "switchByKey", function (event) {
       var _options$find;
-
       if (event.key !== "Enter" && event.key !== "Spacebar" && event.key !== " ") {
         return;
       }
-
       event.preventDefault();
       var options = _this.props.options;
       var activeValue = _this.state.activeValue;
       var value = (_options$find = options.find(function (option) {
         return option.value !== activeValue;
       })) === null || _options$find === void 0 ? void 0 : _options$find.value;
-
       if (value !== undefined) {
         _this.onSwitch(value);
       }
-
       if (options[0].value === value) {
         var _this$firstButton$cur;
-
         (_this$firstButton$cur = _this.firstButton.current) === null || _this$firstButton$cur === void 0 ? void 0 : _this$firstButton$cur.focus();
       } else {
         var _this$secondButton$cu;
-
         (_this$secondButton$cu = _this.secondButton.current) === null || _this$secondButton$cu === void 0 ? void 0 : _this$secondButton$cu.focus();
       }
     });
@@ -138,7 +108,6 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
     _this.secondButton = /*#__PURE__*/React.createRef();
     return _this;
   }
-
   (0, _createClass2.default)(SliderSwitch, [{
     key: "componentDidMount",
     value: function componentDidMount() {
@@ -150,19 +119,17 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _this$props = this.props,
-          name = _this$props.name,
-          options = _this$props.options,
-          _activeValue = _this$props.activeValue,
-          onSwitch = _this$props.onSwitch,
-          restProps = (0, _objectWithoutProperties2.default)(_this$props, _excluded);
+        name = _this$props.name,
+        options = _this$props.options,
+        _activeValue = _this$props.activeValue,
+        onSwitch = _this$props.onSwitch,
+        restProps = (0, _objectWithoutProperties2.default)(_this$props, _excluded);
       var _this$state = this.state,
-          activeValue = _this$state.activeValue,
-          hoveredOptionId = _this$state.hoveredOptionId;
-
+        activeValue = _this$state.activeValue,
+        hoveredOptionId = _this$state.hoveredOptionId;
       var _options = (0, _slicedToArray2.default)(options, 2),
-          firstOption = _options[0],
-          secondOption = _options[1];
-
+        firstOption = _options[0],
+        secondOption = _options[1];
       var firstActive = firstOption.value === activeValue;
       var secondActive = secondOption.value === activeValue;
       return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
@@ -200,13 +167,11 @@ var SliderSwitch = /*#__PURE__*/function (_React$Component) {
           activeValue: nextProps.activeValue
         };
       }
-
       return null;
     }
   }]);
   return SliderSwitch;
 }(React.Component);
-
 exports.SliderSwitch = SliderSwitch;
 (0, _defineProperty2.default)(SliderSwitch, "defaultProps", {
   options: [{

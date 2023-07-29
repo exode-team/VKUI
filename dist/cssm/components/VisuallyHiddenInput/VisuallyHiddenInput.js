@@ -3,7 +3,6 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["getRef"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import "./VisuallyHiddenInput.css";
-
 /**
  * @description
  * Обертка над обычным `<input/>`; дает
@@ -12,8 +11,7 @@ import "./VisuallyHiddenInput.css";
  */
 export var VisuallyHiddenInput = function VisuallyHiddenInput(_ref) {
   var getRef = _ref.getRef,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    restProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement("input", _extends({}, restProps, {
     vkuiClass: "VisuallyHiddenInput",
     ref: getRef

@@ -6,19 +6,17 @@ import { classNames } from "../../lib/classNames";
 import { hasReactNode } from "../../lib/utils";
 import { Title } from "../Typography/Title/Title";
 import { Headline } from "../Typography/Headline/Headline";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Placeholder
  */
 export var Placeholder = function Placeholder(_ref) {
   var icon = _ref.icon,
-      header = _ref.header,
-      action = _ref.action,
-      children = _ref.children,
-      stretched = _ref.stretched,
-      getRootRef = _ref.getRootRef,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    header = _ref.header,
+    action = _ref.action,
+    children = _ref.children,
+    stretched = _ref.stretched,
+    getRootRef = _ref.getRootRef,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement("div", _extends({}, restProps, {
     ref: getRootRef,
     vkuiClass: classNames("Placeholder", stretched && "Placeholder--stretched")

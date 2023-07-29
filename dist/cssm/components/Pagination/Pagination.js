@@ -10,37 +10,33 @@ import { usePagination } from "../../hooks/usePagination";
 import { Tappable } from "../Tappable/Tappable";
 import { Button } from "../Button/Button";
 import "./Pagination.css";
-
 function getPageAriaLabelDefault(page, isCurrent) {
   return isCurrent ? "".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430") : "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 ".concat(page, " \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443");
 }
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Pagination
  */
 export var Pagination = function Pagination(_ref) {
   var _ref$currentPage = _ref.currentPage,
-      currentPage = _ref$currentPage === void 0 ? 1 : _ref$currentPage,
-      _ref$siblingCount = _ref.siblingCount,
-      siblingCount = _ref$siblingCount === void 0 ? 1 : _ref$siblingCount,
-      _ref$boundaryCount = _ref.boundaryCount,
-      boundaryCount = _ref$boundaryCount === void 0 ? 1 : _ref$boundaryCount,
-      _ref$totalPages = _ref.totalPages,
-      totalPages = _ref$totalPages === void 0 ? 1 : _ref$totalPages,
-      disabled = _ref.disabled,
-      _ref$getPageAriaLabel = _ref.getPageAriaLabel,
-      getPageAriaLabel = _ref$getPageAriaLabel === void 0 ? getPageAriaLabelDefault : _ref$getPageAriaLabel,
-      _ref$prevButtonAriaLa = _ref.prevButtonAriaLabel,
-      prevButtonAriaLabel = _ref$prevButtonAriaLa === void 0 ? "Перейти на предыдущую страницу" : _ref$prevButtonAriaLa,
-      _ref$nextButtonAriaLa = _ref.nextButtonAriaLabel,
-      nextButtonAriaLabel = _ref$nextButtonAriaLa === void 0 ? "Перейти на следующую страницу" : _ref$nextButtonAriaLa,
-      getRootRef = _ref.getRootRef,
-      onChange = _ref.onChange,
-      resetProps = _objectWithoutProperties(_ref, _excluded);
-
+    currentPage = _ref$currentPage === void 0 ? 1 : _ref$currentPage,
+    _ref$siblingCount = _ref.siblingCount,
+    siblingCount = _ref$siblingCount === void 0 ? 1 : _ref$siblingCount,
+    _ref$boundaryCount = _ref.boundaryCount,
+    boundaryCount = _ref$boundaryCount === void 0 ? 1 : _ref$boundaryCount,
+    _ref$totalPages = _ref.totalPages,
+    totalPages = _ref$totalPages === void 0 ? 1 : _ref$totalPages,
+    disabled = _ref.disabled,
+    _ref$getPageAriaLabel = _ref.getPageAriaLabel,
+    getPageAriaLabel = _ref$getPageAriaLabel === void 0 ? getPageAriaLabelDefault : _ref$getPageAriaLabel,
+    _ref$prevButtonAriaLa = _ref.prevButtonAriaLabel,
+    prevButtonAriaLabel = _ref$prevButtonAriaLa === void 0 ? "Перейти на предыдущую страницу" : _ref$prevButtonAriaLa,
+    _ref$nextButtonAriaLa = _ref.nextButtonAriaLabel,
+    nextButtonAriaLabel = _ref$nextButtonAriaLa === void 0 ? "Перейти на следующую страницу" : _ref$nextButtonAriaLa,
+    getRootRef = _ref.getRootRef,
+    onChange = _ref.onChange,
+    resetProps = _objectWithoutProperties(_ref, _excluded);
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var pages = usePagination({
     currentPage: currentPage,
     totalPages: totalPages,
@@ -72,11 +68,9 @@ export var Pagination = function Pagination(_ref) {
         }, createScopedElement("div", {
           vkuiClass: classNames("Pagination__page", "Pagination__page--type-ellipsis", "Pagination__page--sizeY-".concat(sizeY), disabled && "Pagination__page--disabled")
         }, "..."));
-
       default:
         {
           var _isCurrent = page === currentPage;
-
           return createScopedElement("li", {
             key: page
           }, createScopedElement(Tappable, {

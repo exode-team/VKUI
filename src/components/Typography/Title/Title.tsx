@@ -32,7 +32,7 @@ const warn = warnOnce("Title");
 export const Title = ({
   children,
   weight,
-  level = "1",
+  level = "3",
   Component,
   ...restProps
 }: TitleProps) => {

@@ -1,16 +1,12 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Icon48CancelCircle = void 0;
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var Icon48CancelCircle = function Icon48CancelCircle(props) {
   return (0, _jsxRuntime.createScopedElement)("svg", (0, _extends2.default)({
     vkuiClass: "Icon",
@@ -26,6 +22,5 @@ var Icon48CancelCircle = function Icon48CancelCircle(props) {
     fill: "currentColor"
   }));
 };
-
 exports.Icon48CancelCircle = Icon48CancelCircle;
 //# sourceMappingURL=Icon48CancelCircle.js.map

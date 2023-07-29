@@ -6,15 +6,12 @@ import { ConfigProviderContext } from "../components/ConfigProvider/ConfigProvid
 export function withPlatform(Component) {
   function WithPlatform(props) {
     var ssrContext = React.useContext(SSRContext);
-
     var _React$useContext = React.useContext(ConfigProviderContext),
-        platform = _React$useContext.platform;
-
+      platform = _React$useContext.platform;
     return createScopedElement(Component, _extends({}, props, {
       platform: ssrContext.platform || platform
     }));
   }
-
   return WithPlatform;
 }
 //# sourceMappingURL=withPlatform.js.map

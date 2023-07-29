@@ -18,61 +18,50 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { useTimeout } from "../../hooks/useTimeout";
 import { usePlatform } from "../../hooks/usePlatform";
 var warn = warnOnce("Root");
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Root
  */
-
 export var Root = function Root(_ref) {
   var _ref$popout = _ref.popout,
-      popout = _ref$popout === void 0 ? null : _ref$popout,
-      modal = _ref.modal,
-      children = _ref.children,
-      _activeView = _ref.activeView,
-      onTransition = _ref.onTransition,
-      nav = _ref.nav,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    popout = _ref$popout === void 0 ? null : _ref$popout,
+    modal = _ref.modal,
+    children = _ref.children,
+    _activeView = _ref.activeView,
+    onTransition = _ref.onTransition,
+    nav = _ref.nav,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var scroll = React.useContext(ScrollContext);
   var platform = usePlatform();
-
   var _useDOM = useDOM(),
-      document = _useDOM.document;
-
+    document = _useDOM.document;
   var scrolls = React.useRef({}).current;
   var viewNodes = React.useRef({}).current;
-
   var _React$useContext = React.useContext(ConfigProviderContext),
-      _React$useContext$tra = _React$useContext.transitionMotionEnabled,
-      transitionMotionEnabled = _React$useContext$tra === void 0 ? true : _React$useContext$tra;
-
+    _React$useContext$tra = _React$useContext.transitionMotionEnabled,
+    transitionMotionEnabled = _React$useContext$tra === void 0 ? true : _React$useContext$tra;
   var _React$useContext2 = React.useContext(SplitColContext),
-      animate = _React$useContext2.animate;
-
+    animate = _React$useContext2.animate;
   var disableAnimation = !transitionMotionEnabled || !animate;
   var views = React.Children.toArray(children);
-
   var _React$useState = React.useState({
-    activeView: _activeView,
-    transition: false
-  }),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      _React$useState2$ = _React$useState2[0],
-      prevView = _React$useState2$.prevView,
-      activeView = _React$useState2$.activeView,
-      transition = _React$useState2$.transition,
-      isBack = _React$useState2$.isBack,
-      _setState = _React$useState2[1];
-
+      activeView: _activeView,
+      transition: false
+    }),
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    _React$useState2$ = _React$useState2[0],
+    prevView = _React$useState2$.prevView,
+    activeView = _React$useState2$.activeView,
+    transition = _React$useState2$.transition,
+    isBack = _React$useState2$.isBack,
+    _setState = _React$useState2[1];
   var transitionTo = function transitionTo(panel) {
     if (panel !== activeView) {
       var viewIds = views.map(function (view) {
         return getNavId(view.props, warn);
       });
-
       var _isBack = viewIds.indexOf(panel) < viewIds.indexOf(activeView);
-
       scrolls[activeView] = scroll.getScroll().y;
-
       _setState({
         activeView: panel,
         prevView: activeView,
@@ -81,7 +70,6 @@ export var Root = function Root(_ref) {
       });
     }
   };
-
   var finishTransition = React.useCallback(function () {
     return _setState({
       activeView: activeView,
@@ -92,8 +80,9 @@ export var Root = function Root(_ref) {
   }, [activeView, isBack, prevView]);
   useIsomorphicLayoutEffect(function () {
     document.activeElement.blur();
-  }, [!!popout, activeView]); // Нужен переход
+  }, [!!popout, activeView]);
 
+  // Нужен переход
   useIsomorphicLayoutEffect(function () {
     return transitionTo(_activeView);
   }, [_activeView]);
@@ -114,32 +103,25 @@ export var Root = function Root(_ref) {
       fallbackTransition.clear();
       return;
     }
-
     fallbackTransition.set();
   }, [fallbackTransition, transition]);
-
   var onAnimationEnd = function onAnimationEnd(e) {
     if (["vkui-root-android-animation-hide-back", "vkui-root-android-animation-show-forward", "vkui-root-ios-animation-hide-back", "vkui-root-ios-animation-show-forward"].includes(e.animationName)) {
       finishTransition();
     }
   };
-
   if (process.env.NODE_ENV === "development") {
     popout && warn("Свойство popout устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
     modal && warn("Свойство modal устарело и будет удалено в 5.0.0. Используйте одноименное свойство у SplitLayout.");
   }
-
   return createScopedElement("div", _extends({}, restProps, {
     vkuiClass: classNames("Root", platform === IOS && "Root--ios", transition && "Root--transition")
   }), views.map(function (view) {
     var _scrolls$viewId;
-
     var viewId = getNavId(view.props, warn);
-
     if (viewId !== activeView && !(transition && viewId === prevView)) {
       return null;
     }
-
     var isTransitionTarget = transition && viewId === (isBack ? prevView : activeView);
     var compensateScroll = transition && (viewId === prevView || isBack && viewId === activeView);
     return createScopedElement("div", {

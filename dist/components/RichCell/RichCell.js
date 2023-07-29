@@ -6,21 +6,19 @@ import { classNames } from "../../lib/classNames";
 import { Tappable } from "../Tappable/Tappable";
 import { Subhead } from "../Typography/Subhead/Subhead";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
-
 var RichCellComponent = function RichCellComponent(_ref) {
   var subhead = _ref.subhead,
-      children = _ref.children,
-      text = _ref.text,
-      caption = _ref.caption,
-      before = _ref.before,
-      after = _ref.after,
-      afterCaption = _ref.afterCaption,
-      bottom = _ref.bottom,
-      actions = _ref.actions,
-      multiline = _ref.multiline,
-      sizeY = _ref.sizeY,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    children = _ref.children,
+    text = _ref.text,
+    caption = _ref.caption,
+    before = _ref.before,
+    after = _ref.after,
+    afterCaption = _ref.afterCaption,
+    bottom = _ref.bottom,
+    actions = _ref.actions,
+    multiline = _ref.multiline,
+    sizeY = _ref.sizeY,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement(Tappable, _extends({}, restProps, {
     vkuiClass: classNames("RichCell", !multiline && "RichCell--text-ellipsis", "RichCell--sizeY-".concat(sizeY))
   }), before && createScopedElement("div", {
@@ -53,11 +51,10 @@ var RichCellComponent = function RichCellComponent(_ref) {
     vkuiClass: "RichCell__actions"
   }, actions)));
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/RichCell
  */
-
-
 export var RichCell = withAdaptivity(RichCellComponent, {
   sizeY: true
 });

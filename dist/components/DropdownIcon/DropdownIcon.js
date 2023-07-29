@@ -8,18 +8,14 @@ import { SizeType } from "../AdaptivityProvider/AdaptivityContext";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 export var DropdownIcon = function DropdownIcon(_ref) {
   var _ref$opened = _ref.opened,
-      opened = _ref$opened === void 0 ? false : _ref$opened,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    opened = _ref$opened === void 0 ? false : _ref$opened,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var Icon = sizeY === SizeType.COMPACT ? Icon20Dropdown : Icon24ChevronDown;
-
   if (opened) {
     Icon = sizeY === SizeType.COMPACT ? Icon20ChevronUp : Icon24ChevronUp;
   }
-
   return createScopedElement(Icon, _extends({
     vkuiClass: classNames("DropdownIcon"),
     "aria-hidden": true

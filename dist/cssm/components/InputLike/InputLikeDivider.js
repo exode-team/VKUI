@@ -5,8 +5,7 @@ import { createScopedElement } from "../../lib/jsxRuntime";
 import "./InputLikeDivider.css";
 export var InputLikeDivider = function InputLikeDivider(_ref) {
   var children = _ref.children,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+    props = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement("span", _extends({
     vkuiClass: "InputLikeDivider"
   }, props), children);

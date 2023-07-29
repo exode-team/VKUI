@@ -15,51 +15,43 @@ import { useExternRef } from "../../hooks/useExternRef";
 import { usePlatform } from "../../hooks/usePlatform";
 import { SelectType, SelectTypography } from "../Select/Select";
 import "../Select/Select.css";
-
 var NativeSelectComponent = function NativeSelectComponent(_ref) {
   var style = _ref.style,
-      _ref$defaultValue = _ref.defaultValue,
-      defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,
-      align = _ref.align,
-      placeholder = _ref.placeholder,
-      children = _ref.children,
-      className = _ref.className,
-      getRef = _ref.getRef,
-      getRootRef = _ref.getRootRef,
-      disabled = _ref.disabled,
-      sizeX = _ref.sizeX,
-      sizeY = _ref.sizeY,
-      multiline = _ref.multiline,
-      _ref$selectType = _ref.selectType,
-      selectType = _ref$selectType === void 0 ? SelectType.default : _ref$selectType,
-      status = _ref.status,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    _ref$defaultValue = _ref.defaultValue,
+    defaultValue = _ref$defaultValue === void 0 ? "" : _ref$defaultValue,
+    align = _ref.align,
+    placeholder = _ref.placeholder,
+    children = _ref.children,
+    className = _ref.className,
+    getRef = _ref.getRef,
+    getRootRef = _ref.getRootRef,
+    disabled = _ref.disabled,
+    sizeX = _ref.sizeX,
+    sizeY = _ref.sizeY,
+    multiline = _ref.multiline,
+    _ref$selectType = _ref.selectType,
+    selectType = _ref$selectType === void 0 ? SelectType.default : _ref$selectType,
+    status = _ref.status,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
-
   var _React$useState = React.useState(""),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      title = _React$useState2[0],
-      setTitle = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    title = _React$useState2[0],
+    setTitle = _React$useState2[1];
   var _React$useState3 = React.useState(false),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      empty = _React$useState4[0],
-      setEmpty = _React$useState4[1];
-
+    _React$useState4 = _slicedToArray(_React$useState3, 2),
+    empty = _React$useState4[0],
+    setEmpty = _React$useState4[1];
   var _useEnsuredControl = useEnsuredControl(restProps, {
-    defaultValue: defaultValue
-  }),
-      _useEnsuredControl2 = _slicedToArray(_useEnsuredControl, 2),
-      value = _useEnsuredControl2[0],
-      onChange = _useEnsuredControl2[1];
-
+      defaultValue: defaultValue
+    }),
+    _useEnsuredControl2 = _slicedToArray(_useEnsuredControl, 2),
+    value = _useEnsuredControl2[0],
+    onChange = _useEnsuredControl2[1];
   var selectRef = useExternRef(getRef);
   useIsomorphicLayoutEffect(function () {
     var _selectRef$current;
-
     var selectedOption = (_selectRef$current = selectRef.current) === null || _selectRef$current === void 0 ? void 0 : _selectRef$current.options[selectRef.current.selectedIndex];
-
     if (selectedOption) {
       setTitle(selectedOption.text);
       setEmpty(selectedOption.value === "" && placeholder != null);
@@ -88,11 +80,10 @@ var NativeSelectComponent = function NativeSelectComponent(_ref) {
     vkuiClass: "Select__title"
   }, title)));
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/NativeSelect
  */
-
-
 export var NativeSelect = withAdaptivity(NativeSelectComponent, {
   sizeX: true,
   sizeY: true

@@ -1,61 +1,46 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.CalendarDays = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _date = require("../../lib/date");
-
 var _CalendarDay = require("../CalendarDay/CalendarDay");
-
 var _calendar = require("../../lib/calendar");
-
 var _LocaleProviderContext = require("../LocaleProviderContext/LocaleProviderContext");
-
 var _classNames = require("../../lib/classNames");
-
 var _useTodayDate = require("../../hooks/useTodayDate");
-
 var _Caption = require("../Typography/Caption/Caption");
-
 var _excluded = ["viewDate", "value", "weekStartsOn", "onDayChange", "isDaySelected", "isDayActive", "isDaySelectionEnd", "isDaySelectionStart", "onDayEnter", "onDayLeave", "isDayHinted", "isHintedDaySelectionStart", "isHintedDaySelectionEnd", "isDayFocused", "isDayDisabled", "size", "showNeighboringMonth", "dayProps", "listenDayChangesForUpdate"];
-
 var CalendarDays = function CalendarDays(_ref) {
   var viewDate = _ref.viewDate,
-      value = _ref.value,
-      weekStartsOn = _ref.weekStartsOn,
-      onDayChange = _ref.onDayChange,
-      isDaySelected = _ref.isDaySelected,
-      isDayActive = _ref.isDayActive,
-      isDaySelectionEnd = _ref.isDaySelectionEnd,
-      isDaySelectionStart = _ref.isDaySelectionStart,
-      onDayEnter = _ref.onDayEnter,
-      onDayLeave = _ref.onDayLeave,
-      isDayHinted = _ref.isDayHinted,
-      isHintedDaySelectionStart = _ref.isHintedDaySelectionStart,
-      isHintedDaySelectionEnd = _ref.isHintedDaySelectionEnd,
-      isDayFocused = _ref.isDayFocused,
-      isDayDisabled = _ref.isDayDisabled,
-      size = _ref.size,
-      _ref$showNeighboringM = _ref.showNeighboringMonth,
-      showNeighboringMonth = _ref$showNeighboringM === void 0 ? false : _ref$showNeighboringM,
-      dayProps = _ref.dayProps,
-      _ref$listenDayChanges = _ref.listenDayChangesForUpdate,
-      listenDayChangesForUpdate = _ref$listenDayChanges === void 0 ? false : _ref$listenDayChanges,
-      props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+    value = _ref.value,
+    weekStartsOn = _ref.weekStartsOn,
+    onDayChange = _ref.onDayChange,
+    isDaySelected = _ref.isDaySelected,
+    isDayActive = _ref.isDayActive,
+    isDaySelectionEnd = _ref.isDaySelectionEnd,
+    isDaySelectionStart = _ref.isDaySelectionStart,
+    onDayEnter = _ref.onDayEnter,
+    onDayLeave = _ref.onDayLeave,
+    isDayHinted = _ref.isDayHinted,
+    isHintedDaySelectionStart = _ref.isHintedDaySelectionStart,
+    isHintedDaySelectionEnd = _ref.isHintedDaySelectionEnd,
+    isDayFocused = _ref.isDayFocused,
+    isDayDisabled = _ref.isDayDisabled,
+    size = _ref.size,
+    _ref$showNeighboringM = _ref.showNeighboringMonth,
+    showNeighboringMonth = _ref$showNeighboringM === void 0 ? false : _ref$showNeighboringM,
+    dayProps = _ref.dayProps,
+    _ref$listenDayChanges = _ref.listenDayChangesForUpdate,
+    listenDayChangesForUpdate = _ref$listenDayChanges === void 0 ? false : _ref$listenDayChanges,
+    props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var locale = React.useContext(_LocaleProviderContext.LocaleProviderContext);
   var ref = React.useRef(null);
   var now = (0, _useTodayDate.useTodayDate)(listenDayChangesForUpdate);
@@ -67,7 +52,6 @@ var CalendarDays = function CalendarDays(_ref) {
   }, [locale, now, weekStartsOn]);
   var handleDayChange = React.useCallback(function (date) {
     var _ref$current;
-
     onDayChange(date);
     (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.focus();
   }, [onDayChange]);
@@ -111,6 +95,5 @@ var CalendarDays = function CalendarDays(_ref) {
     }));
   }));
 };
-
 exports.CalendarDays = CalendarDays;
 //# sourceMappingURL=CalendarDays.js.map

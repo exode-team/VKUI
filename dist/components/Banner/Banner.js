@@ -14,30 +14,28 @@ import { Headline } from "../Typography/Headline/Headline";
 import { Subhead } from "../Typography/Subhead/Subhead";
 import { Text } from "../Typography/Text/Text";
 import { Title } from "../Typography/Title/Title";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Banner
  */
 export var Banner = function Banner(_ref) {
   var _ref$mode = _ref.mode,
-      mode = _ref$mode === void 0 ? "tint" : _ref$mode,
-      _ref$imageTheme = _ref.imageTheme,
-      imageTheme = _ref$imageTheme === void 0 ? "dark" : _ref$imageTheme,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? "s" : _ref$size,
-      before = _ref.before,
-      asideMode = _ref.asideMode,
-      header = _ref.header,
-      subheader = _ref.subheader,
-      text = _ref.text,
-      children = _ref.children,
-      background = _ref.background,
-      actions = _ref.actions,
-      onDismiss = _ref.onDismiss,
-      _ref$dismissLabel = _ref.dismissLabel,
-      dismissLabel = _ref$dismissLabel === void 0 ? "Скрыть" : _ref$dismissLabel,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    mode = _ref$mode === void 0 ? "tint" : _ref$mode,
+    _ref$imageTheme = _ref.imageTheme,
+    imageTheme = _ref$imageTheme === void 0 ? "dark" : _ref$imageTheme,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? "s" : _ref$size,
+    before = _ref.before,
+    asideMode = _ref.asideMode,
+    header = _ref.header,
+    subheader = _ref.subheader,
+    text = _ref.text,
+    children = _ref.children,
+    background = _ref.background,
+    actions = _ref.actions,
+    onDismiss = _ref.onDismiss,
+    _ref$dismissLabel = _ref.dismissLabel,
+    dismissLabel = _ref$dismissLabel === void 0 ? "Скрыть" : _ref$dismissLabel,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var HeaderTypography = size === "m" ? Title : Headline;
   var SubheaderTypography = size === "m" ? Text : Subhead;

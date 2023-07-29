@@ -1,9 +1,7 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -30,15 +28,10 @@ Object.defineProperty(exports, "onDOMLoaded", {
 });
 exports.useDOM = void 0;
 exports.withDOM = withDOM;
-
 var _jsxRuntime = require("./jsxRuntime");
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var React = _interopRequireWildcard(require("react"));
-
 var _vkjs = require("@vkontakte/vkjs");
-
 /* eslint-disable no-restricted-globals */
 var getDOM = function getDOM() {
   return {
@@ -47,27 +40,20 @@ var getDOM = function getDOM() {
   };
 };
 /* eslint-enable no-restricted-globals */
-
-
 exports.getDOM = getDOM;
 var DOMContext = /*#__PURE__*/React.createContext(getDOM());
 exports.DOMContext = DOMContext;
-
 var useDOM = function useDOM() {
   return React.useContext(DOMContext);
 };
-
 exports.useDOM = useDOM;
-
 function withDOM(Component) {
   var WithDOM = function WithDOM(props) {
     var dom = useDOM();
     return (0, _jsxRuntime.createScopedElement)(Component, (0, _extends2.default)({}, props, dom));
   };
-
   return WithDOM;
 }
-
 function blurActiveElement(document) {
   if (document && document.activeElement) {
     document.activeElement.blur();

@@ -13,28 +13,24 @@ import { Avatar } from "../Avatar/Avatar";
 import { Caption } from "../Typography/Caption/Caption";
 import { warnOnce } from "../../lib/warnOnce";
 var warn = warnOnce("PromoBanner");
+
 /**
  * @see https://vkcom.github.io/VKUI/#/PromoBanner
  */
-
 export var PromoBanner = function PromoBanner(_ref) {
   var _ref$bannerData = _ref.bannerData,
-      bannerData = _ref$bannerData === void 0 ? {} : _ref$bannerData,
-      onClose = _ref.onClose,
-      isCloseButtonHidden = _ref.isCloseButtonHidden,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    bannerData = _ref$bannerData === void 0 ? {} : _ref$bannerData,
+    onClose = _ref.onClose,
+    isCloseButtonHidden = _ref.isCloseButtonHidden,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var ageRestrictions = bannerData.ageRestrictions != null ? parseInt(bannerData.ageRestrictions) : bannerData.ageRestriction;
-
   if (bannerData.ageRestriction && process.env.NODE_ENV === "development") {
     warn("Свойство bannerData.ageRestriction устарело и будет удалено в 5.0.0. Используйте bannerData.ageRestrictions");
   }
-
   var _React$useState = React.useState(""),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      currentPixel = _React$useState2[0],
-      setCurrentPixel = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    currentPixel = _React$useState2[0],
+    setCurrentPixel = _React$useState2[1];
   var statsPixels = React.useMemo(function () {
     return bannerData.statistics ? bannerData.statistics.reduce(function (acc, item) {
       return _objectSpread(_objectSpread({}, acc), {}, _defineProperty({}, item.type, item.url));

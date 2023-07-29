@@ -1,5 +1,4 @@
 export var ModalType;
-
 (function (ModalType) {
   ModalType["PAGE"] = "page";
   ModalType["CARD"] = "card";

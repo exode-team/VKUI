@@ -4,10 +4,8 @@ import { noop } from "../lib/utils";
 import { transitionEvent } from "../lib/supportEvents";
 export var useWaitTransitionFinish = function useWaitTransitionFinish() {
   var timeoutRef = React.useRef(null);
-
   var _useDOM = useDOM(),
-      document = _useDOM.document;
-
+    document = _useDOM.document;
   var detach = React.useRef(noop);
   var remove = React.useCallback(function () {
     detach.current();
@@ -18,7 +16,6 @@ export var useWaitTransitionFinish = function useWaitTransitionFinish() {
       if (!(document !== null && document !== void 0 && document.hidden) && transitionEvent.supported && transitionEvent.name) {
         remove();
         element.addEventListener(transitionEvent.name, eventHandler);
-
         detach.current = function () {
           if (transitionEvent.name) {
             element.removeEventListener(transitionEvent.name, eventHandler);
@@ -28,7 +25,6 @@ export var useWaitTransitionFinish = function useWaitTransitionFinish() {
         if (timeoutRef !== null && timeoutRef !== void 0 && timeoutRef.current) {
           clearTimeout(timeoutRef.current);
         }
-
         timeoutRef.current = setTimeout(eventHandler, durationFallback);
       }
     }

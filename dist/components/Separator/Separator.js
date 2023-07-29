@@ -3,18 +3,17 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["wide", "expanded"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { classNames } from "../../lib/classNames";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Separator
  */
 export var Separator = function Separator(_ref) {
   var wide = _ref.wide,
-      expanded = _ref.expanded,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    expanded = _ref.expanded,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement("div", _extends({}, restProps, {
     "aria-hidden": "true",
-    vkuiClass: classNames("Separator", wide && "Separator--wide", // TODO: v5 remove
+    vkuiClass: classNames("Separator", wide && "Separator--wide",
+    // TODO: v5 remove
     !wide && "Separator--padded"),
     role: "separator"
   }), createScopedElement("div", {

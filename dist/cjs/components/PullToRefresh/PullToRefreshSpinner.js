@@ -4,28 +4,24 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PullToRefreshSpinner = void 0;
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var _classNames = require("../../lib/classNames");
-
 function calcStrokeDashOffset(value, radius) {
   var progress = value / 100;
   return 2 * Math.PI * radius * (1 - progress);
 }
-
 var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
   var _ref$on = _ref.on,
-      on = _ref$on === void 0 ? true : _ref$on,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      _ref$strokeWidth = _ref.strokeWidth,
-      strokeWidth = _ref$strokeWidth === void 0 ? 2.5 : _ref$strokeWidth,
-      style = _ref.style,
-      _ref$progress = _ref.progress,
-      progress = _ref$progress === void 0 ? 0 : _ref$progress,
-      _ref$ariaLabel = _ref["aria-label"],
-      ariaLabel = _ref$ariaLabel === void 0 ? "Пожалуйста, подождите..." : _ref$ariaLabel;
+    on = _ref$on === void 0 ? true : _ref$on,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? 24 : _ref$size,
+    _ref$strokeWidth = _ref.strokeWidth,
+    strokeWidth = _ref$strokeWidth === void 0 ? 2.5 : _ref$strokeWidth,
+    style = _ref.style,
+    _ref$progress = _ref.progress,
+    progress = _ref$progress === void 0 ? 0 : _ref$progress,
+    _ref$ariaLabel = _ref["aria-label"],
+    ariaLabel = _ref$ariaLabel === void 0 ? "Пожалуйста, подождите..." : _ref$ariaLabel;
   var radius = 0.5 * size - 0.5 * strokeWidth;
   var dasharray = 2 * Math.PI * radius;
   var circleCenter = 0.5 * size;
@@ -61,6 +57,5 @@ var PullToRefreshSpinner = function PullToRefreshSpinner(_ref) {
     r: radius
   }))));
 };
-
 exports.PullToRefreshSpinner = PullToRefreshSpinner;
 //# sourceMappingURL=PullToRefreshSpinner.js.map

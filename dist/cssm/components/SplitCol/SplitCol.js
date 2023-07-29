@@ -15,22 +15,20 @@ export var SplitColContext = /*#__PURE__*/React.createContext({
 export var useSplitCol = function useSplitCol() {
   return React.useContext(SplitColContext);
 };
-
 /**
  * @see https://vkcom.github.io/VKUI/#/SplitCol
  */
 export var SplitCol = function SplitCol(_ref) {
   var children = _ref.children,
-      width = _ref.width,
-      maxWidth = _ref.maxWidth,
-      minWidth = _ref.minWidth,
-      spaced = _ref.spaced,
-      _ref$animate = _ref.animate,
-      animate = _ref$animate === void 0 ? false : _ref$animate,
-      fixed = _ref.fixed,
-      style = _ref.style,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    width = _ref.width,
+    maxWidth = _ref.maxWidth,
+    minWidth = _ref.minWidth,
+    spaced = _ref.spaced,
+    _ref$animate = _ref.animate,
+    animate = _ref$animate === void 0 ? false : _ref$animate,
+    fixed = _ref.fixed,
+    style = _ref.style,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var baseRef = React.useRef(null);
   var fixedInnerRef = React.useRef(null);
   var contextValue = React.useMemo(function () {
@@ -41,11 +39,9 @@ export var SplitCol = function SplitCol(_ref) {
   }, [baseRef, animate]);
   useScrollLockEffect(function () {
     var fixedInner = fixedInnerRef.current;
-
     if (!fixedInner) {
       return noop;
     }
-
     fixedInner.style.top = "".concat(fixedInner.offsetTop, "px");
     return function () {
       fixedInner.style.top = "";

@@ -18,47 +18,38 @@ import { PullToRefreshSpinner } from "./PullToRefreshSpinner";
 import TouchRootContext from "../Touch/TouchContext";
 import { usePrevious } from "../../hooks/usePrevious";
 import { useTimeout } from "../../hooks/useTimeout";
-
 function cancelEvent(event) {
   if (!event) {
     return false;
   }
-
   while (event.originalEvent) {
     event = event.originalEvent;
   }
-
   if (event.preventDefault && event.cancelable) {
     event.preventDefault();
   }
-
   if (event.stopPropagation) {
     event.stopPropagation();
   }
-
   return false;
 }
-
 var TOUCH_MOVE_EVENT_PARAMS = {
   cancelable: true,
   passive: false
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/PullToRefresh
  */
-
 export var PullToRefresh = function PullToRefresh(_ref) {
   var children = _ref.children,
-      isFetching = _ref.isFetching,
-      onRefresh = _ref.onRefresh,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    isFetching = _ref.isFetching,
+    onRefresh = _ref.onRefresh,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var scroll = useScroll();
-
   var _useDOM = useDOM(),
-      document = _useDOM.document;
-
+    document = _useDOM.document;
   var prevIsFetching = usePrevious(isFetching);
   var initParams = React.useMemo(function () {
     return {
@@ -69,52 +60,42 @@ export var PullToRefresh = function PullToRefresh(_ref) {
       positionMultiplier: platform === IOS ? 0.21 : 1
     };
   }, [platform]);
-
   var _React$useState = React.useState(initParams.start),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      spinnerY = _React$useState2[0],
-      setSpinnerY = _React$useState2[1];
-
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    spinnerY = _React$useState2[0],
+    setSpinnerY = _React$useState2[1];
   var _React$useState3 = React.useState(false),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      watching = _React$useState4[0],
-      setWatching = _React$useState4[1];
-
+    _React$useState4 = _slicedToArray(_React$useState3, 2),
+    watching = _React$useState4[0],
+    setWatching = _React$useState4[1];
   var _React$useState5 = React.useState(false),
-      _React$useState6 = _slicedToArray(_React$useState5, 2),
-      refreshing = _React$useState6[0],
-      setRefreshing = _React$useState6[1];
-
+    _React$useState6 = _slicedToArray(_React$useState5, 2),
+    refreshing = _React$useState6[0],
+    setRefreshing = _React$useState6[1];
   var _React$useState7 = React.useState(false),
-      _React$useState8 = _slicedToArray(_React$useState7, 2),
-      canRefresh = _React$useState8[0],
-      setCanRefresh = _React$useState8[1];
-
+    _React$useState8 = _slicedToArray(_React$useState7, 2),
+    canRefresh = _React$useState8[0],
+    setCanRefresh = _React$useState8[1];
   var _React$useState9 = React.useState(false),
-      _React$useState10 = _slicedToArray(_React$useState9, 2),
-      touchDown = _React$useState10[0],
-      setTouchDown = _React$useState10[1];
-
+    _React$useState10 = _slicedToArray(_React$useState9, 2),
+    touchDown = _React$useState10[0],
+    setTouchDown = _React$useState10[1];
   var prevTouchDown = usePrevious(touchDown);
   var touchY = React.useRef(0);
-
   var _React$useState11 = React.useState(0),
-      _React$useState12 = _slicedToArray(_React$useState11, 2),
-      contentShift = _React$useState12[0],
-      setContentShift = _React$useState12[1];
-
+    _React$useState12 = _slicedToArray(_React$useState11, 2),
+    contentShift = _React$useState12[0],
+    setContentShift = _React$useState12[1];
   var _React$useState13 = React.useState(0),
-      _React$useState14 = _slicedToArray(_React$useState13, 2),
-      spinnerProgress = _React$useState14[0],
-      setSpinnerProgress = _React$useState14[1];
-
+    _React$useState14 = _slicedToArray(_React$useState13, 2),
+    spinnerProgress = _React$useState14[0],
+    setSpinnerProgress = _React$useState14[1];
   var onWindowTouchMove = function onWindowTouchMove(event) {
     if (refreshing) {
       event.preventDefault();
       event.stopPropagation();
     }
   };
-
   useGlobalEventListener(document, "touchmove", onWindowTouchMove, TOUCH_MOVE_EVENT_PARAMS);
   var resetRefreshingState = React.useCallback(function () {
     setWatching(false);
@@ -129,11 +110,9 @@ export var PullToRefresh = function PullToRefresh(_ref) {
       resetRefreshingState();
     }
   }, [touchDown, resetRefreshingState]);
-
   var _useTimeout = useTimeout(onRefreshingFinish, 1000),
-      setWaitFetchingTimeout = _useTimeout.set,
-      clearWaitFetchingTimeout = _useTimeout.clear;
-
+    setWaitFetchingTimeout = _useTimeout.set,
+    clearWaitFetchingTimeout = _useTimeout.clear;
   useIsomorphicLayoutEffect(function () {
     if (prevIsFetching !== undefined && prevIsFetching && !isFetching) {
       onRefreshingFinish();
@@ -172,26 +151,22 @@ export var PullToRefresh = function PullToRefresh(_ref) {
       }
     }
   }, [initParams, prevIsFetching, isFetching, onRefreshingFinish, prevTouchDown, touchDown, refreshing, canRefresh, runRefreshing]);
-
   var onTouchStart = function onTouchStart(e) {
     if (refreshing) {
       cancelEvent(e);
     }
-
     setTouchDown(true);
   };
-
   var onTouchMove = function onTouchMove(e) {
     var isY = e.isY,
-        shiftY = e.shiftY;
+      shiftY = e.shiftY;
     var start = initParams.start,
-        max = initParams.max;
+      max = initParams.max;
     var pageYOffset = scroll === null || scroll === void 0 ? void 0 : scroll.getScroll().y;
-
     if (watching && touchDown) {
       cancelEvent(e);
       var positionMultiplier = initParams.positionMultiplier,
-          maxY = initParams.maxY;
+        maxY = initParams.maxY;
       var shift = Math.max(0, shiftY - touchY.current);
       var currentY = Math.max(start, Math.min(maxY, start + shift * positionMultiplier));
       var progress = currentY > -10 ? Math.abs((currentY + 10) / max) * 80 : 0;
@@ -199,7 +174,6 @@ export var PullToRefresh = function PullToRefresh(_ref) {
       setSpinnerProgress(Math.min(80, Math.max(0, progress)));
       setCanRefresh(progress > 80);
       setContentShift((currentY + 10) * 2.3);
-
       if (progress > 85 && !refreshing && platform === IOS) {
         runRefreshing();
       }
@@ -211,21 +185,17 @@ export var PullToRefresh = function PullToRefresh(_ref) {
       setSpinnerProgress(0);
     }
   };
-
   var onTouchEnd = function onTouchEnd() {
     setWatching(false);
     setTouchDown(false);
   };
-
   var spinnerTransform = "translate3d(0, ".concat(spinnerY, "px, 0)");
   var contentTransform = "";
-
   if (platform === IOS && refreshing && !touchDown) {
     contentTransform = "translate3d(0, 100px, 0)";
   } else if (platform === IOS && (contentShift || refreshing)) {
     contentTransform = "translate3d(0, ".concat(contentShift, "px, 0)");
   }
-
   return createScopedElement(TouchRootContext.Provider, {
     value: true
   }, createScopedElement(Touch, _extends({}, restProps, {

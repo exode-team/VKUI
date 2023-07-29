@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.easeInOutSine = easeInOutSine;
-
 /**
  * ease function
  * @param x absolute progress of the animation in bounds 0 (beginning) and 1 (end)

@@ -13,7 +13,6 @@ import { Caption } from "../Typography/Caption/Caption";
 import { Headline } from "../Typography/Headline/Headline";
 import { Text } from "../Typography/Text/Text";
 import "./Radio.css";
-
 var RadioIcon = function RadioIcon(props) {
   return createScopedElement("svg", _extends({
     xmlns: "http://www.w3.org/2000/svg",
@@ -34,16 +33,14 @@ var RadioIcon = function RadioIcon(props) {
     fill: "currentColor"
   }));
 };
-
 var RadioComponent = function RadioComponent(_ref) {
   var children = _ref.children,
-      description = _ref.description,
-      style = _ref.style,
-      className = _ref.className,
-      getRootRef = _ref.getRootRef,
-      sizeY = _ref.sizeY,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    description = _ref.description,
+    style = _ref.style,
+    className = _ref.className,
+    getRootRef = _ref.getRootRef,
+    sizeY = _ref.sizeY,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var RadioTypography = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
   return createScopedElement(Tappable, {
@@ -70,11 +67,10 @@ var RadioComponent = function RadioComponent(_ref) {
     vkuiClass: "Radio__description"
   }, description))));
 };
+
 /**
  * @see https://vkcom.github.io/VKUI/#/Radio
  */
-
-
 export var Radio = withAdaptivity(RadioComponent, {
   sizeY: true
 });

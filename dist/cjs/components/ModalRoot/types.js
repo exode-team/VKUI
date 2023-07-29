@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.ModalType = void 0;
 var ModalType;
 exports.ModalType = ModalType;
-
 (function (ModalType) {
   ModalType["PAGE"] = "page";
   ModalType["CARD"] = "card";

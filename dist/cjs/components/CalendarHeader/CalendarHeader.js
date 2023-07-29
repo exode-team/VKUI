@@ -1,76 +1,59 @@
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.CalendarHeader = void 0;
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _jsxRuntime = require("../../lib/jsxRuntime");
-
 var React = _interopRequireWildcard(require("react"));
-
 var _date = require("../../lib/date");
-
 var _icons = require("@vkontakte/icons");
-
 var _Tappable = require("../Tappable/Tappable");
-
 var _classNames = require("../../lib/classNames");
-
 var _Select = require("../Select/Select");
-
 var _CustomSelect = require("../CustomSelect/CustomSelect");
-
 var _withAdaptivity = require("../../hoc/withAdaptivity");
-
 var _calendar = require("../../lib/calendar");
-
 var _LocaleProviderContext = require("../LocaleProviderContext/LocaleProviderContext");
-
 var _Paragraph = require("../Typography/Paragraph/Paragraph");
-
 var _AdaptivityProvider = require("../AdaptivityProvider/AdaptivityProvider");
-
 var CalendarHeader = function CalendarHeader(_ref) {
   var viewDate = _ref.viewDate,
-      onChange = _ref.onChange,
-      _ref$prevMonth = _ref.prevMonth,
-      prevMonth = _ref$prevMonth === void 0 ? true : _ref$prevMonth,
-      _ref$nextMonth = _ref.nextMonth,
-      nextMonth = _ref$nextMonth === void 0 ? true : _ref$nextMonth,
-      _ref$disablePickers = _ref.disablePickers,
-      disablePickers = _ref$disablePickers === void 0 ? false : _ref$disablePickers,
-      onNextMonth = _ref.onNextMonth,
-      onPrevMonth = _ref.onPrevMonth,
-      className = _ref.className,
-      prevMonthProps = _ref.prevMonthProps,
-      nextMonthProps = _ref.nextMonthProps,
-      _ref$prevMonthAriaLab = _ref.prevMonthAriaLabel,
-      prevMonthAriaLabel = _ref$prevMonthAriaLab === void 0 ? "Предыдущий месяц" : _ref$prevMonthAriaLab,
-      _ref$nextMonthAriaLab = _ref.nextMonthAriaLabel,
-      nextMonthAriaLabel = _ref$nextMonthAriaLab === void 0 ? "Следующий месяц" : _ref$nextMonthAriaLab,
-      _ref$changeMonthAriaL = _ref.changeMonthAriaLabel,
-      changeMonthAriaLabel = _ref$changeMonthAriaL === void 0 ? "Изменить месяц" : _ref$changeMonthAriaL,
-      _ref$changeYearAriaLa = _ref.changeYearAriaLabel,
-      changeYearAriaLabel = _ref$changeYearAriaLa === void 0 ? "Изменить год" : _ref$changeYearAriaLa,
-      _ref$prevMonthIcon = _ref.prevMonthIcon,
-      prevMonthIcon = _ref$prevMonthIcon === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronLeftOutline, {
-    vkuiClass: "CalendarHeader__nav-icon--accent",
-    width: 30,
-    height: 30
-  }) : _ref$prevMonthIcon,
-      _ref$nextMonthIcon = _ref.nextMonthIcon,
-      nextMonthIcon = _ref$nextMonthIcon === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronRightOutline, {
-    vkuiClass: "CalendarHeader__nav-icon--accent",
-    width: 30,
-    height: 30
-  }) : _ref$nextMonthIcon;
+    onChange = _ref.onChange,
+    _ref$prevMonth = _ref.prevMonth,
+    prevMonth = _ref$prevMonth === void 0 ? true : _ref$prevMonth,
+    _ref$nextMonth = _ref.nextMonth,
+    nextMonth = _ref$nextMonth === void 0 ? true : _ref$nextMonth,
+    _ref$disablePickers = _ref.disablePickers,
+    disablePickers = _ref$disablePickers === void 0 ? false : _ref$disablePickers,
+    onNextMonth = _ref.onNextMonth,
+    onPrevMonth = _ref.onPrevMonth,
+    className = _ref.className,
+    prevMonthProps = _ref.prevMonthProps,
+    nextMonthProps = _ref.nextMonthProps,
+    _ref$prevMonthAriaLab = _ref.prevMonthAriaLabel,
+    prevMonthAriaLabel = _ref$prevMonthAriaLab === void 0 ? "Предыдущий месяц" : _ref$prevMonthAriaLab,
+    _ref$nextMonthAriaLab = _ref.nextMonthAriaLabel,
+    nextMonthAriaLabel = _ref$nextMonthAriaLab === void 0 ? "Следующий месяц" : _ref$nextMonthAriaLab,
+    _ref$changeMonthAriaL = _ref.changeMonthAriaLabel,
+    changeMonthAriaLabel = _ref$changeMonthAriaL === void 0 ? "Изменить месяц" : _ref$changeMonthAriaL,
+    _ref$changeYearAriaLa = _ref.changeYearAriaLabel,
+    changeYearAriaLabel = _ref$changeYearAriaLa === void 0 ? "Изменить год" : _ref$changeYearAriaLa,
+    _ref$prevMonthIcon = _ref.prevMonthIcon,
+    prevMonthIcon = _ref$prevMonthIcon === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronLeftOutline, {
+      vkuiClass: "CalendarHeader__nav-icon--accent",
+      width: 30,
+      height: 30
+    }) : _ref$prevMonthIcon,
+    _ref$nextMonthIcon = _ref.nextMonthIcon,
+    nextMonthIcon = _ref$nextMonthIcon === void 0 ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20ChevronRightOutline, {
+      vkuiClass: "CalendarHeader__nav-icon--accent",
+      width: 30,
+      height: 30
+    }) : _ref$nextMonthIcon;
   var locale = React.useContext(_LocaleProviderContext.LocaleProviderContext);
   var onMonthsChange = React.useCallback(function (event) {
     return onChange((0, _date.setMonth)(viewDate, Number(event.target.value)));
@@ -81,7 +64,7 @@ var CalendarHeader = function CalendarHeader(_ref) {
   var months = React.useMemo(function () {
     return (0, _calendar.getMonths)(locale).map(function (_ref2) {
       var value = _ref2.value,
-          label = _ref2.label;
+        label = _ref2.label;
       return {
         value: value,
         label: (0, _jsxRuntime.createScopedElement)("span", {
@@ -150,6 +133,5 @@ var CalendarHeader = function CalendarHeader(_ref) {
     "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format((0, _date.addMonths)(viewDate, 1)))
   }, nextMonthProps), nextMonthIcon)));
 };
-
 exports.CalendarHeader = CalendarHeader;
 //# sourceMappingURL=CalendarHeader.js.map

@@ -6,16 +6,13 @@ import { AppearanceProvider } from "../AppearanceProvider/AppearanceProvider";
 import { useAppearance } from "../../hooks/useAppearance";
 export var AppRootPortal = function AppRootPortal(_ref) {
   var _forcePortal;
-
   var children = _ref.children,
-      className = _ref.className,
-      forcePortal = _ref.forcePortal;
-
+    className = _ref.className,
+    forcePortal = _ref.forcePortal;
   var _React$useContext = React.useContext(AppRootContext),
-      portalRoot = _React$useContext.portalRoot,
-      mode = _React$useContext.mode,
-      disablePortal = _React$useContext.disablePortal;
-
+    portalRoot = _React$useContext.portalRoot,
+    mode = _React$useContext.mode,
+    disablePortal = _React$useContext.disablePortal;
   var appearance = useAppearance();
   forcePortal = (_forcePortal = forcePortal) !== null && _forcePortal !== void 0 ? _forcePortal : mode !== "full";
   return !disablePortal && portalRoot && forcePortal ? /*#__PURE__*/createPortal(createScopedElement(AppearanceProvider, {

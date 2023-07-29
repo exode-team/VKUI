@@ -8,18 +8,16 @@ import { hasReactNode } from "../../lib/utils";
 import { Subhead } from "../Typography/Subhead/Subhead";
 import { prefixClass } from "../../lib/prefixClass";
 import { classNames } from "../../lib/classNames";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/TextTooltip
  */
 export var TextTooltip = function TextTooltip(_ref) {
   var children = _ref.children,
-      text = _ref.text,
-      header = _ref.header,
-      _ref$appearance = _ref.appearance,
-      appearance = _ref$appearance === void 0 ? "black" : _ref$appearance,
-      popperProps = _objectWithoutProperties(_ref, _excluded);
-
+    text = _ref.text,
+    header = _ref.header,
+    _ref$appearance = _ref.appearance,
+    appearance = _ref$appearance === void 0 ? "black" : _ref$appearance,
+    popperProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement(HoverPopper, _extends({
     vkuiClass: classNames("TextTooltip", "TextTooltip--".concat(appearance)),
     arrow: true,

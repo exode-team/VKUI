@@ -9,29 +9,26 @@ import { classNames } from "../../lib/classNames";
 import { Caption } from "../Typography/Caption/Caption";
 import { Tappable } from "../Tappable/Tappable";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
-
 /**
  * @see https://vkcom.github.io/VKUI/#/Chip
  */
 export var Chip = function Chip(_ref) {
   var _ref$value = _ref.value,
-      value = _ref$value === void 0 ? "" : _ref$value,
-      option = _ref.option,
-      _ref$removable = _ref.removable,
-      removable = _ref$removable === void 0 ? true : _ref$removable,
-      _ref$onRemove = _ref.onRemove,
-      onRemove = _ref$onRemove === void 0 ? noop : _ref$onRemove,
-      _ref$removeAriaLabel = _ref.removeAriaLabel,
-      removeAriaLabel = _ref$removeAriaLabel === void 0 ? "Удалить" : _ref$removeAriaLabel,
-      _ref$before = _ref.before,
-      before = _ref$before === void 0 ? null : _ref$before,
-      after = _ref.after,
-      children = _ref.children,
-      restProps = _objectWithoutProperties(_ref, _excluded);
-
+    value = _ref$value === void 0 ? "" : _ref$value,
+    option = _ref.option,
+    _ref$removable = _ref.removable,
+    removable = _ref$removable === void 0 ? true : _ref$removable,
+    _ref$onRemove = _ref.onRemove,
+    onRemove = _ref$onRemove === void 0 ? noop : _ref$onRemove,
+    _ref$removeAriaLabel = _ref.removeAriaLabel,
+    removeAriaLabel = _ref$removeAriaLabel === void 0 ? "Удалить" : _ref$removeAriaLabel,
+    _ref$before = _ref.before,
+    before = _ref$before === void 0 ? null : _ref$before,
+    after = _ref.after,
+    children = _ref.children,
+    restProps = _objectWithoutProperties(_ref, _excluded);
   var _useAdaptivity = useAdaptivity(),
-      sizeY = _useAdaptivity.sizeY;
-
+    sizeY = _useAdaptivity.sizeY;
   var onRemoveWrapper = React.useCallback(function (event) {
     onRemove(event, value);
   }, [onRemove, value]);
