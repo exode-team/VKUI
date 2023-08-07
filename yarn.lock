@@ -3618,10 +3618,10 @@
   dependencies:
     micromatch "^4.0.5"
 
-"@vkontakte/vk-bridge@^2.1.3":
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/@vkontakte/vk-bridge/-/vk-bridge-2.8.2.tgz#ec57ef6830a181914678f00ab6c2a037478a9d37"
-  integrity sha512-RG7G1CHmTMcNvltNEOLGMGQUjloZLWftSjnuCih8dPgOakKM77EMDHwT1zOqXJp1Z3sZiJXty5L73Y9eDMSDcA==
+"@vkontakte/vk-bridge@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@vkontakte/vk-bridge/-/vk-bridge-2.10.0.tgz#aacfcc6cd3c5975572d4c154d46b64d8ba6efb2c"
+  integrity sha512-mkBq0sZfID8Z8CJ8G863XEHBQF/QTkyXFEo+7IlCBN+umlaCx0bI0L7a3vBxAAEIU/z6j5+twYT+0ty/y3f6+w==
 
 "@vkontakte/vkjs@^1.1.0":
   version "1.1.0"
