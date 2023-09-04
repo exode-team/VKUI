@@ -8,7 +8,7 @@ name: 'Pull Request / Common'
 #
 # Пример:
 # ```
-# - uses: actions/checkout@v3
+# - uses: actions/checkout@v4
 #   with:
 #     ref: refs/pull/${{ github.event.pull_request.number }}/merge
 # ```
@@ -26,7 +26,7 @@ jobs:
     name: Check code formatting
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/merge
 
