@@ -168,13 +168,14 @@ export interface CustomSelectProps
   dropdownOffsetDistance?: number;
   fixDropdownWidth?: boolean;
   forceDropdownPortal?: boolean;
+  initialOpenState?: boolean;
   selectType?: keyof typeof SelectType;
 }
 
 type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
 
 function CustomSelectComponent(props: CustomSelectProps) {
-  const [opened, setOpened] = React.useState(false);
+  const [opened, setOpened] = React.useState(props.initialOpenState || false);
   const {
     before,
     name,
@@ -631,6 +632,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
           {renderOptionProp({
             option,
             hovered,
+            value: option.value,
             children: option.label,
             selected,
             disabled: option.disabled,
@@ -680,6 +682,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
       style={style}
       ref={multiRef(containerRef, getRootRef)}
       onClick={onLabelClick}
+      data-placement={popperPlacement}
     >
       {opened && searchable ? (
         <Input
@@ -736,6 +739,8 @@ function CustomSelectComponent(props: CustomSelectProps) {
           targetRef={containerRef}
           placement={popupDirection}
           scrollBoxRef={scrollBoxRef}
+          data-test="custom-select:dropdown"
+          data-placement={popperPlacement}
           onPlacementChange={setPopperPlacement}
           onMouseLeave={resetFocusedOption}
           fetching={fetching}

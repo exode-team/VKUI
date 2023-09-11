@@ -13,6 +13,11 @@ export interface CustomSelectOptionProps
   extends React.HTMLAttributes<HTMLDivElement>,
     HasRootRef<HTMLDivElement> {
   /**
+   * Значение элемента.
+   */
+  value?: any;
+
+  /**
    * Вставляет основной контент.
    */
   option?: any;
@@ -65,6 +70,7 @@ export const CustomSelectOption = ({
   before,
   after,
   option,
+  value,
   description,
   disabled,
   style: styleProp,
@@ -95,6 +101,8 @@ export const CustomSelectOption = ({
       title={title}
       aria-disabled={disabled}
       aria-selected={selected}
+      data-test="option"
+      data-value={value}
       vkuiClass={classNames(
         "CustomSelectOption",
         `CustomSelectOption--sizeY-${sizeY}`,
