@@ -3,6 +3,10 @@ import { HasRootRef } from "../../types";
 import "./CustomSelectOption.css";
 export interface CustomSelectOptionProps extends React.HTMLAttributes<HTMLDivElement>, HasRootRef<HTMLDivElement> {
     /**
+     * Значение элемента.
+     */
+    value?: any;
+    /**
      * Вставляет основной контент.
      */
     option?: any;
@@ -44,4 +48,4 @@ export interface CustomSelectOptionProps extends React.HTMLAttributes<HTMLDivEle
 /**
  * @see https://vkcom.github.io/VKUI/#/CustomSelectOption
  */
-export declare const CustomSelectOption: ({ children, hierarchy, hovered, selected, before, after, option, description, disabled, style: styleProp, ...restProps }: CustomSelectOptionProps) => JSX.Element;
+export declare const CustomSelectOption: ({ children, hierarchy, hovered, selected, before, after, option, value, description, disabled, style: styleProp, ...restProps }: CustomSelectOptionProps) => JSX.Element;
