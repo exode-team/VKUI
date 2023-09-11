@@ -170,6 +170,7 @@ export interface CustomSelectProps
   forceDropdownPortal?: boolean;
   initialOpenState?: boolean;
   forceOpened?: boolean;
+  forcePlacement?: Placement;
   selectType?: keyof typeof SelectType;
 }
 
@@ -195,6 +196,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
     onClose,
     fetching,
     forceDropdownPortal,
+    forcePlacement,
     selectType = SelectType.default,
     autoHideScrollbar,
     autoHideScrollbarDelay,
@@ -266,11 +268,13 @@ function CustomSelectComponent(props: CustomSelectProps) {
     () =>
       classNames(
         opened && "Select--open",
-        opened &&
+        !forcePlacement && opened &&
           dropdownOffsetDistance === 0 &&
           (popperPlacement?.includes("top")
             ? "Select--pop-up"
-            : "Select--pop-down")
+            : "Select--pop-down"),
+        forcePlacement?.startsWith('top') ? "Select--pop-up" : "",
+        forcePlacement?.startsWith('bottom') ? "Select--pop-down" : "",
       ),
     [dropdownOffsetDistance, opened, popperPlacement]
   );
@@ -741,6 +745,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
           targetRef={containerRef}
           placement={popupDirection}
           scrollBoxRef={scrollBoxRef}
+          forcePlacement={forcePlacement}
           data-test="custom-select:dropdown"
           data-placement={popperPlacement}
           onPlacementChange={setPopperPlacement}

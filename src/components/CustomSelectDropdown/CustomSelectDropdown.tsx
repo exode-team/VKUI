@@ -16,6 +16,7 @@ export interface CustomSelectDropdownProps
     TrackerOptionsProps {
   targetRef: React.RefObject<HTMLElement>;
   placement?: Placement;
+  forcePlacement?: Placement;
   scrollBoxRef?: React.RefObject<HTMLDivElement>;
   observableRefs?:
     | Array<React.RefObject<HTMLElement>>
@@ -57,6 +58,7 @@ export const CustomSelectDropdown = ({
   targetRef,
   scrollBoxRef,
   placement,
+  forcePlacement,
   fetching,
   onPlacementChange: parentOnPlacementChange,
   offsetDistance = 0,
@@ -109,11 +111,13 @@ export const CustomSelectDropdown = ({
       data-test="custom-select-dropdown"
       vkuiClass={classNames(
         "CustomSelectDropdown",
-        offsetDistance === 0 &&
+        !forcePlacement && offsetDistance === 0 &&
           (isTop
             ? "CustomSelectDropdown--top"
             : "CustomSelectDropdown--bottom"),
-        sameWidth && "CustomSelectDropdown--wide"
+        sameWidth && "CustomSelectDropdown--wide",
+        forcePlacement?.startsWith('top') ? "CustomSelectDropdown--top" : "",
+        forcePlacement?.startsWith('bottom') ? "CustomSelectDropdown--bottom" : "",
       )}
       forcePortal={forcePortal}
       customModifiers={customModifiers}
