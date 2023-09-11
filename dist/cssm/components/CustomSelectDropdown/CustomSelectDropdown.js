@@ -2,7 +2,7 @@ import _extends from "@babel/runtime/helpers/extends";
 import _createForOfIteratorHelper from "@babel/runtime/helpers/createForOfIteratorHelper";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal", "autoHideScrollbar", "autoHideScrollbarDelay", "observableRefs"];
+var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "forcePlacement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal", "autoHideScrollbar", "autoHideScrollbarDelay", "observableRefs"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { CustomScrollView } from "../CustomScrollView/CustomScrollView";
@@ -39,6 +39,7 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     targetRef = _ref2.targetRef,
     scrollBoxRef = _ref2.scrollBoxRef,
     placement = _ref2.placement,
+    forcePlacement = _ref2.forcePlacement,
     fetching = _ref2.fetching,
     parentOnPlacementChange = _ref2.onPlacementChange,
     _ref2$offsetDistance = _ref2.offsetDistance,
@@ -98,7 +99,7 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     onPlacementChange: onPlacementChange,
     placement: placement,
     "data-test": "custom-select-dropdown",
-    vkuiClass: classNames("CustomSelectDropdown", offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide"),
+    vkuiClass: classNames("CustomSelectDropdown", !forcePlacement && offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide", forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('top') ? "CustomSelectDropdown--top" : "", forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('bottom') ? "CustomSelectDropdown--bottom" : ""),
     forcePortal: forcePortal,
     customModifiers: customModifiers
   }, restProps), createScopedElement(CustomScrollView, {

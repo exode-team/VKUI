@@ -6,6 +6,7 @@ import "./CustomSelectDropdown.css";
 export interface CustomSelectDropdownProps extends React.HTMLAttributes<HTMLElement>, HasRef<HTMLDivElement>, TrackerOptionsProps {
     targetRef: React.RefObject<HTMLElement>;
     placement?: Placement;
+    forcePlacement?: Placement;
     scrollBoxRef?: React.RefObject<HTMLDivElement>;
     observableRefs?: Array<React.RefObject<HTMLElement>> | React.RefObject<HTMLElement>;
     fetching?: boolean;
@@ -14,4 +15,4 @@ export interface CustomSelectDropdownProps extends React.HTMLAttributes<HTMLElem
     forcePortal?: boolean;
     onPlacementChange?: (placement?: Placement) => void;
 }
-export declare const CustomSelectDropdown: ({ children, targetRef, scrollBoxRef, placement, fetching, onPlacementChange: parentOnPlacementChange, offsetDistance, sameWidth, forcePortal, autoHideScrollbar, autoHideScrollbarDelay, observableRefs, ...restProps }: CustomSelectDropdownProps) => JSX.Element;
+export declare const CustomSelectDropdown: ({ children, targetRef, scrollBoxRef, placement, forcePlacement, fetching, onPlacementChange: parentOnPlacementChange, offsetDistance, sameWidth, forcePortal, autoHideScrollbar, autoHideScrollbarDelay, observableRefs, ...restProps }: CustomSelectDropdownProps) => JSX.Element;

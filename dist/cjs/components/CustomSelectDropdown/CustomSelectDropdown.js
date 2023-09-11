@@ -18,7 +18,7 @@ var _Popper = require("../Popper/Popper");
 var _Spinner = require("../Spinner/Spinner");
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 var _utils = require("../../lib/utils");
-var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal", "autoHideScrollbar", "autoHideScrollbarDelay", "observableRefs"];
+var _excluded = ["children", "targetRef", "scrollBoxRef", "placement", "forcePlacement", "fetching", "onPlacementChange", "offsetDistance", "sameWidth", "forcePortal", "autoHideScrollbar", "autoHideScrollbarDelay", "observableRefs"];
 var calcIsTop = function calcIsTop(placement) {
   return placement === null || placement === void 0 ? void 0 : placement.includes("top");
 };
@@ -46,6 +46,7 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     targetRef = _ref2.targetRef,
     scrollBoxRef = _ref2.scrollBoxRef,
     placement = _ref2.placement,
+    forcePlacement = _ref2.forcePlacement,
     fetching = _ref2.fetching,
     parentOnPlacementChange = _ref2.onPlacementChange,
     _ref2$offsetDistance = _ref2.offsetDistance,
@@ -105,7 +106,7 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     onPlacementChange: onPlacementChange,
     placement: placement,
     "data-test": "custom-select-dropdown",
-    vkuiClass: (0, _classNames.classNames)("CustomSelectDropdown", offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide"),
+    vkuiClass: (0, _classNames.classNames)("CustomSelectDropdown", !forcePlacement && offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide", forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('top') ? "CustomSelectDropdown--top" : "", forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('bottom') ? "CustomSelectDropdown--bottom" : ""),
     forcePortal: forcePortal,
     customModifiers: customModifiers
   }, restProps), (0, _jsxRuntime.createScopedElement)(_CustomScrollView.CustomScrollView, {
