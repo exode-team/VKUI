@@ -18,7 +18,7 @@ var _Paragraph = require("../Typography/Paragraph/Paragraph");
 var _Caption = require("../Typography/Caption/Caption");
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 var _warnOnce = require("../../lib/warnOnce");
-var _excluded = ["children", "hierarchy", "hovered", "selected", "before", "after", "option", "description", "disabled", "style"];
+var _excluded = ["children", "hierarchy", "hovered", "selected", "before", "after", "option", "value", "description", "disabled", "style"];
 var warn = (0, _warnOnce.warnOnce)("CustomSelectOption");
 
 /**
@@ -33,6 +33,7 @@ var CustomSelectOption = function CustomSelectOption(_ref) {
     before = _ref.before,
     after = _ref.after,
     option = _ref.option,
+    value = _ref.value,
     description = _ref.description,
     disabled = _ref.disabled,
     styleProp = _ref.style,
@@ -54,6 +55,8 @@ var CustomSelectOption = function CustomSelectOption(_ref) {
     title: title,
     "aria-disabled": disabled,
     "aria-selected": selected,
+    "data-test": "option",
+    "data-value": value,
     vkuiClass: (0, _classNames.classNames)("CustomSelectOption", "CustomSelectOption--sizeY-".concat(sizeY), hovered && !disabled && "CustomSelectOption--hover", selected && "CustomSelectOption--selected",
     // Note: пустой класс
     disabled && "CustomSelectOption--disabled", hierarchy > 0 && "CustomSelectOption--hierarchy"),

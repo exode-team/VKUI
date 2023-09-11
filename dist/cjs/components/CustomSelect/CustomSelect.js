@@ -84,7 +84,7 @@ var filter = function filter(options, inputValue, filterFn) {
 var defaultOptions = [];
 function CustomSelectComponent(props) {
   var _props$value, _props$value2;
-  var _React$useState = React.useState(false),
+  var _React$useState = React.useState(props.initialOpenState || false),
     _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
     opened = _React$useState2[0],
     setOpened = _React$useState2[1];
@@ -431,6 +431,7 @@ function CustomSelectComponent(props) {
     }, renderOptionProp({
       option: option,
       hovered: hovered,
+      value: option.value,
       children: option.label,
       selected: selected,
       disabled: option.disabled,
@@ -464,7 +465,8 @@ function CustomSelectComponent(props) {
     className: className,
     style: style,
     ref: (0, _utils.multiRef)(containerRef, getRootRef),
-    onClick: onLabelClick
+    onClick: onLabelClick,
+    "data-placement": popperPlacement
   }, opened && searchable ? (0, _jsxRuntime.createScopedElement)(_Input.Input, (0, _extends2.default)({}, restProps, {
     autoFocus: true,
     onBlur: onBlur,
@@ -511,6 +513,8 @@ function CustomSelectComponent(props) {
     targetRef: containerRef,
     placement: popupDirection,
     scrollBoxRef: scrollBoxRef,
+    "data-test": "custom-select:dropdown",
+    "data-placement": popperPlacement,
     onPlacementChange: setPopperPlacement,
     onMouseLeave: resetFocusedOption,
     fetching: fetching,

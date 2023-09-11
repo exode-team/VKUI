@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "hierarchy", "hovered", "selected", "before", "after", "option", "description", "disabled", "style"];
+var _excluded = ["children", "hierarchy", "hovered", "selected", "before", "after", "option", "value", "description", "disabled", "style"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Icon16Done } from "@vkontakte/icons";
@@ -26,6 +26,7 @@ export var CustomSelectOption = function CustomSelectOption(_ref) {
     before = _ref.before,
     after = _ref.after,
     option = _ref.option,
+    value = _ref.value,
     description = _ref.description,
     disabled = _ref.disabled,
     styleProp = _ref.style,
@@ -47,6 +48,8 @@ export var CustomSelectOption = function CustomSelectOption(_ref) {
     title: title,
     "aria-disabled": disabled,
     "aria-selected": selected,
+    "data-test": "option",
+    "data-value": value,
     vkuiClass: classNames("CustomSelectOption", "CustomSelectOption--sizeY-".concat(sizeY), hovered && !disabled && "CustomSelectOption--hover", selected && "CustomSelectOption--selected",
     // Note: пустой класс
     disabled && "CustomSelectOption--disabled", hierarchy > 0 && "CustomSelectOption--hierarchy"),
