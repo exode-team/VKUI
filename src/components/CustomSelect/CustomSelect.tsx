@@ -169,6 +169,7 @@ export interface CustomSelectProps
   fixDropdownWidth?: boolean;
   forceDropdownPortal?: boolean;
   initialOpenState?: boolean;
+  forceOpened?: boolean;
   selectType?: keyof typeof SelectType;
 }
 
@@ -198,6 +199,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
     autoHideScrollbar,
     autoHideScrollbarDelay,
     searchable = false,
+    forceOpened = false,
     renderOption: renderOptionProp = defaultRenderOptionFn,
     options: optionsProp = defaultOptions,
     emptyText = "Ничего не найдено",
@@ -734,7 +736,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
           <option key={`${item.value}`} value={item.value} />
         ))}
       </select>
-      {opened && (
+      {(opened || forceOpened) && (
         <CustomSelectDropdown
           targetRef={containerRef}
           placement={popupDirection}

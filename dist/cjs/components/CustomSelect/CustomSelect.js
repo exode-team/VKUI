@@ -26,7 +26,7 @@ var _CustomSelectDropdown = require("../CustomSelectDropdown/CustomSelectDropdow
 var _Select = require("../Select/Select");
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 var _excluded = ["option"],
-  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
+  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "forceOpened", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
 var findIndexAfter = function findIndexAfter() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var startIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
@@ -111,6 +111,8 @@ function CustomSelectComponent(props) {
     autoHideScrollbarDelay = props.autoHideScrollbarDelay,
     _props$searchable = props.searchable,
     searchable = _props$searchable === void 0 ? false : _props$searchable,
+    _props$forceOpened = props.forceOpened,
+    forceOpened = _props$forceOpened === void 0 ? false : _props$forceOpened,
     _props$renderOption = props.renderOption,
     renderOptionProp = _props$renderOption === void 0 ? defaultRenderOptionFn : _props$renderOption,
     _props$options = props.options,
@@ -509,7 +511,7 @@ function CustomSelectComponent(props) {
       key: "".concat(item.value),
       value: item.value
     });
-  })), opened && (0, _jsxRuntime.createScopedElement)(_CustomSelectDropdown.CustomSelectDropdown, {
+  })), (opened || forceOpened) && (0, _jsxRuntime.createScopedElement)(_CustomSelectDropdown.CustomSelectDropdown, {
     targetRef: containerRef,
     placement: popupDirection,
     scrollBoxRef: scrollBoxRef,

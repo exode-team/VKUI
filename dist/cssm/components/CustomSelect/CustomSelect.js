@@ -3,7 +3,7 @@ import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _typeof from "@babel/runtime/helpers/typeof";
 var _excluded = ["option"],
-  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
+  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "forceOpened", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { SelectMimicry } from "../SelectMimicry/SelectMimicry";
@@ -104,6 +104,8 @@ function CustomSelectComponent(props) {
     autoHideScrollbarDelay = props.autoHideScrollbarDelay,
     _props$searchable = props.searchable,
     searchable = _props$searchable === void 0 ? false : _props$searchable,
+    _props$forceOpened = props.forceOpened,
+    forceOpened = _props$forceOpened === void 0 ? false : _props$forceOpened,
     _props$renderOption = props.renderOption,
     renderOptionProp = _props$renderOption === void 0 ? defaultRenderOptionFn : _props$renderOption,
     _props$options = props.options,
@@ -502,7 +504,7 @@ function CustomSelectComponent(props) {
       key: "".concat(item.value),
       value: item.value
     });
-  })), opened && createScopedElement(CustomSelectDropdown, {
+  })), (opened || forceOpened) && createScopedElement(CustomSelectDropdown, {
     targetRef: containerRef,
     placement: popupDirection,
     scrollBoxRef: scrollBoxRef,
