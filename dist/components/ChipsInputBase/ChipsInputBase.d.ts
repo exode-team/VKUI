@@ -5,6 +5,7 @@ import "./ChipsInputBase.css";
 export interface ChipsInputBaseProps<Option extends ChipOption> extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange">, HasRef<HTMLInputElement>, HasRootRef<HTMLDivElement>, HasAlign {
     value: Option[];
     inputValue?: string;
+    setOnBlur?: boolean;
     onChange?: (o: Option[]) => void;
     onInputChange?: (e?: React.ChangeEvent<HTMLInputElement>) => void;
     getOptionValue?: (o?: Option) => ChipValue;

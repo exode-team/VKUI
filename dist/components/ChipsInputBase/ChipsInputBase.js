@@ -4,7 +4,7 @@ import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["disabled", "value", "label"],
-  _excluded2 = ["style", "className", "getRootRef", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "onFocus", "children", "inputValue", "getRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "inputAriaLabel"];
+  _excluded2 = ["style", "className", "getRootRef", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "setOnBlur", "onFocus", "children", "inputValue", "getRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "inputAriaLabel"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -19,6 +19,7 @@ export var chipsInputDefaultProps = {
   onInputChange: noop,
   onKeyDown: noop,
   onBlur: noop,
+  setOnBlur: false,
   onFocus: noop,
   value: [],
   inputValue: "",
@@ -59,6 +60,7 @@ export var ChipsInputBase = function ChipsInputBase(props) {
     onInputChange = propsWithDefault.onInputChange,
     onKeyDown = propsWithDefault.onKeyDown,
     onBlur = propsWithDefault.onBlur,
+    setOnBlur = propsWithDefault.setOnBlur,
     onFocus = propsWithDefault.onFocus,
     children = propsWithDefault.children,
     inputValue = propsWithDefault.inputValue,
@@ -104,6 +106,9 @@ export var ChipsInputBase = function ChipsInputBase(props) {
       setFocused(false);
     }
     onBlur(e);
+    if (setOnBlur && fieldValue) {
+      addOptionFromInput();
+    }
   };
   var handleFocus = function handleFocus(e) {
     if (!focused) {

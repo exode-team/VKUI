@@ -19,6 +19,7 @@ export interface ChipsInputBaseProps<Option extends ChipOption>
     HasAlign {
   value: Option[];
   inputValue?: string;
+  setOnBlur?: boolean;
   onChange?: (o: Option[]) => void;
   onInputChange?: (e?: React.ChangeEvent<HTMLInputElement>) => void;
   getOptionValue?: (o?: Option) => ChipValue;
@@ -33,6 +34,7 @@ export const chipsInputDefaultProps: ChipsInputBaseProps<any> = {
   onInputChange: noop,
   onKeyDown: noop,
   onBlur: noop,
+  setOnBlur: false,
   onFocus: noop,
   value: [],
   inputValue: "",
@@ -70,6 +72,7 @@ export const ChipsInputBase = <Option extends ChipOption>(
     onInputChange,
     onKeyDown,
     onBlur,
+    setOnBlur,
     onFocus,
     children,
     inputValue,
@@ -127,6 +130,10 @@ export const ChipsInputBase = <Option extends ChipOption>(
       setFocused(false);
     }
     onBlur!(e);
+
+    if (setOnBlur && fieldValue) {
+      addOptionFromInput();
+    }
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
