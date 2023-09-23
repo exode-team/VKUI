@@ -95,8 +95,8 @@ export const CustomSelectDropdown = ({
 
   const onPlacementChange = React.useCallback(
     ({ placement }: { placement?: Placement }) => {
-      setIsTop(calcIsTop(placement));
-      parentOnPlacementChange?.(placement);
+      setIsTop(calcIsTop(forcePlacement || placement));
+      parentOnPlacementChange?.(forcePlacement || placement);
     },
     [parentOnPlacementChange, setIsTop]
   );
@@ -110,14 +110,12 @@ export const CustomSelectDropdown = ({
       placement={placement}
       data-test="custom-select-dropdown"
       vkuiClass={classNames(
-        "CustomSelectDropdown",
-        !forcePlacement && offsetDistance === 0 &&
+          "CustomSelectDropdown",
+          offsetDistance === 0 &&
           (isTop
-            ? "CustomSelectDropdown--top"
-            : "CustomSelectDropdown--bottom"),
-        sameWidth && "CustomSelectDropdown--wide",
-        forcePlacement?.startsWith('top') ? "CustomSelectDropdown--top" : "",
-        forcePlacement?.startsWith('bottom') ? "CustomSelectDropdown--bottom" : "",
+              ? "CustomSelectDropdown--top"
+              : "CustomSelectDropdown--bottom"),
+          sameWidth && "CustomSelectDropdown--wide"
       )}
       forcePortal={forcePortal}
       customModifiers={customModifiers}

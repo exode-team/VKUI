@@ -265,18 +265,16 @@ function CustomSelectComponent(props: CustomSelectProps) {
   }, [options, selectedOptionIndex]);
 
   const openedClassNames = React.useMemo(
-    () =>
-      classNames(
-        opened && "Select--open",
-        !forcePlacement && opened &&
-          dropdownOffsetDistance === 0 &&
-          (popperPlacement?.includes("top")
-            ? "Select--pop-up"
-            : "Select--pop-down"),
-        forcePlacement?.startsWith('top') ? "Select--pop-up" : "",
-        forcePlacement?.startsWith('bottom') ? "Select--pop-down" : "",
-      ),
-    [dropdownOffsetDistance, opened, popperPlacement]
+      () =>
+          classNames(
+              opened && "Select--open",
+              opened &&
+              dropdownOffsetDistance === 0 &&
+              (popperPlacement?.includes("top")
+                  ? "Select--pop-up"
+                  : "Select--pop-down")
+          ),
+      [dropdownOffsetDistance, opened, popperPlacement]
   );
 
   const resetKeyboardInput = React.useCallback(() => {

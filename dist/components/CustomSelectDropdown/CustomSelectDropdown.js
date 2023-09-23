@@ -88,8 +88,8 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
   }, [observableRefs]);
   var onPlacementChange = React.useCallback(function (_ref3) {
     var placement = _ref3.placement;
-    setIsTop(calcIsTop(placement));
-    parentOnPlacementChange === null || parentOnPlacementChange === void 0 ? void 0 : parentOnPlacementChange(placement);
+    setIsTop(calcIsTop(forcePlacement || placement));
+    parentOnPlacementChange === null || parentOnPlacementChange === void 0 ? void 0 : parentOnPlacementChange(forcePlacement || placement);
   }, [parentOnPlacementChange, setIsTop]);
   return createScopedElement(Popper, _extends({
     targetRef: targetRef,
@@ -98,7 +98,7 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     onPlacementChange: onPlacementChange,
     placement: placement,
     "data-test": "custom-select-dropdown",
-    vkuiClass: classNames("CustomSelectDropdown", !forcePlacement && offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide", forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('top') ? "CustomSelectDropdown--top" : "", forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('bottom') ? "CustomSelectDropdown--bottom" : ""),
+    vkuiClass: classNames("CustomSelectDropdown", offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide"),
     forcePortal: forcePortal,
     customModifiers: customModifiers
   }, restProps), createScopedElement(CustomScrollView, {

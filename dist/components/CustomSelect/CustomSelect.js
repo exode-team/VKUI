@@ -187,7 +187,7 @@ function CustomSelectComponent(props) {
     return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : undefined;
   }, [options, selectedOptionIndex]);
   var openedClassNames = React.useMemo(function () {
-    return classNames(opened && "Select--open", !forcePlacement && opened && dropdownOffsetDistance === 0 && (popperPlacement !== null && popperPlacement !== void 0 && popperPlacement.includes("top") ? "Select--pop-up" : "Select--pop-down"), forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('top') ? "Select--pop-up" : "", forcePlacement !== null && forcePlacement !== void 0 && forcePlacement.startsWith('bottom') ? "Select--pop-down" : "");
+    return classNames(opened && "Select--open", opened && dropdownOffsetDistance === 0 && (popperPlacement !== null && popperPlacement !== void 0 && popperPlacement.includes("top") ? "Select--pop-up" : "Select--pop-down"));
   }, [dropdownOffsetDistance, opened, popperPlacement]);
   var resetKeyboardInput = React.useCallback(function () {
     setKeyboardInput("");
