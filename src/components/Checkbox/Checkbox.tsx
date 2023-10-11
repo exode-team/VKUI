@@ -42,6 +42,8 @@ export interface CheckboxProps
   description?: React.ReactNode;
   indeterminate?: boolean;
   defaultIndeterminate?: boolean;
+  onIcon?: React.ReactNode;
+  offIcon?: React.ReactNode;
 }
 
 const warn = warnOnce("Checkbox");
@@ -65,6 +67,8 @@ export const Checkbox = ({
   hasActive,
   focusVisibleMode,
   onChange,
+  onIcon,
+  offIcon,
   ...restProps
 }: CheckboxProps) => {
   const inputRef = useExternRef(getRef);
@@ -143,16 +147,16 @@ export const Checkbox = ({
       />
       <div vkuiClass="Checkbox__icon Checkbox__icon--on">
         {sizeY === SizeType.COMPACT || platform === VKCOM ? (
-          <Icon20CheckBoxOn aria-hidden />
+          (onIcon || <Icon20CheckBoxOn aria-hidden />)
         ) : (
-          <Icon24CheckBoxOn aria-hidden />
+            (onIcon || <Icon24CheckBoxOn aria-hidden />)
         )}
       </div>
       <div vkuiClass="Checkbox__icon Checkbox__icon--off">
         {sizeY === SizeType.COMPACT || platform === VKCOM ? (
-          <Icon20CheckBoxOff aria-hidden />
+            (offIcon || <Icon20CheckBoxOff aria-hidden />)
         ) : (
-          <Icon24CheckBoxOff aria-hidden />
+            (offIcon || <Icon24CheckBoxOff aria-hidden />)
         )}
       </div>
       <div vkuiClass="Checkbox__icon Checkbox__icon--indeterminate">

@@ -22,7 +22,7 @@ var _Caption = require("../Typography/Caption/Caption");
 var _useExternRef = require("../../hooks/useExternRef");
 var _VisuallyHiddenInput = require("../VisuallyHiddenInput/VisuallyHiddenInput");
 var _warnOnce = require("../../lib/warnOnce");
-var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "hoverMode", "activeMode", "hasHover", "hasActive", "focusVisibleMode", "onChange"];
+var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "hoverMode", "activeMode", "hasHover", "hasActive", "focusVisibleMode", "onChange", "onIcon", "offIcon"];
 var warn = (0, _warnOnce.warnOnce)("Checkbox");
 
 /**
@@ -44,6 +44,8 @@ var Checkbox = function Checkbox(_ref) {
     hasActive = _ref.hasActive,
     focusVisibleMode = _ref.focusVisibleMode,
     onChange = _ref.onChange,
+    onIcon = _ref.onIcon,
+    offIcon = _ref.offIcon,
     restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var inputRef = (0, _useExternRef.useExternRef)(getRef);
   var platform = (0, _usePlatform.usePlatform)();
@@ -93,15 +95,15 @@ var Checkbox = function Checkbox(_ref) {
     getRef: inputRef
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Checkbox__icon Checkbox__icon--on"
-  }, sizeY === _withAdaptivity.SizeType.COMPACT || platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20CheckBoxOn, {
+  }, sizeY === _withAdaptivity.SizeType.COMPACT || platform === _platform.VKCOM ? onIcon || (0, _jsxRuntime.createScopedElement)(_icons.Icon20CheckBoxOn, {
     "aria-hidden": true
-  }) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24CheckBoxOn, {
+  }) : onIcon || (0, _jsxRuntime.createScopedElement)(_icons.Icon24CheckBoxOn, {
     "aria-hidden": true
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Checkbox__icon Checkbox__icon--off"
-  }, sizeY === _withAdaptivity.SizeType.COMPACT || platform === _platform.VKCOM ? (0, _jsxRuntime.createScopedElement)(_icons.Icon20CheckBoxOff, {
+  }, sizeY === _withAdaptivity.SizeType.COMPACT || platform === _platform.VKCOM ? offIcon || (0, _jsxRuntime.createScopedElement)(_icons.Icon20CheckBoxOff, {
     "aria-hidden": true
-  }) : (0, _jsxRuntime.createScopedElement)(_icons.Icon24CheckBoxOff, {
+  }) : offIcon || (0, _jsxRuntime.createScopedElement)(_icons.Icon24CheckBoxOff, {
     "aria-hidden": true
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Checkbox__icon Checkbox__icon--indeterminate"

@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "hoverMode", "activeMode", "hasHover", "hasActive", "focusVisibleMode", "onChange"];
+var _excluded = ["children", "className", "style", "getRootRef", "getRef", "description", "indeterminate", "defaultIndeterminate", "sizeY", "hoverMode", "activeMode", "hasHover", "hasActive", "focusVisibleMode", "onChange", "onIcon", "offIcon"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { ACTIVE_EFFECT_DELAY, Tappable } from "../Tappable/Tappable";
@@ -36,6 +36,8 @@ export var Checkbox = function Checkbox(_ref) {
     hasActive = _ref.hasActive,
     focusVisibleMode = _ref.focusVisibleMode,
     onChange = _ref.onChange,
+    onIcon = _ref.onIcon,
+    offIcon = _ref.offIcon,
     restProps = _objectWithoutProperties(_ref, _excluded);
   var inputRef = useExternRef(getRef);
   var platform = usePlatform();
@@ -85,15 +87,15 @@ export var Checkbox = function Checkbox(_ref) {
     getRef: inputRef
   })), createScopedElement("div", {
     vkuiClass: "Checkbox__icon Checkbox__icon--on"
-  }, sizeY === SizeType.COMPACT || platform === VKCOM ? createScopedElement(Icon20CheckBoxOn, {
+  }, sizeY === SizeType.COMPACT || platform === VKCOM ? onIcon || createScopedElement(Icon20CheckBoxOn, {
     "aria-hidden": true
-  }) : createScopedElement(Icon24CheckBoxOn, {
+  }) : onIcon || createScopedElement(Icon24CheckBoxOn, {
     "aria-hidden": true
   })), createScopedElement("div", {
     vkuiClass: "Checkbox__icon Checkbox__icon--off"
-  }, sizeY === SizeType.COMPACT || platform === VKCOM ? createScopedElement(Icon20CheckBoxOff, {
+  }, sizeY === SizeType.COMPACT || platform === VKCOM ? offIcon || createScopedElement(Icon20CheckBoxOff, {
     "aria-hidden": true
-  }) : createScopedElement(Icon24CheckBoxOff, {
+  }) : offIcon || createScopedElement(Icon24CheckBoxOff, {
     "aria-hidden": true
   })), createScopedElement("div", {
     vkuiClass: "Checkbox__icon Checkbox__icon--indeterminate"
