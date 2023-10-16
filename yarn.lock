@@ -3311,10 +3311,10 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
-"@types/postcss-less@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@types/postcss-less/-/postcss-less-4.0.2.tgz#9fbf103ce213ee088d8381844a9d7c37efde950b"
-  integrity sha512-qDpf8D7RYupncwCFiVeyeDrDExzXJGZ7Km6I1LLeAvd+1bH6KhhWBZGxdysB1oJQdjCajXxakjK7pFiC7uBbEA==
+"@types/postcss-less@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@types/postcss-less/-/postcss-less-4.0.4.tgz#7f33feede2bc8c1a31fc69686b34ccb85c740689"
+  integrity sha512-bhiArsu1rH9C9yoX+hFsK3ZP3d5f+g0fy3LYIAqzourcMv6j2qQUX8FVXdkEO14E0jB7cWO8QucVJKtC5JKCBA==
   dependencies:
     postcss "^8.1.2"
 
