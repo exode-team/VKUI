@@ -21,13 +21,14 @@ var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 var _prefixClass = require("../../lib/prefixClass");
 var _useExternRef = require("../../hooks/useExternRef");
 var _excluded = ["disabled", "value", "label"],
-  _excluded2 = ["style", "className", "getRootRef", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "setOnBlur", "onFocus", "children", "inputValue", "getRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "inputAriaLabel"];
+  _excluded2 = ["style", "className", "getRootRef", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "setOnBlur", "addOptionEventKeys", "onFocus", "children", "inputValue", "getRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "inputAriaLabel"];
 var chipsInputDefaultProps = {
   onChange: _utils.noop,
   onInputChange: _utils.noop,
   onKeyDown: _utils.noop,
   onBlur: _utils.noop,
   setOnBlur: false,
+  addOptionEventKeys: ['Enter'],
   onFocus: _utils.noop,
   value: [],
   inputValue: "",
@@ -70,6 +71,7 @@ var ChipsInputBase = function ChipsInputBase(props) {
     onKeyDown = propsWithDefault.onKeyDown,
     onBlur = propsWithDefault.onBlur,
     setOnBlur = propsWithDefault.setOnBlur,
+    addOptionEventKeys = propsWithDefault.addOptionEventKeys,
     onFocus = propsWithDefault.onFocus,
     children = propsWithDefault.children,
     inputValue = propsWithDefault.inputValue,
@@ -105,7 +107,7 @@ var ChipsInputBase = function ChipsInputBase(props) {
       removeOption(getOptionValue(selectedOptions[selectedOptions.length - 1]));
       e.preventDefault();
     }
-    if (e.key === "Enter" && !e.defaultPrevented && fieldValue) {
+    if (addOptionEventKeys !== null && addOptionEventKeys !== void 0 && addOptionEventKeys.includes(e.key) && !e.defaultPrevented && fieldValue) {
       addOptionFromInput();
       e.preventDefault();
     }

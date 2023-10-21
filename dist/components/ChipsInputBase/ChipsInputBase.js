@@ -4,7 +4,7 @@ import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 var _excluded = ["disabled", "value", "label"],
-  _excluded2 = ["style", "className", "getRootRef", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "setOnBlur", "onFocus", "children", "inputValue", "getRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "inputAriaLabel"];
+  _excluded2 = ["style", "className", "getRootRef", "value", "onChange", "onInputChange", "onKeyDown", "onBlur", "setOnBlur", "addOptionEventKeys", "onFocus", "children", "inputValue", "getRef", "placeholder", "getOptionValue", "getOptionLabel", "getNewOptionData", "renderChip", "inputAriaLabel"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
@@ -20,6 +20,7 @@ export var chipsInputDefaultProps = {
   onKeyDown: noop,
   onBlur: noop,
   setOnBlur: false,
+  addOptionEventKeys: ['Enter'],
   onFocus: noop,
   value: [],
   inputValue: "",
@@ -61,6 +62,7 @@ export var ChipsInputBase = function ChipsInputBase(props) {
     onKeyDown = propsWithDefault.onKeyDown,
     onBlur = propsWithDefault.onBlur,
     setOnBlur = propsWithDefault.setOnBlur,
+    addOptionEventKeys = propsWithDefault.addOptionEventKeys,
     onFocus = propsWithDefault.onFocus,
     children = propsWithDefault.children,
     inputValue = propsWithDefault.inputValue,
@@ -96,7 +98,7 @@ export var ChipsInputBase = function ChipsInputBase(props) {
       removeOption(getOptionValue(selectedOptions[selectedOptions.length - 1]));
       e.preventDefault();
     }
-    if (e.key === "Enter" && !e.defaultPrevented && fieldValue) {
+    if (addOptionEventKeys !== null && addOptionEventKeys !== void 0 && addOptionEventKeys.includes(e.key) && !e.defaultPrevented && fieldValue) {
       addOptionFromInput();
       e.preventDefault();
     }

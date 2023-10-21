@@ -6,6 +6,7 @@ export interface ChipsInputBaseProps<Option extends ChipOption> extends Omit<Rea
     value: Option[];
     inputValue?: string;
     setOnBlur?: boolean;
+    addOptionEventKeys?: string[];
     onChange?: (o: Option[]) => void;
     onInputChange?: (e?: React.ChangeEvent<HTMLInputElement>) => void;
     getOptionValue?: (o?: Option) => ChipValue;
