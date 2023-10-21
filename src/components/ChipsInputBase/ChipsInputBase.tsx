@@ -20,6 +20,7 @@ export interface ChipsInputBaseProps<Option extends ChipOption>
   value: Option[];
   inputValue?: string;
   setOnBlur?: boolean;
+  addOptionEventKeys?: string[];
   onChange?: (o: Option[]) => void;
   onInputChange?: (e?: React.ChangeEvent<HTMLInputElement>) => void;
   getOptionValue?: (o?: Option) => ChipValue;
@@ -35,6 +36,7 @@ export const chipsInputDefaultProps: ChipsInputBaseProps<any> = {
   onKeyDown: noop,
   onBlur: noop,
   setOnBlur: false,
+  addOptionEventKeys: [ 'Enter'],
   onFocus: noop,
   value: [],
   inputValue: "",
@@ -73,6 +75,7 @@ export const ChipsInputBase = <Option extends ChipOption>(
     onKeyDown,
     onBlur,
     setOnBlur,
+    addOptionEventKeys,
     onFocus,
     children,
     inputValue,
@@ -119,7 +122,7 @@ export const ChipsInputBase = <Option extends ChipOption>(
       e.preventDefault();
     }
 
-    if (e.key === "Enter" && !e.defaultPrevented && fieldValue) {
+    if (addOptionEventKeys?.includes(e.key) && !e.defaultPrevented && fieldValue) {
       addOptionFromInput();
       e.preventDefault();
     }
