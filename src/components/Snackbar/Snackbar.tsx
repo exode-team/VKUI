@@ -32,6 +32,11 @@ export interface SnackbarProps
   onActionClick?: (e: React.MouseEvent) => void;
 
   /**
+   * Закрытие при клике на действие
+   */
+  closeOnActionClick?: boolean;
+
+  /**
    * Цветная иконка 24x24 пикселя
    */
   before?: React.ReactNode;
@@ -67,6 +72,7 @@ const SnackbarComponent = ({
   duration = 4000,
   onActionClick,
   onClose,
+  closeOnActionClick = true,
   mode = "default",
   ...restProps
 }: SnackbarProps & AdaptivityContextInterface) => {
@@ -103,7 +109,7 @@ const SnackbarComponent = ({
   };
 
   const handleActionClick: React.MouseEventHandler<HTMLElement> = (e) => {
-    close();
+    closeOnActionClick && close();
 
     if (action && typeof onActionClick === "function") {
       onActionClick(e);
