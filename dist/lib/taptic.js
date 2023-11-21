@@ -7,5 +7,9 @@ export function runTapticImpactOccurred(style) {
       return undefined;
     });
   }
+  var event = new CustomEvent('VKWebAppTapticImpactOccurred');
+
+  // eslint-disable-next-line no-restricted-globals
+  document.dispatchEvent(event);
 }
 //# sourceMappingURL=taptic.js.map
