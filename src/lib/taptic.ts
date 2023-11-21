@@ -6,4 +6,9 @@ export function runTapticImpactOccurred(style: TapticVibrationPowerType) {
       .send("VKWebAppTapticImpactOccurred", { style })
       .catch(() => undefined);
   }
+
+  const event = new CustomEvent('VKWebAppTapticImpactOccurred');
+
+  // eslint-disable-next-line no-restricted-globals
+  document.dispatchEvent(event);
 }
