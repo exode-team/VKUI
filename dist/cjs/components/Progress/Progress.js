@@ -8,7 +8,7 @@ exports.Progress = void 0;
 var _jsxRuntime = require("../../lib/jsxRuntime");
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-var _excluded = ["value", "getRootRef", "children"];
+var _excluded = ["value", "getRootRef", "children", "permanentChildren"];
 var PROGRESS_MIN_VALUE = 0;
 var PROGRESS_MAX_VALUE = 100;
 
@@ -20,6 +20,7 @@ var Progress = function Progress(_ref) {
     value = _ref$value === void 0 ? 0 : _ref$value,
     getRootRef = _ref.getRootRef,
     children = _ref.children,
+    permanentChildren = _ref.permanentChildren,
     restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var progress = Math.max(PROGRESS_MIN_VALUE, Math.min(value, PROGRESS_MAX_VALUE));
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({
@@ -36,7 +37,7 @@ var Progress = function Progress(_ref) {
       width: "".concat(progress, "%")
     },
     "aria-hidden": true
-  }, children));
+  }, children), permanentChildren);
 };
 exports.Progress = Progress;
 //# sourceMappingURL=Progress.js.map

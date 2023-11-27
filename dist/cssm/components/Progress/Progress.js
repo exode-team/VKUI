@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["value", "getRootRef", "children"];
+var _excluded = ["value", "getRootRef", "children", "permanentChildren"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import "./Progress.css";
 var PROGRESS_MIN_VALUE = 0;
@@ -14,6 +14,7 @@ export var Progress = function Progress(_ref) {
     value = _ref$value === void 0 ? 0 : _ref$value,
     getRootRef = _ref.getRootRef,
     children = _ref.children,
+    permanentChildren = _ref.permanentChildren,
     restProps = _objectWithoutProperties(_ref, _excluded);
   var progress = Math.max(PROGRESS_MIN_VALUE, Math.min(value, PROGRESS_MAX_VALUE));
   return createScopedElement("div", _extends({
@@ -30,6 +31,6 @@ export var Progress = function Progress(_ref) {
       width: "".concat(progress, "%")
     },
     "aria-hidden": true
-  }, children));
+  }, children), permanentChildren);
 };
 //# sourceMappingURL=Progress.js.map

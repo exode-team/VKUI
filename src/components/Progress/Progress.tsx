@@ -7,6 +7,7 @@ export interface ProgressProps
     HasRootRef<HTMLDivElement> {
   value?: number;
   children?: React.ReactNode;
+  permanentChildren?: React.ReactNode;
 }
 
 const PROGRESS_MIN_VALUE = 0;
@@ -19,6 +20,7 @@ export const Progress = ({
   value = 0,
   getRootRef,
   children,
+  permanentChildren,
   ...restProps
 }: ProgressProps) => {
   const progress = Math.max(
@@ -42,6 +44,7 @@ export const Progress = ({
         aria-hidden>
         {children}
       </div>
+      {permanentChildren}
     </div>
   );
 };
