@@ -6,6 +6,7 @@ export interface ProgressProps
   extends React.HTMLAttributes<HTMLDivElement>,
     HasRootRef<HTMLDivElement> {
   value?: number;
+  children?: React.ReactNode;
 }
 
 const PROGRESS_MIN_VALUE = 0;
@@ -17,6 +18,7 @@ const PROGRESS_MAX_VALUE = 100;
 export const Progress = ({
   value = 0,
   getRootRef,
+  children,
   ...restProps
 }: ProgressProps) => {
   const progress = Math.max(
@@ -37,8 +39,9 @@ export const Progress = ({
       <div
         vkuiClass="Progress__in"
         style={{ width: `${progress}%` }}
-        aria-hidden
-      />
+        aria-hidden>
+        {children}
+      </div>
     </div>
   );
 };
