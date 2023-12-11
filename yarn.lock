@@ -3630,10 +3630,10 @@
   dependencies:
     "@swc/helpers" "^0.5.0"
 
-"@vkontakte/vkui-tokens@4.35.1":
-  version "4.35.1"
-  resolved "https://registry.yarnpkg.com/@vkontakte/vkui-tokens/-/vkui-tokens-4.35.1.tgz#08793b4775240645a4a1c053357ac6072fd00a0d"
-  integrity sha512-2St/obQE4bF3Vd4QZ0OxkFEb/uav7XXmxFMh03jc2FH+2PvGgCibRRRNI5FzpovwqhRSJ947IfOR6FB4EDn06g==
+"@vkontakte/vkui-tokens@4.41.4":
+  version "4.41.4"
+  resolved "https://registry.yarnpkg.com/@vkontakte/vkui-tokens/-/vkui-tokens-4.41.4.tgz#153f9ecad7885e5ebda00aefc53777a9b5254f8c"
+  integrity sha512-MKpgdTWQhpZzc1Rj+4JqxMb/Tv0ozOaEWnY9yQt4UfaPLz2esNLaYKIJ9O7Qf6i+1KdlZDwZv4xx0t15hc6IIQ==
   dependencies:
     csstype "^3.1.1"
 
