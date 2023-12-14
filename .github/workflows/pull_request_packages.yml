@@ -145,19 +145,19 @@ jobs:
     name: Report CI results
     steps:
       - name: Download lint scripts artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: lint-scripts-output
 
       - name: Download test artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: test-output
 
       - name: Download Playwright Report artifact
         # см. [Примечание 1]
         if: ${{ needs.changed_files.outputs.package_vkui == 'true' }}
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: playwright-report
           path: playwright-report/
