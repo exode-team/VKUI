@@ -12197,10 +12197,10 @@ swc-loader@^0.2.3:
   resolved "https://registry.yarnpkg.com/swc-loader/-/swc-loader-0.2.3.tgz#6792f1c2e4c9ae9bf9b933b3e010210e270c186d"
   integrity sha512-D1p6XXURfSPleZZA/Lipb3A8pZ17fP4NObZvFCDjK/OKljroqDpPmsBdTraWhVBqUNpcWBQY1imWdoPScRlQ7A==
 
-swc-plugin-transform-remove-imports@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/swc-plugin-transform-remove-imports/-/swc-plugin-transform-remove-imports-1.5.0.tgz#897bdacfce67bfb2065496f71fd58d3edfb25dc9"
-  integrity sha512-zGcF95/uzre/jzy/f3vqt+HDFx1RcSj8zz4h5idNFZzFAI1T4GC67nbIlFGqbAObgbGsBMfSztSqacMsq4gAWg==
+swc-plugin-transform-remove-imports@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/swc-plugin-transform-remove-imports/-/swc-plugin-transform-remove-imports-1.10.0.tgz#21ed50457838ab1916e284b5a77f39f0726cf1f8"
+  integrity sha512-YAJdaafXaWG1LlnXCIqBb3AjNnuNXHMeZTobAPI8z6SITSLGvRTyuMB9W7WJAEvvWvRqBDWgWUC3a2iMxH6CFw==
 
 symbol-tree@^3.2.4:
   version "3.2.4"
