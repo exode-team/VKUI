@@ -30,7 +30,7 @@ export interface SnackbarProps extends React.HTMLAttributes<HTMLElement>, HasPla
     /**
      * Время в миллисекундах, через которое плашка скроется
      */
-    duration?: number;
+    duration?: number | null;
     /**
      * Обработчик закрытия уведомления
      */

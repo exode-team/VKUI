@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "prevMonthProps", "nextMonthProps", "dayProps", "listenDayChangesForUpdate"];
+var _excluded = ["value", "onChange", "disablePast", "disableFuture", "shouldDisableDate", "onClose", "enableTime", "doneButtonText", "weekStartsOn", "getRootRef", "disablePickers", "changeHoursAriaLabel", "changeMinutesAriaLabel", "prevMonthAriaLabel", "nextMonthAriaLabel", "changeMonthAriaLabel", "changeYearAriaLabel", "showNeighboringMonth", "changeDayAriaLabel", "size", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "prevMonthProps", "nextMonthProps", "dayProps", "alwaysShowTime", "defaultTime", "listenDayChangesForUpdate"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { isSameMonth, isSameDay } from "../../lib/date";
@@ -51,6 +51,8 @@ export var Calendar = function Calendar(_ref) {
     prevMonthProps = _ref.prevMonthProps,
     nextMonthProps = _ref.nextMonthProps,
     dayProps = _ref.dayProps,
+    alwaysShowTime = _ref.alwaysShowTime,
+    defaultTime = _ref.defaultTime,
     listenDayChangesForUpdate = _ref.listenDayChangesForUpdate,
     props = _objectWithoutProperties(_ref, _excluded);
   var _useCalendar = useCalendar({
@@ -134,13 +136,13 @@ export var Calendar = function Calendar(_ref) {
     size: size,
     dayProps: dayProps,
     listenDayChangesForUpdate: listenDayChangesForUpdate
-  }), enableTime && value && size !== "s" && createScopedElement("div", {
+  }), enableTime && (value || !!alwaysShowTime) && size !== "s" && createScopedElement("div", {
     vkuiClass: "Calendar__time"
   }, createScopedElement(CalendarTime, {
-    value: value,
     onChange: onChange,
     onClose: onClose,
     doneButtonText: doneButtonText,
+    value: value || defaultTime || new Date(),
     changeHoursAriaLabel: changeHoursAriaLabel,
     changeMinutesAriaLabel: changeMinutesAriaLabel
   })));

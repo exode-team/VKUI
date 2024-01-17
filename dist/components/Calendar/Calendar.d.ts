@@ -9,6 +9,8 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
     disablePast?: boolean;
     disableFuture?: boolean;
     enableTime?: boolean;
+    alwaysShowTime?: boolean;
+    defaultTime?: Date;
     disablePickers?: boolean;
     doneButtonText?: string;
     changeDayAriaLabel?: string;
@@ -31,4 +33,4 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 /**
  * @see https://vkcom.github.io/VKUI/#/Calendar
  */
-export declare const Calendar: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, enableTime, doneButtonText, weekStartsOn, getRootRef, disablePickers, changeHoursAriaLabel, changeMinutesAriaLabel, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, showNeighboringMonth, changeDayAriaLabel, size, viewDate: externalViewDate, onHeaderChange, onNextMonth, onPrevMonth, prevMonthIcon, nextMonthIcon, prevMonthProps, nextMonthProps, dayProps, listenDayChangesForUpdate, ...props }: CalendarProps) => JSX.Element;
+export declare const Calendar: ({ value, onChange, disablePast, disableFuture, shouldDisableDate, onClose, enableTime, doneButtonText, weekStartsOn, getRootRef, disablePickers, changeHoursAriaLabel, changeMinutesAriaLabel, prevMonthAriaLabel, nextMonthAriaLabel, changeMonthAriaLabel, changeYearAriaLabel, showNeighboringMonth, changeDayAriaLabel, size, viewDate: externalViewDate, onHeaderChange, onNextMonth, onPrevMonth, prevMonthIcon, nextMonthIcon, prevMonthProps, nextMonthProps, dayProps, alwaysShowTime, defaultTime, listenDayChangesForUpdate, ...props }: CalendarProps) => JSX.Element;
