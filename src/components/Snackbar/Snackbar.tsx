@@ -51,7 +51,7 @@ export interface SnackbarProps
   /**
    * Время в миллисекундах, через которое плашка скроется
    */
-  duration?: number;
+  duration?: number | null;
   /**
    * Обработчик закрытия уведомления
    */

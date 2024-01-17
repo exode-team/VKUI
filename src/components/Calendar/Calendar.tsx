@@ -41,6 +41,8 @@ export interface CalendarProps
   disablePast?: boolean;
   disableFuture?: boolean;
   enableTime?: boolean;
+  alwaysShowTime?: boolean;
+  defaultTime?: Date;
   disablePickers?: boolean;
   doneButtonText?: string;
   changeDayAriaLabel?: string;
@@ -96,6 +98,8 @@ export const Calendar = ({
   prevMonthProps,
   nextMonthProps,
   dayProps,
+  alwaysShowTime,
+  defaultTime,
   listenDayChangesForUpdate,
   ...props
 }: CalendarProps) => {
@@ -211,13 +215,13 @@ export const Calendar = ({
         dayProps={dayProps}
         listenDayChangesForUpdate={listenDayChangesForUpdate}
       />
-      {enableTime && value && size !== "s" && (
+      {enableTime && (value || !!alwaysShowTime) && size !== "s" && (
         <div vkuiClass="Calendar__time">
           <CalendarTime
-            value={value}
             onChange={onChange}
             onClose={onClose}
             doneButtonText={doneButtonText}
+            value={value || defaultTime || new Date()}
             changeHoursAriaLabel={changeHoursAriaLabel}
             changeMinutesAriaLabel={changeMinutesAriaLabel}
           />
