@@ -35,6 +35,9 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
     mode = _ref$mode === void 0 ? "default" : _ref$mode,
     restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
+  if (neverToHide) {
+    duration = Number.MAX_SAFE_INTEGER / 5;
+  }
   var _useWaitTransitionFin = useWaitTransitionFinish(),
     waitTransitionFinish = _useWaitTransitionFin.waitTransitionFinish;
   var _React$useState = React.useState(false),
@@ -64,7 +67,7 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
       onActionClick(e);
     }
   };
-  var closeTimeout = useTimeout(close, neverToHide ? null : duration);
+  var closeTimeout = useTimeout(close, duration);
   var setBodyTransform = function setBodyTransform(percent) {
     if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);
