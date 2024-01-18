@@ -19,10 +19,12 @@ export function useTimeout(cb, duration) {
   var set = React.useCallback(function () {
     var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : options.current.duration;
     clear();
-    if (canUseDOM && duration >= 0) {
+    if (canUseDOM) {
       timeout.current = setTimeout(function () {
-        var cb = options.current.cb;
-        typeof cb === "function" && cb();
+        if (duration >= 0) {
+          var _cb = options.current.cb;
+          typeof _cb === "function" && _cb();
+        }
       }, duration);
     }
   }, [clear]);
