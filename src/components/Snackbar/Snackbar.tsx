@@ -53,10 +53,6 @@ export interface SnackbarProps
    */
   duration?: number;
   /**
-   * Не убирать
-   */
-  neverToHide?: boolean;
-  /**
    * Обработчик закрытия уведомления
    */
   onClose: () => void;
@@ -76,16 +72,11 @@ const SnackbarComponent = ({
   duration = 4000,
   onActionClick,
   onClose,
-  neverToHide,
   closeOnActionClick = true,
   mode = "default",
   ...restProps
 }: SnackbarProps & AdaptivityContextInterface) => {
   const platform = usePlatform();
-
-  if (neverToHide) {
-    duration = Number.MAX_SAFE_INTEGER / 5;
-  }
 
   const { waitTransitionFinish } = useWaitTransitionFinish();
 
