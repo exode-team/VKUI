@@ -23,7 +23,7 @@ var _InputLike = require("../InputLike/InputLike");
 var _InputLikeDivider = require("../InputLike/InputLikeDivider");
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 var _callMultiple = require("../../lib/callMultiple");
-var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "disableCalendar"];
+var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "alwaysShowTime", "defaultTime", "disableCalendar"];
 var elementsConfig = function elementsConfig(index) {
   var length = 2;
   var min = 1;
@@ -113,6 +113,8 @@ var DateInput = function DateInput(_ref) {
     onPrevMonth = _ref.onPrevMonth,
     prevMonthIcon = _ref.prevMonthIcon,
     nextMonthIcon = _ref.nextMonthIcon,
+    alwaysShowTime = _ref.alwaysShowTime,
+    defaultTime = _ref.defaultTime,
     _ref$disableCalendar = _ref.disableCalendar,
     disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
     props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
@@ -262,7 +264,9 @@ var DateInput = function DateInput(_ref) {
     onNextMonth: onNextMonth,
     onPrevMonth: onPrevMonth,
     prevMonthIcon: prevMonthIcon,
-    nextMonthIcon: nextMonthIcon
+    nextMonthIcon: nextMonthIcon,
+    alwaysShowTime: alwaysShowTime,
+    defaultTime: defaultTime
   })));
 };
 exports.DateInput = DateInput;

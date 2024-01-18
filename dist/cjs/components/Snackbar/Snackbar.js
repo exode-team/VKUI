@@ -22,7 +22,7 @@ var _AppRootPortal = require("../AppRoot/AppRootPortal");
 var _useWaitTransitionFinish = require("../../hooks/useWaitTransitionFinish");
 var _usePlatform = require("../../hooks/usePlatform");
 var _useTimeout = require("../../hooks/useTimeout");
-var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "closeOnActionClick", "mode"];
+var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "neverToHide", "closeOnActionClick", "mode"];
 var SnackbarComponent = function SnackbarComponent(_ref) {
   var children = _ref.children,
     _ref$layout = _ref.layout,
@@ -35,6 +35,7 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
     duration = _ref$duration === void 0 ? 4000 : _ref$duration,
     onActionClick = _ref.onActionClick,
     onClose = _ref.onClose,
+    neverToHide = _ref.neverToHide,
     _ref$closeOnActionCli = _ref.closeOnActionClick,
     closeOnActionClick = _ref$closeOnActionCli === void 0 ? true : _ref$closeOnActionCli,
     _ref$mode = _ref.mode,
@@ -70,7 +71,7 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
       onActionClick(e);
     }
   };
-  var closeTimeout = (0, _useTimeout.useTimeout)(close, duration);
+  var closeTimeout = (0, _useTimeout.useTimeout)(close, neverToHide ? null : duration);
   var setBodyTransform = function setBodyTransform(percent) {
     if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);

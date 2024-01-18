@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "closeOnActionClick", "mode"];
+var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "neverToHide", "closeOnActionClick", "mode"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Touch } from "../Touch/Touch";
@@ -28,6 +28,7 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
     duration = _ref$duration === void 0 ? 4000 : _ref$duration,
     onActionClick = _ref.onActionClick,
     onClose = _ref.onClose,
+    neverToHide = _ref.neverToHide,
     _ref$closeOnActionCli = _ref.closeOnActionClick,
     closeOnActionClick = _ref$closeOnActionCli === void 0 ? true : _ref$closeOnActionCli,
     _ref$mode = _ref.mode,
@@ -63,7 +64,7 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
       onActionClick(e);
     }
   };
-  var closeTimeout = useTimeout(close, duration);
+  var closeTimeout = useTimeout(close, neverToHide ? null : duration);
   var setBodyTransform = function setBodyTransform(percent) {
     if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);

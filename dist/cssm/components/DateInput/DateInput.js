@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "disableCalendar"];
+var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "alwaysShowTime", "defaultTime", "disableCalendar"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { format, isMatch, parse } from "../../lib/date";
@@ -106,6 +106,8 @@ export var DateInput = function DateInput(_ref) {
     onPrevMonth = _ref.onPrevMonth,
     prevMonthIcon = _ref.prevMonthIcon,
     nextMonthIcon = _ref.nextMonthIcon,
+    alwaysShowTime = _ref.alwaysShowTime,
+    defaultTime = _ref.defaultTime,
     _ref$disableCalendar = _ref.disableCalendar,
     disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
     props = _objectWithoutProperties(_ref, _excluded);
@@ -255,7 +257,9 @@ export var DateInput = function DateInput(_ref) {
     onNextMonth: onNextMonth,
     onPrevMonth: onPrevMonth,
     prevMonthIcon: prevMonthIcon,
-    nextMonthIcon: nextMonthIcon
+    nextMonthIcon: nextMonthIcon,
+    alwaysShowTime: alwaysShowTime,
+    defaultTime: defaultTime
   })));
 };
 //# sourceMappingURL=DateInput.js.map
