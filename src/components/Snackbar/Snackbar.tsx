@@ -83,6 +83,10 @@ const SnackbarComponent = ({
 }: SnackbarProps & AdaptivityContextInterface) => {
   const platform = usePlatform();
 
+  if (neverToHide) {
+    duration = Number.MAX_SAFE_INTEGER / 5;
+  }
+
   const { waitTransitionFinish } = useWaitTransitionFinish();
 
   const [closing, setClosing] = React.useState(false);
@@ -121,7 +125,7 @@ const SnackbarComponent = ({
     }
   };
 
-  const closeTimeout = useTimeout(close, neverToHide ? null : duration);
+  const closeTimeout = useTimeout(close, duration);
 
   const setBodyTransform = (percent: number) => {
     if (animationFrameRef.current !== null) {
