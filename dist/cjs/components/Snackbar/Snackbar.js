@@ -22,7 +22,7 @@ var _AppRootPortal = require("../AppRoot/AppRootPortal");
 var _useWaitTransitionFinish = require("../../hooks/useWaitTransitionFinish");
 var _usePlatform = require("../../hooks/usePlatform");
 var _useTimeout = require("../../hooks/useTimeout");
-var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "neverToHide", "closeOnActionClick", "mode"];
+var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "closeOnActionClick", "mode"];
 var SnackbarComponent = function SnackbarComponent(_ref) {
   var children = _ref.children,
     _ref$layout = _ref.layout,
@@ -35,16 +35,12 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
     duration = _ref$duration === void 0 ? 4000 : _ref$duration,
     onActionClick = _ref.onActionClick,
     onClose = _ref.onClose,
-    neverToHide = _ref.neverToHide,
     _ref$closeOnActionCli = _ref.closeOnActionClick,
     closeOnActionClick = _ref$closeOnActionCli === void 0 ? true : _ref$closeOnActionCli,
     _ref$mode = _ref.mode,
     mode = _ref$mode === void 0 ? "default" : _ref$mode,
     restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
-  if (neverToHide) {
-    duration = Number.MAX_SAFE_INTEGER / 5;
-  }
   var _useWaitTransitionFin = (0, _useWaitTransitionFinish.useWaitTransitionFinish)(),
     waitTransitionFinish = _useWaitTransitionFin.waitTransitionFinish;
   var _React$useState = React.useState(false),

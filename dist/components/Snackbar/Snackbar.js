@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "neverToHide", "closeOnActionClick", "mode"];
+var _excluded = ["children", "layout", "action", "before", "after", "viewWidth", "duration", "onActionClick", "onClose", "closeOnActionClick", "mode"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Touch } from "../Touch/Touch";
@@ -27,16 +27,12 @@ var SnackbarComponent = function SnackbarComponent(_ref) {
     duration = _ref$duration === void 0 ? 4000 : _ref$duration,
     onActionClick = _ref.onActionClick,
     onClose = _ref.onClose,
-    neverToHide = _ref.neverToHide,
     _ref$closeOnActionCli = _ref.closeOnActionClick,
     closeOnActionClick = _ref$closeOnActionCli === void 0 ? true : _ref$closeOnActionCli,
     _ref$mode = _ref.mode,
     mode = _ref$mode === void 0 ? "default" : _ref$mode,
     restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
-  if (neverToHide) {
-    duration = Number.MAX_SAFE_INTEGER / 5;
-  }
   var _useWaitTransitionFin = useWaitTransitionFinish(),
     waitTransitionFinish = _useWaitTransitionFin.waitTransitionFinish;
   var _React$useState = React.useState(false),
