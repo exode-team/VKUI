@@ -46,6 +46,8 @@ export interface DateInputProps
       | "onPrevMonth"
       | "prevMonthIcon"
       | "nextMonthIcon"
+      | "alwaysShowTime"
+      | "defaultTime"
     >,
     HasRootRef<HTMLDivElement>,
     FormFieldProps {
@@ -135,6 +137,8 @@ export const DateInput = ({
   onPrevMonth,
   prevMonthIcon,
   nextMonthIcon,
+  alwaysShowTime,
+  defaultTime,
   disableCalendar = false,
   ...props
 }: DateInputProps) => {
@@ -333,6 +337,8 @@ export const DateInput = ({
             onPrevMonth={onPrevMonth}
             prevMonthIcon={prevMonthIcon}
             nextMonthIcon={nextMonthIcon}
+            alwaysShowTime={alwaysShowTime}
+            defaultTime={defaultTime}
           />
         </Popper>
       )}

@@ -51,7 +51,11 @@ export interface SnackbarProps
   /**
    * Время в миллисекундах, через которое плашка скроется
    */
-  duration?: number | null;
+  duration?: number;
+  /**
+   * Не убирать
+   */
+  neverToHide?: boolean;
   /**
    * Обработчик закрытия уведомления
    */
@@ -72,6 +76,7 @@ const SnackbarComponent = ({
   duration = 4000,
   onActionClick,
   onClose,
+  neverToHide,
   closeOnActionClick = true,
   mode = "default",
   ...restProps
@@ -116,7 +121,7 @@ const SnackbarComponent = ({
     }
   };
 
-  const closeTimeout = useTimeout(close, duration);
+  const closeTimeout = useTimeout(close, neverToHide ? null : duration);
 
   const setBodyTransform = (percent: number) => {
     if (animationFrameRef.current !== null) {
