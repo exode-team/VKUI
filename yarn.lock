@@ -3364,7 +3364,14 @@
   dependencies:
     "@types/react" "^17"
 
-"@types/react@>=16", "@types/react@^17", "@types/react@^17.0.0":
+"@types/react-test-renderer@^18.0.0":
+  version "18.0.7"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-18.0.7.tgz#2cfe657adb3688cdf543995eceb2e062b5a68728"
+  integrity sha512-1+ANPOWc6rB3IkSnElhjv6VLlKg2dSv/OWClUyZimbLsQyBn8Js9Vtdsi3UICJ2rIQ3k2la06dkB+C92QfhKmg==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@>=16", "@types/react@^17", "@types/react@^17.0.0":
   version "17.0.62"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.62.tgz#2efe8ddf8533500ec44b1334dd1a97caa2f860e3"
   integrity sha512-eANCyz9DG8p/Vdhr0ZKST8JV12PhH2ACCDYlFw6DIO+D+ca+uP4jtEDEpVqXZrh/uZdXQGwk7whJa3ah5DtyLw==
@@ -10784,12 +10791,13 @@ react-simple-code-editor@^0.13.1:
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.13.1.tgz#4514553fa132dcaffec33a6612c58f1613c52416"
   integrity sha512-XYeVwRZwgyKtjNIYcAEgg2FaQcCZwhbarnkJIV20U2wkCU9q/CPFBo8nRXrK4GXUz3AvbqZFsZRrpUTkqqEYyQ==
 
-react-styleguidist@13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-13.0.0.tgz#e5057a11cb06e907c22fe5db43af95bb8dd954fc"
-  integrity sha512-F8e9aeB9kx5nMRdjAGble8m6GkgO0GPLVKT+EzoedxnnQfenKZB07agnn5klW2Uo4uyu1Ezl1iZbKFISxSbH3g==
+react-styleguidist@13.1.2:
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-13.1.2.tgz#2c1eccba44e462b3a527616dfa37717315ab099f"
+  integrity sha512-5Tl2nqDUkbpwffF/3Gu/75ROOaUEtwiBGW5mWvBoHRTH9M0Q4JK7T384hjsoZFvA6Xw4tYylsdWJDMx2ngSabw==
   dependencies:
     "@tippyjs/react" "4.1.0"
+    "@types/react-test-renderer" "^18.0.0"
     "@vxna/mini-html-webpack-template" "^2.0.0"
     acorn "^6.4.1"
     acorn-jsx "^5.1.0"
@@ -10805,6 +10813,7 @@ react-styleguidist@13.0.0:
     doctrine "^3.0.0"
     es6-object-assign "~1.1.0"
     es6-promise "^4.2.8"
+    escape-string-regexp "^1.0.5"
     escodegen "^1.12.0"
     estree-walker "~0.9.0"
     fastest-levenshtein "^1.0.9"
@@ -10814,6 +10823,7 @@ react-styleguidist@13.0.0:
     glob "^7.1.5"
     glogg "^1.0.2"
     hash-sum "^2.0.0"
+    is-plain-obj "^1.1.0"
     javascript-stringify "^2.0.0"
     jss "^10.9.0"
     jss-plugin-camel-case "^10.9.0"
