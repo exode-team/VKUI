@@ -45,7 +45,7 @@ jobs:
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/merge
       - name: Find changes
-        uses: dorny/paths-filter@v2
+        uses: dorny/paths-filter@v3
         id: changes
         with:
           token: ${{ secrets.DEVTOOLS_GITHUB_TOKEN }}
