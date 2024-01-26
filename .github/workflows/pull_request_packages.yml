@@ -264,7 +264,7 @@ jobs:
     name: Docs comment
     steps:
       - name: Find storybook URL comment
-        uses: peter-evans/find-comment@v2
+        uses: peter-evans/find-comment@v3
         id: find_url_comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
