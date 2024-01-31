@@ -205,7 +205,7 @@ export const DateInput = ({
 
   const onCalendarChange = React.useCallback(
     (value?: Date | undefined) => {
-      onChange?.(value);
+      onChange?.(value, true);
       if (closeOnChange && !enableTime) {
         removeFocusFromField();
       }

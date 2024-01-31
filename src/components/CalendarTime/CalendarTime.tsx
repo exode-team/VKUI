@@ -12,6 +12,7 @@ export interface CalendarTimeProps {
   changeMinutesAriaLabel?: string;
   onChange?(value: Date): void;
   onClose?(): void;
+  buttonDisabled?: boolean;
 }
 
 const hours: Array<{
@@ -35,6 +36,7 @@ export const CalendarTime = ({
   doneButtonText = "Готово",
   onChange,
   onClose,
+  buttonDisabled,
   changeHoursAriaLabel = "Изменить час",
   changeMinutesAriaLabel = "Изменить минуту",
 }: CalendarTimeProps) => {
@@ -74,6 +76,7 @@ export const CalendarTime = ({
       </div>
       <div vkuiClass="CalendarTime__button">
         <Button
+          disabled={buttonDisabled}
           sizeY={SizeType.COMPACT}
           mode="secondary"
           onClick={onClose}

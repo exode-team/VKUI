@@ -49,7 +49,7 @@ export interface CalendarProps
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   showNeighboringMonth?: boolean;
   size?: "s" | "m";
-  onChange?(value?: Date): void;
+  onChange?(value?: Date, byCalendar?: boolean): void;
   shouldDisableDate?(value: Date): boolean;
   onClose?(): void;
   /**
@@ -220,6 +220,7 @@ export const Calendar = ({
           <CalendarTime
             onChange={onChange}
             onClose={onClose}
+            buttonDisabled={!value}
             doneButtonText={doneButtonText}
             value={value || defaultTime || new Date()}
             changeHoursAriaLabel={changeHoursAriaLabel}
