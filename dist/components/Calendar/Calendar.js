@@ -95,7 +95,7 @@ export var Calendar = function Calendar(_ref) {
     setFocusedDay(newFocusedDay);
   }, [focusedDay, setFocusedDay, setViewDate, value, viewDate]);
   var onDayChange = React.useCallback(function (date) {
-    onChange === null || onChange === void 0 ? void 0 : onChange(setTimeEqual(date, value));
+    onChange === null || onChange === void 0 ? void 0 : onChange(setTimeEqual(date, value), true);
   }, [value, onChange]);
   var isDayActive = React.useCallback(function (day) {
     return Boolean(value && isSameDay(day, value));
