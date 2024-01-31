@@ -17,7 +17,7 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
     weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
     showNeighboringMonth?: boolean;
     size?: "s" | "m";
-    onChange?(value?: Date): void;
+    onChange?(value?: Date, byCalendar?: boolean): void;
     shouldDisableDate?(value: Date): boolean;
     onClose?(): void;
     /**

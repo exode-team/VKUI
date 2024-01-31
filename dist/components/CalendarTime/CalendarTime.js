@@ -24,6 +24,7 @@ export var CalendarTime = function CalendarTime(_ref) {
     doneButtonText = _ref$doneButtonText === void 0 ? "Готово" : _ref$doneButtonText,
     onChange = _ref.onChange,
     onClose = _ref.onClose,
+    buttonDisabled = _ref.buttonDisabled,
     _ref$changeHoursAriaL = _ref.changeHoursAriaLabel,
     changeHoursAriaLabel = _ref$changeHoursAriaL === void 0 ? "Изменить час" : _ref$changeHoursAriaL,
     _ref$changeMinutesAri = _ref.changeMinutesAriaLabel,
@@ -59,6 +60,7 @@ export var CalendarTime = function CalendarTime(_ref) {
   })), createScopedElement("div", {
     vkuiClass: "CalendarTime__button"
   }, createScopedElement(Button, {
+    disabled: buttonDisabled,
     sizeY: SizeType.COMPACT,
     mode: "secondary",
     onClick: onClose,

@@ -31,6 +31,7 @@ var CalendarTime = function CalendarTime(_ref) {
     doneButtonText = _ref$doneButtonText === void 0 ? "Готово" : _ref$doneButtonText,
     onChange = _ref.onChange,
     onClose = _ref.onClose,
+    buttonDisabled = _ref.buttonDisabled,
     _ref$changeHoursAriaL = _ref.changeHoursAriaLabel,
     changeHoursAriaLabel = _ref$changeHoursAriaL === void 0 ? "Изменить час" : _ref$changeHoursAriaL,
     _ref$changeMinutesAri = _ref.changeMinutesAriaLabel,
@@ -66,6 +67,7 @@ var CalendarTime = function CalendarTime(_ref) {
   })), (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarTime__button"
   }, (0, _jsxRuntime.createScopedElement)(_Button.Button, {
+    disabled: buttonDisabled,
     sizeY: _withAdaptivity.SizeType.COMPACT,
     mode: "secondary",
     onClick: onClose,

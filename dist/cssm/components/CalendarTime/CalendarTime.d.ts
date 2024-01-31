@@ -7,5 +7,6 @@ export interface CalendarTimeProps {
     changeMinutesAriaLabel?: string;
     onChange?(value: Date): void;
     onClose?(): void;
+    buttonDisabled?: boolean;
 }
-export declare const CalendarTime: ({ value, doneButtonText, onChange, onClose, changeHoursAriaLabel, changeMinutesAriaLabel, }: CalendarTimeProps) => JSX.Element;
+export declare const CalendarTime: ({ value, doneButtonText, onChange, onClose, buttonDisabled, changeHoursAriaLabel, changeMinutesAriaLabel, }: CalendarTimeProps) => JSX.Element;

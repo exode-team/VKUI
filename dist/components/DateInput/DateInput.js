@@ -160,7 +160,7 @@ export var DateInput = function DateInput(_ref) {
   var _useAdaptivity = useAdaptivity(),
     sizeY = _useAdaptivity.sizeY;
   var onCalendarChange = React.useCallback(function (value) {
-    onChange === null || onChange === void 0 ? void 0 : onChange(value);
+    onChange === null || onChange === void 0 ? void 0 : onChange(value, true);
     if (closeOnChange && !enableTime) {
       removeFocusFromField();
     }

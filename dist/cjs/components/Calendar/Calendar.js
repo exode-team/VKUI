@@ -149,6 +149,7 @@ var Calendar = function Calendar(_ref) {
   }, (0, _jsxRuntime.createScopedElement)(_CalendarTime.CalendarTime, {
     onChange: onChange,
     onClose: onClose,
+    buttonDisabled: !value,
     doneButtonText: doneButtonText,
     value: value || defaultTime || new Date(),
     changeHoursAriaLabel: changeHoursAriaLabel,

@@ -142,6 +142,7 @@ export var Calendar = function Calendar(_ref) {
   }, createScopedElement(CalendarTime, {
     onChange: onChange,
     onClose: onClose,
+    buttonDisabled: !value,
     doneButtonText: doneButtonText,
     value: value || defaultTime || new Date(),
     changeHoursAriaLabel: changeHoursAriaLabel,
