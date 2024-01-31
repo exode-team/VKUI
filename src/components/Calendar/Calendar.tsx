@@ -164,7 +164,7 @@ export const Calendar = ({
 
   const onDayChange = React.useCallback(
     (date: Date) => {
-      onChange?.(setTimeEqual(date, value as Date | undefined | null));
+      onChange?.(setTimeEqual(date, value as Date | undefined | null), true);
     },
     [value, onChange]
   );
