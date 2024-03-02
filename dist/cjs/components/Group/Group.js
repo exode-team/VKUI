@@ -20,7 +20,7 @@ var _Caption = require("../Typography/Caption/Caption");
 var _warnOnce = require("../../lib/warnOnce");
 var _withAdaptivity = require("../../hoc/withAdaptivity");
 var _ModalRootContext = require("../ModalRoot/ModalRootContext");
-var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "padding", "sizeX", "tabIndex"];
+var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "padding", "sizeX", "innerClassName", "tabIndex"];
 var warn = (0, _warnOnce.warnOnce)("TabsItem");
 var GroupComponent = function GroupComponent(_ref) {
   var header = _ref.header,
@@ -33,6 +33,7 @@ var GroupComponent = function GroupComponent(_ref) {
     _ref$padding = _ref.padding,
     padding = _ref$padding === void 0 ? "m" : _ref$padding,
     sizeX = _ref.sizeX,
+    innerClassName = _ref.innerClassName,
     tabIndexProp = _ref.tabIndex,
     restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var _React$useContext = React.useContext(_ModalRootContext.ModalRootContext),
@@ -63,7 +64,7 @@ var GroupComponent = function GroupComponent(_ref) {
     vkuiClass: (0, _classNames.classNames)("Group", platform === _platform.IOS && "Group--ios", // TODO v5.0.0 Новая адаптивность
     "Group--sizeX-".concat(sizeX), "Group--".concat(computedMode), "Group--padding-".concat(padding))
   }), (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "Group__inner"
+    vkuiClass: ['Group__inner', innerClassName].join(' ')
   }, header, children, (0, _utils.hasReactNode)(description) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "Group__description"
   }, description)), separatorElement);

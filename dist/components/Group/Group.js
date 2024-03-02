@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "padding", "sizeX", "tabIndex"];
+var _excluded = ["header", "description", "children", "separator", "getRootRef", "mode", "padding", "sizeX", "innerClassName", "tabIndex"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { IOS } from "../../lib/platform";
@@ -25,6 +25,7 @@ var GroupComponent = function GroupComponent(_ref) {
     _ref$padding = _ref.padding,
     padding = _ref$padding === void 0 ? "m" : _ref$padding,
     sizeX = _ref.sizeX,
+    innerClassName = _ref.innerClassName,
     tabIndexProp = _ref.tabIndex,
     restProps = _objectWithoutProperties(_ref, _excluded);
   var _React$useContext = React.useContext(ModalRootContext),
@@ -55,7 +56,7 @@ var GroupComponent = function GroupComponent(_ref) {
     vkuiClass: classNames("Group", platform === IOS && "Group--ios", // TODO v5.0.0 Новая адаптивность
     "Group--sizeX-".concat(sizeX), "Group--".concat(computedMode), "Group--padding-".concat(padding))
   }), createScopedElement("div", {
-    vkuiClass: "Group__inner"
+    vkuiClass: ['Group__inner', innerClassName].join(' ')
   }, header, children, hasReactNode(description) && createScopedElement(Caption, {
     vkuiClass: "Group__description"
   }, description)), separatorElement);
