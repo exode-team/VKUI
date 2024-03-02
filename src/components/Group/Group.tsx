@@ -40,6 +40,7 @@ export interface GroupProps
    */
   padding?: "s" | "m";
   children?: React.ReactNode;
+  innerClassName?: string;
 }
 
 const warn = warnOnce("TabsItem");
@@ -53,6 +54,7 @@ const GroupComponent = ({
   mode,
   padding = "m",
   sizeX,
+  innerClassName,
   tabIndex: tabIndexProp,
   ...restProps
 }: GroupProps) => {
@@ -109,7 +111,7 @@ const GroupComponent = ({
         `Group--padding-${padding}`
       )}
     >
-      <div vkuiClass="Group__inner">
+      <div vkuiClass={[ 'Group__inner', innerClassName ].join(' ')}>
         {header}
         {children}
         {hasReactNode(description) && (
