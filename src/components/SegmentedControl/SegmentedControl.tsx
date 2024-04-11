@@ -25,6 +25,7 @@ export interface SegmentedControlProps
   onChange?: (value: SegmentedControlValue) => void;
   value?: SegmentedControlValue;
   defaultValue?: SegmentedControlValue;
+  dataTest?: string;
 }
 
 const warn = warnOnce("SegmentedControl");
@@ -41,6 +42,7 @@ export const SegmentedControl = ({
   value: valueProp,
   defaultValue,
   children,
+  dataTest,
   ...restProps
 }: SegmentedControlProps) => {
   const { sizeY } = useAdaptivity();
@@ -95,6 +97,8 @@ export const SegmentedControl = ({
         `SegmentedControl--${size}`
       )}
       ref={getRootRef}
+      data-test={dataTest}
+      data-value={value}
     >
       <div role="radiogroup" vkuiClass="SegmentedControl__in">
         {activeOptionIdx > -1 && (
@@ -112,6 +116,8 @@ export const SegmentedControl = ({
           <SegmentedControlOption
             key={`${optionProps.value}`}
             {...optionProps}
+            data-test="segmented-option"
+            data-value={optionProps.value}
             vkuiClass="SegmentedControl__option"
             name={nameRef.current}
             checked={value === optionProps.value}
