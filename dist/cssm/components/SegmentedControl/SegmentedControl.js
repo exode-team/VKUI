@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["size", "name", "options", "getRootRef", "onChange", "value", "defaultValue", "children"],
+var _excluded = ["size", "name", "options", "getRootRef", "onChange", "value", "defaultValue", "children", "dataTest"],
   _excluded2 = ["label"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
@@ -29,6 +29,7 @@ export var SegmentedControl = function SegmentedControl(_ref) {
     valueProp = _ref.value,
     defaultValue = _ref.defaultValue,
     children = _ref.children,
+    dataTest = _ref.dataTest,
     restProps = _objectWithoutProperties(_ref, _excluded);
   var _useAdaptivity = useAdaptivity(),
     sizeY = _useAdaptivity.sizeY;
@@ -67,7 +68,9 @@ export var SegmentedControl = function SegmentedControl(_ref) {
   return createScopedElement("div", _extends({}, restProps, {
     vkuiClass: classNames("SegmentedControl", // TODO v5.0.0 поправить под новую адаптивность
     "SegmentedControl--sizeY-".concat(sizeY), "SegmentedControl--".concat(size)),
-    ref: getRootRef
+    ref: getRootRef,
+    "data-test": dataTest,
+    "data-value": value
   }), createScopedElement("div", {
     role: "radiogroup",
     vkuiClass: "SegmentedControl__in"
@@ -85,6 +88,8 @@ export var SegmentedControl = function SegmentedControl(_ref) {
     return createScopedElement(SegmentedControlOption, _extends({
       key: "".concat(optionProps.value)
     }, optionProps, {
+      "data-test": "segmented-option",
+      "data-value": optionProps.value,
       vkuiClass: "SegmentedControl__option",
       name: nameRef.current,
       checked: value === optionProps.value,

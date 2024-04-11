@@ -17,7 +17,7 @@ var _utils = require("../../lib/utils");
 var _warnOnce = require("../../lib/warnOnce");
 var _SegmentedControlOption = require("./SegmentedControlOption/SegmentedControlOption");
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
-var _excluded = ["size", "name", "options", "getRootRef", "onChange", "value", "defaultValue", "children"],
+var _excluded = ["size", "name", "options", "getRootRef", "onChange", "value", "defaultValue", "children", "dataTest"],
   _excluded2 = ["label"];
 var warn = (0, _warnOnce.warnOnce)("SegmentedControl");
 
@@ -36,6 +36,7 @@ var SegmentedControl = function SegmentedControl(_ref) {
     valueProp = _ref.value,
     defaultValue = _ref.defaultValue,
     children = _ref.children,
+    dataTest = _ref.dataTest,
     restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var _useAdaptivity = (0, _useAdaptivity2.useAdaptivity)(),
     sizeY = _useAdaptivity.sizeY;
@@ -74,7 +75,9 @@ var SegmentedControl = function SegmentedControl(_ref) {
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, {
     vkuiClass: (0, _classNames.classNames)("SegmentedControl", // TODO v5.0.0 поправить под новую адаптивность
     "SegmentedControl--sizeY-".concat(sizeY), "SegmentedControl--".concat(size)),
-    ref: getRootRef
+    ref: getRootRef,
+    "data-test": dataTest,
+    "data-value": value
   }), (0, _jsxRuntime.createScopedElement)("div", {
     role: "radiogroup",
     vkuiClass: "SegmentedControl__in"
@@ -92,6 +95,8 @@ var SegmentedControl = function SegmentedControl(_ref) {
     return (0, _jsxRuntime.createScopedElement)(_SegmentedControlOption.SegmentedControlOption, (0, _extends2.default)({
       key: "".concat(optionProps.value)
     }, optionProps, {
+      "data-test": "segmented-option",
+      "data-value": optionProps.value,
       vkuiClass: "SegmentedControl__option",
       name: nameRef.current,
       checked: value === optionProps.value,
