@@ -3364,7 +3364,14 @@
   dependencies:
     "@types/react" "^17"
 
-"@types/react@>=16", "@types/react@^17", "@types/react@^17.0.0":
+"@types/react-test-renderer@^18.0.0":
+  version "18.3.0"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-18.3.0.tgz#839502eae70058a4ae161f63385a8e7929cef4c0"
+  integrity sha512-HW4MuEYxfDbOHQsVlY/XtOvNHftCVEPhJF2pQXXwcUiUF+Oyb0usgp48HSgpK5rt8m9KZb22yqOeZm+rrVG8gw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@>=16", "@types/react@^17", "@types/react@^17.0.0":
   version "17.0.62"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.62.tgz#2efe8ddf8533500ec44b1334dd1a97caa2f860e3"
   integrity sha512-eANCyz9DG8p/Vdhr0ZKST8JV12PhH2ACCDYlFw6DIO+D+ca+uP4jtEDEpVqXZrh/uZdXQGwk7whJa3ah5DtyLw==
@@ -10784,12 +10791,13 @@ react-simple-code-editor@^0.13.1:
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.13.1.tgz#4514553fa132dcaffec33a6612c58f1613c52416"
   integrity sha512-XYeVwRZwgyKtjNIYcAEgg2FaQcCZwhbarnkJIV20U2wkCU9q/CPFBo8nRXrK4GXUz3AvbqZFsZRrpUTkqqEYyQ==
 
-react-styleguidist@13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-13.0.0.tgz#e5057a11cb06e907c22fe5db43af95bb8dd954fc"
-  integrity sha512-F8e9aeB9kx5nMRdjAGble8m6GkgO0GPLVKT+EzoedxnnQfenKZB07agnn5klW2Uo4uyu1Ezl1iZbKFISxSbH3g==
+react-styleguidist@13.1.3:
+  version "13.1.3"
+  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-13.1.3.tgz#6d095f9776743155f64905bf785b09cbe0fb2860"
+  integrity sha512-3H5AAlzDW7QXuL1k1SzzlSbmEhk+r18t+m5VdUtaI0x1btpl+lDYPtfB+//zlU8ucnis0q2cdxqABsHx20UmaQ==
   dependencies:
     "@tippyjs/react" "4.1.0"
+    "@types/react-test-renderer" "^18.0.0"
     "@vxna/mini-html-webpack-template" "^2.0.0"
     acorn "^6.4.1"
     acorn-jsx "^5.1.0"
@@ -10805,6 +10813,7 @@ react-styleguidist@13.0.0:
     doctrine "^3.0.0"
     es6-object-assign "~1.1.0"
     es6-promise "^4.2.8"
+    escape-string-regexp "^1.0.5"
     escodegen "^1.12.0"
     estree-walker "~0.9.0"
     fastest-levenshtein "^1.0.9"
@@ -10814,6 +10823,7 @@ react-styleguidist@13.0.0:
     glob "^7.1.5"
     glogg "^1.0.2"
     hash-sum "^2.0.0"
+    is-plain-obj "^1.1.0"
     javascript-stringify "^2.0.0"
     jss "^10.9.0"
     jss-plugin-camel-case "^10.9.0"
@@ -10848,7 +10858,7 @@ react-styleguidist@13.0.0:
     to-ast "^1.0.0"
     type-detect "^4.0.8"
     unist-util-visit "^2.0.0"
-    webpack-dev-server "^4.9.2"
+    webpack-dev-server "^4.15.0"
     webpack-merge "^4.2.2"
 
 react@^17.0.0:
@@ -11870,7 +11880,16 @@ string-length@^4.0.1:
     char-regex "^1.0.2"
     strip-ansi "^6.0.0"
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -11952,7 +11971,14 @@ stringify-object@^3.2.0:
     is-obj "^1.0.1"
     is-regexp "^1.0.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -12972,10 +12998,10 @@ webpack-cli@^5.1.4:
     rechoir "^0.8.0"
     webpack-merge "^5.7.3"
 
-webpack-dev-middleware@^5.3.1:
-  version "5.3.3"
-  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-5.3.3.tgz#efae67c2793908e7311f1d9b06f2a08dcc97e51f"
-  integrity sha512-hj5CYrY0bZLB+eTO+x/j67Pkrquiy7kWepMHmUMoPsmcUaeEnQJqFzHJOyxgWlq746/wUuA64p9ta34Kyb01pA==
+webpack-dev-middleware@^5.3.4:
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-5.3.4.tgz#eb7b39281cbce10e104eb2b8bf2b63fce49a3517"
+  integrity sha512-BVdTqhhs+0IfoeAf7EoH5WE+exCmqGerHfDM0IL096Px60Tq2Mn9MAbnaGUe6HiMa41KMCYF19gyzZmBcq/o4Q==
   dependencies:
     colorette "^2.0.10"
     memfs "^3.4.3"
@@ -12994,10 +13020,10 @@ webpack-dev-middleware@^6.1.1:
     range-parser "^1.2.1"
     schema-utils "^4.0.0"
 
-webpack-dev-server@^4.9.2:
-  version "4.15.1"
-  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.15.1.tgz#8944b29c12760b3a45bdaa70799b17cb91b03df7"
-  integrity sha512-5hbAst3h3C3L8w6W4P96L5vaV0PxSmJhxZvWKYIdgxOQm8pNZ5dEOmmSLBVpP85ReeyRt6AS1QJNyo/oFFPeVA==
+webpack-dev-server@^4.15.0:
+  version "4.15.2"
+  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.15.2.tgz#9e0c70a42a012560860adb186986da1248333173"
+  integrity sha512-0XavAZbNJ5sDrCbkpWL8mia0o5WPOd2YGtxrEiZkBK9FjLppIUK2TgxK6qGD2P3hUXTJNNPVibrerKcx5WkR1g==
   dependencies:
     "@types/bonjour" "^3.5.9"
     "@types/connect-history-api-fallback" "^1.3.5"
@@ -13027,7 +13053,7 @@ webpack-dev-server@^4.9.2:
     serve-index "^1.9.1"
     sockjs "^0.3.24"
     spdy "^4.0.2"
-    webpack-dev-middleware "^5.3.1"
+    webpack-dev-middleware "^5.3.4"
     ws "^8.13.0"
 
 webpack-hot-middleware@^2.25.1:
@@ -13206,7 +13232,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -13219,6 +13245,15 @@ wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
