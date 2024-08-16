@@ -58,7 +58,7 @@
   color: var(--text_primary, var(--vkui--color_text_primary));
 }
 
-.Radio__content_wrapper {
+.Radio__wrapper {
   flex-grow: 1;
   max-width: 100%;
 }

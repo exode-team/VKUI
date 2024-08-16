@@ -86,7 +86,7 @@ const RadioComponent = ({
       />
       <div vkuiClass={[ 'Radio__container', reversed ? 'Radio--reversed' : ''].join(' ')}>
         <RadioIcon vkuiClass="Radio__icon" />
-        <div className="Radio__content_wrapper">
+        <div vkuiClass="Radio__wrapper">
           <RadioTypography vkuiClass="Radio__content" Component="div">
             <div vkuiClass="Radio__children">{children}</div>
             {hasReactNode(description) && (

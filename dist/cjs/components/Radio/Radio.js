@@ -67,7 +67,7 @@ var RadioComponent = function RadioComponent(_ref) {
   }, (0, _jsxRuntime.createScopedElement)(RadioIcon, {
     vkuiClass: "Radio__icon"
   }), (0, _jsxRuntime.createScopedElement)("div", {
-    className: "Radio__content_wrapper"
+    vkuiClass: "Radio__wrapper"
   }, (0, _jsxRuntime.createScopedElement)(RadioTypography, {
     vkuiClass: "Radio__content",
     Component: "div"

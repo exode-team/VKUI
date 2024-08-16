@@ -60,7 +60,7 @@ var RadioComponent = function RadioComponent(_ref) {
   }, createScopedElement(RadioIcon, {
     vkuiClass: "Radio__icon"
   }), createScopedElement("div", {
-    className: "Radio__content_wrapper"
+    vkuiClass: "Radio__wrapper"
   }, createScopedElement(RadioTypography, {
     vkuiClass: "Radio__content",
     Component: "div"
