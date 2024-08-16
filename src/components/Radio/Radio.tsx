@@ -49,6 +49,8 @@ export interface RadioProps
     HasRootRef<HTMLLabelElement>,
     AdaptivityProps {
   description?: React.ReactNode;
+  after?: React.ReactNode;
+  reversed?: boolean;
 }
 
 const RadioComponent = ({
@@ -58,6 +60,8 @@ const RadioComponent = ({
   className,
   getRootRef,
   sizeY,
+  reversed,
+  after,
   ...restProps
 }: RadioProps) => {
   const platform = usePlatform();
@@ -80,14 +84,17 @@ const RadioComponent = ({
         vkuiClass="Radio__input"
         type="radio"
       />
-      <div vkuiClass="Radio__container">
+      <div vkuiClass={[ 'Radio__container', reversed ? 'Radio--reversed' : ''].join(' ')}>
         <RadioIcon vkuiClass="Radio__icon" />
-        <RadioTypography vkuiClass="Radio__content" Component="div">
-          <div vkuiClass="Radio__children">{children}</div>
-          {hasReactNode(description) && (
-            <Caption vkuiClass="Radio__description">{description}</Caption>
-          )}
-        </RadioTypography>
+        <div className="Radio__content_wrapper">
+          <RadioTypography vkuiClass="Radio__content" Component="div">
+            <div vkuiClass="Radio__children">{children}</div>
+            {hasReactNode(description) && (
+                <Caption vkuiClass="Radio__description">{description}</Caption>
+            )}
+          </RadioTypography>
+        </div>
+        {after}
       </div>
     </Tappable>
   );

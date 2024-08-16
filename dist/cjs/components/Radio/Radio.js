@@ -18,7 +18,7 @@ var _VisuallyHiddenInput = require("../VisuallyHiddenInput/VisuallyHiddenInput")
 var _Caption = require("../Typography/Caption/Caption");
 var _Headline = require("../Typography/Headline/Headline");
 var _Text = require("../Typography/Text/Text");
-var _excluded = ["children", "description", "style", "className", "getRootRef", "sizeY"];
+var _excluded = ["children", "description", "style", "className", "getRootRef", "sizeY", "reversed", "after"];
 var RadioIcon = function RadioIcon(props) {
   return (0, _jsxRuntime.createScopedElement)("svg", (0, _extends2.default)({
     xmlns: "http://www.w3.org/2000/svg",
@@ -46,6 +46,8 @@ var RadioComponent = function RadioComponent(_ref) {
     className = _ref.className,
     getRootRef = _ref.getRootRef,
     sizeY = _ref.sizeY,
+    reversed = _ref.reversed,
+    after = _ref.after,
     restProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   var platform = (0, _usePlatform.usePlatform)();
   var RadioTypography = platform === _platform.VKCOM || sizeY === _withAdaptivity.SizeType.COMPACT ? _Text.Text : _Headline.Headline;
@@ -61,17 +63,19 @@ var RadioComponent = function RadioComponent(_ref) {
     vkuiClass: "Radio__input",
     type: "radio"
   })), (0, _jsxRuntime.createScopedElement)("div", {
-    vkuiClass: "Radio__container"
+    vkuiClass: ['Radio__container', reversed ? 'Radio--reversed' : ''].join(' ')
   }, (0, _jsxRuntime.createScopedElement)(RadioIcon, {
     vkuiClass: "Radio__icon"
-  }), (0, _jsxRuntime.createScopedElement)(RadioTypography, {
+  }), (0, _jsxRuntime.createScopedElement)("div", {
+    className: "Radio__content_wrapper"
+  }, (0, _jsxRuntime.createScopedElement)(RadioTypography, {
     vkuiClass: "Radio__content",
     Component: "div"
   }, (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "Radio__children"
   }, children), (0, _utils.hasReactNode)(description) && (0, _jsxRuntime.createScopedElement)(_Caption.Caption, {
     vkuiClass: "Radio__description"
-  }, description))));
+  }, description))), after));
 };
 
 /**

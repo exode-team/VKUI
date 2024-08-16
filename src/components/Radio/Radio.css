@@ -15,6 +15,10 @@
   justify-content: flex-start;
 }
 
+.Radio__container.Radio--reversed {
+  flex-direction: row-reverse;
+}
+
 .Radio__input:disabled ~ .Radio__container {
   opacity: var(--vkui--opacity_disable_accessibility);
 }
@@ -26,6 +30,11 @@
   margin-right: 14px;
   color: var(--icon_tertiary, var(--vkui--color_icon_tertiary));
   transition: color 0.15s var(--ios-easing);
+}
+
+.Radio--reversed .Radio__icon {
+  margin-right: 0;
+  margin-left: 14px;
 }
 
 .Radio__input:checked ~ .Radio__container .Radio__icon {
@@ -47,6 +56,11 @@
   flex-grow: 1;
   max-width: 100%;
   color: var(--text_primary, var(--vkui--color_text_primary));
+}
+
+.Radio__content_wrapper {
+  flex-grow: 1;
+  max-width: 100%;
 }
 
 .Radio__description {

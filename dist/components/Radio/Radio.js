@@ -1,6 +1,6 @@
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _extends from "@babel/runtime/helpers/extends";
-var _excluded = ["children", "description", "style", "className", "getRootRef", "sizeY"];
+var _excluded = ["children", "description", "style", "className", "getRootRef", "sizeY", "reversed", "after"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import { ACTIVE_EFFECT_DELAY, Tappable } from "../Tappable/Tappable";
 import { classNames } from "../../lib/classNames";
@@ -39,6 +39,8 @@ var RadioComponent = function RadioComponent(_ref) {
     className = _ref.className,
     getRootRef = _ref.getRootRef,
     sizeY = _ref.sizeY,
+    reversed = _ref.reversed,
+    after = _ref.after,
     restProps = _objectWithoutProperties(_ref, _excluded);
   var platform = usePlatform();
   var RadioTypography = platform === VKCOM || sizeY === SizeType.COMPACT ? Text : Headline;
@@ -54,17 +56,19 @@ var RadioComponent = function RadioComponent(_ref) {
     vkuiClass: "Radio__input",
     type: "radio"
   })), createScopedElement("div", {
-    vkuiClass: "Radio__container"
+    vkuiClass: ['Radio__container', reversed ? 'Radio--reversed' : ''].join(' ')
   }, createScopedElement(RadioIcon, {
     vkuiClass: "Radio__icon"
-  }), createScopedElement(RadioTypography, {
+  }), createScopedElement("div", {
+    className: "Radio__content_wrapper"
+  }, createScopedElement(RadioTypography, {
     vkuiClass: "Radio__content",
     Component: "div"
   }, createScopedElement("div", {
     vkuiClass: "Radio__children"
   }, children), hasReactNode(description) && createScopedElement(Caption, {
     vkuiClass: "Radio__description"
-  }, description))));
+  }, description))), after));
 };
 
 /**
