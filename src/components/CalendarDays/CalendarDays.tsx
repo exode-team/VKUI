@@ -106,6 +106,8 @@ export const CalendarDays = ({
             const sameMonth = isSameMonth(day, viewDate);
             return (
               <CalendarDay
+                data-test={i}
+                data-value={day.getDate()}
                 key={day.toISOString()}
                 day={day}
                 today={isSameDay(day, now)}

@@ -178,6 +178,7 @@ export const Calendar = ({
     <div
       {...props}
       ref={getRootRef}
+      data-test={`calendar${props.id}`}
       vkuiClass={classNames("Calendar", `Calendar--size-${size}`)}
     >
       <CalendarHeader
