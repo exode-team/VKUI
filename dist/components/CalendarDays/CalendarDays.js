@@ -65,6 +65,8 @@ export var CalendarDays = function CalendarDays(_ref) {
     }, week.map(function (day, i) {
       var sameMonth = isSameMonth(day, viewDate);
       return createScopedElement(CalendarDay, _extends({
+        "data-test": i,
+        "data-value": day.getDate(),
         key: day.toISOString(),
         day: day,
         today: isSameDay(day, now),

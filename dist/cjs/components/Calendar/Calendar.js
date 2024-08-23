@@ -110,6 +110,7 @@ var Calendar = function Calendar(_ref) {
   }, [value]);
   return (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, props, {
     ref: getRootRef,
+    "data-test": "calendar".concat(props.id),
     vkuiClass: (0, _classNames.classNames)("Calendar", "Calendar--size-".concat(size))
   }), (0, _jsxRuntime.createScopedElement)(_CalendarHeader.CalendarHeader, {
     viewDate: externalViewDate || viewDate,

@@ -102,6 +102,7 @@ export var Calendar = function Calendar(_ref) {
   }, [value]);
   return createScopedElement("div", _extends({}, props, {
     ref: getRootRef,
+    "data-test": "calendar".concat(props.id),
     vkuiClass: classNames("Calendar", "Calendar--size-".concat(size))
   }), createScopedElement(CalendarHeader, {
     viewDate: externalViewDate || viewDate,

@@ -73,6 +73,8 @@ var CalendarDays = function CalendarDays(_ref) {
     }, week.map(function (day, i) {
       var sameMonth = (0, _date.isSameMonth)(day, viewDate);
       return (0, _jsxRuntime.createScopedElement)(_CalendarDay.CalendarDay, (0, _extends2.default)({
+        "data-test": i,
+        "data-value": day.getDate(),
         key: day.toISOString(),
         day: day,
         today: (0, _date.isSameDay)(day, now),
