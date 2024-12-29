@@ -223,6 +223,8 @@ export const Popper = ({
     }
   }, [onPlacementChange, resolvedPlacement]);
 
+  const width = styles.popper?.width || compStyles?.width;
+
   const dropdown = (
     <div
       {...restProps}
@@ -232,6 +234,7 @@ export const Popper = ({
       style={{
         ...compStyles,
         ...styles.popper,
+        width: typeof width === 'number' ? Math.round(width) : width,
         minWidth: sameWidth ? targetRef.current?.scrollWidth && Math.round(targetRef.current?.scrollWidth) : undefined,
       }}
     >
