@@ -232,7 +232,7 @@ export const Popper = ({
       style={{
         ...compStyles,
         ...styles.popper,
-        minWidth: sameWidth ? targetRef.current?.scrollWidth : undefined,
+        minWidth: sameWidth ? targetRef.current?.scrollWidth && Math.round(targetRef.current?.scrollWidth) : undefined,
       }}
     >
       {arrow && (
