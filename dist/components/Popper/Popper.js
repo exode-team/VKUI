@@ -135,7 +135,7 @@ export var Popper = function Popper(_ref3) {
     vkuiClass: getClassName("Popper", platform),
     ref: setExternalRef,
     style: _objectSpread(_objectSpread(_objectSpread({}, compStyles), styles.popper), {}, {
-      width: typeof width === 'number' ? Math.round(width) : width,
+      width: typeof width === 'number' ? Math.round(width) : width !== null && width !== void 0 && width.includes('px') ? "".concat(Math.round(+(width === null || width === void 0 ? void 0 : width.replace('px', ''))), "px") : width,
       minWidth: sameWidth ? ((_targetRef$current3 = targetRef.current) === null || _targetRef$current3 === void 0 ? void 0 : _targetRef$current3.scrollWidth) && Math.round((_targetRef$current4 = targetRef.current) === null || _targetRef$current4 === void 0 ? void 0 : _targetRef$current4.scrollWidth) : undefined
     })
   }), arrow && createScopedElement(PopperArrow, {
