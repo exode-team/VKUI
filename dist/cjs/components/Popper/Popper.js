@@ -58,7 +58,7 @@ var sameWidthModifier = {
  * @see https://vkcom.github.io/VKUI/#/Popper
  */
 var Popper = function Popper(_ref3) {
-  var _targetRef$current3;
+  var _targetRef$current3, _targetRef$current4;
   var targetRef = _ref3.targetRef,
     children = _ref3.children,
     getRef = _ref3.getRef,
@@ -142,7 +142,7 @@ var Popper = function Popper(_ref3) {
     vkuiClass: (0, _getClassName.getClassName)("Popper", platform),
     ref: setExternalRef,
     style: (0, _objectSpread2.default)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, compStyles), styles.popper), {}, {
-      minWidth: sameWidth ? (_targetRef$current3 = targetRef.current) === null || _targetRef$current3 === void 0 ? void 0 : _targetRef$current3.scrollWidth : undefined
+      minWidth: sameWidth ? ((_targetRef$current3 = targetRef.current) === null || _targetRef$current3 === void 0 ? void 0 : _targetRef$current3.scrollWidth) && Math.round((_targetRef$current4 = targetRef.current) === null || _targetRef$current4 === void 0 ? void 0 : _targetRef$current4.scrollWidth) : undefined
     })
   }), arrow && (0, _jsxRuntime.createScopedElement)(_PopperArrow.PopperArrow, {
     attributes: attributes.arrow,

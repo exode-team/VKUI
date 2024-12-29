@@ -16,7 +16,7 @@ var _excluded = ["mode", "header", "children", "dangerouslySetInnerHTML"];
 /* TODO: v5.0.0 удалить */
 
 /**
- * @deprecated Этот компонент устарел и будет удален в v5.0.0. Используйте [`Banner`](#/Banner).
+ * @not-deprecated Этот компонент устарел и будет удален в v5.0.0. Используйте [`Banner`](#/Banner).
  * @see https://vkcom.github.io/VKUI/#/FormStatus
  */
 var FormStatus = function FormStatus(_ref) {
