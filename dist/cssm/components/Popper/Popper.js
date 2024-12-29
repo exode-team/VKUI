@@ -51,7 +51,7 @@ var sameWidthModifier = {
  * @see https://vkcom.github.io/VKUI/#/Popper
  */
 export var Popper = function Popper(_ref3) {
-  var _targetRef$current3, _targetRef$current4;
+  var _styles$popper, _targetRef$current3, _targetRef$current4;
   var targetRef = _ref3.targetRef,
     children = _ref3.children,
     getRef = _ref3.getRef,
@@ -131,10 +131,12 @@ export var Popper = function Popper(_ref3) {
       });
     }
   }, [onPlacementChange, resolvedPlacement]);
+  var width = ((_styles$popper = styles.popper) === null || _styles$popper === void 0 ? void 0 : _styles$popper.width) || (compStyles === null || compStyles === void 0 ? void 0 : compStyles.width);
   var dropdown = createScopedElement("div", _extends({}, restProps, attributes.popper, {
     vkuiClass: getClassName("Popper", platform),
     ref: setExternalRef,
     style: _objectSpread(_objectSpread(_objectSpread({}, compStyles), styles.popper), {}, {
+      width: typeof width === 'number' ? Math.round(width) : width,
       minWidth: sameWidth ? ((_targetRef$current3 = targetRef.current) === null || _targetRef$current3 === void 0 ? void 0 : _targetRef$current3.scrollWidth) && Math.round((_targetRef$current4 = targetRef.current) === null || _targetRef$current4 === void 0 ? void 0 : _targetRef$current4.scrollWidth) : undefined
     })
   }), arrow && createScopedElement(PopperArrow, {
