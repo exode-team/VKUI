@@ -234,7 +234,12 @@ export const Popper = ({
       style={{
         ...compStyles,
         ...styles.popper,
-        width: typeof width === 'number' ? Math.round(width) : width,
+        width: typeof width === 'number'
+            ? Math.round(width)
+            : (width?.includes('px')
+                ? `${Math.round(+width?.replace('px', ''))}px`
+                : width
+            ),
         minWidth: sameWidth ? targetRef.current?.scrollWidth && Math.round(targetRef.current?.scrollWidth) : undefined,
       }}
     >

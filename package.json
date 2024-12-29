@@ -1,6 +1,6 @@
 {
   "name": "@vkontakte/vkui",
-  "version": "4.39.48",
+  "version": "4.39.49",
   "vkuiUpstreamVersion": "4.39.1",
   "main": "dist/cjs/index.js",
   "module": "dist/index.js",
