@@ -261,11 +261,15 @@ export const useScrollLockEffect = (
   }, [isScrollLock]);
 };
 
-export const useScrollLock = (enabled = true) => {
+export const useScrollLock = (
+    enabled = true,
+    withDesktopLock = false,
+) => {
   const { enableScrollLock, disableScrollLock } = useScroll();
   const isDesktop = useAdaptivityIsDesktop();
 
-  enabled = !isDesktop ? enabled : false;
+  /** По умолчанию используется только для mobile */
+  enabled = (withDesktopLock || !isDesktop) ? enabled : false;
 
   useIsomorphicLayoutEffect(() => {
     if (enabled) {

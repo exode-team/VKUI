@@ -13,6 +13,11 @@ export interface ModalRootProps extends AdaptivityProps {
   activeModal?: string | null;
 
   /**
+   * Добавление блокировки на desktop
+   */
+  withDesktopLock?: boolean;
+
+  /**
    * Будет вызвано при начале открытия активной модалки с её id
    */
   onOpen?(modalId: string): void;
@@ -39,7 +44,7 @@ const ModalRootComponent = (
 ) => {
   const isDesktop = useAdaptivityIsDesktop();
 
-  useScrollLock(!!props.activeModal);
+  useScrollLock(!!props.activeModal, props.withDesktopLock);
 
   const RootComponent = isDesktop ? ModalRootDesktop : ModalRootTouch;
 
