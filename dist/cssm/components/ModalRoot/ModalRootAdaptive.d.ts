@@ -3,6 +3,10 @@ import { AdaptivityContextInterface, AdaptivityProps } from "../AdaptivityProvid
 export interface ModalRootProps extends AdaptivityProps {
     activeModal?: string | null;
     /**
+     * Добавление блокировки на desktop
+     */
+    withDesktopLock?: boolean;
+    /**
      * Будет вызвано при начале открытия активной модалки с её id
      */
     onOpen?(modalId: string): void;
@@ -23,4 +27,4 @@ export interface ModalRootProps extends AdaptivityProps {
 /**
  * @see https://vkcom.github.io/VKUI/#/ModalRoot
  */
-export declare const ModalRoot: React.FC<Pick<ModalRootProps & AdaptivityContextInterface, "children" | "onOpen" | "onOpened" | "onClose" | "onClosed" | "activeModal"> & import("../AdaptivityProvider/AdaptivityContext").SizeProps>;
+export declare const ModalRoot: React.FC<Pick<ModalRootProps & AdaptivityContextInterface, "children" | "onOpen" | "onOpened" | "onClose" | "onClosed" | "activeModal" | "withDesktopLock"> & import("../AdaptivityProvider/AdaptivityContext").SizeProps>;

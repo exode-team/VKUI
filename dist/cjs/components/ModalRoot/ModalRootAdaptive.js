@@ -12,7 +12,7 @@ var _ScrollContext = require("../AppRoot/ScrollContext");
 var _useAdaptivity = require("../../hooks/useAdaptivity");
 var ModalRootComponent = function ModalRootComponent(props) {
   var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
-  (0, _ScrollContext.useScrollLock)(!!props.activeModal);
+  (0, _ScrollContext.useScrollLock)(!!props.activeModal, props.withDesktopLock);
   var RootComponent = isDesktop ? _ModalRootDesktop.ModalRootDesktop : _ModalRoot.ModalRootTouch;
   return (0, _jsxRuntime.createScopedElement)(RootComponent, props);
 };

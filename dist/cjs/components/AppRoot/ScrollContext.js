@@ -221,11 +221,14 @@ var useScrollLockEffect = function useScrollLockEffect(effect, deps) {
 exports.useScrollLockEffect = useScrollLockEffect;
 var useScrollLock = function useScrollLock() {
   var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  var withDesktopLock = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   var _useScroll2 = useScroll(),
     enableScrollLock = _useScroll2.enableScrollLock,
     disableScrollLock = _useScroll2.disableScrollLock;
   var isDesktop = (0, _useAdaptivity.useAdaptivityIsDesktop)();
-  enabled = !isDesktop ? enabled : false;
+
+  /** По умолчанию используется только для mobile */
+  enabled = withDesktopLock || !isDesktop ? enabled : false;
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (enabled) {
       enableScrollLock();

@@ -6,7 +6,7 @@ import { useScrollLock } from "../AppRoot/ScrollContext";
 import { useAdaptivityIsDesktop } from "../../hooks/useAdaptivity";
 var ModalRootComponent = function ModalRootComponent(props) {
   var isDesktop = useAdaptivityIsDesktop();
-  useScrollLock(!!props.activeModal);
+  useScrollLock(!!props.activeModal, props.withDesktopLock);
   var RootComponent = isDesktop ? ModalRootDesktop : ModalRootTouch;
   return createScopedElement(RootComponent, props);
 };

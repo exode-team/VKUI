@@ -24,4 +24,4 @@ export declare const ElementScrollController: ({ elRef, children, }: ScrollContr
  * @param deps effect обновится только при изменении значений в списке.
  */
 export declare const useScrollLockEffect: (effect: React.EffectCallback, deps: React.DependencyList) => void;
-export declare const useScrollLock: (enabled?: boolean) => void;
+export declare const useScrollLock: (enabled?: boolean, withDesktopLock?: boolean) => void;
