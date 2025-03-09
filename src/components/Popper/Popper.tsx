@@ -225,6 +225,14 @@ export const Popper = ({
 
   const width = styles.popper?.width || compStyles?.width;
 
+  const roundValue = (value: number): number => {
+    const decimal = value % 1;
+    if (decimal > 0.5) return Math.round(value);
+    if (decimal >= 0.3) return Math.floor(value) + 0.5;
+
+    return Math.floor(value);
+  };
+
   const dropdown = (
     <div
       {...restProps}
@@ -235,12 +243,14 @@ export const Popper = ({
         ...compStyles,
         ...styles.popper,
         width: typeof width === 'number'
-            ? Math.round(width)
-            : (width?.includes('px')
-                ? `${Math.round(+width?.replace('px', ''))}px`
-                : width
-            ),
-        minWidth: sameWidth ? targetRef.current?.scrollWidth && Math.round(targetRef.current?.scrollWidth) : undefined,
+          ? roundValue(width)
+          : (width?.includes('px')
+            ? `${roundValue(+width.replace('px', ''))}px`
+            : width
+          ),
+        minWidth: sameWidth && targetRef.current?.scrollWidth
+          ? roundValue(targetRef.current.scrollWidth)
+          : undefined,
       }}
     >
       {arrow && (
