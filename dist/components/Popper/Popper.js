@@ -50,7 +50,7 @@ var sameWidthModifier = {
  * @see https://vkcom.github.io/VKUI/#/Popper
  */
 export var Popper = function Popper(_ref3) {
-  var _styles$popper, _targetRef$current3;
+  var _styles$popper;
   var targetRef = _ref3.targetRef,
     children = _ref3.children,
     getRef = _ref3.getRef,
@@ -131,7 +131,7 @@ export var Popper = function Popper(_ref3) {
     }
   }, [onPlacementChange, resolvedPlacement]);
   var width = ((_styles$popper = styles.popper) === null || _styles$popper === void 0 ? void 0 : _styles$popper.width) || (compStyles === null || compStyles === void 0 ? void 0 : compStyles.width);
-  var roundValue = function roundValue(value) {
+  var roundWidth = function roundWidth(value) {
     var decimal = value % 1;
     if (decimal >= 0.75) return Math.ceil(value);
     if (decimal >= 0.25) return Math.floor(value) + 0.5;
@@ -141,8 +141,7 @@ export var Popper = function Popper(_ref3) {
     vkuiClass: getClassName("Popper", platform),
     ref: setExternalRef,
     style: _objectSpread(_objectSpread(_objectSpread({}, compStyles), styles.popper), {}, {
-      width: typeof width === 'number' ? roundValue(width) : width !== null && width !== void 0 && width.includes('px') ? "".concat(roundValue(+width.replace('px', '')), "px") : width,
-      minWidth: sameWidth && (_targetRef$current3 = targetRef.current) !== null && _targetRef$current3 !== void 0 && _targetRef$current3.scrollWidth ? roundValue(targetRef.current.scrollWidth) : undefined
+      width: typeof width === 'number' ? roundWidth(width) : width !== null && width !== void 0 && width.includes('px') ? "".concat(roundWidth(+width.replace('px', '')), "px") : width
     })
   }), arrow && createScopedElement(PopperArrow, {
     attributes: attributes.arrow,

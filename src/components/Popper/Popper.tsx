@@ -225,7 +225,7 @@ export const Popper = ({
 
   const width = styles.popper?.width || compStyles?.width;
 
-  const roundValue = (value: number): number => {
+  const roundWidth = (value: number): number => {
     const decimal = value % 1;
 
     if (decimal >= 0.75) return Math.ceil(value);
@@ -244,14 +244,11 @@ export const Popper = ({
         ...compStyles,
         ...styles.popper,
         width: typeof width === 'number'
-          ? roundValue(width)
+          ? roundWidth(width)
           : (width?.includes('px')
-            ? `${roundValue(+width.replace('px', ''))}px`
+            ? `${roundWidth(+width.replace('px', ''))}px`
             : width
           ),
-        minWidth: sameWidth && targetRef.current?.scrollWidth
-          ? roundValue(targetRef.current.scrollWidth)
-          : undefined,
       }}
     >
       {arrow && (
