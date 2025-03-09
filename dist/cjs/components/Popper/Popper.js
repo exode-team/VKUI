@@ -142,7 +142,7 @@ var Popper = function Popper(_ref3) {
   var roundWidth = function roundWidth(value) {
     var decimal = value % 1;
     if (decimal >= 0.75) return Math.ceil(value);
-    if (decimal >= 0.25) return Math.floor(value) + 0.5;
+    if (decimal >= 0.35) return Math.floor(value) + 0.5;
     return Math.floor(value);
   };
   var dropdown = (0, _jsxRuntime.createScopedElement)("div", (0, _extends2.default)({}, restProps, attributes.popper, {
