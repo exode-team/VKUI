@@ -228,7 +228,6 @@ export const Popper = ({
   const roundValue = (value: number): number => {
     const decimal = value % 1;
     if (decimal > 0.5) return Math.round(value);
-    if (decimal >= 0.3) return Math.floor(value) + 0.5;
 
     return Math.floor(value);
   };
