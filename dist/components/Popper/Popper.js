@@ -133,7 +133,8 @@ export var Popper = function Popper(_ref3) {
   var width = ((_styles$popper = styles.popper) === null || _styles$popper === void 0 ? void 0 : _styles$popper.width) || (compStyles === null || compStyles === void 0 ? void 0 : compStyles.width);
   var roundValue = function roundValue(value) {
     var decimal = value % 1;
-    if (decimal > 0.5) return Math.round(value);
+    if (decimal >= 0.75) return Math.ceil(value);
+    if (decimal >= 0.25) return Math.floor(value) + 0.5;
     return Math.floor(value);
   };
   var dropdown = createScopedElement("div", _extends({}, restProps, attributes.popper, {
