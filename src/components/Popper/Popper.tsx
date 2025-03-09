@@ -229,7 +229,7 @@ export const Popper = ({
     const decimal = value % 1;
 
     if (decimal >= 0.75) return Math.ceil(value);
-    if (decimal >= 0.25) return Math.floor(value) + 0.5;
+    if (decimal >= 0.35) return Math.floor(value) + 0.5;
 
     return Math.floor(value);
   };
