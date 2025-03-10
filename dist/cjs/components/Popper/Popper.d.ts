@@ -11,6 +11,7 @@ export interface PopperCommonProps extends React.HTMLAttributes<HTMLDivElement>,
      * По умолчанию компонент выберет наилучшее расположение сам. Но его можно задать извне с помощью этого свойства
      */
     placement?: Placement;
+    forcePlacement?: Placement;
     /**
      * Отступ по вспомогательной оси
      */
@@ -54,4 +55,4 @@ export interface PopperProps extends PopperCommonProps {
 /**
  * @see https://vkcom.github.io/VKUI/#/Popper
  */
-export declare const Popper: ({ targetRef, children, getRef, placement, onPlacementChange, arrow, arrowClassName, sameWidth, offsetDistance, offsetSkidding, forcePortal, style: compStyles, customModifiers, renderContent, ...restProps }: PopperProps) => JSX.Element;
+export declare const Popper: ({ targetRef, children, getRef, forcePlacement, placement, onPlacementChange, arrow, arrowClassName, sameWidth, offsetDistance, offsetSkidding, forcePortal, style: compStyles, customModifiers, renderContent, ...restProps }: PopperProps) => JSX.Element;

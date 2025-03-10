@@ -3,7 +3,7 @@ import _objectSpread from "@babel/runtime/helpers/objectSpread2";
 import _toConsumableArray from "@babel/runtime/helpers/toConsumableArray";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["targetRef", "children", "getRef", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style", "customModifiers", "renderContent"];
+var _excluded = ["targetRef", "children", "getRef", "forcePlacement", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style", "customModifiers", "renderContent"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { usePopper } from "react-popper";
@@ -54,6 +54,7 @@ export var Popper = function Popper(_ref3) {
   var targetRef = _ref3.targetRef,
     children = _ref3.children,
     getRef = _ref3.getRef,
+    forcePlacement = _ref3.forcePlacement,
     _ref3$placement = _ref3.placement,
     placement = _ref3$placement === void 0 ? "bottom-start" : _ref3$placement,
     onPlacementChange = _ref3.onPlacementChange,
@@ -99,7 +100,7 @@ export var Popper = function Popper(_ref3) {
     return modifiers;
   }, [arrow, sameWidth, smallTargetOffsetSkidding, offsetSkidding, offsetDistance, customModifiers]);
   var _usePopper = usePopper(targetRef.current, popperNode, {
-      placement: placement,
+      placement: forcePlacement || placement,
       modifiers: modifiers
     }),
     styles = _usePopper.styles,

@@ -20,7 +20,7 @@ var _usePlatform = require("../../hooks/usePlatform");
 var _getClassName = require("../../helpers/getClassName");
 var _useExternRef = require("../../hooks/useExternRef");
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
-var _excluded = ["targetRef", "children", "getRef", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style", "customModifiers", "renderContent"];
+var _excluded = ["targetRef", "children", "getRef", "forcePlacement", "placement", "onPlacementChange", "arrow", "arrowClassName", "sameWidth", "offsetDistance", "offsetSkidding", "forcePortal", "style", "customModifiers", "renderContent"];
 var ARROW_PADDING = 8;
 var ARROW_WIDTH = 20;
 var ARROW_HEIGHT = 8;
@@ -62,6 +62,7 @@ var Popper = function Popper(_ref3) {
   var targetRef = _ref3.targetRef,
     children = _ref3.children,
     getRef = _ref3.getRef,
+    forcePlacement = _ref3.forcePlacement,
     _ref3$placement = _ref3.placement,
     placement = _ref3$placement === void 0 ? "bottom-start" : _ref3$placement,
     onPlacementChange = _ref3.onPlacementChange,
@@ -107,7 +108,7 @@ var Popper = function Popper(_ref3) {
     return modifiers;
   }, [arrow, sameWidth, smallTargetOffsetSkidding, offsetSkidding, offsetDistance, customModifiers]);
   var _usePopper = (0, _reactPopper.usePopper)(targetRef.current, popperNode, {
-      placement: placement,
+      placement: forcePlacement || placement,
       modifiers: modifiers
     }),
     styles = _usePopper.styles,
