@@ -87,7 +87,9 @@ export var Popper = function Popper(_ref3) {
       options: {
         offset: [arrow ? offsetSkidding - smallTargetOffsetSkidding : offsetSkidding, arrow ? offsetDistance + ARROW_HEIGHT : offsetDistance]
       }
-    }, flipModifier];
+    }, !forcePlacement ? flipModifier : null].filter(function (e) {
+      return e;
+    });
     if (arrow) {
       modifiers.push(arrowModifier);
     }

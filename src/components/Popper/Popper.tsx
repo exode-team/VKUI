@@ -157,8 +157,8 @@ export const Popper = ({
           ],
         },
       },
-      flipModifier,
-    ];
+      (!forcePlacement ? flipModifier : null) as Modifier<string>,
+    ].filter((e) => e);
 
     if (arrow) {
       modifiers.push(arrowModifier);
