@@ -107,7 +107,7 @@ export const CustomSelectDropdown = ({
       offsetDistance={offsetDistance}
       sameWidth={sameWidth}
       onPlacementChange={onPlacementChange}
-      placement={placement}
+      placement={forcePlacement || placement}
       data-test="custom-select-dropdown"
       vkuiClass={classNames(
           "CustomSelectDropdown",

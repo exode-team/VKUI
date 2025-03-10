@@ -104,7 +104,7 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     offsetDistance: offsetDistance,
     sameWidth: sameWidth,
     onPlacementChange: onPlacementChange,
-    placement: placement,
+    placement: forcePlacement || placement,
     "data-test": "custom-select-dropdown",
     vkuiClass: (0, _classNames.classNames)("CustomSelectDropdown", offsetDistance === 0 && (isTop ? "CustomSelectDropdown--top" : "CustomSelectDropdown--bottom"), sameWidth && "CustomSelectDropdown--wide"),
     forcePortal: forcePortal,
