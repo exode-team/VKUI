@@ -52,7 +52,7 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     observableRefs = _ref2.observableRefs,
     restProps = _objectWithoutProperties(_ref2, _excluded);
   var _React$useState = React.useState(function () {
-      return calcIsTop(placement);
+      return calcIsTop(forcePlacement || placement);
     }),
     _React$useState2 = _slicedToArray(_React$useState, 2),
     isTop = _React$useState2[0],
@@ -90,7 +90,7 @@ export var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     var placement = _ref3.placement;
     setIsTop(calcIsTop(forcePlacement || placement));
     parentOnPlacementChange === null || parentOnPlacementChange === void 0 ? void 0 : parentOnPlacementChange(forcePlacement || placement);
-  }, [parentOnPlacementChange, setIsTop]);
+  }, [parentOnPlacementChange, setIsTop, forcePlacement]);
   return createScopedElement(Popper, _extends({
     targetRef: targetRef,
     offsetDistance: offsetDistance,

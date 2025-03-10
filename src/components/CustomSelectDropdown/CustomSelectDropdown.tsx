@@ -69,7 +69,7 @@ export const CustomSelectDropdown = ({
   observableRefs,
   ...restProps
 }: CustomSelectDropdownProps) => {
-  const [isTop, setIsTop] = React.useState(() => calcIsTop(placement));
+  const [isTop, setIsTop] = React.useState(() => calcIsTop(forcePlacement || placement));
   const [customModifiers, setCustomModifiers] = React.useState<
     Array<Modifier<string>>
   >([]);
@@ -98,7 +98,7 @@ export const CustomSelectDropdown = ({
       setIsTop(calcIsTop(forcePlacement || placement));
       parentOnPlacementChange?.(forcePlacement || placement);
     },
-    [parentOnPlacementChange, setIsTop]
+    [parentOnPlacementChange, setIsTop, forcePlacement]
   );
 
   return (

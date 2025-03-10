@@ -60,7 +60,7 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     observableRefs = _ref2.observableRefs,
     restProps = (0, _objectWithoutProperties2.default)(_ref2, _excluded);
   var _React$useState = React.useState(function () {
-      return calcIsTop(placement);
+      return calcIsTop(forcePlacement || placement);
     }),
     _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
     isTop = _React$useState2[0],
@@ -98,7 +98,7 @@ var CustomSelectDropdown = function CustomSelectDropdown(_ref2) {
     var placement = _ref3.placement;
     setIsTop(calcIsTop(forcePlacement || placement));
     parentOnPlacementChange === null || parentOnPlacementChange === void 0 ? void 0 : parentOnPlacementChange(forcePlacement || placement);
-  }, [parentOnPlacementChange, setIsTop]);
+  }, [parentOnPlacementChange, setIsTop, forcePlacement]);
   return (0, _jsxRuntime.createScopedElement)(_Popper.Popper, (0, _extends2.default)({
     targetRef: targetRef,
     offsetDistance: offsetDistance,
