@@ -37,6 +37,7 @@ export interface PopperCommonProps
    * По умолчанию компонент выберет наилучшее расположение сам. Но его можно задать извне с помощью этого свойства
    */
   placement?: Placement;
+  forcePlacement?: Placement;
   /**
    * Отступ по вспомогательной оси
    */
@@ -121,6 +122,7 @@ export const Popper = ({
   targetRef,
   children,
   getRef,
+  forcePlacement,
   placement = "bottom-start",
   onPlacementChange,
   arrow,
@@ -183,7 +185,7 @@ export const Popper = ({
     targetRef.current,
     popperNode,
     {
-      placement,
+      placement: forcePlacement || placement,
       modifiers,
     }
   );
