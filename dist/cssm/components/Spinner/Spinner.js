@@ -9,6 +9,7 @@ import "./Spinner.css";
  * @see https://vkcom.github.io/VKUI/#/Spinner
  */
 export var Spinner = /*#__PURE__*/React.memo(function (_ref) {
+  var _restProps$children;
   var _ref$size = _ref.size,
     size = _ref$size === void 0 ? "regular" : _ref$size,
     _ref$ariaLabel = _ref["aria-label"],
@@ -25,7 +26,7 @@ export var Spinner = /*#__PURE__*/React.memo(function (_ref) {
     "aria-label": ariaLabel
   }, restProps, {
     vkuiClass: "Spinner"
-  }), createScopedElement(SpinnerIcon, {
+  }), (_restProps$children = restProps.children) !== null && _restProps$children !== void 0 ? _restProps$children : createScopedElement(SpinnerIcon, {
     "aria-hidden": "true",
     vkuiClass: "Spinner__self"
   }));

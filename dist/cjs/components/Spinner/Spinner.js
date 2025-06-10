@@ -16,6 +16,7 @@ var _excluded = ["size", "aria-label"];
  * @see https://vkcom.github.io/VKUI/#/Spinner
  */
 var Spinner = /*#__PURE__*/React.memo(function (_ref) {
+  var _restProps$children;
   var _ref$size = _ref.size,
     size = _ref$size === void 0 ? "regular" : _ref$size,
     _ref$ariaLabel = _ref["aria-label"],
@@ -32,7 +33,7 @@ var Spinner = /*#__PURE__*/React.memo(function (_ref) {
     "aria-label": ariaLabel
   }, restProps, {
     vkuiClass: "Spinner"
-  }), (0, _jsxRuntime.createScopedElement)(SpinnerIcon, {
+  }), (_restProps$children = restProps.children) !== null && _restProps$children !== void 0 ? _restProps$children : (0, _jsxRuntime.createScopedElement)(SpinnerIcon, {
     "aria-hidden": "true",
     vkuiClass: "Spinner__self"
   }));

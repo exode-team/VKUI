@@ -34,7 +34,7 @@ export const Spinner = React.memo(
         {...restProps}
         vkuiClass="Spinner"
       >
-        <SpinnerIcon aria-hidden="true" vkuiClass="Spinner__self" />
+        {restProps.children ?? <SpinnerIcon aria-hidden="true" vkuiClass="Spinner__self" />}
       </span>
     );
   }
