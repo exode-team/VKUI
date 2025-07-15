@@ -16,7 +16,7 @@ export var TextTooltip = function TextTooltip(_ref) {
     text = _ref.text,
     header = _ref.header,
     _ref$appearance = _ref.appearance,
-    appearance = _ref$appearance === void 0 ? "black" : _ref$appearance,
+    appearance = _ref$appearance === void 0 ? "inversion" : _ref$appearance,
     popperProps = _objectWithoutProperties(_ref, _excluded);
   return createScopedElement(HoverPopper, _extends({
     vkuiClass: classNames("TextTooltip", "TextTooltip--".concat(appearance)),

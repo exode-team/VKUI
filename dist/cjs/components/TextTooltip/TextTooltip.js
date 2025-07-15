@@ -24,7 +24,7 @@ var TextTooltip = function TextTooltip(_ref) {
     text = _ref.text,
     header = _ref.header,
     _ref$appearance = _ref.appearance,
-    appearance = _ref$appearance === void 0 ? "black" : _ref$appearance,
+    appearance = _ref$appearance === void 0 ? "inversion" : _ref$appearance,
     popperProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
   return (0, _jsxRuntime.createScopedElement)(_HoverPopper.HoverPopper, (0, _extends2.default)({
     vkuiClass: (0, _classNames.classNames)("TextTooltip", "TextTooltip--".concat(appearance)),
