@@ -29,7 +29,7 @@ export const TextTooltip = ({
   children,
   text,
   header,
-  appearance = "black", // TODO v5 сменить по умолчанию на "neutral"
+  appearance = "inversion",
   ...popperProps
 }: TextTooltipProps) => {
   return (
