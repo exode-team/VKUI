@@ -130,6 +130,8 @@ export interface CustomSelectProps
     options: CustomSelectOptionInterface[]
   ) => void | CustomSelectOptionInterface[];
   options: CustomSelectOptionInterface[];
+  /** Для отображения если в options нет текущего значения */
+  fallbackOption?: CustomSelectOptionInterface;
   /**
    * Функция для кастомной фильтрации. По умолчанию поиск производится по `option.label`.
    */
@@ -195,6 +197,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
     onOpen,
     onClose,
     fetching,
+    fallbackOption,
     forceDropdownPortal,
     forcePlacement,
     selectType = SelectType.default,
@@ -261,8 +264,8 @@ function CustomSelectComponent(props: CustomSelectProps) {
 
     return selectedOptionIndex !== undefined
       ? options[selectedOptionIndex]
-      : undefined;
-  }, [options, selectedOptionIndex]);
+      : (props.value ? fallbackOption : undefined);
+  }, [options, fallbackOption, selectedOptionIndex]);
 
   const openedClassNames = React.useMemo(
       () =>
