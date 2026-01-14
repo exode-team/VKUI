@@ -26,7 +26,7 @@ var _CustomSelectDropdown = require("../CustomSelectDropdown/CustomSelectDropdow
 var _Select = require("../Select/Select");
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
 var _excluded = ["option"],
-  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "forcePlacement", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "forceOpened", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
+  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "fallbackOption", "forceDropdownPortal", "forcePlacement", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "forceOpened", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
 var findIndexAfter = function findIndexAfter() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var startIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
@@ -104,6 +104,7 @@ function CustomSelectComponent(props) {
     onOpen = props.onOpen,
     onClose = props.onClose,
     fetching = props.fetching,
+    fallbackOption = props.fallbackOption,
     forceDropdownPortal = props.forceDropdownPortal,
     forcePlacement = props.forcePlacement,
     _props$selectType = props.selectType,
@@ -192,8 +193,8 @@ function CustomSelectComponent(props) {
     if (!options.length) {
       return null;
     }
-    return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : undefined;
-  }, [options, selectedOptionIndex]);
+    return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : props.value ? fallbackOption : undefined;
+  }, [options, fallbackOption, selectedOptionIndex]);
   var openedClassNames = React.useMemo(function () {
     return (0, _classNames.classNames)(opened && "Select--open", opened && dropdownOffsetDistance === 0 && (popperPlacement !== null && popperPlacement !== void 0 && popperPlacement.includes("top") ? "Select--pop-up" : "Select--pop-down"));
   }, [dropdownOffsetDistance, opened, popperPlacement]);

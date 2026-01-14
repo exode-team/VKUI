@@ -3,7 +3,7 @@ import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
 import _typeof from "@babel/runtime/helpers/typeof";
 var _excluded = ["option"],
-  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "forceDropdownPortal", "forcePlacement", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "forceOpened", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
+  _excluded2 = ["before", "name", "className", "getRef", "getRootRef", "popupDirection", "sizeY", "platform", "style", "onChange", "children", "onInputChange", "renderDropdown", "onOpen", "onClose", "fetching", "fallbackOption", "forceDropdownPortal", "forcePlacement", "selectType", "autoHideScrollbar", "autoHideScrollbarDelay", "searchable", "forceOpened", "renderOption", "options", "emptyText", "filterFn", "icon", "dropdownOffsetDistance", "fixDropdownWidth"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { SelectMimicry } from "../SelectMimicry/SelectMimicry";
@@ -97,6 +97,7 @@ function CustomSelectComponent(props) {
     onOpen = props.onOpen,
     onClose = props.onClose,
     fetching = props.fetching,
+    fallbackOption = props.fallbackOption,
     forceDropdownPortal = props.forceDropdownPortal,
     forcePlacement = props.forcePlacement,
     _props$selectType = props.selectType,
@@ -185,8 +186,8 @@ function CustomSelectComponent(props) {
     if (!options.length) {
       return null;
     }
-    return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : undefined;
-  }, [options, selectedOptionIndex]);
+    return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : props.value ? fallbackOption : undefined;
+  }, [options, fallbackOption, selectedOptionIndex]);
   var openedClassNames = React.useMemo(function () {
     return classNames(opened && "Select--open", opened && dropdownOffsetDistance === 0 && (popperPlacement !== null && popperPlacement !== void 0 && popperPlacement.includes("top") ? "Select--pop-up" : "Select--pop-down"));
   }, [dropdownOffsetDistance, opened, popperPlacement]);
