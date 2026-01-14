@@ -183,10 +183,11 @@ function CustomSelectComponent(props) {
     }
   }, [nativeSelectValue]);
   var selected = React.useMemo(function () {
+    var _options$selectedOpti;
     if (!options.length) {
       return null;
     }
-    return selectedOptionIndex !== undefined ? options[selectedOptionIndex] : props.value ? fallbackOption : undefined;
+    return selectedOptionIndex !== undefined ? (_options$selectedOpti = options[selectedOptionIndex]) !== null && _options$selectedOpti !== void 0 ? _options$selectedOpti : fallbackOption : props.value ? fallbackOption : undefined;
   }, [options, fallbackOption, selectedOptionIndex]);
   var openedClassNames = React.useMemo(function () {
     return classNames(opened && "Select--open", opened && dropdownOffsetDistance === 0 && (popperPlacement !== null && popperPlacement !== void 0 && popperPlacement.includes("top") ? "Select--pop-up" : "Select--pop-down"));

@@ -263,7 +263,7 @@ function CustomSelectComponent(props: CustomSelectProps) {
     }
 
     return selectedOptionIndex !== undefined
-      ? options[selectedOptionIndex]
+      ? (options[selectedOptionIndex] ?? fallbackOption)
       : (props.value ? fallbackOption : undefined);
   }, [options, fallbackOption, selectedOptionIndex]);
 
