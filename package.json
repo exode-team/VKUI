@@ -179,6 +179,7 @@
     "styleguide": "cross-env NODE_ENV=development styleguidist server --config=styleguide/config.js",
     "styleguide:props": "VKUI_STYLEGUIDE_PROPSPARSER=1 yarn styleguide",
     "styleguide:build": "cross-env NODE_ENV=production styleguidist build --config=styleguide/config.js",
+    "styleguide:serve": "cross-env NODE_ENV=production styleguidist server --config=styleguide/config.js",
     "dev": "yarn clear && concurrently \"yarn:tsc-dev\" \"yarn:babel-dev\" \"yarn:postcss-dev\"",
     "dev-cjs": "yarn clear && concurrently \"yarn:babel-cjs-dev\" \"yarn:postcss-dev\"",
     "dev-all": "yarn clear && concurrently \"yarn:tsc-dev\" \"yarn:babel-dev\" \"yarn:babel-cjs-dev\" \"yarn:postcss-dev\"",

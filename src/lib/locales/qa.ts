@@ -12,7 +12,7 @@ const qaLocale = {
     weekdaysShort: "Yek_Dúy_Siy_Sár_Piy_Jum_Şem".split("_"),
     weekdaysMin: "Ye_Dú_Si_Sá_Pi_Ju_Şe".split("_"),
     months: "Qañtar_Fevral_Mart_Aprel_May_İyun_İyul_Avgust_Sentyabr_Oktyabr_Noyabr_Dekabr".split("_"),
-    monthsShort: "Qañ_Fev_Mar_Apr_May_İyu_İyl_Avg_Sen_Okt_Noy_Dek".split("_"),
+    monthsShort: "Qañ_Fev_Mar_Apr_May_İyu_İyu_Avg_Sen_Okt_Noy_Dek".split("_"),
     weekStart: 1,
     formats: {
         LT: "HH:mm",

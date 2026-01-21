@@ -112,7 +112,7 @@ export const CalendarHeader = ({
     } else if (locale === "ru" || locale === "en") {
       return locale;
     }
-    return locale || "en";
+    return locale;
   }, [locale]);
 
   // Format date using dayjs only
