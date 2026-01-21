@@ -94,6 +94,14 @@ const Example = () => {
                 label: "fr",
                 value: "fr",
               },
+              {
+                label: "uz",
+                value: "uz",
+              },
+              {
+                label: "qa",
+                value: "qa",
+              },
             ]}
           />
         </FormItem>
@@ -135,4 +143,44 @@ const Example = () => {
 };
 
 <Example />;
+```
+
+## Поддержка узбекского и каракалпакского языков
+
+Calendar поддерживает узбекский (uz) и каракалпакский (qa) языки. Локали автоматически загружаются при использовании компонента.
+
+```jsx { "props": { "layout": false, "iframe": false } }
+import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
+
+const LocaleExample = () => {
+  const [uzValue, setUzValue] = useState(new Date());
+  const [qaValue, setQaValue] = useState(new Date());
+
+  return (
+    <FormLayout>
+      <FormLayoutGroup mode="vertical">
+        <FormItem top="Узбекский язык (uz)">
+          <LocaleProviderContext.Provider value="uz">
+            <Calendar
+              value={uzValue}
+              onChange={setUzValue}
+              disablePickers={false}
+            />
+          </LocaleProviderContext.Provider>
+        </FormItem>
+        <FormItem top="Каракалпакский язык (qa)">
+          <LocaleProviderContext.Provider value="qa">
+            <Calendar
+              value={qaValue}
+              onChange={setQaValue}
+              disablePickers={false}
+            />
+          </LocaleProviderContext.Provider>
+        </FormItem>
+      </FormLayoutGroup>
+    </FormLayout>
+  );
+};
+
+<LocaleExample />;
 ```

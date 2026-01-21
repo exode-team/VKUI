@@ -13,6 +13,12 @@ import { InputLike } from "../InputLike/InputLike";
 import { InputLikeDivider } from "../InputLike/InputLikeDivider";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { callMultiple } from "../../lib/callMultiple";
+import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+import "dayjs/locale/en";
+import "dayjs/locale/uz-latn";
+import "../../lib/locales/qa";
 import "./DateInput.css";
 
 export interface DateInputProps
@@ -142,6 +148,7 @@ export const DateInput = ({
   disableCalendar = false,
   ...props
 }: DateInputProps) => {
+  const locale = React.useContext(LocaleProviderContext);
   const daysRef = React.useRef<HTMLSpanElement>(null);
   const monthsRef = React.useRef<HTMLSpanElement>(null);
   const yearsRef = React.useRef<HTMLSpanElement>(null);
@@ -149,6 +156,17 @@ export const DateInput = ({
   const minutesRef = React.useRef<HTMLSpanElement>(null);
 
   const maxElement = enableTime ? 4 : 2;
+
+  // Set dayjs locale based on LocaleProviderContext
+  React.useEffect(() => {
+    if (locale === "uz") {
+      dayjs.locale("uz-latn");
+    } else if (locale === "qa") {
+      dayjs.locale("qa");
+    } else if (locale === "ru" || locale === "en") {
+      dayjs.locale(locale);
+    }
+  }, [locale]);
 
   const onInternalValueChange = React.useCallback(
     (internalValue: string[]) => {

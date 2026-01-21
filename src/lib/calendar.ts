@@ -12,6 +12,11 @@ import {
   isFirstDayOfMonth,
   isLastDayOfMonth,
 } from "./date";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+import "dayjs/locale/en";
+import "dayjs/locale/uz-latn";
+import "./locales/qa";
 
 export const getYears = (currentYear: number, range: number) => {
   const years: Array<{
@@ -31,13 +36,24 @@ export const getMonths = (locale?: string) => {
     value: number;
     label: string;
   }> = [];
-  const formatter = new Intl.DateTimeFormat(locale, {
-    month: "long",
-  });
 
+  // Map locale to dayjs locale
+  let dayjsLocale = locale || "en";
+  if (locale === "uz") {
+    dayjsLocale = "uz-latn";
+  } else if (locale === "qa") {
+    dayjsLocale = "qa";
+  } else if (locale === "ru" || locale === "en") {
+    dayjsLocale = locale;
+  } else if (!locale) {
+    dayjsLocale = "en";
+  }
+
+  // Use dayjs for all formatting
   for (let i = 0; i < 12; i++) {
+    const date = dayjs().month(i).locale(dayjsLocale);
     months.push({
-      label: formatter.format(new Date("1970-01-01").setMonth(i)),
+      label: date.format("MMMM"),
       value: i,
     });
   }
@@ -50,13 +66,27 @@ export const getDaysNames = (
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6,
   locale?: string
 ) => {
-  const formatter = new Intl.DateTimeFormat(locale, {
-    weekday: "short",
-  });
-  return eachDayOfInterval(
+  // Map locale to dayjs locale
+  let dayjsLocale = locale || "en";
+  if (locale === "uz") {
+    dayjsLocale = "uz-latn";
+  } else if (locale === "qa") {
+    dayjsLocale = "qa";
+  } else if (locale === "ru" || locale === "en") {
+    dayjsLocale = locale;
+  } else if (!locale) {
+    dayjsLocale = "en";
+  }
+
+  const days = eachDayOfInterval(
     startOfWeek(now, weekStartsOn),
     endOfWeek(now, weekStartsOn)
-  ).map((day) => formatter.format(day));
+  );
+
+  // Use dayjs for all formatting
+  return days.map((day) => {
+    return dayjs(day).locale(dayjsLocale).format("ddd");
+  });
 };
 
 export const navigateDate = (date?: Date | null, key?: string) => {
