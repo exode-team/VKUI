@@ -24,6 +24,7 @@ export var List = function List(_ref) {
   }), createScopedElement(ListContext.Provider, {
     value: React.useMemo(function () {
       return {
+        isDragging: isDragging,
         toggleDrag: toggleDrag
       };
     }, [])

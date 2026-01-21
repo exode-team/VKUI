@@ -31,6 +31,7 @@ var List = function List(_ref) {
   }), (0, _jsxRuntime.createScopedElement)(_ListContext.ListContext.Provider, {
     value: React.useMemo(function () {
       return {
+        isDragging: isDragging,
         toggleDrag: toggleDrag
       };
     }, [])

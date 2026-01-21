@@ -8,6 +8,7 @@ exports.ListContext = void 0;
 var React = _interopRequireWildcard(require("react"));
 var _utils = require("../../lib/utils");
 var ListContext = /*#__PURE__*/React.createContext({
+  isDragging: false,
   toggleDrag: _utils.noop
 });
 exports.ListContext = ListContext;
