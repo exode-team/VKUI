@@ -15,10 +15,6 @@ import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { callMultiple } from "../../lib/callMultiple";
 import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
 import dayjs from "dayjs";
-import "dayjs/locale/ru";
-import "dayjs/locale/en";
-import "dayjs/locale/uz-latn";
-import "../../lib/locales/qa";
 import "./DateInput.css";
 
 export interface DateInputProps
@@ -159,16 +155,8 @@ export const DateInput = ({
 
   // Set dayjs locale based on LocaleProviderContext
   React.useEffect(() => {
-    switch (locale) {
-      case "uz":
-        dayjs.locale("uz-latn");
-        break;
-      case "qa":
-        dayjs.locale("qa");
-        break;
-      default:
-        dayjs.locale(locale);
-        break;
+    if (locale) {
+      dayjs.locale(locale);
     }
   }, [locale]);
 

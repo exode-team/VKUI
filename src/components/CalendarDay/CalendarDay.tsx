@@ -4,10 +4,6 @@ import { Tappable, TappableElementProps } from "../Tappable/Tappable";
 import { ENABLE_KEYBOARD_INPUT_EVENT_NAME } from "../../hooks/useKeyboardInputTracker";
 import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
 import dayjs from "dayjs";
-import "dayjs/locale/ru";
-import "dayjs/locale/en";
-import "dayjs/locale/uz-latn";
-import "../../lib/locales/qa";
 import "./CalendarDay.css";
 
 export type CalendarDayElementProps = Omit<
@@ -62,17 +58,7 @@ export const CalendarDay = React.memo(
     const handleEnter = React.useCallback(() => onEnter?.(day), [day, onEnter]);
     const handleLeave = React.useCallback(() => onLeave?.(day), [day, onLeave]);
 
-    // Map locale to dayjs locale
-    const dayjsLocale = React.useMemo(() => {
-      switch (locale) {
-        case "uz":
-          return "uz-latn";
-        case "qa":
-          return "qa";
-        default:
-          return locale || "ru";
-      }
-    }, [locale]);
+    const dayjsLocale = locale || "ru";
 
     // Format aria-label using dayjs
     const ariaLabel = React.useMemo(() => {

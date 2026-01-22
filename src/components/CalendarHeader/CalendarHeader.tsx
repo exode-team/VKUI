@@ -15,10 +15,6 @@ import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderCo
 import { Paragraph } from "../Typography/Paragraph/Paragraph";
 import { AdaptivityProvider } from "../AdaptivityProvider/AdaptivityProvider";
 import dayjs from "dayjs";
-import "dayjs/locale/ru";
-import "dayjs/locale/en";
-import "dayjs/locale/uz-latn";
-import "../../lib/locales/qa";
 import "./CalendarHeader.css";
 
 type ArrowMonthProps = Omit<TappableElementProps, "onClick" | "aria-label">;
@@ -103,23 +99,13 @@ export const CalendarHeader = ({
 
   const years = React.useMemo(() => getYears(currentYear, 100), [currentYear]);
 
-  // Map locale to dayjs locale
-  const dayjsLocale = React.useMemo(() => {
-    switch (locale) {
-      case "uz":
-        return "uz-latn";
-      case "qa":
-        return "qa";
-      default:
-        return locale || "ru";
-    }
-  }, [locale]);
+  const dayjsLocale = locale || "ru";
 
   // Format date using dayjs only
   const formatDate = React.useCallback(
     (date: Date, formatStr: string) => {
       const currentLocale = dayjs.locale();
-      dayjs.locale(dayjsLocale || "ru");
+      dayjs.locale(dayjsLocale);
       const formatted = dayjs(date).format(formatStr);
       dayjs.locale(currentLocale);
       return formatted;

@@ -13,10 +13,6 @@ import {
   isLastDayOfMonth,
 } from "./date";
 import dayjs from "dayjs";
-import "dayjs/locale/ru";
-import "dayjs/locale/en";
-import "dayjs/locale/uz-latn";
-import "./locales/qa";
 
 export const getYears = (currentYear: number, range: number) => {
   const years: Array<{
@@ -37,19 +33,7 @@ export const getMonths = (locale?: string) => {
     label: string;
   }> = [];
 
-  // Map locale to dayjs locale
-  let dayjsLocale: string;
-  switch (locale) {
-    case "uz":
-      dayjsLocale = "uz-latn";
-      break;
-    case "qa":
-      dayjsLocale = "qa";
-      break;
-    default:
-      dayjsLocale = locale || "ru";
-      break;
-  }
+  const dayjsLocale = locale || "ru";
 
   // Use dayjs for all formatting
   for (let i = 0; i < 12; i++) {
@@ -68,19 +52,7 @@ export const getDaysNames = (
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6,
   locale?: string
 ) => {
-  // Map locale to dayjs locale
-  let dayjsLocale: string;
-  switch (locale) {
-    case "uz":
-      dayjsLocale = "uz-latn";
-      break;
-    case "qa":
-      dayjsLocale = "qa";
-      break;
-    default:
-      dayjsLocale = locale || "ru";
-      break;
-  }
+  const dayjsLocale = locale || "ru";
 
   const days = eachDayOfInterval(
     startOfWeek(now, weekStartsOn),
