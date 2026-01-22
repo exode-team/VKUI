@@ -64,14 +64,14 @@ export const CalendarDay = React.memo(
 
     // Map locale to dayjs locale
     const dayjsLocale = React.useMemo(() => {
-      if (locale === "uz") {
-        return "uz-latn";
-      } else if (locale === "qa") {
-        return "qa";
-      } else if (locale === "ru" || locale === "en") {
-        return locale;
+      switch (locale) {
+        case "uz":
+          return "uz-latn";
+        case "qa":
+          return "qa";
+        default:
+          return locale || "ru";
       }
-      return locale || "en";
     }, [locale]);
 
     // Format aria-label using dayjs

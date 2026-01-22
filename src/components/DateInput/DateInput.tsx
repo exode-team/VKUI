@@ -2,7 +2,7 @@ import * as React from "react";
 import { format, isMatch, parse } from "../../lib/date";
 import { Icon16Clear, Icon20CalendarOutline } from "@vkontakte/icons";
 import { Calendar, CalendarProps } from "../Calendar/Calendar";
-import { Popper, Placement } from "../Popper/Popper";
+import { Placement, Popper } from "../Popper/Popper";
 import { multiRef } from "../../lib/utils";
 import { IconButton } from "../IconButton/IconButton";
 import { classNames } from "../../lib/classNames";
@@ -159,12 +159,16 @@ export const DateInput = ({
 
   // Set dayjs locale based on LocaleProviderContext
   React.useEffect(() => {
-    if (locale === "uz") {
-      dayjs.locale("uz-latn");
-    } else if (locale === "qa") {
-      dayjs.locale("qa");
-    } else if (locale === "ru" || locale === "en") {
-      dayjs.locale(locale);
+    switch (locale) {
+      case "uz":
+        dayjs.locale("uz-latn");
+        break;
+      case "qa":
+        dayjs.locale("qa");
+        break;
+      default:
+        dayjs.locale(locale);
+        break;
     }
   }, [locale]);
 

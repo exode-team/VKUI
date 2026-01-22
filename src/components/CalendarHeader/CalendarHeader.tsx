@@ -105,21 +105,21 @@ export const CalendarHeader = ({
 
   // Map locale to dayjs locale
   const dayjsLocale = React.useMemo(() => {
-    if (locale === "uz") {
-      return "uz-latn";
-    } else if (locale === "qa") {
-      return "qa";
-    } else if (locale === "ru" || locale === "en") {
-      return locale;
+    switch (locale) {
+      case "uz":
+        return "uz-latn";
+      case "qa":
+        return "qa";
+      default:
+        return locale || "ru";
     }
-    return locale;
   }, [locale]);
 
   // Format date using dayjs only
   const formatDate = React.useCallback(
     (date: Date, formatStr: string) => {
       const currentLocale = dayjs.locale();
-      dayjs.locale(dayjsLocale || "en");
+      dayjs.locale(dayjsLocale || "ru");
       const formatted = dayjs(date).format(formatStr);
       dayjs.locale(currentLocale);
       return formatted;

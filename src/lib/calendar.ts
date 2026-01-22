@@ -38,15 +38,17 @@ export const getMonths = (locale?: string) => {
   }> = [];
 
   // Map locale to dayjs locale
-  let dayjsLocale = locale || "en";
-  if (locale === "uz") {
-    dayjsLocale = "uz-latn";
-  } else if (locale === "qa") {
-    dayjsLocale = "qa";
-  } else if (locale === "ru" || locale === "en") {
-    dayjsLocale = locale;
-  } else if (!locale) {
-    dayjsLocale = "en";
+  let dayjsLocale: string;
+  switch (locale) {
+    case "uz":
+      dayjsLocale = "uz-latn";
+      break;
+    case "qa":
+      dayjsLocale = "qa";
+      break;
+    default:
+      dayjsLocale = locale || "ru";
+      break;
   }
 
   // Use dayjs for all formatting
@@ -67,15 +69,17 @@ export const getDaysNames = (
   locale?: string
 ) => {
   // Map locale to dayjs locale
-  let dayjsLocale = locale || "en";
-  if (locale === "uz") {
-    dayjsLocale = "uz-latn";
-  } else if (locale === "qa") {
-    dayjsLocale = "qa";
-  } else if (locale === "ru" || locale === "en") {
-    dayjsLocale = locale;
-  } else if (!locale) {
-    dayjsLocale = "en";
+  let dayjsLocale: string;
+  switch (locale) {
+    case "uz":
+      dayjsLocale = "uz-latn";
+      break;
+    case "qa":
+      dayjsLocale = "qa";
+      break;
+    default:
+      dayjsLocale = locale || "ru";
+      break;
   }
 
   const days = eachDayOfInterval(
