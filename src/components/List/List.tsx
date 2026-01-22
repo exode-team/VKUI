@@ -17,7 +17,7 @@ export const List = ({ children, ...restProps }: ListProps) => {
       {...restProps}
       vkuiClass={classNames("List", isDragging && "List--dragging")}
     >
-      <ListContext.Provider value={React.useMemo(() => ({ isDragging, toggleDrag }), [])}>
+      <ListContext.Provider value={{ isDragging, toggleDrag }}>
         {children}
       </ListContext.Provider>
     </div>
