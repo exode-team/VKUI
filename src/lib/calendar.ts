@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   eachDayOfInterval,
   startOfWeek,
@@ -31,13 +32,14 @@ export const getMonths = (locale?: string) => {
     value: number;
     label: string;
   }> = [];
-  const formatter = new Intl.DateTimeFormat(locale, {
-    month: "long",
-  });
 
+  const dayjsLocale = locale || "ru";
+
+  // Use dayjs for all formatting
   for (let i = 0; i < 12; i++) {
+    const date = dayjs().month(i).locale(dayjsLocale);
     months.push({
-      label: formatter.format(new Date("1970-01-01").setMonth(i)),
+      label: date.format("MMMM"),
       value: i,
     });
   }
@@ -50,13 +52,17 @@ export const getDaysNames = (
   weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6,
   locale?: string
 ) => {
-  const formatter = new Intl.DateTimeFormat(locale, {
-    weekday: "short",
-  });
-  return eachDayOfInterval(
+  const dayjsLocale = locale || "ru";
+
+  const days = eachDayOfInterval(
     startOfWeek(now, weekStartsOn),
     endOfWeek(now, weekStartsOn)
-  ).map((day) => formatter.format(day));
+  );
+
+  // Use dayjs for all formatting
+  return days.map((day) => {
+    return dayjs(day).locale(dayjsLocale).format("ddd");
+  });
 };
 
 export const navigateDate = (date?: Date | null, key?: string) => {

@@ -1,4 +1,5 @@
 import * as React from "react";
+import dayjs from "dayjs";
 import { setMonth, setYear, subMonths, addMonths } from "../../lib/date";
 import {
   Icon20ChevronLeftOutline,
@@ -98,10 +99,19 @@ export const CalendarHeader = ({
 
   const years = React.useMemo(() => getYears(currentYear, 100), [currentYear]);
 
-  const formatter = new Intl.DateTimeFormat(locale, {
-    year: "numeric",
-    month: "long",
-  });
+  const dayjsLocale = locale || "ru";
+
+  // Format date using dayjs only
+  const formatDate = React.useCallback(
+    (date: Date, formatStr: string) => {
+      const currentLocale = dayjs.locale();
+      dayjs.locale(dayjsLocale);
+      const formatted = dayjs(date).format(formatStr);
+      dayjs.locale(currentLocale);
+      return formatted;
+    },
+    [dayjsLocale]
+  );
 
   return (
     <div vkuiClass="CalendarHeader" className={className}>
@@ -113,8 +123,9 @@ export const CalendarHeader = ({
               "CalendarHeader__nav-icon-prev"
             )}
             onClick={onPrevMonth}
-            aria-label={`${prevMonthAriaLabel}, ${formatter.format(
-              subMonths(viewDate, 1)
+            aria-label={`${prevMonthAriaLabel}, ${formatDate(
+              subMonths(viewDate, 1),
+              "MMMM YYYY"
             )}`}
             {...prevMonthProps}
           >
@@ -125,14 +136,10 @@ export const CalendarHeader = ({
       {disablePickers ? (
         <Paragraph vkuiClass="CalendarHeader__pickers" weight="2">
           <span vkuiClass="CalendarHeader__month">
-            {new Intl.DateTimeFormat(locale, {
-              month: "long",
-            }).format(viewDate)}
+            {formatDate(viewDate, "MMMM")}
           </span>
           &nbsp;
-          {new Intl.DateTimeFormat(locale, {
-            year: "numeric",
-          }).format(viewDate)}
+          {formatDate(viewDate, "YYYY")}
         </Paragraph>
       ) : (
         <div vkuiClass="CalendarHeader__pickers">
@@ -172,8 +179,9 @@ export const CalendarHeader = ({
               "CalendarHeader__nav-icon-next"
             )}
             onClick={onNextMonth}
-            aria-label={`${nextMonthAriaLabel}, ${formatter.format(
-              addMonths(viewDate, 1)
+            aria-label={`${nextMonthAriaLabel}, ${formatDate(
+              addMonths(viewDate, 1),
+              "MMMM YYYY"
             )}`}
             {...nextMonthProps}
           >

@@ -80,7 +80,7 @@ const Example = () => {
         </FormItem>
         <FormItem top="Локаль">
           <Select
-            style={{ width: 100 }}
+            style={{ width: 150 }}
             value={locale}
             onChange={(e) => setLocale(e.target.value)}
             options={[
@@ -99,6 +99,14 @@ const Example = () => {
               {
                 label: "fr",
                 value: "fr",
+              },
+              {
+                label: "uz",
+                value: "uz",
+              },
+              {
+                label: "qa",
+                value: "qa",
               },
             ]}
           />
@@ -126,4 +134,46 @@ const Example = () => {
 };
 
 <Example />;
+```
+
+## Поддержка узбекского и каракалпакского языков
+
+DateInput поддерживает узбекский (uz) и каракалпакский (qa) языки. Локали автоматически загружаются при использовании компонента.
+
+**Как открыть календарь:** кликните на поле ввода даты или на иконку календаря справа.
+
+```jsx { "props": { "layout": false, "iframe": false } }
+const LocaleExample = () => {
+  const [uzValue, setUzValue] = useState(undefined);
+  const [qaValue, setQaValue] = useState(undefined);
+
+  return (
+    <FormLayout>
+      <FormLayoutGroup mode="vertical">
+        <FormItem top="Узбекский язык (uz)">
+          <div style={{ display: "flex" }}>
+            <LocaleProviderContext.Provider value="uz">
+              <DateInput
+                value={uzValue}
+                onChange={setUzValue}
+              />
+            </LocaleProviderContext.Provider>
+          </div>
+        </FormItem>
+        <FormItem top="Каракалпакский язык (qa)">
+          <div style={{ display: "flex" }}>
+            <LocaleProviderContext.Provider value="qa">
+              <DateInput
+                value={qaValue}
+                onChange={setQaValue}
+              />
+            </LocaleProviderContext.Provider>
+          </div>
+        </FormItem>
+      </FormLayoutGroup>
+    </FormLayout>
+  );
+};
+
+<LocaleExample />;
 ```

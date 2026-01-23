@@ -1,8 +1,9 @@
 import * as React from "react";
+import dayjs from "dayjs";
 import { format, isMatch, parse } from "../../lib/date";
 import { Icon16Clear, Icon20CalendarOutline } from "@vkontakte/icons";
 import { Calendar, CalendarProps } from "../Calendar/Calendar";
-import { Popper, Placement } from "../Popper/Popper";
+import { Placement, Popper } from "../Popper/Popper";
 import { multiRef } from "../../lib/utils";
 import { IconButton } from "../IconButton/IconButton";
 import { classNames } from "../../lib/classNames";
@@ -13,6 +14,7 @@ import { InputLike } from "../InputLike/InputLike";
 import { InputLikeDivider } from "../InputLike/InputLikeDivider";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { callMultiple } from "../../lib/callMultiple";
+import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
 import "./DateInput.css";
 
 export interface DateInputProps
@@ -142,6 +144,7 @@ export const DateInput = ({
   disableCalendar = false,
   ...props
 }: DateInputProps) => {
+  const locale = React.useContext(LocaleProviderContext);
   const daysRef = React.useRef<HTMLSpanElement>(null);
   const monthsRef = React.useRef<HTMLSpanElement>(null);
   const yearsRef = React.useRef<HTMLSpanElement>(null);
@@ -149,6 +152,13 @@ export const DateInput = ({
   const minutesRef = React.useRef<HTMLSpanElement>(null);
 
   const maxElement = enableTime ? 4 : 2;
+
+  // Set dayjs locale based on LocaleProviderContext
+  React.useEffect(() => {
+    if (locale) {
+      dayjs.locale(locale);
+    }
+  }, [locale]);
 
   const onInternalValueChange = React.useCallback(
     (internalValue: string[]) => {

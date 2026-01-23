@@ -1,4 +1,5 @@
 import * as React from "react";
+import dayjs from "dayjs";
 import { classNames } from "../../lib/classNames";
 import { Tappable, TappableElementProps } from "../Tappable/Tappable";
 import { ENABLE_KEYBOARD_INPUT_EVENT_NAME } from "../../hooks/useKeyboardInputTracker";
@@ -57,6 +58,19 @@ export const CalendarDay = React.memo(
     const handleEnter = React.useCallback(() => onEnter?.(day), [day, onEnter]);
     const handleLeave = React.useCallback(() => onLeave?.(day), [day, onLeave]);
 
+    const dayjsLocale = locale || "ru";
+
+    // Format aria-label using dayjs
+    const ariaLabel = React.useMemo(() => {
+      const currentLocale = dayjs.locale();
+      dayjs.locale(dayjsLocale);
+
+      const formatted = dayjs(day).format("dddd, D MMMM YYYY");
+      dayjs.locale(currentLocale);
+
+      return formatted;
+    }, [day, dayjsLocale]);
+
     React.useEffect(() => {
       if (focused && ref.current) {
         ref.current.dispatchEvent(
@@ -87,14 +101,9 @@ export const CalendarDay = React.memo(
         hasActive={false}
         onClick={onClick}
         disabled={disabled}
-        aria-label={new Intl.DateTimeFormat(locale, {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }).format(day)}
         tabIndex={-1}
         getRootRef={ref}
+        aria-label={ariaLabel}
         focusVisibleMode={active ? "outside" : "inside"}
         onEnter={handleEnter}
         onLeave={handleLeave}
