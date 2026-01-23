@@ -3,6 +3,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "alwaysShowTime", "defaultTime", "disableCalendar"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
+import dayjs from "dayjs";
 import { format, isMatch, parse } from "../../lib/date";
 import { Icon16Clear, Icon20CalendarOutline } from "@vkontakte/icons";
 import { Calendar } from "../Calendar/Calendar";
@@ -16,6 +17,7 @@ import { InputLike } from "../InputLike/InputLike";
 import { InputLikeDivider } from "../InputLike/InputLikeDivider";
 import { useAdaptivity } from "../../hooks/useAdaptivity";
 import { callMultiple } from "../../lib/callMultiple";
+import { LocaleProviderContext } from "../LocaleProviderContext/LocaleProviderContext";
 import "./DateInput.css";
 var elementsConfig = function elementsConfig(index) {
   var length = 2;
@@ -111,12 +113,20 @@ export var DateInput = function DateInput(_ref) {
     _ref$disableCalendar = _ref.disableCalendar,
     disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
     props = _objectWithoutProperties(_ref, _excluded);
+  var locale = React.useContext(LocaleProviderContext);
   var daysRef = React.useRef(null);
   var monthsRef = React.useRef(null);
   var yearsRef = React.useRef(null);
   var hoursRef = React.useRef(null);
   var minutesRef = React.useRef(null);
   var maxElement = enableTime ? 4 : 2;
+
+  // Set dayjs locale based on LocaleProviderContext
+  React.useEffect(function () {
+    if (locale) {
+      dayjs.locale(locale);
+    }
+  }, [locale]);
   var onInternalValueChange = React.useCallback(function (internalValue) {
     for (var i = 0; i <= maxElement; i += 1) {
       if (internalValue[i].length < elementsConfig(i).length) {

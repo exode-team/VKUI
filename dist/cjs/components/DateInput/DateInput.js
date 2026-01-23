@@ -10,6 +10,7 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 var React = _interopRequireWildcard(require("react"));
+var _dayjs = _interopRequireDefault(require("dayjs"));
 var _date = require("../../lib/date");
 var _icons = require("@vkontakte/icons");
 var _Calendar = require("../Calendar/Calendar");
@@ -23,6 +24,7 @@ var _InputLike = require("../InputLike/InputLike");
 var _InputLikeDivider = require("../InputLike/InputLikeDivider");
 var _useAdaptivity2 = require("../../hooks/useAdaptivity");
 var _callMultiple = require("../../lib/callMultiple");
+var _LocaleProviderContext = require("../LocaleProviderContext/LocaleProviderContext");
 var _excluded = ["enableTime", "shouldDisableDate", "disableFuture", "disablePast", "value", "onChange", "calendarPlacement", "style", "className", "doneButtonText", "closeOnChange", "disablePickers", "getRootRef", "name", "autoFocus", "disabled", "onClick", "onFocus", "prevMonthAriaLabel", "nextMonthAriaLabel", "showNeighboringMonth", "size", "changeMonthAriaLabel", "changeYearAriaLabel", "changeDayAriaLabel", "changeHoursAriaLabel", "changeMinutesAriaLabel", "clearFieldAriaLabel", "showCalendarAriaLabel", "viewDate", "onHeaderChange", "onNextMonth", "onPrevMonth", "prevMonthIcon", "nextMonthIcon", "alwaysShowTime", "defaultTime", "disableCalendar"];
 var elementsConfig = function elementsConfig(index) {
   var length = 2;
@@ -118,12 +120,20 @@ var DateInput = function DateInput(_ref) {
     _ref$disableCalendar = _ref.disableCalendar,
     disableCalendar = _ref$disableCalendar === void 0 ? false : _ref$disableCalendar,
     props = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+  var locale = React.useContext(_LocaleProviderContext.LocaleProviderContext);
   var daysRef = React.useRef(null);
   var monthsRef = React.useRef(null);
   var yearsRef = React.useRef(null);
   var hoursRef = React.useRef(null);
   var minutesRef = React.useRef(null);
   var maxElement = enableTime ? 4 : 2;
+
+  // Set dayjs locale based on LocaleProviderContext
+  React.useEffect(function () {
+    if (locale) {
+      _dayjs.default.locale(locale);
+    }
+  }, [locale]);
   var onInternalValueChange = React.useCallback(function (internalValue) {
     for (var i = 0; i <= maxElement; i += 1) {
       if (internalValue[i].length < elementsConfig(i).length) {

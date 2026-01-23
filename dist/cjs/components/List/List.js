@@ -29,12 +29,10 @@ var List = function List(_ref) {
   }, restProps, {
     vkuiClass: (0, _classNames.classNames)("List", isDragging && "List--dragging")
   }), (0, _jsxRuntime.createScopedElement)(_ListContext.ListContext.Provider, {
-    value: React.useMemo(function () {
-      return {
-        isDragging: isDragging,
-        toggleDrag: toggleDrag
-      };
-    }, [])
+    value: {
+      isDragging: isDragging,
+      toggleDrag: toggleDrag
+    }
   }, children));
 };
 exports.List = List;

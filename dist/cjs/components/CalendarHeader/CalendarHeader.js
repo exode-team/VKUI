@@ -9,6 +9,7 @@ exports.CalendarHeader = void 0;
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 var _jsxRuntime = require("../../lib/jsxRuntime");
 var React = _interopRequireWildcard(require("react"));
+var _dayjs = _interopRequireDefault(require("dayjs"));
 var _date = require("../../lib/date");
 var _icons = require("@vkontakte/icons");
 var _Tappable = require("../Tappable/Tappable");
@@ -77,10 +78,16 @@ var CalendarHeader = function CalendarHeader(_ref) {
   var years = React.useMemo(function () {
     return (0, _calendar.getYears)(currentYear, 100);
   }, [currentYear]);
-  var formatter = new Intl.DateTimeFormat(locale, {
-    year: "numeric",
-    month: "long"
-  });
+  var dayjsLocale = locale || "ru";
+
+  // Format date using dayjs only
+  var formatDate = React.useCallback(function (date, formatStr) {
+    var currentLocale = _dayjs.default.locale();
+    _dayjs.default.locale(dayjsLocale);
+    var formatted = (0, _dayjs.default)(date).format(formatStr);
+    _dayjs.default.locale(currentLocale);
+    return formatted;
+  }, [dayjsLocale]);
   return (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarHeader",
     className: className
@@ -89,17 +96,13 @@ var CalendarHeader = function CalendarHeader(_ref) {
   }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-prev"),
     onClick: onPrevMonth,
-    "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatter.format((0, _date.subMonths)(viewDate, 1)))
+    "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatDate((0, _date.subMonths)(viewDate, 1), "MMMM YYYY"))
   }, prevMonthProps), prevMonthIcon)), disablePickers ? (0, _jsxRuntime.createScopedElement)(_Paragraph.Paragraph, {
     vkuiClass: "CalendarHeader__pickers",
     weight: "2"
   }, (0, _jsxRuntime.createScopedElement)("span", {
     vkuiClass: "CalendarHeader__month"
-  }, new Intl.DateTimeFormat(locale, {
-    month: "long"
-  }).format(viewDate)), "\xA0", new Intl.DateTimeFormat(locale, {
-    year: "numeric"
-  }).format(viewDate)) : (0, _jsxRuntime.createScopedElement)("div", {
+  }, formatDate(viewDate, "MMMM")), "\xA0", formatDate(viewDate, "YYYY")) : (0, _jsxRuntime.createScopedElement)("div", {
     vkuiClass: "CalendarHeader__pickers"
   }, (0, _jsxRuntime.createScopedElement)(_CustomSelect.CustomSelect, {
     vkuiClass: "CalendarHeader__picker",
@@ -130,7 +133,7 @@ var CalendarHeader = function CalendarHeader(_ref) {
   }, (0, _jsxRuntime.createScopedElement)(_Tappable.Tappable, (0, _extends2.default)({
     vkuiClass: (0, _classNames.classNames)("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-next"),
     onClick: onNextMonth,
-    "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format((0, _date.addMonths)(viewDate, 1)))
+    "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatDate((0, _date.addMonths)(viewDate, 1), "MMMM YYYY"))
   }, nextMonthProps), nextMonthIcon)));
 };
 exports.CalendarHeader = CalendarHeader;

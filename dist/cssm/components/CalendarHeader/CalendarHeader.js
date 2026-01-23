@@ -1,6 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
+import dayjs from "dayjs";
 import { setMonth, setYear, subMonths, addMonths } from "../../lib/date";
 import { Icon20ChevronLeftOutline, Icon20ChevronRightOutline, Icon12Dropdown } from "@vkontakte/icons";
 import { Tappable } from "../Tappable/Tappable";
@@ -70,10 +71,16 @@ export var CalendarHeader = function CalendarHeader(_ref) {
   var years = React.useMemo(function () {
     return getYears(currentYear, 100);
   }, [currentYear]);
-  var formatter = new Intl.DateTimeFormat(locale, {
-    year: "numeric",
-    month: "long"
-  });
+  var dayjsLocale = locale || "ru";
+
+  // Format date using dayjs only
+  var formatDate = React.useCallback(function (date, formatStr) {
+    var currentLocale = dayjs.locale();
+    dayjs.locale(dayjsLocale);
+    var formatted = dayjs(date).format(formatStr);
+    dayjs.locale(currentLocale);
+    return formatted;
+  }, [dayjsLocale]);
   return createScopedElement("div", {
     vkuiClass: "CalendarHeader",
     className: className
@@ -82,17 +89,13 @@ export var CalendarHeader = function CalendarHeader(_ref) {
   }, createScopedElement(Tappable, _extends({
     vkuiClass: classNames("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-prev"),
     onClick: onPrevMonth,
-    "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatter.format(subMonths(viewDate, 1)))
+    "aria-label": "".concat(prevMonthAriaLabel, ", ").concat(formatDate(subMonths(viewDate, 1), "MMMM YYYY"))
   }, prevMonthProps), prevMonthIcon)), disablePickers ? createScopedElement(Paragraph, {
     vkuiClass: "CalendarHeader__pickers",
     weight: "2"
   }, createScopedElement("span", {
     vkuiClass: "CalendarHeader__month"
-  }, new Intl.DateTimeFormat(locale, {
-    month: "long"
-  }).format(viewDate)), "\xA0", new Intl.DateTimeFormat(locale, {
-    year: "numeric"
-  }).format(viewDate)) : createScopedElement("div", {
+  }, formatDate(viewDate, "MMMM")), "\xA0", formatDate(viewDate, "YYYY")) : createScopedElement("div", {
     vkuiClass: "CalendarHeader__pickers"
   }, createScopedElement(CustomSelect, {
     vkuiClass: "CalendarHeader__picker",
@@ -123,7 +126,7 @@ export var CalendarHeader = function CalendarHeader(_ref) {
   }, createScopedElement(Tappable, _extends({
     vkuiClass: classNames("CalendarHeader__nav-icon", "CalendarHeader__nav-icon-next"),
     onClick: onNextMonth,
-    "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatter.format(addMonths(viewDate, 1)))
+    "aria-label": "".concat(nextMonthAriaLabel, ", ").concat(formatDate(addMonths(viewDate, 1), "MMMM YYYY"))
   }, nextMonthProps), nextMonthIcon)));
 };
 //# sourceMappingURL=CalendarHeader.js.map

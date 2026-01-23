@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { eachDayOfInterval, startOfWeek, endOfWeek, addDays, subDays, subWeeks, addWeeks, startOfMonth, endOfMonth, isBefore, isFirstDayOfMonth, isLastDayOfMonth } from "./date";
 export var getYears = function getYears(currentYear, range) {
   var years = [];
@@ -11,23 +12,25 @@ export var getYears = function getYears(currentYear, range) {
 };
 export var getMonths = function getMonths(locale) {
   var months = [];
-  var formatter = new Intl.DateTimeFormat(locale, {
-    month: "long"
-  });
+  var dayjsLocale = locale || "ru";
+
+  // Use dayjs for all formatting
   for (var i = 0; i < 12; i++) {
+    var date = dayjs().month(i).locale(dayjsLocale);
     months.push({
-      label: formatter.format(new Date("1970-01-01").setMonth(i)),
+      label: date.format("MMMM"),
       value: i
     });
   }
   return months;
 };
 export var getDaysNames = function getDaysNames(now, weekStartsOn, locale) {
-  var formatter = new Intl.DateTimeFormat(locale, {
-    weekday: "short"
-  });
-  return eachDayOfInterval(startOfWeek(now, weekStartsOn), endOfWeek(now, weekStartsOn)).map(function (day) {
-    return formatter.format(day);
+  var dayjsLocale = locale || "ru";
+  var days = eachDayOfInterval(startOfWeek(now, weekStartsOn), endOfWeek(now, weekStartsOn));
+
+  // Use dayjs for all formatting
+  return days.map(function (day) {
+    return dayjs(day).locale(dayjsLocale).format("ddd");
   });
 };
 export var navigateDate = function navigateDate(date, key) {

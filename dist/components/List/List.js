@@ -21,12 +21,10 @@ export var List = function List(_ref) {
   }, restProps, {
     vkuiClass: classNames("List", isDragging && "List--dragging")
   }), createScopedElement(ListContext.Provider, {
-    value: React.useMemo(function () {
-      return {
-        isDragging: isDragging,
-        toggleDrag: toggleDrag
-      };
-    }, [])
+    value: {
+      isDragging: isDragging,
+      toggleDrag: toggleDrag
+    }
   }, children));
 };
 //# sourceMappingURL=List.js.map

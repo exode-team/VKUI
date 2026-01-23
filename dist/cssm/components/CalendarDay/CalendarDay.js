@@ -3,6 +3,7 @@ import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProper
 var _excluded = ["day", "today", "selected", "onChange", "hidden", "disabled", "active", "selectionStart", "selectionEnd", "focused", "onEnter", "onLeave", "hinted", "hintedSelectionStart", "hintedSelectionEnd", "sameMonth", "size"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
+import dayjs from "dayjs";
 import { classNames } from "../../lib/classNames";
 import { Tappable } from "../Tappable/Tappable";
 import { ENABLE_KEYBOARD_INPUT_EVENT_NAME } from "../../hooks/useKeyboardInputTracker";
@@ -38,6 +39,16 @@ export var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
   var handleLeave = React.useCallback(function () {
     return onLeave === null || onLeave === void 0 ? void 0 : onLeave(day);
   }, [day, onLeave]);
+  var dayjsLocale = locale || "ru";
+
+  // Format aria-label using dayjs
+  var ariaLabel = React.useMemo(function () {
+    var currentLocale = dayjs.locale();
+    dayjs.locale(dayjsLocale);
+    var formatted = dayjs(day).format("dddd, D MMMM YYYY");
+    dayjs.locale(currentLocale);
+    return formatted;
+  }, [day, dayjsLocale]);
   React.useEffect(function () {
     if (focused && ref.current) {
       ref.current.dispatchEvent(new Event(ENABLE_KEYBOARD_INPUT_EVENT_NAME, {
@@ -57,14 +68,9 @@ export var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     hasActive: false,
     onClick: onClick,
     disabled: disabled,
-    "aria-label": new Intl.DateTimeFormat(locale, {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    }).format(day),
     tabIndex: -1,
     getRootRef: ref,
+    "aria-label": ariaLabel,
     focusVisibleMode: active ? "outside" : "inside",
     onEnter: handleEnter,
     onLeave: handleLeave

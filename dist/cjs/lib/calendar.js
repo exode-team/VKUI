@@ -1,9 +1,11 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.setTimeEqual = exports.navigateDate = exports.isLastDay = exports.isFirstDay = exports.getYears = exports.getWeeks = exports.getMonths = exports.getDaysNames = void 0;
+var _dayjs = _interopRequireDefault(require("dayjs"));
 var _date = require("./date");
 var getYears = function getYears(currentYear, range) {
   var years = [];
@@ -18,12 +20,13 @@ var getYears = function getYears(currentYear, range) {
 exports.getYears = getYears;
 var getMonths = function getMonths(locale) {
   var months = [];
-  var formatter = new Intl.DateTimeFormat(locale, {
-    month: "long"
-  });
+  var dayjsLocale = locale || "ru";
+
+  // Use dayjs for all formatting
   for (var i = 0; i < 12; i++) {
+    var date = (0, _dayjs.default)().month(i).locale(dayjsLocale);
     months.push({
-      label: formatter.format(new Date("1970-01-01").setMonth(i)),
+      label: date.format("MMMM"),
       value: i
     });
   }
@@ -31,11 +34,12 @@ var getMonths = function getMonths(locale) {
 };
 exports.getMonths = getMonths;
 var getDaysNames = function getDaysNames(now, weekStartsOn, locale) {
-  var formatter = new Intl.DateTimeFormat(locale, {
-    weekday: "short"
-  });
-  return (0, _date.eachDayOfInterval)((0, _date.startOfWeek)(now, weekStartsOn), (0, _date.endOfWeek)(now, weekStartsOn)).map(function (day) {
-    return formatter.format(day);
+  var dayjsLocale = locale || "ru";
+  var days = (0, _date.eachDayOfInterval)((0, _date.startOfWeek)(now, weekStartsOn), (0, _date.endOfWeek)(now, weekStartsOn));
+
+  // Use dayjs for all formatting
+  return days.map(function (day) {
+    return (0, _dayjs.default)(day).locale(dayjsLocale).format("ddd");
   });
 };
 exports.getDaysNames = getDaysNames;

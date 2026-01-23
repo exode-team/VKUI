@@ -10,6 +10,7 @@ var _jsxRuntime = require("../../lib/jsxRuntime");
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 var React = _interopRequireWildcard(require("react"));
+var _dayjs = _interopRequireDefault(require("dayjs"));
 var _classNames = require("../../lib/classNames");
 var _Tappable = require("../Tappable/Tappable");
 var _useKeyboardInputTracker = require("../../hooks/useKeyboardInputTracker");
@@ -45,6 +46,16 @@ var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
   var handleLeave = React.useCallback(function () {
     return onLeave === null || onLeave === void 0 ? void 0 : onLeave(day);
   }, [day, onLeave]);
+  var dayjsLocale = locale || "ru";
+
+  // Format aria-label using dayjs
+  var ariaLabel = React.useMemo(function () {
+    var currentLocale = _dayjs.default.locale();
+    _dayjs.default.locale(dayjsLocale);
+    var formatted = (0, _dayjs.default)(day).format("dddd, D MMMM YYYY");
+    _dayjs.default.locale(currentLocale);
+    return formatted;
+  }, [day, dayjsLocale]);
   React.useEffect(function () {
     if (focused && ref.current) {
       ref.current.dispatchEvent(new Event(_useKeyboardInputTracker.ENABLE_KEYBOARD_INPUT_EVENT_NAME, {
@@ -64,14 +75,9 @@ var CalendarDay = /*#__PURE__*/React.memo(function (_ref) {
     hasActive: false,
     onClick: onClick,
     disabled: disabled,
-    "aria-label": new Intl.DateTimeFormat(locale, {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    }).format(day),
     tabIndex: -1,
     getRootRef: ref,
+    "aria-label": ariaLabel,
     focusVisibleMode: active ? "outside" : "inside",
     onEnter: handleEnter,
     onLeave: handleLeave
