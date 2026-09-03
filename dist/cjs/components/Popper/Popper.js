@@ -14,6 +14,7 @@ var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/sli
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 var React = _interopRequireWildcard(require("react"));
 var _reactPopper = require("react-popper");
+var _core = require("@popperjs/core");
 var _AppRootPortal = require("../AppRoot/AppRootPortal");
 var _PopperArrow = require("../PopperArrow/PopperArrow");
 var _usePlatform = require("../../hooks/usePlatform");
@@ -33,6 +34,47 @@ var preventOverflowModifier = {
 var flipModifier = {
   name: "flip"
 };
+var MAX_SIZE_PADDING = 8;
+
+/**
+ * Считает, сколько высоты доступно попперу до края viewport с учётом итогового placement
+ * @see https://github.com/atomiks/popper.js-max-size-modifier
+ */
+var maxSizeModifier = {
+  name: "maxSize",
+  enabled: true,
+  phase: "main",
+  requiresIfExists: ["offset", "preventOverflow", "flip"],
+  fn: function fn(_ref) {
+    var state = _ref.state,
+      name = _ref.name;
+    var overflow = (0, _core.detectOverflow)(state, {
+      padding: MAX_SIZE_PADDING
+    });
+    var _ref2 = state.modifiersData.preventOverflow || {},
+      _ref2$y = _ref2.y,
+      y = _ref2$y === void 0 ? 0 : _ref2$y;
+    var side = state.placement.startsWith("top") ? "top" : "bottom";
+    state.modifiersData[name] = {
+      height: state.rects.popper.height - overflow[side] - y
+    };
+  }
+};
+
+/**
+ * Отдаёт доступную высоту содержимому поппера через CSS-переменную: сам поппер не ограничивается,
+ * решение об ужатии принимает контент (например, список CustomSelectDropdown)
+ */
+var applyMaxSizeModifier = {
+  name: "applyMaxSize",
+  enabled: true,
+  phase: "beforeWrite",
+  requires: ["maxSize"],
+  fn: function fn(_ref3) {
+    var state = _ref3.state;
+    state.elements.popper.style.setProperty("--vkui_popper_max_height", "".concat(state.modifiersData.maxSize.height, "px"));
+  }
+};
 var arrowModifier = {
   name: "arrow",
   options: {
@@ -44,12 +86,12 @@ var sameWidthModifier = {
   enabled: true,
   phase: "beforeWrite",
   requires: ["computeStyles"],
-  fn: function fn(_ref) {
-    var state = _ref.state;
+  fn: function fn(_ref4) {
+    var state = _ref4.state;
     state.styles.popper.width = "".concat(state.rects.reference.width, "px");
   },
-  effect: function effect(_ref2) {
-    var state = _ref2.state;
+  effect: function effect(_ref5) {
+    var state = _ref5.state;
     state.elements.popper.style.width = "".concat(state.elements.reference.offsetWidth, "px");
   }
 };
@@ -57,28 +99,28 @@ var sameWidthModifier = {
 /**
  * @see https://vkcom.github.io/VKUI/#/Popper
  */
-var Popper = function Popper(_ref3) {
+var Popper = function Popper(_ref6) {
   var _styles$popper;
-  var targetRef = _ref3.targetRef,
-    children = _ref3.children,
-    getRef = _ref3.getRef,
-    forcePlacement = _ref3.forcePlacement,
-    _ref3$placement = _ref3.placement,
-    placement = _ref3$placement === void 0 ? "bottom-start" : _ref3$placement,
-    onPlacementChange = _ref3.onPlacementChange,
-    arrow = _ref3.arrow,
-    arrowClassName = _ref3.arrowClassName,
-    sameWidth = _ref3.sameWidth,
-    _ref3$offsetDistance = _ref3.offsetDistance,
-    offsetDistance = _ref3$offsetDistance === void 0 ? 8 : _ref3$offsetDistance,
-    _ref3$offsetSkidding = _ref3.offsetSkidding,
-    offsetSkidding = _ref3$offsetSkidding === void 0 ? 0 : _ref3$offsetSkidding,
-    _ref3$forcePortal = _ref3.forcePortal,
-    forcePortal = _ref3$forcePortal === void 0 ? true : _ref3$forcePortal,
-    compStyles = _ref3.style,
-    customModifiers = _ref3.customModifiers,
-    renderContent = _ref3.renderContent,
-    restProps = (0, _objectWithoutProperties2.default)(_ref3, _excluded);
+  var targetRef = _ref6.targetRef,
+    children = _ref6.children,
+    getRef = _ref6.getRef,
+    forcePlacement = _ref6.forcePlacement,
+    _ref6$placement = _ref6.placement,
+    placement = _ref6$placement === void 0 ? "bottom-start" : _ref6$placement,
+    onPlacementChange = _ref6.onPlacementChange,
+    arrow = _ref6.arrow,
+    arrowClassName = _ref6.arrowClassName,
+    sameWidth = _ref6.sameWidth,
+    _ref6$offsetDistance = _ref6.offsetDistance,
+    offsetDistance = _ref6$offsetDistance === void 0 ? 8 : _ref6$offsetDistance,
+    _ref6$offsetSkidding = _ref6.offsetSkidding,
+    offsetSkidding = _ref6$offsetSkidding === void 0 ? 0 : _ref6$offsetSkidding,
+    _ref6$forcePortal = _ref6.forcePortal,
+    forcePortal = _ref6$forcePortal === void 0 ? true : _ref6$forcePortal,
+    compStyles = _ref6.style,
+    customModifiers = _ref6.customModifiers,
+    renderContent = _ref6.renderContent,
+    restProps = (0, _objectWithoutProperties2.default)(_ref6, _excluded);
   var _React$useState = React.useState(null),
     _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
     popperNode = _React$useState2[0],
@@ -95,7 +137,7 @@ var Popper = function Popper(_ref3) {
       options: {
         offset: [arrow ? offsetSkidding - smallTargetOffsetSkidding : offsetSkidding, arrow ? offsetDistance + ARROW_HEIGHT : offsetDistance]
       }
-    }, !forcePlacement ? flipModifier : null].filter(function (e) {
+    }, !forcePlacement ? flipModifier : null, maxSizeModifier, applyMaxSizeModifier].filter(function (e) {
       return e;
     });
     if (arrow) {
@@ -123,10 +165,10 @@ var Popper = function Popper(_ref3) {
   // таргета из-за маленьких размеров последнего
   (0, _useIsomorphicLayoutEffect.useIsomorphicLayoutEffect)(function () {
     if (arrow && isEdgePlacement) {
-      var _ref4, _targetRef$current, _targetRef$current2;
+      var _ref7, _targetRef$current, _targetRef$current2;
       var placementDirection = resolvedPlacement !== null && resolvedPlacement !== void 0 && resolvedPlacement.startsWith("bottom") || resolvedPlacement !== null && resolvedPlacement !== void 0 && resolvedPlacement.startsWith("top") ? "vertical" : "horizontal";
       var arrowSize = placementDirection === "vertical" ? ARROW_WIDTH : ARROW_HEIGHT;
-      var targetSize = (_ref4 = placementDirection === "vertical" ? (_targetRef$current = targetRef.current) === null || _targetRef$current === void 0 ? void 0 : _targetRef$current.offsetWidth : (_targetRef$current2 = targetRef.current) === null || _targetRef$current2 === void 0 ? void 0 : _targetRef$current2.offsetHeight) !== null && _ref4 !== void 0 ? _ref4 : 0;
+      var targetSize = (_ref7 = placementDirection === "vertical" ? (_targetRef$current = targetRef.current) === null || _targetRef$current === void 0 ? void 0 : _targetRef$current.offsetWidth : (_targetRef$current2 = targetRef.current) === null || _targetRef$current2 === void 0 ? void 0 : _targetRef$current2.offsetHeight) !== null && _ref7 !== void 0 ? _ref7 : 0;
       if (targetSize < arrowSize + 2 * ARROW_PADDING) {
         setSmallTargetOffsetSkidding(ARROW_PADDING + arrowSize / 2);
       }
