@@ -1,5 +1,6 @@
 import * as React from "react";
 import { usePopper, Modifier } from "react-popper";
+import { detectOverflow } from "@popperjs/core";
 import { AppRootPortal } from "../AppRoot/AppRootPortal";
 import { PopperArrow } from "../PopperArrow/PopperArrow";
 import { HasRef } from "../../types";
@@ -93,6 +94,45 @@ const flipModifier: Modifier<string> = {
   name: "flip",
 };
 
+const MAX_SIZE_PADDING = 8;
+
+/**
+ * Считает, сколько высоты доступно попперу до края viewport с учётом итогового placement
+ * @see https://github.com/atomiks/popper.js-max-size-modifier
+ */
+const maxSizeModifier: Modifier<string> = {
+  name: "maxSize",
+  enabled: true,
+  phase: "main",
+  requiresIfExists: ["offset", "preventOverflow", "flip"],
+  fn: ({ state, name }) => {
+    const overflow = detectOverflow(state, { padding: MAX_SIZE_PADDING });
+    const { y = 0 } = state.modifiersData.preventOverflow || {};
+    const side = state.placement.startsWith("top") ? "top" : "bottom";
+
+    state.modifiersData[name] = {
+      height: state.rects.popper.height - overflow[side] - y,
+    };
+  },
+};
+
+/**
+ * Отдаёт доступную высоту содержимому поппера через CSS-переменную: сам поппер не ограничивается,
+ * решение об ужатии принимает контент (например, список CustomSelectDropdown)
+ */
+const applyMaxSizeModifier: Modifier<string> = {
+  name: "applyMaxSize",
+  enabled: true,
+  phase: "beforeWrite",
+  requires: ["maxSize"],
+  fn: ({ state }) => {
+    state.elements.popper.style.setProperty(
+      "--vkui_popper_max_height",
+      `${state.modifiersData.maxSize.height}px`
+    );
+  },
+};
+
 const arrowModifier: Modifier<string> = {
   name: "arrow",
   options: {
@@ -158,6 +198,8 @@ export const Popper = ({
         },
       },
       (!forcePlacement ? flipModifier : null) as Modifier<string>,
+      maxSizeModifier,
+      applyMaxSizeModifier,
     ].filter((e) => e);
 
     if (arrow) {
