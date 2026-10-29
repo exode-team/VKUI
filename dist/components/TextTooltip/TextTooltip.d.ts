@@ -1,7 +1,7 @@
 import * as React from "react";
 import { HoverPopperProps } from "../HoverPopper/HoverPopper";
 import "./TextTooltip.css";
-export interface TextTooltipProps extends Omit<HoverPopperProps, "arrow" | "arrowClassName" | "content"> {
+export interface TextTooltipProps extends Omit<HoverPopperProps, "arrow" | "arrowClassName" | "content" | "contentKey"> {
     /**
      * Текст тултипа
      */

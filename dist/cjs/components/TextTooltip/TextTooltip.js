@@ -26,8 +26,16 @@ var TextTooltip = function TextTooltip(_ref) {
     _ref$appearance = _ref.appearance,
     appearance = _ref$appearance === void 0 ? "inversion" : _ref$appearance,
     popperProps = (0, _objectWithoutProperties2.default)(_ref, _excluded);
+  /**
+   * Новый текст (строка или число) — новый ключ: поппер пересоздаётся под свой
+   * размер, иначе после смены текста он оставался по размеру и месту старого
+   */
+  var contentKey = [header, text].map(function (part) {
+    return typeof part === "string" || typeof part === "number" ? part : "";
+  }).join("\0");
   return (0, _jsxRuntime.createScopedElement)(_HoverPopper.HoverPopper, (0, _extends2.default)({
     vkuiClass: (0, _classNames.classNames)("TextTooltip", "TextTooltip--".concat(appearance)),
+    contentKey: contentKey,
     arrow: true,
     arrowClassName: (0, _prefixClass.prefixClass)("TextTooltip__arrow"),
     content: (0, _jsxRuntime.createScopedElement)(React.Fragment, null, (0, _utils.hasReactNode)(header) && (0, _jsxRuntime.createScopedElement)(_Subhead.Subhead, {

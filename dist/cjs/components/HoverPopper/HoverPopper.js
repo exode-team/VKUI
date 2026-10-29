@@ -16,10 +16,11 @@ var _useEventListener = require("../../hooks/useEventListener");
 var _useTimeout = require("../../hooks/useTimeout");
 var _usePatchChildrenRef3 = require("../../hooks/usePatchChildrenRef");
 var _useIsomorphicLayoutEffect = require("../../lib/useIsomorphicLayoutEffect");
-var _excluded = ["getRef", "content", "children", "onShownChange", "shown", "showDelay", "hideDelay"];
+var _excluded = ["getRef", "content", "contentKey", "children", "onShownChange", "shown", "showDelay", "hideDelay"];
 var HoverPopper = function HoverPopper(_ref) {
   var getRef = _ref.getRef,
     content = _ref.content,
+    contentKey = _ref.contentKey,
     children = _ref.children,
     onShownChange = _ref.onShownChange,
     _shown = _ref.shown,
@@ -66,6 +67,7 @@ var HoverPopper = function HoverPopper(_ref) {
     }
   }, []);
   return (0, _jsxRuntime.createScopedElement)(React.Fragment, null, child, shown && (0, _jsxRuntime.createScopedElement)(_Popper.Popper, (0, _extends2.default)({}, restProps, {
+    key: contentKey,
     onMouseOver: hideTimeout.clear,
     onMouseOut: onTargetLeave,
     getRef: getRef,

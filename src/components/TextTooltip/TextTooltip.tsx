@@ -7,7 +7,10 @@ import { classNames } from "../../lib/classNames";
 import "./TextTooltip.css";
 
 export interface TextTooltipProps
-  extends Omit<HoverPopperProps, "arrow" | "arrowClassName" | "content"> {
+  extends Omit<
+    HoverPopperProps,
+    "arrow" | "arrowClassName" | "content" | "contentKey"
+  > {
   /**
    * Текст тултипа
    */
@@ -32,9 +35,20 @@ export const TextTooltip = ({
   appearance = "inversion",
   ...popperProps
 }: TextTooltipProps) => {
+  /**
+   * Новый текст (строка или число) — новый ключ: поппер пересоздаётся под свой
+   * размер, иначе после смены текста он оставался по размеру и месту старого
+   */
+  const contentKey = [header, text]
+    .map((part) =>
+      typeof part === "string" || typeof part === "number" ? part : ""
+    )
+    .join("\u0000");
+
   return (
     <HoverPopper
       vkuiClass={classNames("TextTooltip", `TextTooltip--${appearance}`)}
+      contentKey={contentKey}
       arrow
       arrowClassName={prefixClass("TextTooltip__arrow")}
       content={

@@ -6,6 +6,11 @@ export interface HoverPopperProps extends PopperCommonProps {
      */
     content?: React.ReactNode;
     /**
+     * Ключ содержимого: при его смене всплывающая часть пересоздаётся и заново
+     * рассчитывает размер и положение (стрелку); таргет и видимость не трогаются
+     */
+    contentKey?: React.Key;
+    /**
      * Если передан, то тултип будет показан/скрыт в зависимости от значения свойства
      */
     shown?: boolean;
@@ -26,4 +31,4 @@ export interface HoverPopperProps extends PopperCommonProps {
      */
     children?: React.ReactElement;
 }
-export declare const HoverPopper: ({ getRef, content, children, onShownChange, shown: _shown, showDelay, hideDelay, ...restProps }: HoverPopperProps) => JSX.Element;
+export declare const HoverPopper: ({ getRef, content, contentKey, children, onShownChange, shown: _shown, showDelay, hideDelay, ...restProps }: HoverPopperProps) => JSX.Element;

@@ -18,8 +18,16 @@ export var TextTooltip = function TextTooltip(_ref) {
     _ref$appearance = _ref.appearance,
     appearance = _ref$appearance === void 0 ? "inversion" : _ref$appearance,
     popperProps = _objectWithoutProperties(_ref, _excluded);
+  /**
+   * Новый текст (строка или число) — новый ключ: поппер пересоздаётся под свой
+   * размер, иначе после смены текста он оставался по размеру и месту старого
+   */
+  var contentKey = [header, text].map(function (part) {
+    return typeof part === "string" || typeof part === "number" ? part : "";
+  }).join("\0");
   return createScopedElement(HoverPopper, _extends({
     vkuiClass: classNames("TextTooltip", "TextTooltip--".concat(appearance)),
+    contentKey: contentKey,
     arrow: true,
     arrowClassName: prefixClass("TextTooltip__arrow"),
     content: createScopedElement(React.Fragment, null, hasReactNode(header) && createScopedElement(Subhead, {

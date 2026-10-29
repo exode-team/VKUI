@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime/helpers/extends";
 import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
 import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
-var _excluded = ["getRef", "content", "children", "onShownChange", "shown", "showDelay", "hideDelay"];
+var _excluded = ["getRef", "content", "contentKey", "children", "onShownChange", "shown", "showDelay", "hideDelay"];
 import { createScopedElement } from "../../lib/jsxRuntime";
 import * as React from "react";
 import { Popper } from "../Popper/Popper";
@@ -12,6 +12,7 @@ import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 export var HoverPopper = function HoverPopper(_ref) {
   var getRef = _ref.getRef,
     content = _ref.content,
+    contentKey = _ref.contentKey,
     children = _ref.children,
     onShownChange = _ref.onShownChange,
     _shown = _ref.shown,
@@ -58,6 +59,7 @@ export var HoverPopper = function HoverPopper(_ref) {
     }
   }, []);
   return createScopedElement(React.Fragment, null, child, shown && createScopedElement(Popper, _extends({}, restProps, {
+    key: contentKey,
     onMouseOver: hideTimeout.clear,
     onMouseOut: onTargetLeave,
     getRef: getRef,
