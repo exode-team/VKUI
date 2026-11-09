@@ -14,8 +14,12 @@ export interface SegmentedControlProps extends Omit<React.HTMLAttributes<HTMLDiv
     value?: SegmentedControlValue;
     defaultValue?: SegmentedControlValue;
     dataTest?: string;
+    /**
+     * Ширина пунктов: `equal` — поровну, `content` — по подписи каждого (ползунок встаёт по замеру пункта)
+     */
+    optionsWidth?: "equal" | "content";
 }
 /**
  * @see https://vkcom.github.io/VKUI/#/SegmentedControl
  */
-export declare const SegmentedControl: ({ size, name, options, getRootRef, onChange, value: valueProp, defaultValue, children, dataTest, ...restProps }: SegmentedControlProps) => JSX.Element;
+export declare const SegmentedControl: ({ size, name, options, getRootRef, onChange, value: valueProp, defaultValue, children, dataTest, optionsWidth, ...restProps }: SegmentedControlProps) => JSX.Element;

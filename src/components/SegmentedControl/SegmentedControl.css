@@ -41,6 +41,19 @@
   z-index: 1;
 }
 
+.SegmentedControl--content {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.SegmentedControl--content .SegmentedControl__option {
+  flex: 0 0 auto;
+}
+
+.SegmentedControl--content .SegmentedControlOption__content {
+  padding: 0 12px;
+}
+
 /**
  * sizeY REGULAR
  * TODO v5.0.0 поправить под новую адаптивность

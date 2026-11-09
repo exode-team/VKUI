@@ -1,5 +1,6 @@
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
+import { useDOM } from "../../lib/dom";
 import { useIsomorphicLayoutEffect } from "../../lib/useIsomorphicLayoutEffect";
 import { generateRandomId, noop } from "../../lib/utils";
 import { warnOnce } from "../../lib/warnOnce";
@@ -26,6 +27,10 @@ export interface SegmentedControlProps
   value?: SegmentedControlValue;
   defaultValue?: SegmentedControlValue;
   dataTest?: string;
+  /**
+   * Ширина пунктов: `equal` — поровну, `content` — по подписи каждого (ползунок встаёт по замеру пункта)
+   */
+  optionsWidth?: "equal" | "content";
 }
 
 const warn = warnOnce("SegmentedControl");
@@ -43,9 +48,11 @@ export const SegmentedControl = ({
   defaultValue,
   children,
   dataTest,
+  optionsWidth = "equal",
   ...restProps
 }: SegmentedControlProps) => {
   const { sizeY } = useAdaptivity();
+  const { window } = useDOM();
   const initialValue = defaultValue ?? options[0]?.value;
 
   if (process.env.NODE_ENV === "development") {
@@ -65,6 +72,12 @@ export const SegmentedControl = ({
   const value = valueProp ?? valueLocal;
 
   const nameRef = React.useRef<string>(name ?? generateRandomId());
+  const inRef = React.useRef<HTMLDivElement>(null);
+
+  const [sliderRect, setSliderRect] = React.useState<{
+    left: number;
+    width: number;
+  } | null>(null);
 
   useIsomorphicLayoutEffect(() => {
     const _activeOptionIdx = options.findIndex(
@@ -78,7 +91,46 @@ export const SegmentedControl = ({
     updateActiveOptionIdx(_activeOptionIdx);
   }, [value, options]);
 
-  const translateX = `translateX(${100 * activeOptionIdx}%)`;
+  useIsomorphicLayoutEffect(() => {
+    const container = inRef.current;
+
+    if (optionsWidth !== "content" || activeOptionIdx < 0 || !container) {
+      return;
+    }
+
+    const labels = Array.from(container.children).filter(
+      (el): el is HTMLElement => el.tagName === "LABEL"
+    );
+
+    const measure = () => {
+      const option = labels[activeOptionIdx];
+
+      if (option) {
+        setSliderRect({ left: option.offsetLeft, width: option.offsetWidth });
+      }
+    };
+
+    measure();
+
+    /** Подпись меняет ширину после загрузки шрифта и смены языка; ResizeObserver нет в lib текущего TS */
+    const Observer = (window as any)?.ResizeObserver;
+
+    if (!Observer) {
+      return;
+    }
+
+    const observer = new Observer(measure);
+
+    labels.forEach((label) => observer.observe(label));
+
+    return () => observer.disconnect();
+  }, [activeOptionIdx, optionsWidth, options, window]);
+
+  const isContentWidth = optionsWidth === "content";
+
+  const translateX = isContentWidth
+    ? `translateX(${sliderRect?.left ?? 0}px)`
+    : `translateX(${100 * activeOptionIdx}%)`;
 
   const handleOnChange = (value: SegmentedControlValue) => {
     if (valueProp === undefined) {
@@ -94,19 +146,22 @@ export const SegmentedControl = ({
         "SegmentedControl",
         // TODO v5.0.0 поправить под новую адаптивность
         `SegmentedControl--sizeY-${sizeY}`,
-        `SegmentedControl--${size}`
+        `SegmentedControl--${size}`,
+        isContentWidth && "SegmentedControl--content"
       )}
       ref={getRootRef}
       data-test={dataTest}
       data-value={value}
     >
-      <div role="radiogroup" vkuiClass="SegmentedControl__in">
-        {activeOptionIdx > -1 && (
+      <div role="radiogroup" vkuiClass="SegmentedControl__in" ref={inRef}>
+        {activeOptionIdx > -1 && (!isContentWidth || sliderRect) && (
           <div
             aria-hidden="true"
             vkuiClass="SegmentedControl__slider"
             style={{
-              width: `${100 / options.length}%`,
+              width: isContentWidth
+                ? sliderRect?.width
+                : `${100 / options.length}%`,
               transform: translateX,
               WebkitTransform: translateX,
             }}
