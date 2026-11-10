@@ -46,12 +46,12 @@
   max-width: 100%;
 }
 
+/**
+ * Отступ на пункте, а не на __content: у него width 100% в content-box, отступ вытолкнул бы подпись за край пункта
+ */
 .SegmentedControl--content .SegmentedControl__option {
   flex: 0 0 auto;
-}
-
-.SegmentedControl--content .SegmentedControlOption__content {
-  padding: 0 12px;
+  padding: 0 14px;
 }
 
 /**
